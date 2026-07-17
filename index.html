@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Жамбылская область — граф ВОЛС</title>
+<style>
+:root {
+  --surface-1: #fcfcfb;
+  --page: #f9f9f7;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --grid: #e1e0d9;
+  --border: rgba(11,11,11,0.10);
+
+  /* Цвета узлов — по легенде чертежа: СНП по проекту — жёлтый, вне проекта —
+     фиолетовый, Wi-Fi — розовый, Спутник — зелёный; АТС — синий круг. */
+  --snp-fiber: #f2a900;
+  --snp-wifi: #e0a3ab;
+  --snp-starlink: #1f9d4f;
+  --snp-outside: #7030a0;
+  --ats: #1c74c9;
+  --olt: #1f9d4f;
+  --olt-planned: #8fb4e3;
+  --atn: #1f9d4f;
+  --atn-planned: #d94040;
+  --netengine: #e87ba4;
+  --mufta: #2c2c2a;
+  --mufta-planned: #e0b100;
+  --mufta-outside: #7030a0;
+  --external: #898781;
+
+  --edge-existing: #a6a49c;
+  --edge-planned: #2a78d6;
+  --edge-outside: #c3c2b7;
+  --edge-nofree: #e34948;
+  --progress: #0ca30c;
+
+  --accent: #2a78d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-1: #1a1a19;
+    --page: #0d0d0d;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --grid: #2c2c2a;
+    --border: rgba(255,255,255,0.12);
+
+    --snp-fiber: #f5b301;
+    --snp-wifi: #d98f9a;
+    --snp-starlink: #2cb85c;
+    --snp-outside: #9a5fc7;
+    --ats: #3987e5;
+    --olt: #27b35c;
+    --olt-planned: #6f9fd8;
+    --atn: #27b35c;
+    --atn-planned: #e05252;
+    --netengine: #d55181;
+    --mufta: #d6d5cf;
+    --mufta-planned: #e5c027;
+    --mufta-outside: #a877d6;
+
+    --edge-existing: #52514e;
+    --edge-planned: #3987e5;
+    --edge-outside: #383835;
+    --edge-nofree: #e66767;
+
+    --accent: #3987e5;
+  }
+}
+:root[data-theme="light"] {
+  --surface-1: #fcfcfb; --page: #f9f9f7; --text-primary: #0b0b0b; --text-secondary: #52514e;
+  --text-muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+  --snp-fiber: #f2a900; --snp-wifi: #e0a3ab; --snp-starlink: #1f9d4f; --snp-outside: #7030a0;
+  --ats: #1c74c9; --olt: #1f9d4f; --olt-planned: #8fb4e3; --atn: #1f9d4f; --atn-planned: #d94040;
+  --netengine: #e87ba4; --mufta: #2c2c2a; --mufta-planned: #e0b100; --mufta-outside: #7030a0;
+  --edge-existing: #a6a49c; --edge-planned: #2a78d6; --edge-outside: #c3c2b7; --edge-nofree: #e34948;
+  --accent: #2a78d6;
+}
+:root[data-theme="dark"] {
+  --surface-1: #1a1a19; --page: #0d0d0d; --text-primary: #ffffff; --text-secondary: #c3c2b7;
+  --text-muted: #898781; --grid: #2c2c2a; --border: rgba(255,255,255,0.12);
+  --snp-fiber: #f5b301; --snp-wifi: #d98f9a; --snp-starlink: #2cb85c; --snp-outside: #9a5fc7;
+  --ats: #3987e5; --olt: #27b35c; --olt-planned: #6f9fd8; --atn: #27b35c; --atn-planned: #e05252;
+  --netengine: #d55181; --mufta: #d6d5cf; --mufta-planned: #e5c027; --mufta-outside: #a877d6;
+  --edge-existing: #52514e; --edge-planned: #3987e5; --edge-outside: #383835; --edge-nofree: #e66767;
+  --accent: #3987e5;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--page);
+  color: var(--text-primary);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+header {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 8px 14px;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+  z-index: 20;
+}
+header h1 { font-size: 15px; margin: 0; font-weight: 600; white-space: nowrap; }
+header .stats { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+
+.searchbox { position: relative; flex: 1 1 220px; max-width: 340px; }
+.searchbox input {
+  width: 100%; padding: 6px 10px; font-size: 13px;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--page); color: var(--text-primary); outline: none;
+}
+.searchbox input:focus { border-color: var(--accent); }
+.search-results {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  max-height: 320px; overflow-y: auto; display: none; z-index: 50;
+}
+.search-results.open { display: block; }
+.search-results .item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; cursor: pointer; font-size: 13px;
+}
+.search-results .item:hover, .search-results .item.active { background: rgba(128,128,128,0.12); }
+.search-results .item .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.search-results .item .nm { font-weight: 500; }
+.search-results .item .sub { color: var(--text-muted); font-size: 11px; margin-left: auto; text-align: right; }
+.search-results .empty { padding: 10px; font-size: 12px; color: var(--text-muted); }
+
+.controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.controls select, .controls button {
+  font-size: 12px; padding: 5px 9px;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--page); color: var(--text-primary); cursor: pointer;
+}
+.controls button:hover { border-color: var(--accent); }
+.controls label.chk { font-size: 12px; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; color: var(--text-secondary); }
+
+#stage { position: relative; flex: 1; overflow: hidden; }
+canvas { position: absolute; inset: 0; display: block; cursor: grab; }
+canvas.dragging { cursor: grabbing; }
+
+#tooltip {
+  position: absolute; pointer-events: none; display: none; z-index: 30;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 10px; font-size: 12px; max-width: 280px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+#tooltip .t-name { font-weight: 600; font-size: 13px; }
+#tooltip .t-sub { color: var(--text-muted); margin-top: 2px; }
+#tooltip .t-row { margin-top: 4px; color: var(--text-secondary); }
+#tooltip .pbar { height: 6px; border-radius: 3px; background: var(--grid); margin-top: 5px; overflow: hidden; }
+#tooltip .pbar > div { height: 100%; background: var(--progress); border-radius: 3px; }
+
+#legend {
+  position: absolute; left: 12px; bottom: 12px; z-index: 25;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+  padding: 10px 12px; font-size: 11.5px; color: var(--text-secondary);
+  max-width: 240px;
+}
+#legend h3 { margin: 0 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); }
+#legend .lrow { display: flex; align-items: center; gap: 7px; margin: 3px 0; }
+#legend .sw { width: 12px; height: 12px; flex: none; }
+#legend .ln { width: 26px; height: 0; flex: none; border-top-width: 2px; }
+#legend details summary { cursor: pointer; font-weight: 600; font-size: 12px; color: var(--text-primary); }
+#legend hr { border: none; border-top: 1px solid var(--grid); margin: 8px 0; }
+
+#panel {
+  position: absolute; right: 12px; top: 12px; bottom: 12px; width: 300px; z-index: 25;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px; font-size: 13px; overflow-y: auto; display: none;
+}
+#panel.open { display: block; }
+#panel .p-close { float: right; cursor: pointer; border: none; background: none; color: var(--text-muted); font-size: 16px; }
+#panel h2 { margin: 0 0 2px; font-size: 16px; }
+#panel .p-kind { color: var(--text-muted); font-size: 12px; margin-bottom: 8px; }
+#panel .p-meta { color: var(--text-secondary); font-size: 12px; margin: 2px 0; }
+#panel h4 { margin: 12px 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); }
+#panel .edge-item {
+  border: 1px solid var(--grid); border-radius: 8px; padding: 7px 9px; margin: 6px 0;
+  cursor: pointer;
+}
+#panel .edge-item:hover { border-color: var(--accent); }
+#panel .edge-item .e-to { font-weight: 500; }
+#panel .edge-item .e-sub { color: var(--text-muted); font-size: 11.5px; margin-top: 2px; }
+#panel .pbar { height: 6px; border-radius: 3px; background: var(--grid); margin-top: 6px; overflow: hidden; }
+#panel .pbar > div { height: 100%; background: var(--progress); border-radius: 3px; }
+
+.controls button.active { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.controls button.edit-only { display: none; }
+.controls button.edit-only.visible { display: inline-block; }
+
+#modeHint {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 30;
+  background: var(--accent); color: #fff; font-size: 13px; font-weight: 500;
+  padding: 8px 16px; border-radius: 8px; display: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25); pointer-events: none;
+}
+#modeHint.visible { display: block; }
+
+.edit-box { border-top: 1px solid var(--grid); margin-top: 10px; padding-top: 8px; }
+.edit-box label { display: block; font-size: 11.5px; color: var(--text-muted); margin: 6px 0; }
+.edit-box input {
+  display: block; width: 100%; margin-top: 3px; padding: 6px 8px; font-size: 13px;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--page); color: var(--text-primary); outline: none;
+}
+.edit-box input:focus { border-color: var(--accent); }
+.edit-box select {
+  display: block; width: 100%; margin-top: 3px; padding: 6px 8px; font-size: 13px;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: var(--page); color: var(--text-primary); outline: none;
+}
+.edit-box button {
+  margin-top: 6px; margin-right: 6px; padding: 6px 12px; font-size: 12.5px; cursor: pointer;
+  border: 1px solid var(--accent); border-radius: 6px;
+  background: var(--accent); color: #fff;
+}
+.edit-box button.ghost {
+  background: transparent; color: var(--text-secondary); border-color: var(--border);
+}
+.edit-box button.danger {
+  background: transparent; color: var(--edge-nofree); border-color: var(--edge-nofree);
+}
+.edit-msg { font-size: 11.5px; margin-top: 6px; min-height: 14px; color: var(--text-muted); }
+.edit-msg.ok { color: var(--progress); }
+.edit-msg.err { color: var(--edge-nofree); }
+
+#debugPanel {
+  position: absolute; right: 12px; top: 12px; width: 340px; max-height: 280px; z-index: 26;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+  font-size: 12px; display: none; flex-direction: column;
+}
+#debugPanel.open { display: flex; }
+#debugPanel .dbg-titlebar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 10px; border-bottom: 1px solid var(--grid); flex: none;
+}
+#debugPanel .dbg-titlebar b { font-size: 12px; }
+#debugPanel .dbg-close { cursor: pointer; border: none; background: none; color: var(--text-muted); font-size: 15px; }
+#debugBody { overflow-y: auto; padding: 8px 10px; }
+.dbg-summary { color: var(--text-muted); font-size: 11px; margin-bottom: 8px; line-height: 1.5; }
+.dbg-empty { color: var(--text-muted); padding: 8px 0; }
+.dbg-row { border-left: 3px solid var(--grid); border-radius: 4px; padding: 5px 8px; margin: 6px 0; background: var(--page); }
+.dbg-row.dbg-ok { border-left-color: var(--progress); }
+.dbg-row.dbg-fail { border-left-color: var(--edge-nofree); }
+.dbg-head { display: flex; justify-content: space-between; }
+.dbg-id { font-weight: 600; color: var(--text-secondary); }
+.dbg-arrow { font-weight: 500; margin-top: 1px; }
+.dbg-sub { color: var(--text-muted); font-size: 11px; margin-top: 2px; }
+.dbg-edges { color: var(--progress); }
+.dbg-reason { color: var(--edge-nofree); font-size: 11.5px; margin-top: 2px; }
+.dbg-when { text-align: right; }
+
+#error {
+  position: absolute; inset: 0; display: none; z-index: 40;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 24px; font-size: 14px; color: var(--text-secondary); background: var(--page);
+}
+#error code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Жамбылская область — план ВОЛС</h1>
+  <div class="stats" id="stats"></div>
+  <div class="stats" id="live"></div>
+  <div class="searchbox">
+    <input id="search" type="text" placeholder="Поиск села… (каз/рус, неточный)" autocomplete="off">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <div class="controls">
+    <select id="districtSel" title="Фильтр по району"><option value="">Все районы</option></select>
+    <label class="chk"><input type="checkbox" id="fMufta" checked> муфты</label>
+    <label class="chk"><input type="checkbox" id="fExisting" checked> сущ. ВОЛС</label>
+    <label class="chk"><input type="checkbox" id="fPlanned" checked> план. ВОЛС</label>
+    <label class="chk" title="Показать демонстрационный прогресс на плановых линиях"><input type="checkbox" id="fDemo"> демо прогресса</label>
+    <label class="chk" title="Раздвинуть узлы так, чтобы расстояние на экране было пропорционально км с чертежа (плановые км берутся из lengthKm)"><input type="checkbox" id="fScaleKm"> 📏 по км</label>
+    <button id="btnFit">⤢ Вписать</button>
+    <button type="button" id="btnEdit" title="Режим правки: названия, плановые км, перетаскивание объектов мышью; автосохранение в JSON">✏️ Правка</button>
+    <button type="button" id="btnAddNode" class="edit-only" title="Добавить объект: клик по карте — место, затем форма">➕ Объект</button>
+    <button type="button" id="btnAddEdge" class="edit-only" title="Создать связь: кликните два узла по очереди">🔗 Связь</button>
+    <button type="button" id="debugToggle" title="Debug: что вытянуто из БД и куда легло">🐞 Лог</button>
+    <button id="btnTheme" title="Тема">◐</button>
+  </div>
+</header>
+
+<div id="stage">
+  <canvas id="canvas"></canvas>
+  <div id="tooltip"></div>
+  <div id="modeHint"></div>
+
+  <div id="debugPanel" class="open">
+    <div class="dbg-titlebar">
+      <b>🐞 Что пришло из Postgres</b>
+      <button type="button" class="dbg-close" id="debugClose">✕</button>
+    </div>
+    <div id="debugBody"></div>
+  </div>
+
+  <div id="legend">
+    <details open>
+      <summary>Легенда</summary>
+      <h3 style="margin-top:8px">Узлы</h3>
+      <div class="lrow"><span class="sw" style="border-radius:50%;background:var(--snp-fiber)"></span> СНП по проекту (число = подключений)</div>
+      <div class="lrow"><span class="sw" style="border-radius:50%;background:var(--snp-outside)"></span> СНП вне проекта</div>
+      <div class="lrow"><span class="sw" style="border-radius:50%;background:var(--snp-wifi)"></span> СНП — Wi-Fi public</div>
+      <div class="lrow"><span class="sw" style="border-radius:50%;background:var(--snp-starlink)"></span> СНП — Спутник</div>
+      <div class="lrow"><span class="sw" style="border-radius:50%;background:var(--ats)"></span> существующая АТС</div>
+      <div class="lrow"><span class="sw" style="background:var(--olt);width:15px;height:10px;border-radius:2px"></span> существующая OLT</div>
+      <div class="lrow"><span class="sw" style="background:var(--olt-planned);width:15px;height:10px;border-radius:2px"></span> планируемая OLT</div>
+      <div class="lrow"><span class="sw" style="width:15px;height:10px;border:2px solid var(--atn);background:transparent"></span> существующая ATN</div>
+      <div class="lrow"><span class="sw" style="width:15px;height:10px;border:2px solid var(--atn-planned);background:transparent"></span> проектируемая ATN</div>
+      <div class="lrow"><span class="sw" style="width:9px;height:9px;margin:0 1.5px;border:1.5px solid var(--mufta);background:transparent"></span> муфта М — существующая</div>
+      <div class="lrow"><span class="sw" style="width:9px;height:9px;margin:0 1.5px;border:1.5px solid var(--mufta-planned);background:transparent"></span> муфта П — по проекту</div>
+      <div class="lrow"><span class="sw" style="width:9px;height:9px;margin:0 1.5px;border:1.5px solid var(--mufta-outside);background:transparent"></span> муфта П — вне проекта</div>
+      <hr>
+      <h3>Линии (ВОЛС)</h3>
+      <div class="lrow"><span class="ln" style="border-top:2px solid var(--edge-existing)"></span> существующая</div>
+      <div class="lrow"><span class="ln" style="border-top:2px dashed var(--edge-planned)"></span> по проекту</div>
+      <div class="lrow"><span class="ln" style="border-top:2px dotted var(--edge-outside)"></span> вне проекта</div>
+      <div class="lrow"><span class="ln" style="border-top:3px solid var(--progress)"></span> выполнено (только на плановых)</div>
+    </details>
+  </div>
+
+  <div id="panel">
+    <button class="p-close" id="panelClose">✕</button>
+    <h2 id="pName"></h2>
+    <div class="p-kind" id="pKind"></div>
+    <div id="pMeta"></div>
+    <h4 id="pEdgesTitle">Связи</h4>
+    <div id="pEdges"></div>
+  </div>
+
+  <div id="error">
+    <div>
+      <p><strong>Не удалось загрузить данные графа.</strong></p>
+      <p>Откройте страницу через локальный сервер:</p>
+      <p><code>cd graph-vis</code> &nbsp; затем &nbsp; <code>python -m http.server 8000</code></p>
+      <p>и перейдите на <code>http://localhost:8000</code></p>
+      <p>Либо сгенерируйте <code>graph-data.js</code> (см. README).</p>
+    </div>
+  </div>
+</div>
+
+<script src="graph-data.js" onerror="void 0"></script>
+<script src="graph-app.js"></script>
+</body>
+</html>
