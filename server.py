@@ -136,7 +136,11 @@ app.add_middleware(
 #                           автоматически при первом же 401 от /api/graph/*).
 # Ни один из флагов не задан — правка открыта всем (локальный/доверенный запуск).
 READ_ONLY = os.environ.get("READ_ONLY", "").lower() in ("1", "true", "yes")
-EDIT_PASSWORD = os.environ.get("EDIT_PASSWORD", "")
+# Пароль правки ВКЛЮЧЁН ПО УМОЛЧАНИЮ: деплой публичный (Railway), и без
+# EDIT_PASSWORD в окружении правка графа была бы открыта всем. Переменная
+# окружения переопределяет дефолт; полностью отключить пароль нельзя
+# (пустой EDIT_PASSWORD в окружении тоже вернёт дефолт).
+EDIT_PASSWORD = os.environ.get("EDIT_PASSWORD", "") or "1973"
 _EDIT_PATHS = {"/api/graph/edit", "/api/graph/add-node",
                "/api/graph/add-edge", "/api/graph/delete"}
 
