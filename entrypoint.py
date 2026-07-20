@@ -21,6 +21,12 @@ if data_dir:
 pw = pwd.getpwnam(APPUSER)
 os.setgid(pw.pw_gid)
 os.setuid(pw.pw_uid)
+# После setuid процесс — appuser, но HOME в окружении остаётся /root (мы
+# стартовали от root). asyncpg при SSL-подключении ищет клиентские сертификаты
+# в ~/.postgresql/ → лезет в /root/.postgresql/ → Permission denied, и БД
+# «недоступна». Указываем настоящий дом appuser'а.
+os.environ["HOME"] = pw.pw_dir
+os.environ["USER"] = os.environ["LOGNAME"] = APPUSER
 
 port = os.environ.get("PORT", "8080")
 os.execvp("uvicorn", ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", port])
