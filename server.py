@@ -30,6 +30,7 @@ from typing import Literal
 import asyncpg
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -38,8 +39,26 @@ from progress_core import KM_METRICS, Graph, compute_progress
 log = logging.getLogger("graph-viewer")
 
 BASE = Path(__file__).parent
-GRAPH_PATH = BASE / "zhambyl-graph.json"
-DATA_JS_PATH = BASE / "graph-data.js"
+
+# DATA_DIR — куда сохраняются правки графа (POST /api/graph/edit и т.п.).
+# По умолчанию это сама папка приложения, как раньше. На Railway и подобных
+# платформах файловая система контейнера эфемерна и сбрасывается на каждом
+# деплое — туда стоит примонтировать persistent volume (например DATA_DIR=/data),
+# иначе все правки графа будут теряться. Volume нельзя монтировать поверх BASE
+# (там код), поэтому это отдельная директория; см. также явные роуты
+# /zhambyl-graph.json и /graph-data.js ниже — они отдают файл из DATA_DIR,
+# а не из статики BASE, иначе фронт продолжал бы видеть неизменный файл из образа.
+DATA_DIR = Path(os.environ.get("DATA_DIR", str(BASE)))
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+GRAPH_PATH = DATA_DIR / "zhambyl-graph.json"
+DATA_JS_PATH = DATA_DIR / "graph-data.js"
+if DATA_DIR != BASE and not GRAPH_PATH.exists():
+    # Первый запуск с пустым volume — сидируем граф, поставляемый с образом.
+    import shutil
+    shutil.copy(BASE / "zhambyl-graph.json", GRAPH_PATH)
+    if (BASE / "graph-data.js").exists():
+        shutil.copy(BASE / "graph-data.js", DATA_JS_PATH)
+
 CACHE_TTL = 10  # сек: чаще этого в БД не ходим, даже если фронтов много
 
 SQL_ETAG = """
@@ -149,7 +168,6 @@ def _valid_session(token: str) -> bool:
 @app.middleware("http")
 async def _read_only_guard(request, call_next):
     if request.url.path in _EDIT_PATHS:
-        from fastapi.responses import JSONResponse
         if READ_ONLY:
             return JSONResponse(
                 {"ok": False, "detail": "Режим только просмотра: редактирование графа отключено."},
@@ -470,5 +488,18 @@ async def graph_delete(req: DeleteRequest):
             "totals": {"totalKm": total_km, "plannedKm": planned_km}}
 
 
-# Статика (index.html, graph-app.js, zhambyl-graph.json) — ПОСЛЕ роутов API.
+# zhambyl-graph.json / graph-data.js отдаём явно из DATA_DIR (см. коммент у
+# DATA_DIR выше), а не из статики BASE — иначе на деплое с volume фронт видел
+# бы неизменный файл из образа вместо сохранённых правок.
+@app.get("/zhambyl-graph.json")
+async def _graph_json_file():
+    return FileResponse(GRAPH_PATH, media_type="application/json")
+
+
+@app.get("/graph-data.js")
+async def _graph_data_js_file():
+    return FileResponse(DATA_JS_PATH, media_type="application/javascript")
+
+
+# Статика (index.html, graph-app.js) — ПОСЛЕ роутов API и явных путей выше.
 app.mount("/", StaticFiles(directory=BASE, html=True), name="static")
