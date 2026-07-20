@@ -37,6 +37,10 @@
   --edge-nofree: #e34948;
   --progress: #0ca30c;
 
+  /* Извилистые линии с чертежа: PON-ветка от OLT и аплинк сущ. ATN ↔ OLT */
+  --pon: #00b0f0;
+  --uplink: #00b050;
+
   --accent: #2a78d6;
 }
 @media (prefers-color-scheme: dark) {
@@ -68,6 +72,9 @@
     --edge-outside: #383835;
     --edge-nofree: #e66767;
 
+    --pon: #22b9f2;
+    --uplink: #21bd63;
+
     --accent: #3987e5;
   }
 }
@@ -78,6 +85,7 @@
   --ats: #1c74c9; --olt: #1f9d4f; --olt-planned: #8fb4e3; --atn: #1f9d4f; --atn-planned: #d94040;
   --netengine: #e87ba4; --mufta: #2c2c2a; --mufta-planned: #e0b100; --mufta-outside: #7030a0;
   --edge-existing: #a6a49c; --edge-planned: #2a78d6; --edge-outside: #c3c2b7; --edge-nofree: #e34948;
+  --pon: #00b0f0; --uplink: #00b050;
   --accent: #2a78d6;
 }
 :root[data-theme="dark"] {
@@ -87,6 +95,7 @@
   --ats: #3987e5; --olt: #27b35c; --olt-planned: #6f9fd8; --atn: #27b35c; --atn-planned: #e05252;
   --netengine: #d55181; --mufta: #d6d5cf; --mufta-planned: #e5c027; --mufta-outside: #a877d6;
   --edge-existing: #52514e; --edge-planned: #3987e5; --edge-outside: #383835; --edge-nofree: #e66767;
+  --pon: #22b9f2; --uplink: #21bd63;
   --accent: #3987e5;
 }
 
@@ -281,6 +290,7 @@ canvas.dragging { cursor: grabbing; }
     <label class="chk"><input type="checkbox" id="fMufta" checked> муфты</label>
     <label class="chk"><input type="checkbox" id="fExisting" checked> сущ. ВОЛС</label>
     <label class="chk"><input type="checkbox" id="fPlanned" checked> план. ВОЛС</label>
+    <label class="chk" title="Извилистые линии как на чертеже: голубые PON-ветки от OLT к сёлам, зелёные аплинки от существующих ATN к OLT"><input type="checkbox" id="fPon" checked> PON/аплинки</label>
     <label class="chk" title="Показать демонстрационный прогресс на плановых линиях"><input type="checkbox" id="fDemo"> демо прогресса</label>
     <label class="chk" title="Раздвинуть узлы так, чтобы расстояние на экране было пропорционально км с чертежа (плановые км берутся из lengthKm)"><input type="checkbox" id="fScaleKm"> 📏 по км</label>
     <button id="btnFit">⤢ Вписать</button>
@@ -327,6 +337,8 @@ canvas.dragging { cursor: grabbing; }
       <div class="lrow"><span class="ln" style="border-top:2px dashed var(--edge-planned)"></span> по проекту</div>
       <div class="lrow"><span class="ln" style="border-top:2px dotted var(--edge-outside)"></span> вне проекта</div>
       <div class="lrow"><span class="ln" style="border-top:3px solid var(--progress)"></span> выполнено (только на плановых)</div>
+      <div class="lrow"><svg width="26" height="10" viewBox="0 0 26 10" style="flex:none"><path d="M0 5 C 4 0, 7 10, 13 5 S 22 0, 26 5" fill="none" stroke="var(--pon)" stroke-width="1.6"/></svg> PON-ветка от OLT к СНП</div>
+      <div class="lrow"><svg width="26" height="10" viewBox="0 0 26 10" style="flex:none"><path d="M0 5 C 4 0, 7 10, 13 5 S 22 0, 26 5" fill="none" stroke="var(--uplink)" stroke-width="1.6"/></svg> аплинк сущ. ATN → OLT</div>
     </details>
   </div>
 

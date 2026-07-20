@@ -31,7 +31,10 @@ function normalizeName(s) {
   s = s.replace(/[.’'"`]/g, ". ").replace(PREFIX_RE, " ");
   let out = "";
   for (const ch of s) out += (ch in KZ2RU) ? KZ2RU[ch] : ch;
-  out = out.replace(/[^а-яa-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+  out = out.replace(/[^а-яa-z0-9 ]/g, " ");
+  // Буква↔цифра без пробела («М3», «Кунбатыс2») → как в графе («М 3», «Күнбатыс 2»).
+  out = out.replace(/([а-яa-z])(?=[0-9])/g, "$1 ").replace(/([0-9])(?=[а-яa-z])/g, "$1 ");
+  out = out.replace(/\s+/g, " ").trim();
   return out;
 }
 
@@ -92,8 +95,8 @@ async function loadProgress() {
 }
 
 // ---------- Состояние ----------
-// Узлы вне Жамбылской области, ошибочно попавшие в исходные данные с чертежа
-// (правый край ПДФ — соседняя область); просто не показываем их.
+// Узлы вне Жамбылской области, попавшие в данные с чертежа: Жартас (N0250)
+// на ПДФ стоит за границей области — это Жамбылский район Алматинской обл.
 const EXCLUDE_NODE_IDS = new Set(["N0250"]);
 
 let DATA = null;
@@ -106,7 +109,7 @@ let selectedEdgeIds = new Set();
 let editMode = false;                    // режим «✏️ Правка»: поля в панели редактируемы
 let addMode = null;                      // null | "place-node" | "edge-a" | "edge-b"
 let edgeDraftA = null, edgeDraftB = null; // узлы создаваемой связи (подсветка)
-let filters = { district: "", mufta: true, existing: true, planned: true, demo: false };
+let filters = { district: "", mufta: true, existing: true, planned: true, demo: false, pon: true };
 let districtLabels = [];                 // { name, x, y }
 let theme = null;                        // null=auto | 'light' | 'dark'
 let C = {};                              // кэш цветов из CSS-переменных
@@ -206,6 +209,8 @@ function refreshColors() {
       larger_capacity: cssVar("--edge-planned")
     },
     progress: cssVar("--progress") || "#0ca30c",
+    pon: cssVar("--pon") || "#00b0f0",
+    uplink: cssVar("--uplink") || "#00b050",
     accent: cssVar("--accent")
   };
 }
@@ -424,6 +429,7 @@ function prepare(data) {
     return e.a && e.b;
   });
   edgeById = new Map(edges.map(e => [e.id, e]));
+  invalidateServiceLinks();
 
   computeDistrictLabels();
 
@@ -438,6 +444,93 @@ function prepare(data) {
     o.value = d; o.textContent = d;
     sel.appendChild(o);
   }
+}
+
+// ---------- Гибкие линии PON/аплинков (как на чертеже) ----------
+// На чертеже от каждой OLT к обслуживаемым сёлам тянутся тонкие извилистые
+// голубые линии (PON-ветки), а зелёные извилистые — аплинк между OLT и
+// питающим её существующим узлом (ATN/АТС). В данных этих связей нет —
+// они восстанавливаются по топологии: каждому СНП и каждой существующей ATN
+// ищется ближайшая OLT по графу (Дейкстра от всех OLT сразу, вес = км).
+let serviceLinks = null; // [{ a, b, kind: 'pon'|'uplink' }]
+
+function invalidateServiceLinks() { serviceLinks = null; }
+
+function computeServiceLinks() {
+  serviceLinks = [];
+  const adj = new Map();
+  for (const e of edges) {
+    if (e.external) continue;
+    // Нулевые/неизвестные длины (совмещённые объекты) почти бесплатны,
+    // чтобы OLT «дотягивалась» через них.
+    const w = e.lengthKm && e.lengthKm > 0 ? e.lengthKm : 0.3;
+    if (!adj.has(e.from)) adj.set(e.from, []);
+    if (!adj.has(e.to)) adj.set(e.to, []);
+    adj.get(e.from).push({ to: e.to, w });
+    adj.get(e.to).push({ to: e.from, w });
+  }
+  const dist = new Map(), srcOlt = new Map();
+  const pq = [];
+  for (const n of nodes) {
+    if (n.kind !== "olt") continue;
+    dist.set(n.id, 0); srcOlt.set(n.id, n); pq.push([0, n.id, n]);
+  }
+  while (pq.length) {
+    let bi = 0;
+    for (let i = 1; i < pq.length; i++) if (pq[i][0] < pq[bi][0]) bi = i;
+    const [d0, id, s] = pq.splice(bi, 1)[0];
+    if (d0 > (dist.has(id) ? dist.get(id) : Infinity)) continue;
+    for (const { to, w } of adj.get(id) || []) {
+      const nd = d0 + w;
+      if (nd < (dist.has(to) ? dist.get(to) : Infinity)) {
+        dist.set(to, nd); srcOlt.set(to, s); pq.push([nd, to, s]);
+      }
+    }
+  }
+  for (const n of nodes) {
+    const olt = srcOlt.get(n.id);
+    if (!olt || olt === n) continue;
+    if (n.kind === "snp" && (n.subtype === "fiber" || n.subtype === "wifi")) {
+      serviceLinks.push({ a: olt, b: n, kind: "pon" });       // OLT → СНП, голубая
+    } else if (n.kind === "atn" && n.subtype !== "planned") {
+      serviceLinks.push({ a: n, b: olt, kind: "uplink" });    // сущ. ATN → OLT, зелёная
+    }
+  }
+}
+
+// Извилистая кривая между узлами: опорные точки вдоль прямой со
+// знакопеременным поперечным смещением (форма стабильна — сеется из id).
+function strokeWavy(a, b) {
+  const sid = a.id + "|" + b.id;
+  let h = 2166136261;
+  for (const ch of sid) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
+  h >>>= 0;
+  const rnd = () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; h >>>= 0; return (h % 1024) / 1024; };
+  const dx = b.x - a.x, dy = b.y - a.y;
+  const len = Math.hypot(dx, dy);
+  if (len < 4) return;
+  const nx = -dy / len, ny = dx / len;
+  const segs = clamp(Math.round(len / 55), 2, 6);
+  const amp = Math.min(24, 7 + len * 0.14);
+  const pts = [[a.x, a.y]];
+  for (let i = 1; i < segs; i++) {
+    const t = i / segs;
+    const sway = (i % 2 ? 1 : -1) * (0.45 + rnd() * 0.55) * amp;
+    pts.push([a.x + dx * t + nx * sway, a.y + dy * t + ny * sway]);
+  }
+  pts.push([b.x, b.y]);
+  ctx.beginPath();
+  const [sx, sy] = W2S(pts[0][0], pts[0][1]);
+  ctx.moveTo(sx, sy);
+  for (let i = 1; i < pts.length - 1; i++) {
+    const [cx, cy] = W2S(pts[i][0], pts[i][1]);
+    const [mx, my] = W2S((pts[i][0] + pts[i + 1][0]) / 2, (pts[i][1] + pts[i + 1][1]) / 2);
+    ctx.quadraticCurveTo(cx, cy, mx, my);
+  }
+  const last = pts[pts.length - 1];
+  const [ex, ey] = W2S(last[0], last[1]);
+  ctx.lineTo(ex, ey);
+  ctx.stroke();
 }
 
 // ---------- Фильтры видимости ----------
@@ -637,6 +730,24 @@ function draw() {
       const [sx, sy] = W2S(d.x, d.y);
       if (sx < -200 || sx > w + 200 || sy < -50 || sy > h + 50) continue;
       ctx.fillText(d.name, sx, sy);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // --- Извилистые PON/аплинк-линии (под рёбрами, чтобы не мешать подписям км) ---
+  if (filters.pon) {
+    if (!serviceLinks) computeServiceLinks();
+    ctx.setLineDash([]);
+    for (const L of serviceLinks) {
+      const { a, b } = L;
+      if (filters.district && a.district !== filters.district && b.district !== filters.district) continue;
+      if (Math.max(a.x, b.x) < wx0 || Math.min(a.x, b.x) > wx1 ||
+          Math.max(a.y, b.y) < wy0 || Math.min(a.y, b.y) > wy1) continue;
+      const active = selected && (a === selected || b === selected);
+      ctx.globalAlpha = dimmed && !active ? 0.08 : active ? 0.95 : 0.6;
+      ctx.strokeStyle = L.kind === "pon" ? C.pon : C.uplink;
+      ctx.lineWidth = active ? 1.8 : 1.1;
+      strokeWavy(a, b);
     }
     ctx.globalAlpha = 1;
   }
@@ -1183,6 +1294,7 @@ function openAddEdgeForm(a, b) {
       edge.b = nodeById.get(edge.to);
       edges.push(edge);
       edgeById.set(edge.id, edge);
+      invalidateServiceLinks();
       applyTotals(resp);
       updateStats();
       edgeDraftA = edgeDraftB = null;
@@ -1208,6 +1320,7 @@ async function deleteNode(n) {
     nodeById.delete(n.id);
     edges = edges.filter(e => !gone.has(e.id));
     for (const eid of gone) edgeById.delete(eid);
+    invalidateServiceLinks();
     applyTotals(resp);
     updateStats();
     closePanel();
@@ -1223,6 +1336,7 @@ async function deleteEdge(e) {
     const resp = await apiPost("api/graph/delete", { kind: "edge", id: e.id });
     edges = edges.filter(x => x !== e);
     edgeById.delete(e.id);
+    invalidateServiceLinks();
     applyTotals(resp);
     updateStats();
     closePanel();
@@ -1492,6 +1606,7 @@ $("fMufta").addEventListener("change", (ev) => { filters.mufta = ev.target.check
 $("fExisting").addEventListener("change", (ev) => { filters.existing = ev.target.checked; draw(); });
 $("fPlanned").addEventListener("change", (ev) => { filters.planned = ev.target.checked; draw(); });
 $("fDemo").addEventListener("change", (ev) => { filters.demo = ev.target.checked; draw(); });
+$("fPon").addEventListener("change", (ev) => { filters.pon = ev.target.checked; draw(); });
 $("fScaleKm").addEventListener("change", (ev) => {
   if (ev.target.checked && editMode) setEditMode(false);
   setScaleMode(ev.target.checked);

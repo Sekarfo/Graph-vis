@@ -21,6 +21,9 @@ _PREFIX_RE = re.compile(
 )
 _NON_ALNUM_RE = re.compile(r"[^а-яa-z0-9 ]")
 _SPACES_RE = re.compile(r"\s+")
+# Буква↔цифра без пробела: работники пишут «М3», «Кунбатыс2», а в графе —
+# «М 3», «Күнбатыс 2». Разделяем, чтобы обе формы нормализовались одинаково.
+_ALNUM_BOUNDARY_RE = re.compile(r"(?<=[а-яa-z])(?=[0-9])|(?<=[0-9])(?=[а-яa-z])")
 
 
 def normalize_name(s: str | None) -> str:
@@ -31,6 +34,7 @@ def normalize_name(s: str | None) -> str:
     s = _PREFIX_RE.sub(" ", s)
     s = s.translate(_CHAR_MAP)
     s = _NON_ALNUM_RE.sub(" ", s)
+    s = _ALNUM_BOUNDARY_RE.sub(" ", s)
     return _SPACES_RE.sub(" ", s).strip()
 
 

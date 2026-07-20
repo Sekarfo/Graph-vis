@@ -30,13 +30,13 @@
    }
   },
   "counts": {
-   "nodes": 512,
+   "nodes": 514,
    "nodesByKind": {
     "mufta": 160,
     "ats": 71,
     "olt": 56,
     "snp": 177,
-    "atn": 48
+    "atn": 50
    },
    "snpByTech": {
     "fiber": 148,
@@ -45,15 +45,15 @@
     "wifi": 16
    },
    "districts": 10,
-   "edges": 523,
+   "edges": 522,
    "edgesByType": {
-    "planned": 220,
-    "existing": 291,
+    "planned": 218,
+    "existing": 292,
     "outside_project": 12
    },
    "externalLinks": 3,
-   "totalKm": 3908.3,
-   "plannedKm": 1475.1
+   "totalKm": 3876.5,
+   "plannedKm": 1438.3
   }
  },
  "nodes": [
@@ -61,7 +61,7 @@
    "id": "N0701",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Байзакский район",
    "x": 1482.5,
    "y": 776
@@ -70,7 +70,7 @@
    "id": "N0704",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 33",
    "district": "Байзакский район",
    "x": 1105,
    "y": 774.9
@@ -88,7 +88,7 @@
    "id": "N0710",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Байзакский район",
    "x": 1040.5,
    "y": 1162.9
@@ -97,7 +97,7 @@
    "id": "N0711",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Байзакский район",
    "x": 1117.1,
    "y": 1163.2
@@ -106,7 +106,7 @@
    "id": "N0712",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Байзакский район",
    "x": 810.3,
    "y": 633.8
@@ -115,7 +115,7 @@
    "id": "N0713",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 4",
    "district": "Байзакский район",
    "x": 809,
    "y": 494.9
@@ -124,7 +124,7 @@
    "id": "N0714",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Байзакский район",
    "x": 810.3,
    "y": 587
@@ -151,7 +151,7 @@
    "id": "N0718",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Байзакский район",
    "x": 809,
    "y": 540.3
@@ -196,7 +196,7 @@
    "id": "N0702",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "0А",
+   "name": "М 0А",
    "district": "Байзакский район",
    "x": 1328.4,
    "y": 775.1
@@ -205,7 +205,7 @@
    "id": "N0709",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "3/а",
+   "name": "М 3/а",
    "district": "Байзакский район",
    "x": 1039.5,
    "y": 1035.2
@@ -214,7 +214,7 @@
    "id": "N0066",
    "kind": "ats",
    "subtype": "existing",
-   "name": "ATC Байзак",
+   "name": "АТС Байзак",
    "district": "Байзакский район",
    "x": 1228.3,
    "y": 963.9
@@ -223,7 +223,7 @@
    "id": "N3n6wsv",
    "kind": "ats",
    "subtype": "existing",
-   "name": "ATC Бурыл",
+   "name": "АТС Бурыл",
    "district": "Байзакский район",
    "x": 1275.5,
    "y": 1164.7
@@ -232,7 +232,7 @@
    "id": "N0715",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "M 25",
+   "name": "М 25",
    "district": "Байзакский район",
    "x": 703,
    "y": 773.7
@@ -259,7 +259,7 @@
    "id": "N0722",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Акжар",
+   "name": null,
    "district": "Байзакский район",
    "x": 1387.5,
    "y": 1018.5
@@ -330,7 +330,7 @@
    "id": "N2a014",
    "kind": "atn",
    "subtype": "existing",
-   "name": "Дихан",
+   "name": "Дихан 2",
    "district": "Байзакский район",
    "x": 889.1,
    "y": 713.9
@@ -390,7 +390,7 @@
    "id": "N0703",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Жеңіс",
+   "name": "М 36",
    "district": "Байзакский район",
    "x": 1222.7,
    "y": 775.1
@@ -457,7 +457,7 @@
    "id": "N1180",
    "kind": "olt",
    "subtype": "planned",
-   "name": "Мырзатай ВОЛС",
+   "name": "Мырзатай",
    "district": "Байзакский район",
    "x": 891.2,
    "y": 849.6
@@ -513,7 +513,7 @@
    "id": "N0705",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Сеңкібай",
+   "name": "М 31/6",
    "district": "Байзакский район",
    "x": 1039.9,
    "y": 774.6
@@ -522,7 +522,7 @@
    "id": "N0708",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Сеңкібай",
+   "name": "М 5/1",
    "district": "Байзакский район",
    "x": 1038.5,
    "y": 889.4
@@ -531,7 +531,7 @@
    "id": "N0067",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Талас Талас",
+   "name": "АТС Талас",
    "district": "Байзакский район",
    "x": 1117.4,
    "y": 1202
@@ -611,7 +611,7 @@
    "id": "N0080",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "с.Аймантобе",
+   "name": "Аймантобе",
    "district": "Байзакский район",
    "objectId": 11280,
    "connectionCount": 82,
@@ -622,7 +622,7 @@
    "id": "N0079",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "с.Сарыбарак",
+   "name": "Сарыбарак",
    "district": "Байзакский район",
    "objectId": 11271,
    "connectionCount": 63,
@@ -655,7 +655,7 @@
    "id": "N0719",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Қарасу",
+   "name": null,
    "district": "Байзакский район",
    "x": 1483.1,
    "y": 708.3
@@ -664,7 +664,7 @@
    "id": "N0726",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Жамбылский район",
    "x": 193.8,
    "y": 1266.2
@@ -673,7 +673,7 @@
    "id": "N0728",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 4",
    "district": "Жамбылский район",
    "x": 41.5,
    "y": 1265.5
@@ -754,7 +754,7 @@
    "id": "N0727",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "3А",
+   "name": "М 3А",
    "district": "Жамбылский район",
    "x": 109.9,
    "y": 1265.4
@@ -896,7 +896,7 @@
    "id": "N0112",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Жума РРС",
+   "name": "РРС Жума",
    "district": "Жамбылский район",
    "x": 308.7,
    "y": 853.7
@@ -1001,7 +1001,7 @@
    "id": "N0759",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Рахат Еңбек",
+   "name": null,
    "district": "Жамбылский район",
    "x": 416.2,
    "y": 887.9
@@ -1032,7 +1032,7 @@
    "id": "N0760",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Танты Қоңыртөбе",
+   "name": null,
    "district": "Жамбылский район",
    "x": 594.5,
    "y": 1192.9
@@ -1103,7 +1103,7 @@
    "id": "N0725",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Қапал",
+   "name": "М 1/1",
    "district": "Жамбылский район",
    "x": 542.7,
    "y": 1266.2
@@ -1134,7 +1134,7 @@
    "id": "N0126",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "Қоңыртбе",
+   "name": "Қоңыртөбе",
    "district": "Жамбылский район",
    "objectId": 11253,
    "connectionCount": 2,
@@ -1189,7 +1189,7 @@
    "id": "N0750",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2/1",
    "district": "Жуалинский район",
    "x": -89.6,
    "y": 786.4
@@ -1198,7 +1198,7 @@
    "id": "N0751",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Жуалинский район",
    "x": -139.2,
    "y": 770.9
@@ -1687,7 +1687,7 @@
    "id": "N0170",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "Терісащыбұлақ",
+   "name": "Терісащибұлақ",
    "district": "Жуалинский район",
    "objectId": 11315,
    "connectionCount": 24,
@@ -1749,7 +1749,7 @@
    "id": "N0184",
    "kind": "snp",
    "subtype": "starlink",
-   "name": "рзд. Қазбастау",
+   "name": "Қазбастау рзд.",
    "district": "Жуалинский район",
    "connectionCount": 41,
    "x": -187,
@@ -1759,7 +1759,7 @@
    "id": "N0752",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "рзд. Қазбастау",
+   "name": "М 33",
    "district": "Жуалинский район",
    "x": -184.6,
    "y": 770.5
@@ -1777,7 +1777,7 @@
    "id": "N0753",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Қазбастау",
+   "name": "М 32",
    "district": "Жуалинский район",
    "x": -230,
    "y": 769.7
@@ -1885,7 +1885,7 @@
    "id": "N0674",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 12",
    "district": "Кордайский район",
    "x": 2975.8,
    "y": 683.8
@@ -1894,7 +1894,7 @@
    "id": "N0783",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Кордайский район",
    "x": 3087.4,
    "y": 792.9
@@ -1903,7 +1903,7 @@
    "id": "N0784",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 17",
    "district": "Кордайский район",
    "x": 3047.1,
    "y": 1091.1
@@ -1912,7 +1912,7 @@
    "id": "N0785",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 18",
    "district": "Кордайский район",
    "x": 3114.7,
    "y": 1091.8
@@ -1921,7 +1921,7 @@
    "id": "N0786",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 19",
    "district": "Кордайский район",
    "x": 3176.3,
    "y": 1093.8
@@ -1930,7 +1930,7 @@
    "id": "N0787",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 20",
    "district": "Кордайский район",
    "x": 3262.2,
    "y": 1094.3
@@ -1939,7 +1939,7 @@
    "id": "N0789",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 14/5",
    "district": "Кордайский район",
    "x": 3510.9,
    "y": 794.5
@@ -1948,7 +1948,7 @@
    "id": "N0790",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Кордайский район",
    "x": 3440.4,
    "y": 1016.5
@@ -1957,7 +1957,7 @@
    "id": "N0791",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 6",
    "district": "Кордайский район",
    "x": 3380.8,
    "y": 1398.5
@@ -1966,7 +1966,7 @@
    "id": "N0792",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 5",
    "district": "Кордайский район",
    "x": 3380.1,
    "y": 1001.7
@@ -1975,7 +1975,7 @@
    "id": "N0793",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 22",
    "district": "Кордайский район",
    "x": 3648.4,
    "y": 796.9
@@ -1984,7 +1984,7 @@
    "id": "N0794",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 24",
    "district": "Кордайский район",
    "x": 3727.5,
    "y": 795.3
@@ -1993,7 +1993,7 @@
    "id": "N0795",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Кордайский район",
    "x": 3817.1,
    "y": 672.5
@@ -2002,7 +2002,7 @@
    "id": "N0796",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 8",
    "district": "Кордайский район",
    "x": 3957.2,
    "y": 801.3
@@ -2011,7 +2011,7 @@
    "id": "N0839",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 15",
    "district": "Кордайский район",
    "x": 2972.8,
    "y": 1089.1
@@ -2020,7 +2020,7 @@
    "id": "N0840",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 18",
    "district": "Кордайский район",
    "x": 3576.8,
    "y": 794.9
@@ -2029,7 +2029,7 @@
    "id": "N0902",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Кордайский район",
    "x": 3380.1,
    "y": 1499.9
@@ -2038,7 +2038,7 @@
    "id": "N0193",
    "kind": "ats",
    "subtype": "existing",
-   "name": "ATC Беткайнар",
+   "name": "АТС Беткайнар",
    "district": "Кордайский район",
    "x": 3301.7,
    "y": 1001.7
@@ -2047,7 +2047,7 @@
    "id": "N1199",
    "kind": "olt",
    "subtype": "planned",
-   "name": "x10 Карасу",
+   "name": "Карасу",
    "district": "Кордайский район",
    "x": 3574.8,
    "y": 1173.8
@@ -2065,7 +2065,7 @@
    "id": "N0841",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Аухатты",
+   "name": "М 3",
    "district": "Кордайский район",
    "x": 3206.9,
    "y": 1396
@@ -2074,7 +2074,7 @@
    "id": "N1198",
    "kind": "olt",
    "subtype": "planned",
-   "name": "Аухатты Касык",
+   "name": "Аухатты",
    "district": "Кордайский район",
    "x": 3071.9,
    "y": 1394.8
@@ -2101,7 +2101,7 @@
    "id": "N0192",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Батыр Булар",
+   "name": "Булар Батыр",
    "district": "Кордайский район",
    "x": 2936.9,
    "y": 1391.2
@@ -2139,7 +2139,7 @@
    "id": "N0199",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Гвардейск",
+   "name": "АТС Гвардейск",
    "district": "Кордайский район",
    "x": 3816.7,
    "y": 620.9
@@ -2148,7 +2148,7 @@
    "id": "N0842",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Енбек",
+   "name": null,
    "district": "Кордайский район",
    "x": 3209.3,
    "y": 1737.6
@@ -2204,7 +2204,7 @@
    "id": "N0187",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Какпатас",
+   "name": "АТС Какпатас",
    "district": "Кордайский район",
    "x": 3088.3,
    "y": 867.2
@@ -2222,7 +2222,7 @@
    "id": "N1194",
    "kind": "olt",
    "subtype": "planned",
-   "name": "Каракемер Масанчи",
+   "name": "Каракемер",
    "district": "Кордайский район",
    "x": 3381.3,
    "y": 1741.2
@@ -2231,7 +2231,7 @@
    "id": "N1195",
    "kind": "olt",
    "subtype": "planned",
-   "name": "Карасай x7",
+   "name": "Карасай батыр",
    "district": "Кордайский район",
    "x": 3029.2,
    "y": 1669.9
@@ -2240,7 +2240,7 @@
    "id": "N0901",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Карасу",
+   "name": "М 11",
    "district": "Кордайский район",
    "x": 3382.5,
    "y": 1285.8
@@ -2249,7 +2249,7 @@
    "id": "N0843",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Карасу x10",
+   "name": "М 10",
    "district": "Кордайский район",
    "x": 3382.8,
    "y": 1172.2
@@ -2258,7 +2258,7 @@
    "id": "N0190",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Касык",
+   "name": "АТС Касык",
    "district": "Кордайский район",
    "x": 3260.6,
    "y": 1187.6
@@ -2267,7 +2267,7 @@
    "id": "N0195",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Кенен",
+   "name": "АТС Кенен",
    "district": "Кордайский район",
    "x": 3727.9,
    "y": 696.1
@@ -2349,7 +2349,7 @@
    "id": "N1306",
    "kind": "olt",
    "subtype": "planned",
-   "name": "Масанчи Байтерек",
+   "name": "Масанчи",
    "district": "Кордайский район",
    "x": 3381.3,
    "y": 1661.2
@@ -2367,7 +2367,7 @@
    "id": "N0244",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "Мұзбел",
+   "name": "Музбел",
    "district": "Кордайский район",
    "objectId": 11321,
    "connectionCount": 24,
@@ -2396,7 +2396,7 @@
    "id": "N0197",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Отар",
+   "name": "АТС Отар",
    "district": "Кордайский район",
    "x": 3816.7,
    "y": 724.5
@@ -2405,7 +2405,7 @@
    "id": "N0191",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Отеген Карасу",
+   "name": "Отеген",
    "district": "Кордайский район",
    "x": 3509.3,
    "y": 1288.2
@@ -2472,7 +2472,7 @@
    "id": "N0788",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "У",
+   "name": "М У",
    "district": "Кордайский район",
    "x": 3380.9,
    "y": 793.7
@@ -2490,7 +2490,7 @@
    "id": "N0241",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "Шарбақты",
+   "name": "Шарбакты",
    "district": "Кордайский район",
    "objectId": 11331,
    "connectionCount": 62,
@@ -2512,7 +2512,7 @@
    "id": "N0606",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "Қарасу",
+   "name": "Карасу",
    "district": "Кордайский район",
    "objectId": 11327,
    "connectionCount": 61,
@@ -2523,7 +2523,7 @@
    "id": "N0678",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 8",
    "district": "Меркенский район",
    "x": 2644.4,
    "y": 787.3
@@ -2532,7 +2532,7 @@
    "id": "N0679",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 4",
    "district": "Меркенский район",
    "x": 2596.6,
    "y": 787.3
@@ -2541,7 +2541,7 @@
    "id": "N0680",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Меркенский район",
    "x": 2507.6,
    "y": 866.7
@@ -2550,7 +2550,7 @@
    "id": "N0681",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Меркенский район",
    "x": 2507.6,
    "y": 899.8
@@ -2568,7 +2568,7 @@
    "id": "N0696",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1/1",
    "district": "Меркенский район",
    "x": 2606.6,
    "y": 828.5
@@ -2577,7 +2577,7 @@
    "id": "N0698",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Меркенский район",
    "x": 2553.3,
    "y": 786.2
@@ -2595,7 +2595,7 @@
    "id": "N1157",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "14б",
+   "name": "М 14б",
    "district": "Меркенский район",
    "x": 2749.6,
    "y": 787.6
@@ -2604,7 +2604,7 @@
    "id": "N0677",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "9а/1",
+   "name": "М 9а/1",
    "district": "Меркенский район",
    "x": 2700.1,
    "y": 787.6
@@ -2660,7 +2660,7 @@
    "id": "N1156",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Алтынарық",
+   "name": null,
    "district": "Меркенский район",
    "x": 2644.6,
    "y": 710.3
@@ -2669,7 +2669,7 @@
    "id": "N0019",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Андас BTS",
+   "name": "BTS Андас батыр",
    "district": "Меркенский район",
    "x": 2417.7,
    "y": 1029.6
@@ -2727,7 +2727,7 @@
    "id": "N1129",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Ақжол",
+   "name": null,
    "district": "Меркенский район",
    "x": 2721.5,
    "y": 598.4
@@ -2758,7 +2758,7 @@
    "id": "N0682",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Аққайнар",
+   "name": "М 4",
    "district": "Меркенский район",
    "x": 2506.8,
    "y": 921.3
@@ -2836,7 +2836,7 @@
    "id": "N0684",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Костоган",
+   "name": "М 9/1",
    "district": "Меркенский район",
    "x": 2467.3,
    "y": 978
@@ -2856,7 +2856,7 @@
    "id": "N0695",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Мерке",
+   "name": "М 1",
    "district": "Меркенский район",
    "x": 2508.3,
    "y": 827.7
@@ -2874,7 +2874,7 @@
    "id": "N0032",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Мерке УБ",
+   "name": "Мерке УБ 2/2",
    "district": "Меркенский район",
    "x": 2606.4,
    "y": 865.2
@@ -2905,7 +2905,7 @@
    "id": "N0029",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Ойтал УБ",
+   "name": "Ойтал УБ 2/4",
    "district": "Меркенский район",
    "x": 2644.1,
    "y": 829
@@ -2914,7 +2914,7 @@
    "id": "N0030",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Ойтал УБ",
+   "name": "Ойтал УБ 2/3",
    "district": "Меркенский район",
    "x": 2644.3,
    "y": 849.5
@@ -2923,7 +2923,7 @@
    "id": "N2a007",
    "kind": "atn",
    "subtype": "existing",
-   "name": "Сарымолдае",
+   "name": "Сарымолдаева",
    "district": "Меркенский район",
    "x": 2606.5,
    "y": 925.2
@@ -3000,7 +3000,7 @@
    "id": "N0683",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Тескентоған",
+   "name": "М 9",
    "district": "Меркенский район",
    "x": 2506.5,
    "y": 978.3
@@ -3020,7 +3020,7 @@
    "id": "N0031",
    "kind": "ats",
    "subtype": "existing",
-   "name": "УБ Мерке",
+   "name": "Мерке УБ 2/1",
    "district": "Меркенский район",
    "x": 2606.9,
    "y": 842.9
@@ -3083,7 +3083,7 @@
    "id": "N0667",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 7",
    "district": "Мойынкумский район",
    "x": 2978.6,
    "y": 347.3
@@ -3092,7 +3092,7 @@
    "id": "N0668",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 5",
    "district": "Мойынкумский район",
    "x": 2978.7,
    "y": 309.8
@@ -3101,7 +3101,7 @@
    "id": "N0669",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Мойынкумский район",
    "x": 2794.1,
    "y": 307.4
@@ -3110,7 +3110,7 @@
    "id": "N0670",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Мойынкумский район",
    "x": 2841.8,
    "y": 307.9
@@ -3119,7 +3119,7 @@
    "id": "N0671",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 4",
    "district": "Мойынкумский район",
    "x": 2978.9,
    "y": 266.9
@@ -3128,7 +3128,7 @@
    "id": "N0833",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 5",
    "district": "Мойынкумский район",
    "x": 3047.6,
    "y": 164.8
@@ -3173,7 +3173,7 @@
    "id": "N3ot23a",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "M1",
+   "name": "М 1",
    "district": "Мойынкумский район",
    "x": 3005.1,
    "y": 116.9
@@ -3182,7 +3182,7 @@
    "id": "N4wxgd4",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "M23",
+   "name": "М 23",
    "district": "Мойынкумский район",
    "x": 2980.6,
    "y": 51.9
@@ -3191,7 +3191,7 @@
    "id": "Ne0pyw",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "M4",
+   "name": "М 4",
    "district": "Мойынкумский район",
    "x": 3025.6,
    "y": 141.3
@@ -3239,7 +3239,7 @@
    "id": "N0636",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "Бурылбайтал",
+   "name": "Бурубайтал",
    "district": "Мойынкумский район",
    "objectId": 11356,
    "connectionCount": 13,
@@ -3250,7 +3250,7 @@
    "id": "N0637",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "Бурылбайтал ст.",
+   "name": "ст.Бурубайтал",
    "district": "Мойынкумский район",
    "objectId": 11357,
    "connectionCount": 10,
@@ -3386,7 +3386,7 @@
    "id": "N0744",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Сарысуйский район",
    "x": -122.2,
    "y": 411.4
@@ -3395,7 +3395,7 @@
    "id": "N0745",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 4",
    "district": "Сарысуйский район",
    "x": -175.5,
    "y": 411.4
@@ -3413,7 +3413,7 @@
    "id": "N0768",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Сарысуйский район",
    "x": -82.5,
    "y": 412.8
@@ -3510,7 +3510,7 @@
    "id": "N1153",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Жайлаукөл",
+   "name": null,
    "district": "Сарысуйский район",
    "x": 2671.4,
    "y": 251.8
@@ -3528,7 +3528,7 @@
    "id": "N0747",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Жанатас",
+   "name": "М 6",
    "district": "Сарысуйский район",
    "x": -295.9,
    "y": 409
@@ -3664,7 +3664,7 @@
    "id": "N0591",
    "kind": "snp",
    "subtype": "wifi",
-   "name": "с. Кокдала-улкен",
+   "name": "с. Кокдалаулкен",
    "district": "Сарысуйский район",
    "objectId": 11369,
    "connectionCount": 37,
@@ -3675,7 +3675,7 @@
    "id": "N0140",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "с.Әбілда",
+   "name": "С.Әбілда (с.Ушарал)",
    "district": "Сарысуйский район",
    "objectId": 11363,
    "connectionCount": 15,
@@ -3740,7 +3740,7 @@
    "id": "N0746",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Әшір Бүркітбаев",
+   "name": "М 5",
    "district": "Сарысуйский район",
    "x": -232.5,
    "y": 410.2
@@ -3749,7 +3749,7 @@
    "id": "N0735",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Таласский район",
    "x": 255.7,
    "y": 614.9
@@ -3758,7 +3758,7 @@
    "id": "N0736",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 4",
    "district": "Таласский район",
    "x": 379.6,
    "y": 616.2
@@ -3767,7 +3767,7 @@
    "id": "N0738",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1/1",
    "district": "Таласский район",
    "x": 256.8,
    "y": 415.5
@@ -3776,7 +3776,7 @@
    "id": "N0739",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Таласский район",
    "x": 208.6,
    "y": 414.8
@@ -3785,7 +3785,7 @@
    "id": "N0741",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Таласский район",
    "x": 90.2,
    "y": 634.3
@@ -3794,7 +3794,7 @@
    "id": "N0742",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Таласский район",
    "x": 89.9,
    "y": 583.1
@@ -3803,7 +3803,7 @@
    "id": "N0763",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Таласский район",
    "x": 157.7,
    "y": 414.2
@@ -3812,7 +3812,7 @@
    "id": "N0764",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 4",
    "district": "Таласский район",
    "x": 99.1,
    "y": 413.5
@@ -3821,7 +3821,7 @@
    "id": "N0765",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 3",
    "district": "Таласский район",
    "x": 341.1,
    "y": 615.9
@@ -3830,7 +3830,7 @@
    "id": "N0766",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Таласский район",
    "x": 296.6,
    "y": 615.2
@@ -3839,7 +3839,7 @@
    "id": "N3wqxtj",
    "kind": "atn",
    "subtype": "existing",
-   "name": null,
+   "name": "Акколь",
    "district": "Таласский район",
    "x": 255.7,
    "y": 664.3
@@ -3848,7 +3848,7 @@
    "id": "N1164",
    "kind": "olt",
    "subtype": "planned",
-   "name": "(Есейхан) Есей",
+   "name": "Есей би (Есейхан)",
    "district": "Таласский район",
    "x": 25,
    "y": 540.5
@@ -3857,7 +3857,7 @@
    "id": "N0762",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "M 1",
+   "name": "М 1",
    "district": "Таласский район",
    "x": 208.5,
    "y": 663.3
@@ -3915,7 +3915,7 @@
    "id": "N0737",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Бостандык",
+   "name": "М 5",
    "district": "Таласский район",
    "x": 422.6,
    "y": 616.6
@@ -4038,7 +4038,7 @@
    "id": "N0135",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "с.Турумкул",
+   "name": "Турумкул",
    "district": "Таласский район",
    "objectId": 11379,
    "connectionCount": 30,
@@ -4060,7 +4060,7 @@
    "id": "N0743",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Қайыр",
+   "name": "М 1",
    "district": "Таласский район",
    "x": 89.9,
    "y": 541.4
@@ -4080,7 +4080,7 @@
    "id": "N0687",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 21",
    "district": "Турар Рыскуловский район",
    "x": 2186.2,
    "y": 782.9
@@ -4089,7 +4089,7 @@
    "id": "N0689",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Турар Рыскуловский район",
    "x": 2088.6,
    "y": 876.5
@@ -4098,7 +4098,7 @@
    "id": "N0691",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 15",
    "district": "Турар Рыскуловский район",
    "x": 1913.5,
    "y": 780.6
@@ -4107,7 +4107,7 @@
    "id": "N0693",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 8",
    "district": "Турар Рыскуловский район",
    "x": 1725.6,
    "y": 780.5
@@ -4116,7 +4116,7 @@
    "id": "N0694",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Турар Рыскуловский район",
    "x": 1726.4,
    "y": 661.3
@@ -4125,7 +4125,7 @@
    "id": "N0700",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Турар Рыскуловский район",
    "x": 1913.5,
    "y": 807.9
@@ -4134,7 +4134,7 @@
    "id": "N0692",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "13А",
+   "name": "М 13А",
    "district": "Турар Рыскуловский район",
    "x": 1831.9,
    "y": 780.8
@@ -4143,7 +4143,7 @@
    "id": "N1295",
    "kind": "olt",
    "subtype": "planned",
-   "name": "13А Алгабас",
+   "name": "Алгабас",
    "district": "Турар Рыскуловский район",
    "x": 1831.9,
    "y": 816.3
@@ -4161,7 +4161,7 @@
    "id": "N0007",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Акыртобе BTS",
+   "name": "BTS Акыртобе",
    "district": "Турар Рыскуловский район",
    "x": 1725.3,
    "y": 709.6
@@ -4170,7 +4170,7 @@
    "id": "N1294",
    "kind": "olt",
    "subtype": "planned",
-   "name": "Акыртобе BTS",
+   "name": "BTS Акыртобе",
    "district": "Турар Рыскуловский район",
    "x": 1725.9,
    "y": 689.5
@@ -4179,7 +4179,7 @@
    "id": "N0026",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Алгабас 13А",
+   "name": "Алгабас",
    "district": "Турар Рыскуловский район",
    "x": 1831.6,
    "y": 847.1
@@ -4255,7 +4255,7 @@
    "id": "N1296",
    "kind": "olt",
    "subtype": "planned",
-   "name": "Каменка Жанатурмыс",
+   "name": "Каменка",
    "district": "Турар Рыскуловский район",
    "x": 2215.8,
    "y": 876.4
@@ -4282,7 +4282,7 @@
    "id": "N0690",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Когершин",
+   "name": "М 16",
    "district": "Турар Рыскуловский район",
    "x": 2012,
    "y": 781
@@ -4300,7 +4300,7 @@
    "id": "N0688",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Кулан",
+   "name": "М 18/1",
    "district": "Турар Рыскуловский район",
    "x": 2085.9,
    "y": 781
@@ -4318,7 +4318,7 @@
    "id": "N0699",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Кумарык",
+   "name": null,
    "district": "Турар Рыскуловский район",
    "x": 1824.8,
    "y": 675.9
@@ -4366,7 +4366,7 @@
    "id": "N0022",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Луговая Кулан",
+   "name": "Луговая",
    "district": "Турар Рыскуловский район",
    "x": 2037.6,
    "y": 822.8
@@ -4468,7 +4468,7 @@
    "id": "N1148",
    "kind": "mufta",
    "subtype": "planned",
-   "name": "Тасшолақ",
+   "name": null,
    "district": "Турар Рыскуловский район",
    "x": 2216.3,
    "y": 736.8
@@ -4563,7 +4563,7 @@
    "id": "N1147",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "Әбілқайыр",
+   "name": "М 10",
    "district": "Турар Рыскуловский район",
    "x": 1771.4,
    "y": 780.7
@@ -4581,7 +4581,7 @@
    "id": "N0664",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 13",
    "district": "Шуский район",
    "x": 2977.7,
    "y": 500.1
@@ -4590,7 +4590,7 @@
    "id": "N0665",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 11",
    "district": "Шуский район",
    "x": 2978,
    "y": 466.8
@@ -4599,7 +4599,7 @@
    "id": "N0666",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 10",
    "district": "Шуский район",
    "x": 2978.1,
    "y": 391.9
@@ -4608,7 +4608,7 @@
    "id": "N0672",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 6",
    "district": "Шуский район",
    "x": 2977.7,
    "y": 599.9
@@ -4617,7 +4617,7 @@
    "id": "N0673",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 10",
    "district": "Шуский район",
    "x": 2978.2,
    "y": 626.4
@@ -4626,7 +4626,7 @@
    "id": "N0675",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 21",
    "district": "Шуский район",
    "x": 2836.1,
    "y": 788.7
@@ -4635,7 +4635,7 @@
    "id": "N0676",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 1",
    "district": "Шуский район",
    "x": 2835.5,
    "y": 815
@@ -4644,7 +4644,7 @@
    "id": "N0697",
    "kind": "mufta",
    "subtype": "existing",
-   "name": null,
+   "name": "М 2",
    "district": "Шуский район",
    "x": 2977.7,
    "y": 572.6
@@ -4840,7 +4840,7 @@
    "id": "N0013",
    "kind": "ats",
    "subtype": "existing",
-   "name": "Кок-Кайнар БТС",
+   "name": "БТС КокКайнар",
    "district": "Шуский район",
    "x": 2913.6,
    "y": 626
@@ -4868,7 +4868,7 @@
    "id": "N1190",
    "kind": "olt",
    "subtype": "planned",
-   "name": "Мойынкум Жиенбет",
+   "name": "Мойынкум",
    "district": "Шуский район",
    "x": 3000,
    "y": 391.9
@@ -4927,7 +4927,7 @@
    "id": "N0071",
    "kind": "snp",
    "subtype": "wifi",
-   "name": "рзд. Кумозек",
+   "name": "Құмөзек рзд.",
    "district": "Шуский район",
    "objectId": 11407,
    "connectionCount": 85,
@@ -4938,7 +4938,7 @@
    "id": "N0072",
    "kind": "snp",
    "subtype": "fiber",
-   "name": "с.Кокжиек",
+   "name": "Кокжиек",
    "district": "Шуский район",
    "objectId": 11406,
    "connectionCount": 26,
@@ -4998,6 +4998,24 @@
    "district": null,
    "x": 2949.0,
    "y": 809.5
+  },
+  {
+   "id": "N2b001",
+   "kind": "atn",
+   "subtype": "existing",
+   "name": "АТС Туймекент",
+   "district": "Байзакский район",
+   "x": 1383.4,
+   "y": 884.6
+  },
+  {
+   "id": "N2b002",
+   "kind": "atn",
+   "subtype": "existing",
+   "name": "Акжар",
+   "district": "Байзакский район",
+   "x": 1383.4,
+   "y": 949.6
   }
  ],
  "edges": [
@@ -5090,7 +5108,7 @@
    "from": "N0840",
    "to": "N0244",
    "type": "planned",
-   "lengthKm": 20
+   "lengthKm": 4.2
   },
   {
    "id": "E0289",
@@ -5111,7 +5129,7 @@
    "from": "N1201",
    "to": "N0242",
    "type": "planned",
-   "lengthKm": null
+   "lengthKm": 11
   },
   {
    "id": "E0292",
@@ -6059,13 +6077,6 @@
    "lengthKm": 5
   },
   {
-   "id": "E0465",
-   "from": "N0725",
-   "to": "N0726",
-   "type": "existing",
-   "lengthKm": 4
-  },
-  {
    "id": "E0466",
    "from": "N1179",
    "to": "N0713",
@@ -6346,13 +6357,6 @@
    "lengthKm": 4
   },
   {
-   "id": "E0510",
-   "from": "N0036",
-   "to": "N0006",
-   "type": "planned",
-   "lengthKm": 24
-  },
-  {
    "id": "E0511",
    "from": "N0672",
    "to": "N0035",
@@ -6365,13 +6369,6 @@
    "to": "N0605",
    "type": "planned",
    "lengthKm": 10
-  },
-  {
-   "id": "E0513",
-   "from": "N0006",
-   "to": "N0008",
-   "type": "planned",
-   "lengthKm": 8
   },
   {
    "id": "E0514",
@@ -6966,7 +6963,7 @@
    "from": "N0104",
    "to": "N0753",
    "type": "existing",
-   "lengthKm": 1.2
+   "lengthKm": 6.1
   },
   {
    "id": "E0602",
@@ -7260,7 +7257,7 @@
    "from": "N1173",
    "to": "N0754",
    "type": "existing",
-   "lengthKm": 6
+   "lengthKm": 1.2
   },
   {
    "id": "E0650",
@@ -7358,7 +7355,7 @@
    "from": "N0795",
    "to": "N0199",
    "type": "existing",
-   "lengthKm": 7
+   "lengthKm": null
   },
   {
    "id": "E0713",
@@ -7883,7 +7880,7 @@
    "from": "N1302",
    "to": "N0008",
    "type": "existing",
-   "lengthKm": null
+   "lengthKm": 0
   },
   {
    "id": "E82ahzh",
@@ -8121,7 +8118,7 @@
    "from": "N0734",
    "to": "N0733",
    "type": "existing",
-   "lengthKm": null
+   "lengthKm": 2
   },
   {
    "id": "Ea2om3i",
@@ -8485,14 +8482,14 @@
    "from": "N0793",
    "to": "N2a041",
    "type": "existing",
-   "lengthKm": 9.7
+   "lengthKm": 20
   },
   {
    "id": "E2a042",
    "from": "N2a041",
    "to": "N1197",
    "type": "existing",
-   "lengthKm": 10.3
+   "lengthKm": 4.4
   },
   {
    "id": "E2a043",
@@ -8555,7 +8552,7 @@
    "from": "N0678",
    "to": "N2a052",
    "type": "existing",
-   "lengthKm": 6
+   "lengthKm": 7.5
   },
   {
    "id": "Efovq50",
@@ -8661,6 +8658,20 @@
    "to": "N72c1d0",
    "type": "existing",
    "lengthKm": null
+  },
+  {
+   "id": "E2b001",
+   "from": "N0064",
+   "to": "N2b001",
+   "type": "existing",
+   "lengthKm": 1.5
+  },
+  {
+   "id": "E2b002",
+   "from": "N2b001",
+   "to": "N2b002",
+   "type": "existing",
+   "lengthKm": 6.5
   }
  ],
  "externalLinks": [

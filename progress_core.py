@@ -11,13 +11,19 @@
   1. «Куда» = settlement_name (или direction_to / имя объекта из справочника),
      «откуда» = direction_from. Оба резолвятся нечётким поиском по узлам графа
      (порог 60/100, бонус СНП и совпадению района).
-  2. Км работ = первый заполненный показатель по приоритету
+  2. Если «откуда» — на деле само село-назначение (работник пишет участок как
+     «село — муфта»: «Кунбатыс — М3» при объекте «Күнбатыс 2», без номера имя
+     матчится на назначение не хуже, чем на любого тёзку) либо «откуда» не
+     найден вовсе — вторым концом участка берётся direction_to (муфта/АТС/
+     соседнее село). Иначе фаззи-поиск молча уводил бы такой конец на тёзку
+     (Күнбатыс 1) и км ложились на чужое ребро.
+  3. Км работ = первый заполненный показатель по приоритету
      задувка ВОК → микротрубка ПЭТ → траншея (KM_PRIORITY).
-  3. Если «откуда» найден — кратчайший маршрут по графу, км укладываются
+  4. Если «откуда» найден — кратчайший маршрут по графу, км укладываются
      по рёбрам последовательно от «откуда» (как физически идёт стройка).
-  4. Если «откуда» нет, но у села-назначения ровно одна плановая линия —
+  5. Если «откуда» нет, но у села-назначения ровно одна плановая линия —
      км ложатся на неё (заполнение к селу).
-  5. Иначе отчёт попадает в unmatched — виден в ответе API для разбора.
+  6. Иначе отчёт попадает в unmatched — виден в ответе API для разбора.
 
 ВАЖНО про рёбра без lengthKm: часть сегментов на чертеже не имеет плановой
 длины (lengthKm=null — на 2026-07 таких 9 из 516, например прямая линия
@@ -58,25 +64,77 @@ class Graph:
             nn = normalize_name(n.get("name"))
             if nn:
                 self.named.append((nn, normalize_name(n.get("district")), n))
+        self._hops_cache: dict[str, dict[str, int]] = {}
+
+    @staticmethod
+    def _score(qn: str, dn: str, nn: str, ndn: str, n: dict) -> int:
+        sc = match_score(qn, nn)
+        if sc <= 0:
+            return 0
+        if n.get("kind") == "snp":
+            sc += 6
+        if dn and ndn and (dn in ndn or ndn in dn):
+            sc += 8
+        return sc
 
     def find_node(self, name: str | None, district: str | None = None,
                   min_score: int = MATCH_THRESHOLD) -> dict | None:
+        node, _ = self.find_node_scored(name, district, min_score)
+        return node
+
+    def find_node_scored(self, name: str | None, district: str | None = None,
+                         min_score: int = MATCH_THRESHOLD,
+                         near_id: str | None = None) -> tuple[dict | None, int]:
+        """(узел, счёт) лучшего совпадения; (None, 0), если ниже порога.
+
+        near_id — якорь для тёзок: муфты нумеруются В ПРЕДЕЛАХ ВЕТКИ («М 3»
+        в графе встречается многократно, даже внутри одного района), поэтому
+        из кандидатов С РАВНЫМ счётом берётся ближайший ПО ГРАФУ к якорю
+        (селу-назначению отчёта) — участок связывает близкие точки."""
         qn = normalize_name(name)
         if len(qn) < 2:
-            return None
+            return None, 0
         dn = normalize_name(district)
-        best, best_sc = None, 0
+        best_sc, cands = 0, []
         for nn, ndn, n in self.named:
-            sc = match_score(qn, nn)
-            if sc <= 0:
-                continue
-            if n.get("kind") == "snp":
-                sc += 6
-            if dn and ndn and (dn in ndn or ndn in dn):
-                sc += 8
+            sc = self._score(qn, dn, nn, ndn, n)
             if sc > best_sc:
-                best_sc, best = sc, n
-        return best if best_sc >= min_score else None
+                best_sc, cands = sc, [n]
+            elif sc == best_sc and sc > 0:
+                cands.append(n)
+        if best_sc < min_score:
+            return None, 0
+        if len(cands) > 1 and near_id:
+            hops = self._hops_from(near_id)
+            cands.sort(key=lambda n: hops.get(n["id"], float("inf")))
+        return cands[0], best_sc
+
+    def _hops_from(self, node_id: str) -> dict[str, int]:
+        """Число хопов от узла до всех достижимых (BFS, кэш на граф)."""
+        cached = self._hops_cache.get(node_id)
+        if cached is not None:
+            return cached
+        dist = {node_id: 0}
+        queue = [node_id]
+        for cur in queue:  # список растёт по ходу обхода — это и есть очередь
+            for e in self.adj.get(cur, ()):
+                nxt = e["to"] if e["from"] == cur else e["from"]
+                if nxt not in dist:
+                    dist[nxt] = dist[cur] + 1
+                    queue.append(nxt)
+        self._hops_cache[node_id] = dist
+        return dist
+
+    def node_score(self, name: str | None, district: str | None, node: dict) -> int:
+        """Счёт КОНКРЕТНОГО узла для запроса — та же шкала, что у find_node
+        (для сравнения «а не назначение ли это на самом деле», см.
+        compute_progress)."""
+        qn = normalize_name(name)
+        if len(qn) < 2 or node is None:
+            return 0
+        return self._score(qn, normalize_name(district),
+                           normalize_name(node.get("name")),
+                           normalize_name(node.get("district")), node)
 
     def shortest_path(self, a_id: str, b_id: str) -> list[dict] | None:
         """Дейкстра по длинам сегментов; рёбра без длины почти бесплатны для
@@ -151,10 +209,17 @@ def compute_progress(graph: Graph, rows: list[dict]) -> dict:
     # 1. Сгруппировать строки по отчёту.
     reports: dict[int, dict] = {}
     for r in rows:
+        to_raw = (r.get("settlement_name") or r.get("direction_to")
+                  or r.get("object_name"))
         rep = reports.setdefault(r["report_id"], {
             "report_id": r["report_id"],
             "from": r.get("direction_from"),
-            "to": r.get("settlement_name") or r.get("direction_to") or r.get("object_name"),
+            "to": to_raw,
+            # Запасной второй конец участка: direction_to, если «куда» взято
+            # не из него (см. правило 2 в докстринге модуля).
+            "alt_from": r.get("direction_to")
+                        if r.get("direction_to") and r.get("direction_to") != to_raw
+                        else None,
             "district": r.get("district_name") or r.get("object_district"),
             "reported_at": r.get("reported_at"),
             "submitted_at": r.get("submitted_at"),
@@ -187,7 +252,22 @@ def compute_progress(graph: Graph, rows: list[dict]) -> dict:
             unmatched.append({"from": rep["from"], "to": rep["to"], "km": km,
                               "reason": "назначение не найдено в графе"})
             continue
-        from_node = graph.find_node(rep["from"], rep["district"]) if rep["from"] else None
+        from_node, from_sc = (graph.find_node_scored(rep["from"], rep["district"],
+                                                     near_id=to_node["id"])
+                              if rep["from"] else (None, 0))
+        # «Откуда» — на деле само назначение («Кунбатыс — М3» при объекте
+        # «Күнбатыс 2»): имя без номера матчится на назначение не хуже, чем
+        # на лучшего кандидата, — не даём фаззи-поиску увести его на тёзку.
+        if from_node is not None and (
+                from_node["id"] == to_node["id"]
+                or graph.node_score(rep["from"], rep["district"], to_node) >= from_sc):
+            from_node = None
+        # Настоящий второй конец тогда — direction_to (муфта/АТС/село).
+        if from_node is None and rep.get("alt_from"):
+            alt, _ = graph.find_node_scored(rep["alt_from"], rep["district"],
+                                            near_id=to_node["id"])
+            if alt is not None and alt["id"] != to_node["id"]:
+                from_node = alt
         entry.update(toNode=to_node["name"], toNodeId=to_node["id"],
                     fromNode=from_node["name"] if from_node else None,
                     fromNodeId=from_node["id"] if from_node else None)
