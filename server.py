@@ -142,7 +142,8 @@ READ_ONLY = os.environ.get("READ_ONLY", "").lower() in ("1", "true", "yes")
 # (пустой EDIT_PASSWORD в окружении тоже вернёт дефолт).
 EDIT_PASSWORD = os.environ.get("EDIT_PASSWORD", "") or "1973"
 _EDIT_PATHS = {"/api/graph/edit", "/api/graph/add-node",
-               "/api/graph/add-edge", "/api/graph/delete"}
+               "/api/graph/add-edge", "/api/graph/delete",
+               "/api/graph/add-service-link", "/api/graph/delete-service-link"}
 
 # Сессии правки: token -> время выдачи. Только в памяти — рестарт сервера
 # разлогинивает всех, это ожидаемо для лёгкой защиты внутреннего инструмента.
@@ -463,6 +464,86 @@ async def graph_add_edge(req: AddEdgeRequest):
             "totals": {"totalKm": total_km, "plannedKm": planned_km}}
 
 
+# ---------------------------------------------------------------------------
+# Извилистые линии от OLT/АТС (PON-ветки и аплинки с чертежа).
+# Чистое ОФОРМЛЕНИЕ: в км-итоги, привязку отчётов и маршруты (progress_core)
+# они не входят вообще — фронт рисует их поверх графа.
+# По умолчанию фронт достраивает их сам по топологии (Дейкстра от OLT), а
+# здесь хранятся только ручные правки этой картинки:
+#   data["serviceLinks"]        — линии, добавленные руками: {id, from, to, kind}
+#   data["serviceLinksHidden"]  — убранные руками авто-линии: ключи "idA|idB"
+#                                 (id узлов отсортированы, т.е. пара без направления)
+# Удаление = «этой линии между A и B быть не должно»: снимает ручную линию и
+# гасит авто-линию на той же паре. Добавление, наоборот, кладёт ручную линию и
+# гасит авто на этой паре, чтобы линии не задвоились.
+# ---------------------------------------------------------------------------
+def _service_key(a: str, b: str) -> str:
+    return "|".join(sorted((a, b)))
+
+
+def _service_state(data: dict) -> dict:
+    return {"serviceLinks": data.get("serviceLinks", []),
+            "serviceLinksHidden": data.get("serviceLinksHidden", [])}
+
+
+class AddServiceLinkRequest(BaseModel):
+    from_id: str
+    to_id: str
+    kind: Literal["pon", "uplink"]
+
+
+class DeleteServiceLinkRequest(BaseModel):
+    from_id: str
+    to_id: str
+
+
+@app.post("/api/graph/add-service-link")
+async def graph_add_service_link(req: AddServiceLinkRequest):
+    if req.from_id == req.to_id:
+        raise HTTPException(400, "линия должна соединять два разных узла")
+
+    async with _edit_lock:
+        data = json.loads(GRAPH_PATH.read_text(encoding="utf-8"))
+        node_ids = {n["id"] for n in data["nodes"]}
+        for nid in (req.from_id, req.to_id):
+            if nid not in node_ids:
+                raise HTTPException(404, f"узел {nid} не найден")
+        links = data.setdefault("serviceLinks", [])
+        key = _service_key(req.from_id, req.to_id)
+        if any(_service_key(x["from"], x["to"]) == key for x in links):
+            raise HTTPException(409, "такая извилистая линия уже есть")
+        link = {"id": _new_id("S", {x["id"] for x in links}),
+                "from": req.from_id, "to": req.to_id, "kind": req.kind}
+        links.append(link)
+        hidden = data.setdefault("serviceLinksHidden", [])
+        if key not in hidden:
+            hidden.append(key)  # чтобы авто-линия на этой же паре не задвоилась
+        _persist(data)
+        state = _service_state(data)
+
+    log.info("graph add-service-link: %s", link)
+    return {"ok": True, "link": link, **state}
+
+
+@app.post("/api/graph/delete-service-link")
+async def graph_delete_service_link(req: DeleteServiceLinkRequest):
+    key = _service_key(req.from_id, req.to_id)
+    async with _edit_lock:
+        data = json.loads(GRAPH_PATH.read_text(encoding="utf-8"))
+        links = data.get("serviceLinks", [])
+        removed = [x["id"] for x in links if _service_key(x["from"], x["to"]) == key]
+        data["serviceLinks"] = [x for x in links
+                                if _service_key(x["from"], x["to"]) != key]
+        hidden = data.setdefault("serviceLinksHidden", [])
+        if key not in hidden:
+            hidden.append(key)
+        _persist(data)
+        state = _service_state(data)
+
+    log.info("graph delete-service-link: %s (снято ручных: %d)", key, len(removed))
+    return {"ok": True, "removed": removed, **state}
+
+
 @app.post("/api/graph/delete")
 async def graph_delete(req: DeleteRequest):
     async with _edit_lock:
@@ -485,11 +566,18 @@ async def graph_delete(req: DeleteRequest):
                              if req.id not in (e["from"], e["to"])]
             data["externalLinks"] = [e for e in data.get("externalLinks", [])
                                      if req.id not in (e["from"], e["to"])]
+            # Извилистые линии узла уходят вместе с ним, иначе фронт будет
+            # молча пропускать их как «битые» и они останутся мусором в файле.
+            data["serviceLinks"] = [x for x in data.get("serviceLinks", [])
+                                    if req.id not in (x["from"], x["to"])]
+            data["serviceLinksHidden"] = [k for k in data.get("serviceLinksHidden", [])
+                                          if req.id not in k.split("|")]
         total_km, planned_km = _persist(data)
+        state = _service_state(data)
 
     log.info("graph delete: %s %s (снято связей: %d)", req.kind, req.id, len(removed_edges))
     return {"ok": True, "kind": req.kind, "id": req.id, "removedEdges": removed_edges,
-            "totals": {"totalKm": total_km, "plannedKm": planned_km}}
+            "totals": {"totalKm": total_km, "plannedKm": planned_km}, **state}
 
 
 # zhambyl-graph.json / graph-data.js отдаём явно из DATA_DIR (см. коммент у

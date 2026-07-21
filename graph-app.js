@@ -105,9 +105,10 @@ let view = { s: 1, tx: 0, ty: 0 };      // world -> screen: sx = x*s+tx
 let hover = null;                        // { kind: 'node'|'edge', obj }
 let selected = null;                     // node
 let selectedEdge = null;                 // ребро, открытое в панели
+let selectedService = null;              // извилистая линия, открытая в панели
 let selectedEdgeIds = new Set();
 let editMode = false;                    // режим «✏️ Правка»: поля в панели редактируемы
-let addMode = null;                      // null | "place-node" | "edge-a" | "edge-b"
+let addMode = null;                      // null | "place-node" | "edge-a" | "edge-b" | "svc-a" | "svc-b"
 let edgeDraftA = null, edgeDraftB = null; // узлы создаваемой связи (подсветка)
 let filters = { district: "", mufta: true, existing: true, planned: true, demo: false, pon: true };
 let districtLabels = [];                 // { name, x, y }
@@ -452,12 +453,21 @@ function prepare(data) {
 // питающим её существующим узлом (ATN/АТС). В данных этих связей нет —
 // они восстанавливаются по топологии: каждому СНП и каждой существующей ATN
 // ищется ближайшая OLT по графу (Дейкстра от всех OLT сразу, вес = км).
-let serviceLinks = null; // [{ a, b, kind: 'pon'|'uplink' }]
+//
+// Эта картинка правится руками (режим «✏️ Правка» → «〰️ Линия OLT/АТС»):
+// добавленные линии лежат в DATA.serviceLinks, а убранные авто-линии гасятся
+// ключом пары узлов в DATA.serviceLinksHidden (см. server.py). Никакой логики
+// эти линии не несут — ни в км, ни в прогресс, ни в маршруты они не идут.
+let serviceLinks = null; // [{ id, a, b, kind: 'pon'|'uplink', manual, _pts }]
 
 function invalidateServiceLinks() { serviceLinks = null; }
 
+// Ключ пары узлов без направления — тот же формат, что и на сервере.
+function serviceKey(aId, bId) { return aId < bId ? aId + "|" + bId : bId + "|" + aId; }
+
 function computeServiceLinks() {
   serviceLinks = [];
+  const hidden = new Set((DATA && DATA.serviceLinksHidden) || []);
   const adj = new Map();
   for (const e of edges) {
     if (e.external) continue;
@@ -490,17 +500,26 @@ function computeServiceLinks() {
   for (const n of nodes) {
     const olt = srcOlt.get(n.id);
     if (!olt || olt === n) continue;
+    const key = serviceKey(olt.id, n.id);
+    if (hidden.has(key)) continue;                            // линию убрали руками
     if (n.kind === "snp" && (n.subtype === "fiber" || n.subtype === "wifi")) {
-      serviceLinks.push({ a: olt, b: n, kind: "pon" });       // OLT → СНП, голубая
+      serviceLinks.push({ id: "auto:" + key, a: olt, b: n, kind: "pon" });    // OLT → СНП, голубая
     } else if (n.kind === "atn" && n.subtype !== "planned") {
-      serviceLinks.push({ a: n, b: olt, kind: "uplink" });    // сущ. ATN → OLT, зелёная
+      serviceLinks.push({ id: "auto:" + key, a: n, b: olt, kind: "uplink" }); // сущ. ATN → OLT, зелёная
     }
+  }
+
+  // Линии, нарисованные руками: топологию не спрашиваем — что задали, то и рисуем.
+  for (const L of (DATA && DATA.serviceLinks) || []) {
+    const a = nodeById.get(L.from), b = nodeById.get(L.to);
+    if (!a || !b) continue;   // узел удалён — линия просто не рисуется
+    serviceLinks.push({ id: L.id, a, b, kind: L.kind === "uplink" ? "uplink" : "pon", manual: true });
   }
 }
 
-// Извилистая кривая между узлами: опорные точки вдоль прямой со
-// знакопеременным поперечным смещением (форма стабильна — сеется из id).
-function strokeWavy(a, b) {
+// Опорные точки извилистой кривой между узлами: вдоль прямой со знакопеременным
+// поперечным смещением (форма стабильна — сеется из id). null, если узлы слиплись.
+function wavyPoints(a, b) {
   const sid = a.id + "|" + b.id;
   let h = 2166136261;
   for (const ch of sid) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
@@ -508,7 +527,7 @@ function strokeWavy(a, b) {
   const rnd = () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; h >>>= 0; return (h % 1024) / 1024; };
   const dx = b.x - a.x, dy = b.y - a.y;
   const len = Math.hypot(dx, dy);
-  if (len < 4) return;
+  if (len < 4) return null;
   const nx = -dy / len, ny = dx / len;
   const segs = clamp(Math.round(len / 55), 2, 6);
   const amp = Math.min(24, 7 + len * 0.14);
@@ -519,6 +538,10 @@ function strokeWavy(a, b) {
     pts.push([a.x + dx * t + nx * sway, a.y + dy * t + ny * sway]);
   }
   pts.push([b.x, b.y]);
+  return pts;
+}
+
+function strokeWavy(pts) {
   ctx.beginPath();
   const [sx, sy] = W2S(pts[0][0], pts[0][1]);
   ctx.moveTo(sx, sy);
@@ -715,7 +738,7 @@ function draw() {
   ctx.fillStyle = C.page;
   ctx.fillRect(0, 0, w, h);
 
-  const dimmed = !!selected || !!selectedEdge;
+  const dimmed = !!selected || !!selectedEdge || !!selectedService;
   const [wx0, wy0] = S2W(-80, -80);
   const [wx1, wy1] = S2W(w + 80, h + 80);
 
@@ -740,14 +763,22 @@ function draw() {
     ctx.setLineDash([]);
     for (const L of serviceLinks) {
       const { a, b } = L;
+      // _pts — те же точки, что нарисованы: по ним же ловим клик (pickServiceLink),
+      // поэтому у пропущенных линий их обнуляем, чтобы не поймать невидимую.
+      L._pts = null;
       if (filters.district && a.district !== filters.district && b.district !== filters.district) continue;
       if (Math.max(a.x, b.x) < wx0 || Math.min(a.x, b.x) > wx1 ||
           Math.max(a.y, b.y) < wy0 || Math.min(a.y, b.y) > wy1) continue;
-      const active = selected && (a === selected || b === selected);
+      const pts = wavyPoints(a, b);
+      if (!pts) continue;
+      L._pts = pts;
+      const isSel = L === selectedService;
+      const isHover = hover && hover.kind === "svc" && hover.obj === L;
+      const active = isSel || (selected && (a === selected || b === selected));
       ctx.globalAlpha = dimmed && !active ? 0.08 : active ? 0.95 : 0.6;
       ctx.strokeStyle = L.kind === "pon" ? C.pon : C.uplink;
-      ctx.lineWidth = active ? 1.8 : 1.1;
-      strokeWavy(a, b);
+      ctx.lineWidth = isSel ? 2.6 : isHover ? 2.2 : active ? 1.8 : 1.1;
+      strokeWavy(pts);
     }
     ctx.globalAlpha = 1;
   }
@@ -899,6 +930,25 @@ function pickEdge(sx, sy) {
   return best;
 }
 
+// Извилистые линии ловим по тем же точкам, что нарисованы (L._pts выставляет
+// draw), иначе на изгибах промахивались бы: амплитуда волны — в мировых
+// единицах и на большом зуме уходит от прямой на десятки пикселей.
+function pickServiceLink(sx, sy) {
+  if (!filters.pon || !serviceLinks) return null;
+  let best = null, bestD = 6;
+  for (const L of serviceLinks) {
+    const pts = L._pts;
+    if (!pts) continue;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [x1, y1] = W2S(pts[i][0], pts[i][1]);
+      const [x2, y2] = W2S(pts[i + 1][0], pts[i + 1][1]);
+      const d = distToSegment(sx, sy, x1, y1, x2, y2);
+      if (d < bestD) { best = L; bestD = d; }
+    }
+  }
+  return best;
+}
+
 // ---------- Тултип ----------
 function fmtKm(v) { return v == null ? "—" : v + " км"; }
 
@@ -938,6 +988,15 @@ function edgeTooltip(e) {
   return h;
 }
 
+const SVC_RU = { pon: "PON-ветка от OLT", uplink: "аплинк к OLT" };
+
+function svcTooltip(L) {
+  let h = `<div class="t-name">${esc(L.a.name || L.a.id)} 〰️ ${esc(L.b.name || L.b.id)}</div>`;
+  h += `<div class="t-sub">${SVC_RU[L.kind]} · ${L.manual ? "добавлена вручную" : "построена автоматически"}</div>`;
+  h += `<div class="t-row">только отображение: в км и прогресс не входит</div>`;
+  return h;
+}
+
 function esc(s) {
   return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
@@ -946,6 +1005,7 @@ function esc(s) {
 function openPanel(n) {
   selected = n;
   selectedEdge = null;
+  selectedService = null;
   selectedEdgeIds = new Set(edges.filter(e => e.a === n || e.b === n).map(e => e.id));
   $("pName").textContent = n.name || "(без названия)";
   let kind = KIND_RU[n.kind] || n.kind;
@@ -989,6 +1049,22 @@ function openPanel(n) {
     if (frac != null) h += `<div class="pbar"><div style="width:${Math.round(frac * 100)}%"></div></div>`;
     h += `</div>`;
   }
+
+  // Извилистые линии узла — отдельными пунктами: попасть по ним мышью на карте
+  // тяжело, а убирать/просматривать их удобнее прямо отсюда. При выключенном
+  // слое «PON/аплинки» не показываем: правили бы то, чего не видно на карте.
+  if (filters.pon) {
+    if (!serviceLinks) computeServiceLinks();
+    for (const L of serviceLinks.filter(x => x.a === n || x.b === n)) {
+      const other = L.a === n ? L.b : L.a;
+      h += `<div class="edge-item" data-svc="${esc(L.id)}">`;
+      h += `<div class="e-to">〰️ ${esc(other.name || (KIND_RU[other.kind] + " " + other.id))}</div>`;
+      h += `<div class="e-sub">${SVC_RU[L.kind]} · только отображение`
+         + (L.manual ? " · вручную" : "") + `</div>`;
+      h += `</div>`;
+    }
+  }
+
   $("pEdges").innerHTML = h || `<div class="p-meta">связей нет</div>`;
   $("panel").classList.add("open");
   draw();
@@ -997,6 +1073,7 @@ function openPanel(n) {
 // Панель ребра: инфо о сегменте ВОЛС; в режиме правки — плановая длина.
 function openEdgePanel(e) {
   selected = null;
+  selectedService = null;
   selectedEdge = e;
   selectedEdgeIds = new Set([e.id]);
   $("pName").textContent = `${e.a.name || e.a.id} — ${e.b.name || e.b.id}`;
@@ -1029,9 +1106,35 @@ function openEdgePanel(e) {
   draw();
 }
 
+// Панель извилистой линии: она декоративная, поэтому единственное действие —
+// убрать её (в режиме правки). Одинаково работает и для авто-, и для ручной.
+function openServiceLinkPanel(L) {
+  selected = null;
+  selectedEdge = null;
+  selectedService = L;
+  selectedEdgeIds = new Set();
+  $("pName").textContent = `${L.a.name || L.a.id} 〰️ ${L.b.name || L.b.id}`;
+  $("pKind").textContent = SVC_RU[L.kind] + " · "
+    + (L.manual ? "добавлена вручную" : "построена автоматически");
+  $("pMeta").innerHTML = `<div class="p-meta">Линия только для отображения — `
+    + `на км, прогресс и маршруты не влияет.</div>`;
+  $("pEdgesTitle").textContent = editMode ? "Редактирование" : "";
+  $("pEdges").innerHTML = editMode
+    ? `<div class="edit-box">
+        <button type="button" id="edDelSvc" class="danger">🗑 Убрать линию</button>
+        <div class="edit-msg" id="edMsg"></div>
+      </div>`
+    : "";
+  const delBtn = $("edDelSvc");
+  if (delBtn) delBtn.addEventListener("click", () => deleteServiceLink(L));
+  $("panel").classList.add("open");
+  draw();
+}
+
 function closePanel() {
   selected = null;
   selectedEdge = null;
+  selectedService = null;
   selectedEdgeIds = new Set();
   $("panel").classList.remove("open");
   draw();
@@ -1169,6 +1272,66 @@ async function saveEdgeEdits(e) {
   } catch (err) {
     setEditMsg("⚠ " + err.message, "err");
   }
+}
+
+// ---------- Извилистые линии OLT/АТС: добавление и удаление ----------
+// Сервер на каждую правку возвращает полное состояние (ручные линии + список
+// погашенных авто-линий) — берём его целиком, чтобы фронт и файл не разъезжались.
+function applyServiceLinkState(resp) {
+  if (!resp || !resp.serviceLinks) return;
+  DATA.serviceLinks = resp.serviceLinks;
+  DATA.serviceLinksHidden = resp.serviceLinksHidden || [];
+  invalidateServiceLinks();
+  draw();
+}
+
+async function deleteServiceLink(L) {
+  if (!confirm(`Убрать извилистую линию ${L.a.name || L.a.id} — ${L.b.name || L.b.id}? `
+             + `Действие сохранится в JSON.`)) return;
+  setEditMsg("Удаляю…");
+  try {
+    applyServiceLinkState(await apiPost("api/graph/delete-service-link",
+                                        { from_id: L.a.id, to_id: L.b.id }));
+    closePanel();
+  } catch (err) {
+    setEditMsg("⚠ " + err.message, "err");
+  }
+}
+
+// Форма новой извилистой линии: оба узла уже выбраны кликами.
+function openAddServiceLinkForm(a, b) {
+  selected = null; selectedEdge = null; selectedService = null; selectedEdgeIds = new Set();
+  edgeDraftA = a; edgeDraftB = b;
+  $("pName").textContent = `${a.name || a.id} 〰️ ${b.name || b.id}`;
+  $("pKind").textContent = "новая извилистая линия (только отображение)";
+  $("pMeta").innerHTML = `<div class="p-meta">На км, прогресс и маршруты не влияет.</div>`;
+  $("pEdgesTitle").textContent = "";
+  $("pEdges").innerHTML = `<div class="edit-box">
+    <label>Тип линии<select id="asKind">
+      <option value="pon">голубая — PON-ветка от OLT</option>
+      <option value="uplink">зелёная — аплинк к OLT</option>
+    </select></label>
+    <button type="button" id="asCreate">〰️ Создать линию</button>
+    <button type="button" id="asCancel" class="ghost">Отмена</button>
+    <div class="edit-msg" id="edMsg"></div>
+  </div>`;
+  $("asCancel").addEventListener("click", () => { cancelAddMode(); closePanel(); });
+  $("asCreate").addEventListener("click", async () => {
+    setEditMsg("Сохраняю…");
+    try {
+      const resp = await apiPost("api/graph/add-service-link",
+                                 { from_id: a.id, to_id: b.id, kind: $("asKind").value });
+      edgeDraftA = edgeDraftB = null;
+      applyServiceLinkState(resp);
+      if (!serviceLinks) computeServiceLinks();
+      const L = serviceLinks.find(x => x.id === resp.link.id);
+      if (L) openServiceLinkPanel(L); else closePanel();
+    } catch (err) {
+      setEditMsg("⚠ " + err.message, "err");
+    }
+  });
+  $("panel").classList.add("open");
+  draw();
 }
 
 // ---------- Добавление объектов и связей, удаление ----------
@@ -1321,6 +1484,7 @@ async function deleteNode(n) {
     edges = edges.filter(e => !gone.has(e.id));
     for (const eid of gone) edgeById.delete(eid);
     invalidateServiceLinks();
+    applyServiceLinkState(resp);   // извилистые линии узла сервер снял каскадом
     applyTotals(resp);
     updateStats();
     closePanel();
@@ -1368,6 +1532,21 @@ function handleAddClick(sx, sy) {
     addMode = null;
     hideHint();
     openAddEdgeForm(edgeDraftA, n);
+    return;
+  }
+  if (addMode === "svc-a") {
+    if (!n || n.kind === "external") return;
+    edgeDraftA = n;
+    addMode = "svc-b";
+    showHint(`Извилистая линия: ${n.name || n.id} → кликните второй узел (Esc — отмена)`);
+    draw();
+    return;
+  }
+  if (addMode === "svc-b") {
+    if (!n || n === edgeDraftA || n.kind === "external") return;
+    addMode = null;
+    hideHint();
+    openAddServiceLinkForm(edgeDraftA, n);
   }
 }
 
@@ -1385,6 +1564,18 @@ $("btnAddEdge").addEventListener("click", () => {
   showHint("Связь: кликните ПЕРВЫЙ узел (Esc — отмена)");
 });
 
+$("btnAddSvc").addEventListener("click", () => {
+  edgeDraftA = edgeDraftB = null;
+  addMode = "svc-a";
+  closePanel();
+  // Рисовать линию при выключенном слое бессмысленно — сразу включаем его.
+  if (!filters.pon) {
+    filters.pon = true;
+    $("fPon").checked = true;
+  }
+  showHint("Извилистая линия: кликните ПЕРВЫЙ узел, обычно OLT или АТС (Esc — отмена)");
+});
+
 document.addEventListener("keydown", (ev) => {
   if (ev.key === "Escape" && addMode) cancelAddMode();
 });
@@ -1394,6 +1585,7 @@ function setEditMode(on) {
   $("btnEdit").classList.toggle("active", editMode);
   $("btnAddNode").classList.toggle("visible", editMode);
   $("btnAddEdge").classList.toggle("visible", editMode);
+  $("btnAddSvc").classList.toggle("visible", editMode);
   if (!editMode) cancelAddMode();
   // Правка меняет реальные x/y узлов — масштаб по км (виртуальные координаты)
   // в этот момент только мешал бы, поэтому на время правки отключаем его.
@@ -1404,6 +1596,7 @@ function setEditMode(on) {
   // перерисовать открытую панель уже с полями/без полей редактирования
   if (selected) openPanel(selected);
   else if (selectedEdge) openEdgePanel(selectedEdge);
+  else if (selectedService) openServiceLinkPanel(selectedService);
 }
 
 $("btnEdit").addEventListener("click", () => setEditMode(!editMode));
@@ -1412,6 +1605,11 @@ $("panelClose").addEventListener("click", closePanel);
 $("pEdges").addEventListener("click", (ev) => {
   const item = ev.target.closest(".edge-item");
   if (!item) return;
+  if (item.dataset.svc) {
+    const L = (serviceLinks || []).find(x => x.id === item.dataset.svc);
+    if (L) openServiceLinkPanel(L);
+    return;
+  }
   const n = nodeById.get(item.dataset.node);
   if (n) { zoomTo(n, Math.max(view.s, 1.4)); openPanel(n); }
 });
@@ -1531,12 +1729,17 @@ window.addEventListener("mousemove", (ev) => {
   if (sx < 0 || sy < 0 || sx > r.width || sy > r.height) return;
   const n = pickNode(sx, sy);
   const e = n ? null : pickEdge(sx, sy);
-  const newHover = n ? { kind: "node", obj: n } : e ? { kind: "edge", obj: e } : null;
+  // Извилистые линии — последний приоритет: они декоративные и лежат под рёбрами.
+  const sv = (n || e) ? null : pickServiceLink(sx, sy);
+  const newHover = n ? { kind: "node", obj: n }
+    : e ? { kind: "edge", obj: e }
+    : sv ? { kind: "svc", obj: sv } : null;
   const changed = JSON.stringify(hover && hover.obj.id) !== JSON.stringify(newHover && newHover.obj.id);
   hover = newHover;
   if (hover) {
     canvas.style.cursor = editMode && hover.kind === "node" ? "move" : "pointer";
-    showTooltip(sx, sy, hover.kind === "node" ? nodeTooltip(hover.obj) : edgeTooltip(hover.obj));
+    showTooltip(sx, sy, hover.kind === "node" ? nodeTooltip(hover.obj)
+      : hover.kind === "svc" ? svcTooltip(hover.obj) : edgeTooltip(hover.obj));
   } else {
     canvas.style.cursor = "grab";
     tooltip.style.display = "none";
@@ -1568,7 +1771,9 @@ window.addEventListener("mouseup", (ev) => {
     const n = pickNode(sx, sy);
     if (n) { openPanel(n); return; }
     const e = pickEdge(sx, sy);
-    if (e && !e.external) openEdgePanel(e);
+    if (e && !e.external) { openEdgePanel(e); return; }
+    const sv = e ? null : pickServiceLink(sx, sy);
+    if (sv) openServiceLinkPanel(sv);
     else closePanel();
   }
 });
@@ -1606,7 +1811,14 @@ $("fMufta").addEventListener("change", (ev) => { filters.mufta = ev.target.check
 $("fExisting").addEventListener("change", (ev) => { filters.existing = ev.target.checked; draw(); });
 $("fPlanned").addEventListener("change", (ev) => { filters.planned = ev.target.checked; draw(); });
 $("fDemo").addEventListener("change", (ev) => { filters.demo = ev.target.checked; draw(); });
-$("fPon").addEventListener("change", (ev) => { filters.pon = ev.target.checked; draw(); });
+$("fPon").addEventListener("change", (ev) => {
+  filters.pon = ev.target.checked;
+  // Слой выключили — панель открытой извилистой линии закрываем, а список
+  // таких линий в панели узла перерисовываем (он есть только при включённом слое).
+  if (!filters.pon && selectedService) closePanel();
+  else if (selected) openPanel(selected);
+  else draw();
+});
 $("fScaleKm").addEventListener("change", (ev) => {
   if (ev.target.checked && editMode) setEditMode(false);
   setScaleMode(ev.target.checked);
