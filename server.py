@@ -1,19 +1,30 @@
-"""HTTP-сервер вьюера: статика graph-vis + /api/progress из PostgreSQL
+"""HTTP-сервер вьюера: статика graph-vis + /api/progress
 + /api/graph/edit — редактирование графа с фронта (названия, плановые км)
 с автосохранением в zhambyl-graph.json.
 
-Деплой — где угодно, откуда доступен Postgres на AWS (например, на той же
-машине, где БД); серверу бота внешние порты НЕ нужны — он сюда не ходит.
-Без БД сервер тоже стартует: вьюер и редактирование графа работают,
-а /api/progress отвечает 503 (прогресс появится, когда БД доступна).
+Откуда берётся прогресс — ДВА источника, по ситуации:
+
+  1. PUSH от бота (основной с 2026-07): Postgres переехал на сервер бота,
+     который не принимает входящих соединений, поэтому этот сервис (Railway)
+     до БД достучаться не может. Вместо этого бот сам присылает полный снимок
+     строк на POST /api/progress/push с ключом X-Push-Key (сразу после
+     подтверждения/правки отчёта + фоновым циклом раз в 5 минут — см.
+     app/services/graphvis.py в репозитории бота). Снимок хранится в памяти и
+     в DATA_DIR/progress-rows.json (переживает рестарт, если DATA_DIR — volume).
+     Присланные данные ПРИОРИТЕТНЕЕ прямого доступа к БД.
+
+  2. Прямой SQL из PostgreSQL (как раньше) — если задан DATABASE_URL и БД
+     достижима (локальный запуск на той же машине, где база). Без БД и без
+     push сервер тоже стартует: вьюер и редактирование графа работают,
+     а /api/progress отвечает 503, пока не придёт первый push.
 
     export DATABASE_URL=postgresql://user:pass@host:5432/db   # или ../.env
     pip install -r requirements.txt
     uvicorn server:app --host 0.0.0.0 --port 8080
 
 Фронт (graph-app.js) поллит GET /api/progress раз в 30 сек; ответ кэшируется
-на CACHE_TTL сек, а пересчитывается только если в БД появились новые строки
-(дешёвая проверка по max(id)/count) — нагрузка на Postgres копеечная.
+и пересчитывается только когда пришёл новый push (или, в режиме БД, когда в
+БД появились новые строки — дешёвая проверка по max(id)/count).
 """
 import asyncio
 import json
@@ -103,6 +114,36 @@ graph = Graph(GRAPH_PATH)
 pool: asyncpg.Pool | None = None
 _cache = {"t": 0.0, "etag": None, "payload": None}
 _edit_lock = asyncio.Lock()  # правки графа сериализуем: файл один на всех
+
+# ---------------------------------------------------------------------------
+# Снимок прогресса, присланный ботом (POST /api/progress/push) — источник №1
+# (см. докстринг модуля). Хранится и на диске: DATA_DIR на Railway — volume,
+# поэтому снимок переживает рестарт и передеплой сервиса.
+# ---------------------------------------------------------------------------
+ROWS_PATH = DATA_DIR / "progress-rows.json"
+
+# Общий секрет с ботом (GRAPHVIS_PUSH_KEY на его стороне). Дефолт — как у
+# EDIT_PASSWORD: переменная окружения переопределяет, пустая строка не
+# отключает защиту.
+PUSH_KEY = os.environ.get("PUSH_KEY", "") or "1973"
+
+_pushed: dict = {"rows": None, "at": None}  # at — ISO-время последнего push
+
+
+def _load_pushed_rows() -> None:
+    """Поднять последний присланный снимок с диска (после рестарта)."""
+    if not ROWS_PATH.exists():
+        return
+    try:
+        data = json.loads(ROWS_PATH.read_text(encoding="utf-8"))
+        _pushed.update(rows=data["rows"], at=data.get("at"))
+        log.info("Снимок прогресса загружен с диска: %d строк (push от %s)",
+                 len(data["rows"]), data.get("at"))
+    except Exception:  # noqa: BLE001 — битый файл не должен ронять сервер
+        log.exception("Не удалось прочитать %s — ждём новый push", ROWS_PATH)
+
+
+_load_pushed_rows()
 
 
 @asynccontextmanager
@@ -217,20 +258,61 @@ async def graph_login(req: LoginRequest, request: Request):
 
 @app.get("/api/health")
 async def health():
+    if _pushed["rows"] is not None:
+        return {"ok": True, "source": "push", "pushedAt": _pushed["at"],
+                "rows": len(_pushed["rows"])}
     if pool is None:
-        raise HTTPException(503, "db: подключение не настроено (DATABASE_URL)")
+        raise HTTPException(503, "нет данных: не было push от бота, "
+                                 "БД не настроена (DATABASE_URL)")
     try:
         async with pool.acquire() as con:
             await con.fetchval("SELECT 1")
-        return {"ok": True}
+        return {"ok": True, "source": "db"}
     except Exception as e:  # noqa: BLE001 — health должен отвечать, а не падать
         raise HTTPException(503, f"db: {e}")
 
 
+class PushRequest(BaseModel):
+    rows: list[dict]
+
+
+@app.post("/api/progress/push")
+async def progress_push(req: PushRequest, request: Request):
+    """Приём снимка прогресса от бота (см. докстринг модуля, источник №1).
+
+    Каждый push — ПОЛНЫЙ снимок (не дельта): просто замещаем прежний. Формат
+    строк — тот же, что возвращает SQL_ROWS, только даты ISO-строками
+    (compute_progress понимает их как есть)."""
+    if request.headers.get("X-Push-Key", "") != PUSH_KEY:
+        raise HTTPException(401, "неверный X-Push-Key")
+    at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    _pushed.update(rows=req.rows, at=at)
+    try:
+        _atomic_write(ROWS_PATH, json.dumps({"at": at, "rows": req.rows},
+                                            ensure_ascii=False))
+    except Exception:  # noqa: BLE001 — диск только для рестартов, память важнее
+        log.exception("Снимок прогресса принят, но не сохранился в %s", ROWS_PATH)
+    _cache.update(t=0.0, etag=None, payload=None)
+    log.info("Push прогресса от бота: %d строк", len(req.rows))
+    return {"ok": True, "rows": len(req.rows), "at": at}
+
+
 @app.get("/api/progress")
 async def progress():
+    # Источник №1: снимок, присланный ботом, — приоритетнее прямого SQL.
+    if _pushed["rows"] is not None:
+        etag = f"push:{_pushed['at']}:{len(_pushed['rows'])}"
+        if _cache["payload"] is not None and _cache["etag"] == etag:
+            return _cache["payload"]
+        payload = compute_progress(graph, _pushed["rows"])
+        payload["version"] = etag
+        payload["updatedAt"] = _pushed["at"]
+        _cache.update(t=time.time(), etag=etag, payload=payload)
+        return payload
+
+    # Источник №2: прямой SQL (локальный запуск рядом с БД, как раньше).
     if pool is None:
-        raise HTTPException(503, "БД не подключена — прогресс недоступен")
+        raise HTTPException(503, "нет данных: не было push от бота, БД не подключена")
     now = time.time()
     if _cache["payload"] is not None and now - _cache["t"] < CACHE_TTL:
         return _cache["payload"]
