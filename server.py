@@ -282,7 +282,10 @@ async def progress_push(req: PushRequest, request: Request):
 
     Каждый push — ПОЛНЫЙ снимок (не дельта): просто замещаем прежний. Формат
     строк — тот же, что возвращает SQL_ROWS, только даты ISO-строками
-    (compute_progress понимает их как есть)."""
+    (compute_progress понимает их как есть). Дополнительно строки могут нести
+    graph_from_node/graph_to_node — привязку участка к узлам графа, вычисленную
+    ботом и подтверждённую работником: compute_progress использует её вместо
+    фаззи-поиска (правило 0 в progress_core)."""
     if request.headers.get("X-Push-Key", "") != PUSH_KEY:
         raise HTTPException(401, "неверный X-Push-Key")
     at = datetime.now(timezone.utc).isoformat(timespec="seconds")

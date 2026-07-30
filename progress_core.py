@@ -8,9 +8,15 @@
                        (для debug-панели) + список непривязанных.
 
 Правила привязки одного отчёта:
-  1. «Куда» = settlement_name (или direction_to / имя объекта из справочника),
-     «откуда» = direction_from. Оба резолвятся нечётким поиском по узлам графа
-     (порог 60/100, бонус СНП и совпадению района).
+  0. Если строка отчёта несёт ПРИВЯЗКУ ОТ БОТА (graph_from_node/graph_to_node —
+     id узлов графа, вычисленные ботом и подтверждённые работником в чате при
+     сохранении отчёта) — используется она, фаззи-поиск не применяется вовсе.
+  1. Иначе «куда» = settlement_name (или direction_to / имя объекта из
+     справочника), «откуда» = direction_from. Оба резолвятся нечётким поиском
+     по узлам графа (порог 60/100, бонус СНП и совпадению района, штраф за
+     явно чужой район). ОГРАНИЧИТЕЛЬ: назначение со счётом ниже BIND_MIN не
+     привязывается — отчёт уходит в unmatched (см. промах #76: «Дикан» из
+     Жуалинского района ложился на «Қызылдикан → М 7» в Сарысуйском).
   2. Если «откуда» — на деле само село-назначение (работник пишет участок как
      «село — муфта»: «Кунбатыс — М3» при объекте «Күнбатыс 2», без номера имя
      матчится на назначение не хуже, чем на любого тёзку) либо «откуда» не
@@ -35,7 +41,7 @@ import heapq
 import json
 from pathlib import Path
 
-from matcher import match_score, normalize_name
+from matcher import districts_compatible, match_score, normalize_name
 
 # Показатели, означающие километры магистрали. Порядок = приоритет:
 # для прогресс-бара берётся ПЕРВЫЙ заполненный в отчёте.
@@ -43,6 +49,14 @@ KM_PRIORITY = ("vok_microcable", "pet_microtube", "trench", "trench_total", "sig
 KM_METRICS = list(KM_PRIORITY)
 
 MATCH_THRESHOLD = 60
+# СТРОГИЙ ОГРАНИЧИТЕЛЬ ПРИВЯЗКИ: чтобы км легли на ребро, назначение должно
+# быть найдено С УВЕРЕННОСТЬЮ не ниже этого счёта (после бонусов). Точное
+# совпадение, префикс, пословное включение и опечатка в 1 букву дают ≥86;
+# случайное вхождение внутри чужого названия («дикан» ⊂ «кызылдикан») — ≤69
+# и через порог не проходит. Сомнительный отчёт уходит в unmatched (виден в
+# debug-панели), а НЕ ложится молча на чужое ребро. Порог не действует, когда
+# привязка (id узлов) пришла от бота — её подтвердил сам работник в чате.
+BIND_MIN = 75
 _EPS = 1e-9
 TRACE_LIMIT = 300  # сколько последних отчётов держим в trace для debug-панели
 
@@ -73,8 +87,12 @@ class Graph:
             return 0
         if n.get("kind") == "snp":
             sc += 6
-        if dn and ndn and (dn in ndn or ndn in dn):
-            sc += 8
+        # Район отчёта известен и у узла тоже: совпал — бонус, ЯВНО ЧУЖОЙ —
+        # штраф (кандидат из другого района должен проигрывать местному даже
+        # при чуть худшем совпадении названия: участок работ не прыгает через
+        # районы, см. промах #76 — «Дикан» уезжал в Сарысуйский район).
+        if dn and ndn:
+            sc += 8 if districts_compatible(dn, ndn) else -15
         return sc
 
     def find_node(self, name: str | None, district: str | None = None,
@@ -169,6 +187,40 @@ class Graph:
         return path
 
 
+def resolve_report_endpoints(graph: Graph, to_raw, from_raw, alt_from_raw,
+                             district) -> tuple[dict | None, int, dict | None, int]:
+    """Резолв обоих концов участка отчёта по названиям — ЕДИНАЯ точка правды.
+
+    Используется в двух местах: здесь (compute_progress, фаззи-фолбэк для
+    отчётов без привязки) и БОТОМ (app/services/graphbind.py импортирует этот
+    модуль), который делает ту же привязку заранее — при подтверждении отчёта
+    работником. Логика обязана совпадать, иначе бот показал бы работнику один
+    участок, а вьюер нарисовал бы другой.
+
+    Возвращает (to_node, to_sc, from_node, from_sc); from_node=None — «откуда»
+    не найден или это на деле само назначение (см. правило 2 в докстринге)."""
+    to_node, to_sc = graph.find_node_scored(to_raw, district)
+    if to_node is None:
+        return None, 0, None, 0
+    from_node, from_sc = (graph.find_node_scored(from_raw, district,
+                                                 near_id=to_node["id"])
+                          if from_raw else (None, 0))
+    # «Откуда» — на деле само назначение («Кунбатыс — М3» при объекте
+    # «Күнбатыс 2»): имя без номера матчится на назначение не хуже, чем
+    # на лучшего кандидата, — не даём фаззи-поиску увести его на тёзку.
+    if from_node is not None and (
+            from_node["id"] == to_node["id"]
+            or graph.node_score(from_raw, district, to_node) >= from_sc):
+        from_node, from_sc = None, 0
+    # Настоящий второй конец тогда — alt_from (direction_to: муфта/АТС/село).
+    if from_node is None and alt_from_raw:
+        alt, alt_sc = graph.find_node_scored(alt_from_raw, district,
+                                             near_id=to_node["id"])
+        if alt is not None and alt["id"] != to_node["id"]:
+            from_node, from_sc = alt, alt_sc
+    return to_node, to_sc, from_node, from_sc
+
+
 def fill_along(path: list[dict], start_id: str, km: float) -> tuple[dict[str, dict], float]:
     """Разложить km по рёбрам маршрута последовательно, начиная со start_id.
 
@@ -221,6 +273,10 @@ def compute_progress(graph: Graph, rows: list[dict]) -> dict:
                         if r.get("direction_to") and r.get("direction_to") != to_raw
                         else None,
             "district": r.get("district_name") or r.get("object_district"),
+            # Привязка, вычисленная БОТОМ и подтверждённая работником в чате
+            # (id узлов графа) — приоритетнее любого фаззи-поиска по названиям.
+            "graph_from": r.get("graph_from_node"),
+            "graph_to": r.get("graph_to_node"),
             "reported_at": r.get("reported_at"),
             "submitted_at": r.get("submitted_at"),
             "metrics": {},
@@ -246,28 +302,38 @@ def compute_progress(graph: Graph, rows: list[dict]) -> dict:
         km = rep["metrics"][km_code]
         entry.update(km=km, metric=km_code)
 
-        to_node = graph.find_node(rep["to"], rep["district"])
-        if to_node is None:
-            trace.append({**entry, "ok": False, "reason": "назначение не найдено в графе"})
-            unmatched.append({"from": rep["from"], "to": rep["to"], "km": km,
+        # Привязка от бота (id узлов, подтверждены работником в чате) — если
+        # есть и узлы живы в графе, фаззи-поиск по названиям не нужен вовсе.
+        bound_to = graph.nodes.get(rep.get("graph_to") or "")
+        if bound_to is not None:
+            bound_from = graph.nodes.get(rep.get("graph_from") or "")
+            to_node, to_sc = bound_to, 100
+            from_node, from_sc = bound_from, (100 if bound_from else 0)
+            entry["bind"] = "bot"
+        else:
+            to_node, to_sc, from_node, from_sc = resolve_report_endpoints(
+                graph, rep["to"], rep["from"], rep.get("alt_from"),
+                rep["district"])
+            entry["bind"] = "fuzzy"
+            if to_node is None:
+                trace.append({**entry, "ok": False,
                               "reason": "назначение не найдено в графе"})
-            continue
-        from_node, from_sc = (graph.find_node_scored(rep["from"], rep["district"],
-                                                     near_id=to_node["id"])
-                              if rep["from"] else (None, 0))
-        # «Откуда» — на деле само назначение («Кунбатыс — М3» при объекте
-        # «Күнбатыс 2»): имя без номера матчится на назначение не хуже, чем
-        # на лучшего кандидата, — не даём фаззи-поиску увести его на тёзку.
-        if from_node is not None and (
-                from_node["id"] == to_node["id"]
-                or graph.node_score(rep["from"], rep["district"], to_node) >= from_sc):
-            from_node = None
-        # Настоящий второй конец тогда — direction_to (муфта/АТС/село).
-        if from_node is None and rep.get("alt_from"):
-            alt, _ = graph.find_node_scored(rep["alt_from"], rep["district"],
-                                            near_id=to_node["id"])
-            if alt is not None and alt["id"] != to_node["id"]:
-                from_node = alt
+                unmatched.append({"from": rep["from"], "to": rep["to"], "km": km,
+                                  "reason": "назначение не найдено в графе"})
+                continue
+            # ОГРАНИЧИТЕЛЬ (BIND_MIN): сомнительное назначение НЕ привязываем —
+            # лучше честный unmatched в debug-панели, чем км на чужом ребре.
+            if to_sc < BIND_MIN:
+                reason = (f"назначение сомнительно (лучший кандидат "
+                          f"«{to_node['name']}», счёт {to_sc}) — не привязано")
+                trace.append({**entry, "ok": False, "reason": reason})
+                unmatched.append({"from": rep["from"], "to": rep["to"], "km": km,
+                                  "reason": reason})
+                continue
+            # Сомнительное «откуда» маршрут не строит: без него сработает
+            # правило единственной плановой линии либо честный unmatched.
+            if from_node is not None and from_sc < BIND_MIN:
+                from_node = None
         entry.update(toNode=to_node["name"], toNodeId=to_node["id"],
                     fromNode=from_node["name"] if from_node else None,
                     fromNodeId=from_node["id"] if from_node else None)

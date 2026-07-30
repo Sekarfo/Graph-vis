@@ -56,14 +56,26 @@ function levenshtein(a, b) {
   return prev[n];
 }
 
-/** Схожесть запроса и названия: 0..100. Учитывает точное совпадение,
- *  префикс, вхождение и расстояние Левенштейна по нормализованным строкам. */
+/** Схожесть запроса и названия: 0..100. Порт matcher.py (двойники обязаны
+ *  давать одинаковый счёт): точное совпадение > префикс > пословное включение
+ *  («момышулы» ⊆ «бауыржан момышулы») > вхождение по границе слова > опечатка
+ *  в 1 букву > вхождение ВНУТРИ слова («дикан» ⊂ «кызылдикан» — слабый
+ *  сигнал, 55) > Левенштейн. */
 function matchScore(qNorm, nameNorm) {
   if (!qNorm || !nameNorm) return 0;
   if (nameNorm === qNorm) return 100;
   if (nameNorm.startsWith(qNorm)) return 92 - Math.min(10, nameNorm.length - qNorm.length);
-  if (nameNorm.includes(qNorm)) return 80;
+  const qWords = qNorm.split(" "), nWords = nameNorm.split(" ");
+  const inner = qWords.length <= nWords.length ? qWords : nWords;
+  const outer = inner === qWords ? nWords : qWords;
+  if (inner.join("").length >= 4 && inner.every(w => outer.includes(w))) return 86;
+  if (nameNorm.includes(qNorm)) {
+    const esc = qNorm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp("(?:^| )" + esc + "(?: |$)").test(nameNorm) ? 80 : 55;
+  }
   const d = levenshtein(qNorm, nameNorm);
+  if (d === 1 && qNorm.length >= 4) return 90;
+  if (d === 2 && qNorm.length >= 7) return 78;
   const sim = 1 - d / Math.max(qNorm.length, nameNorm.length);
   return Math.round(sim * 75);
 }
