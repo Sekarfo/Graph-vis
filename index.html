@@ -286,6 +286,7 @@ canvas.dragging { cursor: grabbing; }
     <div class="search-results" id="searchResults"></div>
   </div>
   <div class="controls">
+    <select id="graphSel" title="Область (граф)" style="display:none"></select>
     <select id="districtSel" title="Фильтр по району"><option value="">Все районы</option></select>
     <label class="chk"><input type="checkbox" id="fMufta" checked> муфты</label>
     <label class="chk"><input type="checkbox" id="fExisting" checked> сущ. ВОЛС</label>
@@ -358,12 +359,11 @@ canvas.dragging { cursor: grabbing; }
       <p>Откройте страницу через локальный сервер:</p>
       <p><code>cd graph-vis</code> &nbsp; затем &nbsp; <code>python -m http.server 8000</code></p>
       <p>и перейдите на <code>http://localhost:8000</code></p>
-      <p>Либо сгенерируйте <code>graph-data.js</code> (см. README).</p>
+      <p>Либо сгенерируйте fallback: <code>python scripts/build_fallback.py</code> (см. README).</p>
     </div>
   </div>
 </div>
 
-<script src="graph-data.js" onerror="void 0"></script>
 <script src="graph-app.js"></script>
 </body>
 </html>

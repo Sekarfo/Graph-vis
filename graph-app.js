@@ -1,5 +1,9 @@
-/* Жамбылская область — интерактивный вьюер графа ВОЛС.
- * Данные: zhambyl-graph.json (fetch) или graph-data.js (window.GRAPH_DATA, для file://).
+/* Интерактивный вьюер графа ВОЛС (областей несколько — см. GRAPH_SLUG).
+ * Данные: regions/<slug>.json (fetch) — этот путь совпадает 1:1 с реальным
+ * файлом в репозитории, поэтому работает и через server.py (роут отдаёт
+ * актуальную DATA_DIR-копию), и при простом file:// (браузер читает файл
+ * прямо с диска, без сервера вообще). Fallback на file:// при заблокированном
+ * fetch() — regions/<slug>.fallback.js (window.GRAPH_DATA_BY_SLUG[slug]).
  * Прогресс: опциональный progress.json — { "edges": { "<edgeId>": { "doneKm": 1.5 } } }
  *           или { "edges": { "<edgeId>": { "progress": 0.5 } } } (доля 0..1).
  */
@@ -9,6 +13,19 @@
 // ---------- Утилиты ----------
 const $ = (id) => document.getElementById(id);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+// ---------- Выбор графа (области) ----------
+// slug графа из ?graph=…; без параметра — дефолтный жамбылский (старые ссылки
+// работают как раньше). Реестр графов живёт на сервере (GET /api/graphs).
+const DEFAULT_GRAPH_SLUG = "zhambyl";
+const GRAPH_SLUG = (() => {
+  const p = new URLSearchParams(location.search).get("graph");
+  return (p && /^[a-z0-9-]+$/.test(p)) ? p : DEFAULT_GRAPH_SLUG;
+})();
+const GRAPH_FILE = "regions/" + GRAPH_SLUG + ".json"; // для сообщений «сохранено в …»
+// Добавить graph=<slug> к пути API — сервер по нему выбирает граф.
+const graphUrl = (path) =>
+  path + (path.includes("?") ? "&" : "?") + "graph=" + encodeURIComponent(GRAPH_SLUG);
 
 function cssVar(name) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -84,13 +101,26 @@ function matchScore(qNorm, nameNorm) {
 window.snpMatcher = { normalizeName, levenshtein, matchScore };
 
 // ---------- Загрузка данных ----------
+// Fallback для file:// (fetch() к локальному файлу браузер обычно блокирует
+// по CORS): подключаем regions/<slug>.fallback.js тегом <script> — так
+// локальные скрипты грузятся и с file://; он кладёт данные в
+// window.GRAPH_DATA_BY_SLUG[slug].
+function loadFallbackDataJs(slug) {
+  return new Promise((resolve) => {
+    const s = document.createElement("script");
+    s.src = "regions/" + slug + ".fallback.js";
+    s.onload = () => resolve((window.GRAPH_DATA_BY_SLUG || {})[slug] || null);
+    s.onerror = () => resolve(null);
+    document.head.appendChild(s);
+  });
+}
+
 async function loadGraph() {
   try {
-    const r = await fetch("zhambyl-graph.json");
+    const r = await fetch("regions/" + GRAPH_SLUG + ".json");
     if (r.ok) return await r.json();
   } catch (e) { /* file:// или сеть — пробуем fallback */ }
-  if (window.GRAPH_DATA) return window.GRAPH_DATA;
-  return null;
+  return await loadFallbackDataJs(GRAPH_SLUG);
 }
 
 async function fetchJsonQuiet(url) {
@@ -103,13 +133,15 @@ async function fetchJsonQuiet(url) {
 
 // Прогресс: сперва живой API (server.py), иначе статичный progress.json.
 async function loadProgress() {
-  return (await fetchJsonQuiet("api/progress")) || (await fetchJsonQuiet("progress.json"));
+  return (await fetchJsonQuiet(graphUrl("api/progress"))) || (await fetchJsonQuiet("progress.json"));
 }
 
 // ---------- Состояние ----------
 // Узлы вне Жамбылской области, попавшие в данные с чертежа: Жартас (N0250)
 // на ПДФ стоит за границей области — это Жамбылский район Алматинской обл.
-const EXCLUDE_NODE_IDS = new Set(["N0250"]);
+// Исключение действует только на жамбылском графе.
+const EXCLUDE_NODE_IDS = GRAPH_SLUG === DEFAULT_GRAPH_SLUG
+  ? new Set(["N0250"]) : new Set();
 
 let DATA = null;
 let nodes = [], edges = [], nodeById = new Map();
@@ -390,7 +422,7 @@ function liveError() {
 }
 
 async function pollProgress() {
-  const api = await fetchJsonQuiet("api/progress");
+  const api = await fetchJsonQuiet(graphUrl("api/progress"));
   if (api) { applyProgress(api, "api"); return; }
   liveError();
 }
@@ -1152,7 +1184,7 @@ function closePanel() {
   draw();
 }
 
-// ---------- Редактирование графа (автосохранение в zhambyl-graph.json) ----------
+// ---------- Редактирование графа (автосохранение в JSON текущего графа) ----------
 // Сессия правки: если сервер запущен с EDIT_PASSWORD (см. server.py —
 // публичная ссылка без другой авторизации), правка требует токен сессии,
 // который выдаёт POST /api/graph/login по паролю. Токен держим в
@@ -1181,7 +1213,9 @@ async function graphLogin(password) {
 }
 
 async function apiPost(path, body) {
-  const doFetch = () => fetch(path, {
+  // graph=<slug> добавляется здесь, единой точкой — все правки уходят
+  // в тот граф, который открыт на странице.
+  const doFetch = () => fetch(graphUrl(path), {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Edit-Token": getEditToken() },
     body: JSON.stringify(body),
@@ -1244,7 +1278,7 @@ async function saveNodeEdits(n) {
     if ("connectionCount" in fields) n.connectionCount = fields.connectionCount;
     n._norm = normalizeName(n.name);   // чтобы поиск сразу находил новое название
     $("pName").textContent = n.name || "(без названия)";
-    setEditMsg("✅ Сохранено в zhambyl-graph.json", "ok");
+    setEditMsg("✅ Сохранено в " + GRAPH_FILE, "ok");
     draw();
   } catch (err) {
     setEditMsg("⚠ " + err.message, "err");
@@ -1278,7 +1312,7 @@ async function saveEdgeEdits(e) {
     const resp = await saveGraphEdit("edge", e.id, { lengthKm: val });
     e.lengthKm = resp.applied.lengthKm;
     applyTotals(resp);
-    setEditMsg("✅ Сохранено в zhambyl-graph.json", "ok");
+    setEditMsg("✅ Сохранено в " + GRAPH_FILE, "ok");
     updateStats();
     draw();
   } catch (err) {
@@ -1854,6 +1888,32 @@ if (window.matchMedia) {
 
 window.addEventListener("resize", resize);
 
+// ---------- Селектор области (списка графов) ----------
+// Список графов приходит с сервера (GET /api/graphs). Без сервера (file://)
+// или с единственным графом селектор остаётся скрытым.
+async function initGraphSelector() {
+  const sel = $("graphSel");
+  if (!sel) return;
+  const list = await fetchJsonQuiet("api/graphs");
+  if (!list || !Array.isArray(list.graphs) || list.graphs.length < 2) return;
+  sel.innerHTML = "";
+  for (const g of list.graphs) {
+    const o = document.createElement("option");
+    o.value = g.slug;
+    o.textContent = g.title || g.region || g.slug;
+    sel.appendChild(o);
+  }
+  sel.value = GRAPH_SLUG;
+  sel.style.display = "";
+  sel.addEventListener("change", () => {
+    const p = new URLSearchParams(location.search);
+    if (sel.value === (list.default || DEFAULT_GRAPH_SLUG)) p.delete("graph");
+    else p.set("graph", sel.value);
+    p.delete("district"); // фильтр района чужой области не имеет смысла
+    location.search = p.toString(); // перезагрузка страницы с новым графом
+  });
+}
+
 // ---------- Старт ----------
 (async () => {
   const [graph, progress] = await Promise.all([loadGraph(), loadProgress()]);
@@ -1862,6 +1922,14 @@ window.addEventListener("resize", resize);
     return;
   }
   DATA = graph;
+  // Заголовок страницы — из meta.region загруженного графа.
+  const region = (graph.meta && graph.meta.region) || "";
+  if (region) {
+    document.title = region + " — граф ВОЛС";
+    const h1 = document.querySelector("header h1");
+    if (h1) h1.textContent = region + " — план ВОЛС";
+  }
+  initGraphSelector();
   refreshColors();
   prepare(graph);
   repositionNodePanel();

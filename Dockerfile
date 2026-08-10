@@ -10,7 +10,11 @@ COPY requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir --upgrade pip \
 	&& pip install --no-cache-dir -r requirements.txt
 
-COPY server.py progress_core.py matcher.py graph-app.js graph-data.js index.html zhambyl-graph.json entrypoint.py ./
+COPY server.py progress_core.py matcher.py schema.py graph-app.js index.html entrypoint.py ./
+# Графы (по областям) — сервер сам находит их сканированием regions/
+# (см. discover_graphs() в server.py): новая область появляется в образе
+# просто новым файлом, Dockerfile трогать не нужно.
+COPY regions/ ./regions/
 
 RUN useradd --create-home --home-dir /home/app --shell /usr/sbin/nologin appuser \
 	&& chown -R appuser:appuser /app

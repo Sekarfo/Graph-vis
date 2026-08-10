@@ -1,6 +1,20 @@
 """HTTP-сервер вьюера: статика graph-vis + /api/progress
 + /api/graph/edit — редактирование графа с фронта (названия, плановые км)
-с автосохранением в zhambyl-graph.json.
+с автосохранением в JSON-файл графа.
+
+ГРАФОВ НЕСКОЛЬКО (по областям): каждый — файл regions/<slug>.json с блоком
+meta.registry {slug, title, idPrefix} — сервер САМ находит все графы
+сканированием REGIONS_DIR (см. discover_graphs()), никакого общего реестра
+в коде нет. Это осознанное решение ради параллельной работы: если бы список
+графов был хардкожен здесь одним словарём (как раньше), два человека,
+добавляющие каждый свою область в один и тот же PR-поток, гарантированно
+получали бы конфликт слияния на одной и той же строке. Теперь добавление
+области — это только новый файл, который никого не трогает; см. CONTRIBUTING.md
+и scripts/new_region.py.
+
+Все API принимают query-параметр ?graph=<slug>; без него работает дефолтный
+жамбылский граф — старые ссылки и старый фронт ничего не замечают. Список для
+селектора на фронте отдаёт GET /api/graphs, файл графа — GET /graphs/<slug>.json.
 
 Откуда берётся прогресс — ДВА источника, по ситуации:
 
@@ -45,7 +59,9 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from matcher import districts_compatible, normalize_name
 from progress_core import KM_METRICS, Graph, compute_progress
+from schema import EDGE_FIELDS, EDGE_TYPES, EQUIP_SUBTYPES, NODE_FIELDS, NODE_KINDS, SNP_SUBTYPES
 
 log = logging.getLogger("graph-viewer")
 
@@ -61,14 +77,134 @@ BASE = Path(__file__).parent
 # а не из статики BASE, иначе фронт продолжал бы видеть неизменный файл из образа.
 DATA_DIR = Path(os.environ.get("DATA_DIR", str(BASE)))
 DATA_DIR.mkdir(parents=True, exist_ok=True)
-GRAPH_PATH = DATA_DIR / "zhambyl-graph.json"
-DATA_JS_PATH = DATA_DIR / "graph-data.js"
-if DATA_DIR != BASE and not GRAPH_PATH.exists():
-    # Первый запуск с пустым volume — сидируем граф, поставляемый с образом.
-    import shutil
-    shutil.copy(BASE / "zhambyl-graph.json", GRAPH_PATH)
-    if (BASE / "graph-data.js").exists():
-        shutil.copy(BASE / "graph-data.js", DATA_JS_PATH)
+
+# ---------------------------------------------------------------------------
+# Графы (по областям) — АВТООБНАРУЖЕНИЕ, никакого хардкоженного реестра.
+# Каждая область — файл regions/<slug>.json (код) / DATA_DIR/regions/<slug>.json
+# (данные на Railway-volume) со своим блоком meta.registry {slug, title,
+# idPrefix}; slug в имени файла и в meta.registry.slug обязаны совпадать —
+# страховка от опечатки при копипасте шаблона. idPrefix — префикс id новых
+# узлов, ОБЯЗАН быть уникален среди всех графов (иначе id из разных графов
+# могли бы совпасть, а привязка graph_from_node/graph_to_node от бота работает
+# по принципу «оба id есть в этом графе» — коллизия молча увела бы км в чужую
+# область). Собрать новый скелет области: scripts/new_region.py; проверить
+# файл перед коммитом: scripts/validate_region.py — обе команды описаны в
+# CONTRIBUTING.md.
+# ---------------------------------------------------------------------------
+DEFAULT_GRAPH = "zhambyl"
+CODE_REGIONS_DIR = BASE / "regions"
+DATA_REGIONS_DIR = DATA_DIR / "regions"
+DATA_REGIONS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+class GraphState:
+    """Всё состояние одного графа: пути файлов, progress_core.Graph для
+    привязки прогресса, кэш /api/progress и лок правок. Правки разных
+    графов не блокируют друг друга."""
+
+    def __init__(self, slug: str, title: str, id_prefix: str, path: Path):
+        self.slug = slug
+        self.title = title
+        self.id_prefix = id_prefix
+        self.path = path
+        self.data_js_path = path.with_suffix("").with_suffix(".fallback.js")
+        self.edit_lock = asyncio.Lock()
+        self.cache: dict = {"t": 0.0, "etag": None, "payload": None}
+        self.graph: Graph | None = None
+        self.district_norms: set[str] = set()
+        self.reload()
+
+    def reload(self) -> None:
+        """Перечитать граф с диска (после правки) и сбросить кэш прогресса."""
+        self.graph = Graph(self.path)
+        self.district_norms = {
+            normalize_name(n.get("district"))
+            for n in self.graph.nodes.values() if n.get("district")
+        }
+        self.cache.update(t=0.0, etag=None, payload=None)
+
+
+def discover_graphs() -> dict[str, GraphState]:
+    """Сканирует DATA_REGIONS_DIR (сидируя её из CODE_REGIONS_DIR при первом
+    запуске на пустом volume) и строит {slug: GraphState} по файлам
+    regions/*.json. Битый/неполный файл одной области ЛОГИРУЕТСЯ и
+    пропускается — не должен ронять сервер и не должен мешать остальным
+    областям грузиться (см. докстринг модуля про параллельную работу)."""
+    if DATA_REGIONS_DIR != CODE_REGIONS_DIR:
+        import shutil
+        for src in sorted(CODE_REGIONS_DIR.glob("*.json")):
+            dst = DATA_REGIONS_DIR / src.name
+            if not dst.exists():
+                shutil.copy(src, dst)
+            js_src = src.with_suffix("").with_suffix(".fallback.js")
+            js_dst = DATA_REGIONS_DIR / js_src.name
+            if js_src.exists() and not js_dst.exists():
+                shutil.copy(js_src, js_dst)
+
+    states: dict[str, GraphState] = {}
+    seen_prefixes: dict[str, str] = {}
+    for path in sorted(DATA_REGIONS_DIR.glob("*.json")):
+        file_slug = path.stem
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            reg = data["meta"]["registry"]
+            slug, title, id_prefix = reg["slug"], reg["title"], reg["idPrefix"]
+        except Exception as e:  # noqa: BLE001 — один плохой файл не должен ронять сервер
+            log.warning("regions/%s пропущен: нет meta.registry или битый JSON (%s)",
+                       path.name, e)
+            continue
+        if slug != file_slug:
+            log.warning("regions/%s пропущен: meta.registry.slug=%r не совпадает "
+                       "с именем файла", path.name, slug)
+            continue
+        if id_prefix in seen_prefixes:
+            log.warning("regions/%s пропущен: idPrefix %r уже занят графом %r "
+                       "(id новых узлов пересеклись бы)", path.name, id_prefix,
+                       seen_prefixes[id_prefix])
+            continue
+        seen_prefixes[id_prefix] = slug
+        try:
+            states[slug] = GraphState(slug, title, id_prefix, path)
+        except Exception:  # noqa: BLE001
+            log.exception("regions/%s пропущен: граф не загрузился", path.name)
+    return states
+
+
+STATES: dict[str, GraphState] = discover_graphs()
+if DEFAULT_GRAPH not in STATES:
+    raise RuntimeError(
+        f"нет рабочего графа «{DEFAULT_GRAPH}» — проверьте "
+        f"regions/{DEFAULT_GRAPH}.json (scripts/validate_region.py покажет ошибку)")
+
+
+def _state(graph: str) -> GraphState:
+    st = STATES.get(graph)
+    if st is None:
+        raise HTTPException(404, f"неизвестный граф «{graph}» (есть: {', '.join(STATES)})")
+    return st
+
+
+def _rows_for(state: GraphState, rows: list[dict]) -> list[dict]:
+    """Какие строки прогресса скармливать этому графу.
+
+    Дефолтный (жамбылский) граф получает ВСЕ строки — ровно как до
+    мультиграфа, чтобы debug-панель показывала и непривязанное. Остальным
+    графам отдаём только строки их области: привязка от бота указывает на
+    узлы ЭТОГО графа либо район отчёта совместим с одним из районов графа.
+    Без фильтра сёла-тёзки (Жамбыл, Кайнар, Актобе есть в обеих областях)
+    через фаззи-поиск клали бы километры на чужую область."""
+    if state.slug == DEFAULT_GRAPH:
+        return rows
+    out = []
+    for r in rows:
+        gf, gt = r.get("graph_from_node"), r.get("graph_to_node")
+        if gf and gt and gf in state.graph.nodes and gt in state.graph.nodes:
+            out.append(r)
+            continue
+        dn = normalize_name(r.get("district_name") or r.get("object_district"))
+        if dn and any(districts_compatible(dn, g) for g in state.district_norms):
+            out.append(r)
+    return out
 
 CACHE_TTL = 10  # сек: чаще этого в БД не ходим, даже если фронтов много
 
@@ -110,10 +246,7 @@ def _database_url() -> str:
     raise RuntimeError("DATABASE_URL не задан (env или .env)")
 
 
-graph = Graph(GRAPH_PATH)
 pool: asyncpg.Pool | None = None
-_cache = {"t": 0.0, "etag": None, "payload": None}
-_edit_lock = asyncio.Lock()  # правки графа сериализуем: файл один на всех
 
 # ---------------------------------------------------------------------------
 # Снимок прогресса, присланный ботом (POST /api/progress/push) — источник №1
@@ -295,50 +428,66 @@ async def progress_push(req: PushRequest, request: Request):
                                             ensure_ascii=False))
     except Exception:  # noqa: BLE001 — диск только для рестартов, память важнее
         log.exception("Снимок прогресса принят, но не сохранился в %s", ROWS_PATH)
-    _cache.update(t=0.0, etag=None, payload=None)
+    for st in STATES.values():
+        st.cache.update(t=0.0, etag=None, payload=None)
     log.info("Push прогресса от бота: %d строк", len(req.rows))
     return {"ok": True, "rows": len(req.rows), "at": at}
 
 
+@app.get("/api/graphs")
+async def graphs_list():
+    """Список графов для селектора на фронте."""
+    return {
+        "default": DEFAULT_GRAPH,
+        "graphs": [
+            {"slug": st.slug, "title": st.title,
+             "region": st.graph.meta.get("region"),
+             "nodes": len(st.graph.nodes), "edges": len(st.graph.edges)}
+            for st in STATES.values()
+        ],
+    }
+
+
 @app.get("/api/progress")
-async def progress():
+async def progress(graph: str = DEFAULT_GRAPH):
+    st = _state(graph)
     # Источник №1: снимок, присланный ботом, — приоритетнее прямого SQL.
     if _pushed["rows"] is not None:
         etag = f"push:{_pushed['at']}:{len(_pushed['rows'])}"
-        if _cache["payload"] is not None and _cache["etag"] == etag:
-            return _cache["payload"]
-        payload = compute_progress(graph, _pushed["rows"])
+        if st.cache["payload"] is not None and st.cache["etag"] == etag:
+            return st.cache["payload"]
+        payload = compute_progress(st.graph, _rows_for(st, _pushed["rows"]))
         payload["version"] = etag
         payload["updatedAt"] = _pushed["at"]
-        _cache.update(t=time.time(), etag=etag, payload=payload)
+        st.cache.update(t=time.time(), etag=etag, payload=payload)
         return payload
 
     # Источник №2: прямой SQL (локальный запуск рядом с БД, как раньше).
     if pool is None:
         raise HTTPException(503, "нет данных: не было push от бота, БД не подключена")
     now = time.time()
-    if _cache["payload"] is not None and now - _cache["t"] < CACHE_TTL:
-        return _cache["payload"]
+    if st.cache["payload"] is not None and now - st.cache["t"] < CACHE_TTL:
+        return st.cache["payload"]
     async with pool.acquire() as con:
         et = await con.fetchrow(SQL_ETAG)
         etag = f"{et['wr_max']}:{et['rm_max']}:{et['rm_cnt']}"
-        if _cache["payload"] is not None and etag == _cache["etag"]:
-            _cache["t"] = now  # данных новых нет — продлеваем кэш без пересчёта
-            return _cache["payload"]
+        if st.cache["payload"] is not None and etag == st.cache["etag"]:
+            st.cache["t"] = now  # данных новых нет — продлеваем кэш без пересчёта
+            return st.cache["payload"]
         rows = [dict(r) for r in await con.fetch(SQL_ROWS, KM_METRICS)]
-    payload = compute_progress(graph, rows)
+    payload = compute_progress(st.graph, _rows_for(st, rows))
     payload["version"] = etag
     payload["updatedAt"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    _cache.update(t=now, etag=etag, payload=payload)
+    st.cache.update(t=now, etag=etag, payload=payload)
     return payload
 
 
 # ---------------------------------------------------------------------------
 # Редактирование графа с фронта (кнопка «✏️ Правка» во вьюере).
-# Меняем только белый список полей; всё остальное в JSON неприкосновенно.
+# Меняем только белый список полей (NODE_FIELDS/EDGE_FIELDS — см. schema.py,
+# x/y в NODE_FIELDS — это перетаскивание узлов мышью); всё остальное в JSON
+# неприкосновенно.
 # ---------------------------------------------------------------------------
-NODE_FIELDS = ("name", "connectionCount", "x", "y")  # x/y — перетаскивание узлов мышью
-EDGE_FIELDS = ("lengthKm",)
 
 
 class EditRequest(BaseModel):
@@ -384,19 +533,18 @@ def _atomic_write(path: Path, text: str) -> None:
     tmp.replace(path)
 
 
-def _persist(data: dict) -> tuple[float, float]:
+def _persist(st: GraphState, data: dict) -> tuple[float, float]:
     """Пересчитать meta.counts, атомарно сохранить мастер-JSON + fallback
-    graph-data.js, перечитать граф для привязки прогресса и сбросить кэш.
-    Вызывать только под _edit_lock."""
-    global graph
+    <slug>.fallback.js (для file://, все графы единообразно — см. GRAPH_DATA_BY_SLUG
+    во фронте), перечитать граф для привязки прогресса и сбросить кэш.
+    Вызывать только под st.edit_lock."""
     total_km, planned_km = _recompute_totals(data)
-    _atomic_write(GRAPH_PATH, json.dumps(data, ensure_ascii=False, indent=1))
-    _atomic_write(DATA_JS_PATH,
-                  "window.GRAPH_DATA = "
-                  + json.dumps(data, ensure_ascii=False, separators=(",", ":"))
-                  + ";")
-    graph = Graph(GRAPH_PATH)
-    _cache.update(t=0.0, etag=None, payload=None)
+    _atomic_write(st.path, json.dumps(data, ensure_ascii=False, indent=1))
+    compact = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    js = ("window.GRAPH_DATA_BY_SLUG = window.GRAPH_DATA_BY_SLUG || {};\n"
+          f"window.GRAPH_DATA_BY_SLUG[{json.dumps(st.slug)}] = " + compact + ";")
+    _atomic_write(st.data_js_path, js)
+    st.reload()
     return total_km, planned_km
 
 
@@ -434,7 +582,8 @@ def _clean_value(field: str, value):
 
 
 @app.post("/api/graph/edit")
-async def graph_edit(req: EditRequest):
+async def graph_edit(req: EditRequest, graph: str = DEFAULT_GRAPH):
+    st = _state(graph)
     allowed = NODE_FIELDS if req.kind == "node" else EDGE_FIELDS
     for f in req.fields:
         if f not in allowed:
@@ -442,8 +591,8 @@ async def graph_edit(req: EditRequest):
     if not req.fields:
         raise HTTPException(400, "нет полей для изменения")
 
-    async with _edit_lock:
-        data = json.loads(GRAPH_PATH.read_text(encoding="utf-8"))
+    async with st.edit_lock:
+        data = json.loads(st.path.read_text(encoding="utf-8"))
         coll = data["nodes"] if req.kind == "node" else data["edges"]
         item = next((x for x in coll if x.get("id") == req.id), None)
         if item is None:
@@ -452,20 +601,17 @@ async def graph_edit(req: EditRequest):
         applied = {}
         for f, v in req.fields.items():
             applied[f] = item[f] = _clean_value(f, v)
-        total_km, planned_km = _persist(data)
+        total_km, planned_km = _persist(st, data)
 
-    log.info("graph edit: %s %s %s", req.kind, req.id, applied)
+    log.info("graph edit [%s]: %s %s %s", st.slug, req.kind, req.id, applied)
     return {"ok": True, "kind": req.kind, "id": req.id, "applied": applied,
             "totals": {"totalKm": total_km, "plannedKm": planned_km}}
 
 
 # ---------------------------------------------------------------------------
-# Добавление объектов и связей (режим «➕» во вьюере).
+# Добавление объектов и связей (режим «➕» во вьюере). Допустимые kind/subtype/
+# type — NODE_KINDS/SNP_SUBTYPES/EQUIP_SUBTYPES/EDGE_TYPES из schema.py.
 # ---------------------------------------------------------------------------
-NODE_KINDS = ("snp", "ats", "olt", "atn", "netengine", "mufta")
-SNP_SUBTYPES = ("fiber", "wifi", "starlink", "outside")
-EQUIP_SUBTYPES = ("existing", "planned", "outside")
-EDGE_TYPES = ("existing", "planned", "outside_project", "no_free_fibers", "larger_capacity")
 
 
 class AddNodeRequest(BaseModel):
@@ -491,7 +637,8 @@ class DeleteRequest(BaseModel):
 
 
 @app.post("/api/graph/add-node")
-async def graph_add_node(req: AddNodeRequest):
+async def graph_add_node(req: AddNodeRequest, graph: str = DEFAULT_GRAPH):
+    st = _state(graph)
     allowed_sub = SNP_SUBTYPES if req.kind == "snp" else EQUIP_SUBTYPES
     if req.subtype not in allowed_sub:
         raise HTTPException(400, f"подтип «{req.subtype}» недопустим для {req.kind} "
@@ -501,10 +648,10 @@ async def graph_add_node(req: AddNodeRequest):
     if req.connectionCount is not None and req.connectionCount < 0:
         raise HTTPException(400, "connectionCount не может быть отрицательным")
 
-    async with _edit_lock:
-        data = json.loads(GRAPH_PATH.read_text(encoding="utf-8"))
+    async with st.edit_lock:
+        data = json.loads(st.path.read_text(encoding="utf-8"))
         node = {
-            "id": _new_id("N", {n["id"] for n in data["nodes"]}),
+            "id": _new_id(st.id_prefix, {n["id"] for n in data["nodes"]}),
             "kind": req.kind, "subtype": req.subtype,
             "name": name, "district": district,
             "x": round(req.x, 1), "y": round(req.y, 1),
@@ -512,21 +659,22 @@ async def graph_add_node(req: AddNodeRequest):
         if req.kind == "snp" and req.connectionCount is not None:
             node["connectionCount"] = req.connectionCount
         data["nodes"].append(node)
-        total_km, planned_km = _persist(data)
+        total_km, planned_km = _persist(st, data)
 
-    log.info("graph add-node: %s", node)
+    log.info("graph add-node [%s]: %s", st.slug, node)
     return {"ok": True, "node": node,
             "totals": {"totalKm": total_km, "plannedKm": planned_km}}
 
 
 @app.post("/api/graph/add-edge")
-async def graph_add_edge(req: AddEdgeRequest):
+async def graph_add_edge(req: AddEdgeRequest, graph: str = DEFAULT_GRAPH):
+    st = _state(graph)
     if req.from_id == req.to_id:
         raise HTTPException(400, "связь должна соединять два разных узла")
     length = _clean_value("lengthKm", req.lengthKm)
 
-    async with _edit_lock:
-        data = json.loads(GRAPH_PATH.read_text(encoding="utf-8"))
+    async with st.edit_lock:
+        data = json.loads(st.path.read_text(encoding="utf-8"))
         node_ids = {n["id"] for n in data["nodes"]}
         for nid in (req.from_id, req.to_id):
             if nid not in node_ids:
@@ -542,9 +690,9 @@ async def graph_add_edge(req: AddEdgeRequest):
             "type": req.type, "lengthKm": length,
         }
         data["edges"].append(edge)
-        total_km, planned_km = _persist(data)
+        total_km, planned_km = _persist(st, data)
 
-    log.info("graph add-edge: %s", edge)
+    log.info("graph add-edge [%s]: %s", st.slug, edge)
     return {"ok": True, "edge": edge,
             "totals": {"totalKm": total_km, "plannedKm": planned_km}}
 
@@ -583,12 +731,13 @@ class DeleteServiceLinkRequest(BaseModel):
 
 
 @app.post("/api/graph/add-service-link")
-async def graph_add_service_link(req: AddServiceLinkRequest):
+async def graph_add_service_link(req: AddServiceLinkRequest, graph: str = DEFAULT_GRAPH):
+    st = _state(graph)
     if req.from_id == req.to_id:
         raise HTTPException(400, "линия должна соединять два разных узла")
 
-    async with _edit_lock:
-        data = json.loads(GRAPH_PATH.read_text(encoding="utf-8"))
+    async with st.edit_lock:
+        data = json.loads(st.path.read_text(encoding="utf-8"))
         node_ids = {n["id"] for n in data["nodes"]}
         for nid in (req.from_id, req.to_id):
             if nid not in node_ids:
@@ -603,18 +752,19 @@ async def graph_add_service_link(req: AddServiceLinkRequest):
         hidden = data.setdefault("serviceLinksHidden", [])
         if key not in hidden:
             hidden.append(key)  # чтобы авто-линия на этой же паре не задвоилась
-        _persist(data)
+        _persist(st, data)
         state = _service_state(data)
 
-    log.info("graph add-service-link: %s", link)
+    log.info("graph add-service-link [%s]: %s", st.slug, link)
     return {"ok": True, "link": link, **state}
 
 
 @app.post("/api/graph/delete-service-link")
-async def graph_delete_service_link(req: DeleteServiceLinkRequest):
+async def graph_delete_service_link(req: DeleteServiceLinkRequest, graph: str = DEFAULT_GRAPH):
+    st = _state(graph)
     key = _service_key(req.from_id, req.to_id)
-    async with _edit_lock:
-        data = json.loads(GRAPH_PATH.read_text(encoding="utf-8"))
+    async with st.edit_lock:
+        data = json.loads(st.path.read_text(encoding="utf-8"))
         links = data.get("serviceLinks", [])
         removed = [x["id"] for x in links if _service_key(x["from"], x["to"]) == key]
         data["serviceLinks"] = [x for x in links
@@ -622,17 +772,18 @@ async def graph_delete_service_link(req: DeleteServiceLinkRequest):
         hidden = data.setdefault("serviceLinksHidden", [])
         if key not in hidden:
             hidden.append(key)
-        _persist(data)
+        _persist(st, data)
         state = _service_state(data)
 
-    log.info("graph delete-service-link: %s (снято ручных: %d)", key, len(removed))
+    log.info("graph delete-service-link [%s]: %s (снято ручных: %d)", st.slug, key, len(removed))
     return {"ok": True, "removed": removed, **state}
 
 
 @app.post("/api/graph/delete")
-async def graph_delete(req: DeleteRequest):
-    async with _edit_lock:
-        data = json.loads(GRAPH_PATH.read_text(encoding="utf-8"))
+async def graph_delete(req: DeleteRequest, graph: str = DEFAULT_GRAPH):
+    st = _state(graph)
+    async with st.edit_lock:
+        data = json.loads(st.path.read_text(encoding="utf-8"))
         removed_edges: list[str] = []
         if req.kind == "edge":
             before = len(data["edges"])
@@ -657,25 +808,43 @@ async def graph_delete(req: DeleteRequest):
                                     if req.id not in (x["from"], x["to"])]
             data["serviceLinksHidden"] = [k for k in data.get("serviceLinksHidden", [])
                                           if req.id not in k.split("|")]
-        total_km, planned_km = _persist(data)
+        total_km, planned_km = _persist(st, data)
         state = _service_state(data)
 
-    log.info("graph delete: %s %s (снято связей: %d)", req.kind, req.id, len(removed_edges))
+    log.info("graph delete [%s]: %s %s (снято связей: %d)",
+             st.slug, req.kind, req.id, len(removed_edges))
     return {"ok": True, "kind": req.kind, "id": req.id, "removedEdges": removed_edges,
             "totals": {"totalKm": total_km, "plannedKm": planned_km}, **state}
 
 
-# zhambyl-graph.json / graph-data.js отдаём явно из DATA_DIR (см. коммент у
-# DATA_DIR выше), а не из статики BASE — иначе на деплое с volume фронт видел
-# бы неизменный файл из образа вместо сохранённых правок.
+# Файлы графов отдаём явно из DATA_REGIONS_DIR (см. коммент у DATA_DIR выше),
+# а не из статики BASE — иначе на деплое с volume фронт видел бы неизменный
+# файл из образа вместо сохранённых правок. Путь /regions/<slug>.* нарочно
+# СОВПАДАЕТ с реальным относительным путём файла в репозитории — фронт ходит
+# по одному и тому же URL что при запуске через server.py (тогда роут ниже
+# отдаёт актуальную DATA_DIR-копию), что при простом file:// (тогда браузер
+# читает этот же путь прямо с диска, без сервера вообще) — дублировать логику
+# «путь для сервера» / «путь для file://» во фронте не нужно.
+@app.get("/regions/{slug}.json")
+async def _graph_json_by_slug(slug: str):
+    return FileResponse(_state(slug).path, media_type="application/json")
+
+
+@app.get("/regions/{slug}.fallback.js")
+async def _graph_data_js_by_slug(slug: str):
+    st = _state(slug)
+    if not st.data_js_path.exists():
+        raise HTTPException(404, f"нет fallback-файла {st.data_js_path.name}")
+    return FileResponse(st.data_js_path, media_type="application/javascript")
+
+
+# Легаси-путь дефолтного (жамбылского) графа — старые внешние ссылки на голый
+# JSON (например у бота, см. app/services/graphbind.py). /regions/zhambyl.json
+# выше уже покрывает то же самое; этот роут остаётся только ради обратной
+# совместимости и никогда не должен удаляться без проверки, кто на него ссылается.
 @app.get("/zhambyl-graph.json")
 async def _graph_json_file():
-    return FileResponse(GRAPH_PATH, media_type="application/json")
-
-
-@app.get("/graph-data.js")
-async def _graph_data_js_file():
-    return FileResponse(DATA_JS_PATH, media_type="application/javascript")
+    return FileResponse(STATES[DEFAULT_GRAPH].path, media_type="application/json")
 
 
 # Статика (index.html, graph-app.js) — ПОСЛЕ роутов API и явных путей выше.

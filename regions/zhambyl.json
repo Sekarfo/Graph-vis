@@ -1,5 +1,10 @@
 {
  "meta": {
+  "registry": {
+   "slug": "zhambyl",
+   "title": "Жамбылская область",
+   "idPrefix": "N"
+  },
   "region": "Жамбылская",
   "schema": {
    "nodes": "id; kind — тип узла (ats|olt|atn|netengine|mufta|snp); subtype — подтип (для оборудования: existing|planned|outside; для СНП: fiber|wifi|starlink|outside); name — название; district — район; connectionCount — число планируемых подключений (для СНП); x/y — координаты раскладки редактора (кластеры по районам); objectId — id объекта во внешней системе (если сопоставлен)",
@@ -8705,8 +8710,8 @@
   },
   {
    "id": "E2x001",
-   "from": "N20983",
-   "to": "N0795",
+   "from": "N0795",
+   "to": "N20983",
    "type": "existing",
    "lengthKm": 7,
    "externalEndpoint": {
