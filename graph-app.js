@@ -941,15 +941,11 @@ function updateStats() {
 }
 
 // ---------- Полоса метрик плана (км) ----------
-// Три источника цифр, которые НЕЛЬЗЯ смешивать:
-//   * свод (meta.plan.targetKm) — утверждённый план работ в км, цель;
-//   * граф (сумма lengthKm по плановым рёбрам) — что реально оцифровано;
-//   * выполнено (doneKm с api/progress) — что сдано: свод СМР из книги
-//     «Отчет СОИ» плюс отчёты бота, применённые в очереди модерации.
-// Свод и граф расходятся, пока чертёж не сверен со сводом до последнего
-// участка, поэтому расхождение показываем ОТДЕЛЬНОЙ плиткой, а не прячем.
-// При выбранном районе все цифры — по этому району (свод разложен в
-// meta.plan.byDistrict тем же разрезом, что и districtSel).
+// Две плитки: сколько оцифровано в графе (сумма lengthKm по плановым рёбрам)
+// и сколько выполнено (doneKm с api/progress — свод СМР из книги «Отчет СОИ»
+// плюс отчёты бота, применённые в очереди модерации). При выбранном районе
+// обе цифры — по этому району; база для % выполнения — meta.plan.targetKm
+// (свод), если он есть для района, иначе честно от того, что в графе.
 const PLANNED_TYPES = new Set(["planned", "larger_capacity"]);
 let kpiKey = null;
 
@@ -982,7 +978,6 @@ function renderKpi() {
   }
 
   const targetKm = plan ? (d ? plan.byDistrict[d] : plan.targetKm) : null;
-  const targetSnp = plan ? (d ? plan.settlementsByDistrict[d] : plan.settlements) : null;
   // База для процента выполнения — свод (это план работ); если по району
   // свода нет, честно считаем от того, что оцифровано в графе.
   const base = targetKm || graphKm;
@@ -992,27 +987,9 @@ function renderKpi() {
   kpiKey = key;
 
   const tiles = [];
-  if (targetKm != null) {
-    const nD = Object.keys(plan.byDistrict || {}).length;
-    tiles.push(tile("План по своду СМР", kpiNum(targetKm), "км",
-      `${targetSnp} НП${d ? "" : ` · ${nD} р-нов`}`,
-      "", plan.source));
-  }
   tiles.push(tile("Оцифровано в графе", kpiNum(graphKm), "км",
     `${nEdges} участков · ${nSnp} СНП по проекту`, "",
     "Сумма длин плановых линий графа (planned + большей ёмкости)"));
-
-  if (targetKm != null) {
-    const diff = graphKm - targetKm;
-    const pct = targetKm ? (diff / targetKm) * 100 : 0;
-    const near = Math.abs(diff) < 0.05;
-    tiles.push(tile("Расхождение свод ↔ граф",
-      (diff > 0 ? "+" : diff < 0 ? "−" : "") + kpiNum(Math.abs(diff)), "км",
-      near ? "совпадает" : `${pct > 0 ? "+" : "−"}${kpiNum(Math.abs(pct))} % к своду`,
-      near ? "ok" : (diff > 0 ? "pos" : "neg"),
-      near ? "Граф сходится со сводом"
-           : "Столько км в графе " + (diff > 0 ? "больше" : "меньше") + ", чем в своде СМР — участки надо сверить"));
-  }
 
   const pctDone = base ? clamp(doneKm / base, 0, 1) : 0;
   tiles.push(tile("Выполнено", kpiNum(doneKm), "км",
