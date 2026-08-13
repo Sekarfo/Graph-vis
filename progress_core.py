@@ -5,7 +5,9 @@
                        (нечёткий, каз/рус), кратчайший маршрут между узлами;
   * compute_progress — строки БД (work_reports × report_metrics) →
                        {edgeId: {doneKm, reports}} + trace по каждому отчёту
-                       (для debug-панели) + список непривязанных.
+                       (для debug-панели) + список непривязанных;
+  * compute_smr      — свод СМР из «Отчет СОИ» (факт по СЁЛАМ, smr/<slug>.json)
+                       → доля выполнения по рёбрам и статус по сёлам.
 
 Правила привязки одного отчёта:
   0. Если строка отчёта несёт ПРИВЯЗКУ ОТ БОТА (graph_from_node/graph_to_node —
@@ -47,6 +49,12 @@ from matcher import districts_compatible, match_score, normalize_name
 # для прогресс-бара берётся ПЕРВЫЙ заполненный в отчёте.
 KM_PRIORITY = ("vok_microcable", "pet_microtube", "trench", "trench_total", "signal_tape")
 KM_METRICS = list(KM_PRIORITY)
+
+PLANNED_TYPES = ("planned", "larger_capacity")
+# Головные узлы сети — от них «течёт» интернет к сёлам. Тот же список, что у
+# бота (app/services/netgraph.HEAD_KINDS) плюс netengine: он нужен здесь как
+# точка отсчёта «выше/ниже по цепочке» при дележе рёбер между сёлами-соседями.
+HEAD_KINDS = ("ats", "olt", "atn", "netengine")
 
 MATCH_THRESHOLD = 60
 # СТРОГИЙ ОГРАНИЧИТЕЛЬ ПРИВЯЗКИ: чтобы км легли на ребро, назначение должно
@@ -409,5 +417,244 @@ def compute_progress(graph: Graph, rows: list[dict]) -> dict:
             "reportsMatched": sum(edges_n.values()),
             "reportsUnmatched": len(unmatched),
             "reportsTotal": len(reports),
+        },
+    }
+
+
+# ===========================================================================
+# Свод СМР («Отчет СОИ», лист «СМР») — факт подрядчиков по СЁЛАМ
+# ===========================================================================
+# Свод даёт километры НА СЕЛО (план ВОЛС до НП, факт магистральной трубки и
+# задувки ВОК), а не по сегментам чертежа: строка «с.Алгабас — план 10.9 км»
+# покрывает и общий ствол ветки, по которому к селу идут ещё три соседа.
+# Раскладывать эти километры по конкретным рёбрам как факт нельзя — получилось
+# бы враньё с точностью до сегмента. Поэтому на карту переносится ДОЛЯ
+# выполнения села: сколько процентов своего плана село прошло, столько же
+# закрашивается его собственная ветка. Отсюда два ограничения, о которых
+# должен знать любой, кто трогает этот код:
+#
+#   * доля > 100 % обрезается (факт трубки регулярно превышает план: свод
+#     считает трассу до НП, а трубку кладут и по распредсети внутри села);
+#   * ветка села — это НЕ «все рёбра до головного узла», а только те, что
+#     ближе к нему, чем к любому другому селу (см. attribute_edges_to_snp).
+#     Иначе общий ствол закрасился бы столько раз, сколько сёл на нём висит.
+
+
+def _multi_source_dist(graph: Graph, sources, edge_types=None) -> dict[str, float]:
+    """Дейкстра от МНОЖЕСТВА источников сразу: {node_id: расстояние в км до
+    ближайшего источника}. edge_types=None — идём по всем рёбрам."""
+    dist = {s: 0.0 for s in sources if s in graph.nodes}
+    pq = [(0.0, s) for s in dist]
+    heapq.heapify(pq)
+    while pq:
+        d, u = heapq.heappop(pq)
+        if d > dist.get(u, float("inf")) + _EPS:
+            continue
+        for e in graph.adj.get(u, ()):
+            if edge_types is not None and e.get("type") not in edge_types:
+                continue
+            v = e["to"] if e["from"] == u else e["from"]
+            nd = d + (e.get("lengthKm") or 0.05)
+            if nd < dist.get(v, float("inf")) - _EPS:
+                dist[v] = nd
+                heapq.heappush(pq, (nd, v))
+    return dist
+
+
+def attribute_edges_to_snp(graph: Graph) -> dict[str, str]:
+    """{edgeId: id СНП-узла, которому принадлежит этот плановый сегмент}.
+
+    Делёж по принципу «ближайшего села» (по плановым рёбрам): каждый сегмент
+    достаётся тому селу, к которому он ближе. Это разбивает плановую сеть на
+    непересекающиеся ветки — сумма веток равна всей сети, и ни один километр
+    не учитывается дважды.
+
+    Спорный случай — сегмент прямо между двумя сёлами (оба на нуле). Он
+    достаётся тому, которое ДАЛЬШЕ от головного узла: чтобы подключить дальнее
+    село, сначала строят к ближнему, поэтому участок между ними относится к
+    дальнему — то же правило, по которому бот определяет направление работ
+    (app/services/netgraph.py)."""
+    snp_ids = [n["id"] for n in graph.nodes.values() if n.get("kind") == "snp"]
+    if not snp_ids:
+        return {}
+    heads = [n["id"] for n in graph.nodes.values() if n.get("kind") in HEAD_KINDS]
+
+    # Ближайшее село для каждого узла — обход от всех сёл сразу, с запоминанием,
+    # от какого именно источника пришли.
+    owner: dict[str, str] = {s: s for s in snp_ids}
+    dist: dict[str, float] = {s: 0.0 for s in snp_ids}
+    pq = [(0.0, s, s) for s in snp_ids]
+    heapq.heapify(pq)
+    while pq:
+        d, u, src = heapq.heappop(pq)
+        if d > dist.get(u, float("inf")) + _EPS:
+            continue
+        for e in graph.adj.get(u, ()):
+            if e.get("type") not in PLANNED_TYPES:
+                continue
+            v = e["to"] if e["from"] == u else e["from"]
+            nd = d + (e.get("lengthKm") or 0.05)
+            if nd < dist.get(v, float("inf")) - _EPS:
+                dist[v], owner[v] = nd, src
+                heapq.heappush(pq, (nd, v, src))
+
+    head_dist = _multi_source_dist(graph, heads) if heads else {}
+    inf = float("inf")
+    out: dict[str, str] = {}
+    for e in graph.edges:
+        if e.get("type") not in PLANNED_TYPES:
+            continue
+        a, b = e["from"], e["to"]
+        oa, ob = owner.get(a), owner.get(b)
+        if oa is None and ob is None:
+            continue
+        if oa is None or ob is None:
+            out[e["id"]] = oa or ob
+            continue
+        if oa == ob:
+            out[e["id"]] = oa
+            continue
+        da, db = dist.get(a, inf), dist.get(b, inf)
+        if abs(da - db) > _EPS:
+            out[e["id"]] = oa if da < db else ob
+        else:  # ничья — берём село ниже по цепочке (дальше от головного узла)
+            out[e["id"]] = oa if head_dist.get(oa, -1) >= head_dist.get(ob, -1) else ob
+    return out
+
+
+def _snp_branches(graph: Graph) -> dict[str, list[dict]]:
+    """{snpId: рёбра его ветки, упорядоченные СВЕРХУ ВНИЗ (от головного узла
+    к селу)} — порядок нужен, чтобы закрашивать ветку так, как её физически
+    строят: от уже готовой сети в сторону села."""
+    heads = [n["id"] for n in graph.nodes.values() if n.get("kind") in HEAD_KINDS]
+    head_dist = _multi_source_dist(graph, heads) if heads else {}
+    edge_by_id = {e["id"]: e for e in graph.edges}
+    branches: dict[str, list[dict]] = {}
+    for eid, snp_id in attribute_edges_to_snp(graph).items():
+        branches.setdefault(snp_id, []).append(edge_by_id[eid])
+    inf = float("inf")
+    for edges in branches.values():
+        edges.sort(key=lambda e: min(head_dist.get(e["from"], inf),
+                                     head_dist.get(e["to"], inf)))
+    return branches
+
+
+def _fill_branch(branch: list[dict], frac: float, head_dist: dict[str, float]
+                 ) -> dict[str, tuple[float, str]]:
+    """Закрасить долю frac ветки: рёбра заполняются последовательно сверху
+    вниз, а не все сразу на frac — стройка идёт от готовой сети к селу, и
+    «половина ветки» выглядит как пройденная первая половина, а не как
+    полупрозрачная вся ветка целиком.
+
+    Возвращает {edgeId: (доля закраски 0..1, id узла, ОТ которого красим)}."""
+    inf = float("inf")
+
+    def fill_from(e: dict) -> str:
+        """Конец ребра, что ближе к головному узлу, — от него и красим."""
+        return (e["from"] if head_dist.get(e["from"], inf) <= head_dist.get(e["to"], inf)
+                else e["to"])
+
+    lengths = [e.get("lengthKm") or 0.0 for e in branch]
+    total = sum(lengths)
+    if total <= _EPS:  # длин сегментов на чертеже нет — красим ветку поровну
+        return {e["id"]: (frac, fill_from(e)) for e in branch}
+
+    remaining = total * frac
+    out: dict[str, tuple[float, str]] = {}
+    for e, length in zip(branch, lengths):
+        if remaining <= _EPS:
+            break
+        if length <= _EPS:  # сегмент без длины не «съедает» остаток
+            out[e["id"]] = (1.0, fill_from(e))
+            continue
+        take = min(remaining, length)
+        remaining -= take
+        out[e["id"]] = (round(take / length, 4), fill_from(e))
+    return out
+
+
+def compute_smr(graph: Graph, smr: dict) -> dict:
+    """smr — содержимое smr/<slug>.json (см. scripts/import_smr.py).
+
+    Возвращает payload для /api/smr:
+      * edges  {edgeId: {frac, fillFrom, snp, metric}} — доля выполнения ветки;
+      * nodes  {nodeId: {planKm, tubeKm, fiberKm, done, frac, metric}} — факт
+               по селу как он есть в своде, без всякой интерпретации;
+      * totals — суммы по своду и по тому, что удалось положить на граф."""
+    settlements = smr.get("settlements") or []
+    heads = [n["id"] for n in graph.nodes.values() if n.get("kind") in HEAD_KINDS]
+    head_dist = _multi_source_dist(graph, heads) if heads else {}
+    branches = _snp_branches(graph)
+
+    out_nodes: dict[str, dict] = {}
+    out_edges: dict[str, dict] = {}
+    no_branch: list[dict] = []
+    plan_km = tube_km = fiber_km = 0.0
+    snp_done = 0
+    painted_km = 0.0
+
+    for s in settlements:
+        nid = s.get("nodeId")
+        if not nid or nid not in graph.nodes:
+            continue
+        plan = s.get("planKm") or 0.0
+        tube = s.get("tubeKm") or 0.0
+        fiber = s.get("fiberKm") or 0.0
+        done = bool(s.get("snpDone"))
+        plan_km += plan
+        tube_km += tube
+        fiber_km += fiber
+        snp_done += 1 if done else 0
+
+        # Приоритет тот же, что у отчётов бота: задувка ВОК главнее трубки —
+        # трубка без волокна связь ещё не даёт.
+        metric, fact = ("fiber", fiber) if fiber > 0 else ("tube", tube)
+        frac = 1.0 if done else (min(1.0, fact / plan) if plan > 0 else (1.0 if fact > 0 else 0.0))
+
+        node = graph.nodes[nid]
+        out_nodes[nid] = {
+            "name": node.get("name"), "smrName": s.get("name"),
+            "district": s.get("district"), "contractor": s.get("contractor"),
+            "planKm": round(plan, 3) or None, "tubeKm": round(tube, 3) or None,
+            "fiberKm": round(fiber, 3) or None,
+            "guboDone": s.get("guboDone") or None, "b2cDone": s.get("b2cDone") or None,
+            "done": done, "frac": round(frac, 4), "metric": metric,
+        }
+
+        branch = branches.get(nid)
+        if not branch:
+            if frac > 0:
+                no_branch.append({"nodeId": nid, "name": node.get("name"),
+                                  "reason": "у села нет плановых линий в графе"})
+            continue
+        if frac <= 0:
+            continue
+        for eid, (edge_frac, fill_from) in _fill_branch(branch, frac, head_dist).items():
+            out_edges[eid] = {"frac": edge_frac, "fillFrom": fill_from,
+                              "snp": nid, "metric": metric}
+        painted_km += sum((e.get("lengthKm") or 0.0) for e in branch) * frac
+
+    meta_totals = (smr.get("meta") or {}).get("totals") or {}
+    return {
+        "edges": out_edges,
+        "nodes": out_nodes,
+        "noBranch": no_branch,
+        "asOf": (smr.get("meta") or {}).get("asOf"),
+        "totals": {
+            # По своду целиком (включая сёла, которых нет в графе).
+            "smrPlanKm": meta_totals.get("planKm"),
+            "smrTubeKm": meta_totals.get("tubeKm"),
+            "smrFiberKm": meta_totals.get("fiberKm"),
+            "smrSnpDone": meta_totals.get("snpDone"),
+            # По сёлам, привязанным к узлам этого графа.
+            "planKm": round(plan_km, 1),
+            "tubeKm": round(tube_km, 1),
+            "fiberKm": round(fiber_km, 1),
+            "snpDone": snp_done,
+            "snpMatched": len(out_nodes),
+            "snpUnmatched": len(smr.get("unmatched") or []),
+            # Сколько километров ГРАФА закрашено этой долей — не путать с
+            # километрами свода: это длина веток, а не факт подрядчика.
+            "graphPaintedKm": round(painted_km, 1),
         },
     }

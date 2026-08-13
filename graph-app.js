@@ -117,7 +117,11 @@ function loadFallbackDataJs(slug) {
 
 async function loadGraph() {
   try {
-    const r = await fetch("regions/" + GRAPH_SLUG + ".json");
+    // no-store: сервер не шлёт Cache-Control на этот файл (только Last-Modified/
+    // ETag), а он меняется после каждой правки — без no-store браузер по
+    // эвристике HTTP-кэша может отдать версию ДО правки на обычном F5, и
+    // хуже того: обычный (не hard) reload не обязан ревалидировать fetch().
+    const r = await fetch("regions/" + GRAPH_SLUG + ".json", { cache: "no-store" });
     if (r.ok) return await r.json();
   } catch (e) { /* file:// или сеть — пробуем fallback */ }
   return await loadFallbackDataJs(GRAPH_SLUG);
@@ -154,7 +158,7 @@ let selectedEdgeIds = new Set();
 let editMode = false;                    // режим «✏️ Правка»: поля в панели редактируемы
 let addMode = null;                      // null | "place-node" | "edge-a" | "edge-b" | "svc-a" | "svc-b"
 let edgeDraftA = null, edgeDraftB = null; // узлы создаваемой связи (подсветка)
-let filters = { district: "", mufta: true, existing: true, planned: true, demo: false, pon: true };
+let filters = { district: "", mufta: true, existing: true, planned: true, pon: true };
 let districtLabels = [];                 // { name, x, y }
 let theme = null;                        // null=auto | 'light' | 'dark'
 let C = {};                              // кэш цветов из CSS-переменных
@@ -279,14 +283,13 @@ function nodeRadius(n) {
   return 6;
 }
 
-// Псевдослучайная доля 0.15..0.9 из id — только для режима «демо прогресса».
-function demoFraction(id) {
-  let h = 2166136261;
-  for (const ch of id) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
-  return 0.15 + ((h >>> 0) % 1000) / 1000 * 0.75;
-}
+const PLANNED_EDGE_TYPES = new Set(["planned", "larger_capacity"]);
 
 /** Доля выполнения ребра 0..1 или null.
+ *  Прогресс-бар ОДИН на все источники факта: сервер уже свёл в doneKm и свод
+ *  СМР, и применённые модератором отчёты бота (см. _build_progress в
+ *  server.py). Фронту здесь различать источники не нужно и не следует —
+ *  двухцветная разметка одной и той же линии оказалась нечитаемой.
  *  Если известны и doneKm, и lengthKm — обычная дробь. Если lengthKm не задан
  *  на чертеже (см. progress_core.py), а doneKm есть — км всё равно засчитаны
  *  (не обрезаны), но дроби без знаменателя не существует, поэтому просто
@@ -294,10 +297,9 @@ function demoFraction(id) {
 function edgeFraction(e) {
   // Прогресс имеет смысл только на плановых линиях: существующая ВОЛС
   // уже построена, работы там не ведутся — бар не рисуем.
-  if (e.type !== "planned" && e.type !== "larger_capacity") return null;
+  if (!PLANNED_EDGE_TYPES.has(e.type)) return null;
   if (e.doneKm != null) return e.lengthKm ? clamp(e.doneKm / e.lengthKm, 0, 1) : 1;
   if (e.progress != null) return clamp(e.progress, 0, 1);
-  if (filters.demo && e.type === "planned") return demoFraction(e.id);
   return null;
 }
 
@@ -349,10 +351,17 @@ function renderLive(p, source) {
   el.title = source === "api" ? "Данные из БД (api/progress)" : "Статичный progress.json";
 }
 
-// ---------- Debug-панель: что реально пришло из Postgres и куда легло ----------
-// Показывает по каждому отчёту (report_id): from→to как понял сервер, км+показатель,
-// и результат — на какое ребро легло (✅) или почему нет (❌). Нужна, чтобы не гадать
-// вслепую, почему прогресс-бар не появился — видно сырые данные последнего запроса.
+// ---------- Панель отчётов бота: очередь модерации ----------
+// По каждому отчёту (report_id) видно: from→to как понял сервер, км+показатель
+// и на какое ребро он ляжет (✅) или почему не ложится (❌).
+//
+// Отчёты бота НЕ попадают на прогресс-бар сами: push присылает всё подряд —
+// и старое, и новое, — а привязка к участку получена фаззи-поиском и иногда
+// промахивается. Поэтому здесь у каждого отчёта две кнопки: «Применить»
+// (километры ложатся на граф) и «Отменить» (отчёт убирается насовсем).
+// Решение хранит сервер (POST /api/graph/moderate-report), оно переживает
+// рестарт и следующий push — иначе разбор очереди пришлось бы повторять
+// каждые 5 минут.
 let debugOpen = true;
 
 function fmtDT(iso) {
@@ -374,17 +383,19 @@ function renderDebugPanel(p, source) {
   const t = p.totals || {};
   let html = `<div class="dbg-summary">`
     + `обновлено ${new Date().toLocaleTimeString("ru-RU")} · источник: ${source === "api" ? "БД (api/progress)" : "progress.json"}<br>`
-    + `отчётов всего: ${t.reportsTotal ?? "—"} · с привязкой: ${t.reportsMatched ?? 0} · без привязки: ${t.reportsUnmatched ?? 0}`
+    + `отчётов: ${t.reportsTotal ?? "—"} · применено: ${t.reportsApproved ?? 0}`
+    + ` · ждут решения: ${t.reportsPending ?? 0} · отменено: ${t.reportsRejected ?? 0}`
     + `</div>`;
   if (!trace.length) {
     html += `<div class="dbg-empty">Отчётов с километровыми показателями пока нет в БД.</div>`;
   }
   for (const e of trace) {
     const ok = e.ok === true;
+    const applied = e.moderation === "approved";
     const arrow = [e.from, e.to].filter(Boolean).join(" → ") || "(нет направления)";
-    html += `<div class="dbg-row ${ok ? "dbg-ok" : "dbg-fail"}">`
+    html += `<div class="dbg-row ${ok ? "dbg-ok" : "dbg-fail"}${applied ? " dbg-applied" : ""}">`
       + `<div class="dbg-head"><span class="dbg-id">#${e.reportId}</span>`
-      + `<span class="dbg-status">${ok ? "✅" : "❌"}</span></div>`
+      + `<span class="dbg-status">${applied ? "🟢 на графе" : ok ? "✅" : "❌"}</span></div>`
       + `<div class="dbg-arrow">${esc(arrow)}</div>`;
     if (e.district) html += `<div class="dbg-sub">район: ${esc(e.district)}</div>`;
     if (e.km != null) html += `<div class="dbg-sub">${esc(e.metric || "")}: <b>${e.km} км</b></div>`;
@@ -396,9 +407,42 @@ function renderDebugPanel(p, source) {
     }
     const when = e.reportedAt ? fmtDT(e.reportedAt) : fmtDT(e.submittedAt);
     if (when) html += `<div class="dbg-sub dbg-when">${when}</div>`;
-    html += `</div>`;
+    // «Применить» показываем только тем, кто вообще может лечь на граф:
+    // у отчёта без привязки применять нечего — сперва надо чинить привязку.
+    html += `<div class="dbg-actions">`;
+    if (applied) {
+      html += `<button type="button" class="dbg-btn" data-mod="reset" data-report="${e.reportId}"
+                 title="Вернуть отчёт в очередь и убрать его километры с графа">↩ Вернуть</button>`;
+    } else if (ok) {
+      html += `<button type="button" class="dbg-btn dbg-apply" data-mod="approve" data-report="${e.reportId}"
+                 title="Положить километры этого отчёта на граф">✓ Применить</button>`;
+    }
+    html += `<button type="button" class="dbg-btn dbg-drop" data-mod="reject" data-report="${e.reportId}"
+               title="Убрать отчёт совсем: он исчезнет из очереди и с графа">✕ Отменить</button>`;
+    html += `</div></div>`;
   }
   box.innerHTML = html;
+  for (const btn of box.querySelectorAll("button[data-mod]")) {
+    btn.addEventListener("click", () => moderateReport(
+      Number(btn.dataset.report), btn.dataset.mod, btn));
+  }
+}
+
+/** Решение по отчёту: сервер пересчитывает прогресс, мы перезапрашиваем.
+ *  Идём через apiPost — он сам спросит пароль правки, если тот включён:
+ *  модерация меняет картинку для всех, кто смотрит вьюер. */
+async function moderateReport(reportId, action, btn) {
+  const row = btn.closest(".dbg-row");
+  if (row) row.style.opacity = "0.45";
+  try {
+    await apiPost("api/graph/moderate-report", { reportId, action });
+    progressVersion = null;   // ответ изменился — не дать кэшу «ничего не менялось»
+    await pollProgress();
+  } catch (err) {
+    if (row) row.style.opacity = "";
+    showHint("⚠ не удалось: " + err.message);
+    setTimeout(hideHint, 4000);
+  }
 }
 
 function toggleDebugPanel() {
@@ -492,72 +536,25 @@ function prepare(data) {
 }
 
 // ---------- Гибкие линии PON/аплинков (как на чертеже) ----------
-// На чертеже от каждой OLT к обслуживаемым сёлам тянутся тонкие извилистые
-// голубые линии (PON-ветки), а зелёные извилистые — аплинк между OLT и
-// питающим её существующим узлом (ATN/АТС). В данных этих связей нет —
-// они восстанавливаются по топологии: каждому СНП и каждой существующей ATN
-// ищется ближайшая OLT по графу (Дейкстра от всех OLT сразу, вес = км).
+// На чертеже от OLT к обслуживаемым сёлам тянутся тонкие извилистые голубые
+// линии (PON-ветки), а зелёные извилистые — аплинк между OLT и питающим её
+// существующим узлом (ATN/АТС).
 //
-// Эта картинка правится руками (режим «✏️ Правка» → «〰️ Линия OLT/АТС»):
-// добавленные линии лежат в DATA.serviceLinks, а убранные авто-линии гасятся
-// ключом пары узлов в DATA.serviceLinksHidden (см. server.py). Никакой логики
-// эти линии не несут — ни в км, ни в прогресс, ни в маршруты они не идут.
-let serviceLinks = null; // [{ id, a, b, kind: 'pon'|'uplink', manual, _pts }]
+// Рисуются ТОЛЬКО линии, нарисованные руками (режим «✏️ Правка» →
+// «〰️ Линия OLT/АТС»), они лежат в DATA.serviceLinks. Автодостройки по
+// топологии (ближайшая OLT по Дейкстре) больше нет: она придумывала связи,
+// которых на чертеже не было. Никакой логики эти линии не несут — ни в км,
+// ни в прогресс, ни в маршруты они не идут.
+let serviceLinks = null; // [{ id, a, b, kind: 'pon'|'uplink', _pts }]
 
 function invalidateServiceLinks() { serviceLinks = null; }
 
-// Ключ пары узлов без направления — тот же формат, что и на сервере.
-function serviceKey(aId, bId) { return aId < bId ? aId + "|" + bId : bId + "|" + aId; }
-
 function computeServiceLinks() {
   serviceLinks = [];
-  const hidden = new Set((DATA && DATA.serviceLinksHidden) || []);
-  const adj = new Map();
-  for (const e of edges) {
-    if (e.external) continue;
-    // Нулевые/неизвестные длины (совмещённые объекты) почти бесплатны,
-    // чтобы OLT «дотягивалась» через них.
-    const w = e.lengthKm && e.lengthKm > 0 ? e.lengthKm : 0.3;
-    if (!adj.has(e.from)) adj.set(e.from, []);
-    if (!adj.has(e.to)) adj.set(e.to, []);
-    adj.get(e.from).push({ to: e.to, w });
-    adj.get(e.to).push({ to: e.from, w });
-  }
-  const dist = new Map(), srcOlt = new Map();
-  const pq = [];
-  for (const n of nodes) {
-    if (n.kind !== "olt") continue;
-    dist.set(n.id, 0); srcOlt.set(n.id, n); pq.push([0, n.id, n]);
-  }
-  while (pq.length) {
-    let bi = 0;
-    for (let i = 1; i < pq.length; i++) if (pq[i][0] < pq[bi][0]) bi = i;
-    const [d0, id, s] = pq.splice(bi, 1)[0];
-    if (d0 > (dist.has(id) ? dist.get(id) : Infinity)) continue;
-    for (const { to, w } of adj.get(id) || []) {
-      const nd = d0 + w;
-      if (nd < (dist.has(to) ? dist.get(to) : Infinity)) {
-        dist.set(to, nd); srcOlt.set(to, s); pq.push([nd, to, s]);
-      }
-    }
-  }
-  for (const n of nodes) {
-    const olt = srcOlt.get(n.id);
-    if (!olt || olt === n) continue;
-    const key = serviceKey(olt.id, n.id);
-    if (hidden.has(key)) continue;                            // линию убрали руками
-    if (n.kind === "snp" && (n.subtype === "fiber" || n.subtype === "wifi")) {
-      serviceLinks.push({ id: "auto:" + key, a: olt, b: n, kind: "pon" });    // OLT → СНП, голубая
-    } else if (n.kind === "atn" && n.subtype !== "planned") {
-      serviceLinks.push({ id: "auto:" + key, a: n, b: olt, kind: "uplink" }); // сущ. ATN → OLT, зелёная
-    }
-  }
-
-  // Линии, нарисованные руками: топологию не спрашиваем — что задали, то и рисуем.
   for (const L of (DATA && DATA.serviceLinks) || []) {
     const a = nodeById.get(L.from), b = nodeById.get(L.to);
     if (!a || !b) continue;   // узел удалён — линия просто не рисуется
-    serviceLinks.push({ id: L.id, a, b, kind: L.kind === "uplink" ? "uplink" : "pon", manual: true });
+    serviceLinks.push({ id: L.id, a, b, kind: L.kind === "uplink" ? "uplink" : "pon" });
   }
 }
 
@@ -940,6 +937,101 @@ function updateStats() {
   let t = `узлов ${visN}/${nodes.length} · линий ${visE}/${edges.length}`;
   if (m.plannedKm != null) t += ` · план ${m.plannedKm} км из ${m.totalKm} км`;
   $("stats").textContent = t;
+  renderKpi();
+}
+
+// ---------- Полоса метрик плана (км) ----------
+// Три источника цифр, которые НЕЛЬЗЯ смешивать:
+//   * свод (meta.plan.targetKm) — утверждённый план работ в км, цель;
+//   * граф (сумма lengthKm по плановым рёбрам) — что реально оцифровано;
+//   * выполнено (doneKm с api/progress) — что сдано: свод СМР из книги
+//     «Отчет СОИ» плюс отчёты бота, применённые в очереди модерации.
+// Свод и граф расходятся, пока чертёж не сверен со сводом до последнего
+// участка, поэтому расхождение показываем ОТДЕЛЬНОЙ плиткой, а не прячем.
+// При выбранном районе все цифры — по этому району (свод разложен в
+// meta.plan.byDistrict тем же разрезом, что и districtSel).
+const PLANNED_TYPES = new Set(["planned", "larger_capacity"]);
+let kpiKey = null;
+
+// Число км для плитки: без единицы (её печатает tile) и с русским разделителем.
+const kpiNum = (v) => v.toLocaleString("ru-RU", { maximumFractionDigits: 1 });
+
+function edgeInDistrict(e, d) {
+  return !d || e.a.district === d || e.b.district === d;
+}
+
+function renderKpi() {
+  const box = $("kpibar");
+  if (!box) return;
+  const plan = (DATA.meta && DATA.meta.plan) || null;
+  const d = filters.district || "";
+
+  let graphKm = 0, doneKm = 0, nEdges = 0;
+  for (const e of edges) {
+    if (!PLANNED_TYPES.has(e.type) || !edgeInDistrict(e, d)) continue;
+    nEdges++;
+    graphKm += e.lengthKm || 0;
+    doneKm += e.doneKm || 0;
+  }
+  // Считаем СНП тем же разрезом, что и свод: оптика + Wi-Fi public — это и есть
+  // 164 строки плана. Starlink и «вне проекта» в своде СМР отсутствуют.
+  let nSnp = 0;
+  for (const n of nodes) {
+    if (n.kind !== "snp" || (d && n.district !== d)) continue;
+    if (n.subtype === "fiber" || n.subtype === "wifi") nSnp++;
+  }
+
+  const targetKm = plan ? (d ? plan.byDistrict[d] : plan.targetKm) : null;
+  const targetSnp = plan ? (d ? plan.settlementsByDistrict[d] : plan.settlements) : null;
+  // База для процента выполнения — свод (это план работ); если по району
+  // свода нет, честно считаем от того, что оцифровано в графе.
+  const base = targetKm || graphKm;
+
+  const key = [d, targetKm, graphKm, doneKm, nEdges, nSnp].join("|");
+  if (key === kpiKey) return;
+  kpiKey = key;
+
+  const tiles = [];
+  if (targetKm != null) {
+    const nD = Object.keys(plan.byDistrict || {}).length;
+    tiles.push(tile("План по своду СМР", kpiNum(targetKm), "км",
+      `${targetSnp} НП${d ? "" : ` · ${nD} р-нов`}`,
+      "", plan.source));
+  }
+  tiles.push(tile("Оцифровано в графе", kpiNum(graphKm), "км",
+    `${nEdges} участков · ${nSnp} СНП по проекту`, "",
+    "Сумма длин плановых линий графа (planned + большей ёмкости)"));
+
+  if (targetKm != null) {
+    const diff = graphKm - targetKm;
+    const pct = targetKm ? (diff / targetKm) * 100 : 0;
+    const near = Math.abs(diff) < 0.05;
+    tiles.push(tile("Расхождение свод ↔ граф",
+      (diff > 0 ? "+" : diff < 0 ? "−" : "") + kpiNum(Math.abs(diff)), "км",
+      near ? "совпадает" : `${pct > 0 ? "+" : "−"}${kpiNum(Math.abs(pct))} % к своду`,
+      near ? "ok" : (diff > 0 ? "pos" : "neg"),
+      near ? "Граф сходится со сводом"
+           : "Столько км в графе " + (diff > 0 ? "больше" : "меньше") + ", чем в своде СМР — участки надо сверить"));
+  }
+
+  const pctDone = base ? clamp(doneKm / base, 0, 1) : 0;
+  tiles.push(tile("Выполнено", kpiNum(doneKm), "км",
+    `${kpiNum(pctDone * 100)} % от ${targetKm != null ? "свода" : "графа"} · осталось ${kpiNum(Math.max(0, base - doneKm))} км`,
+    doneKm > 0 ? "ok" : "",
+    "Километры, лежащие на плановых линиях: свод СМР из книги «Отчет СОИ» "
+    + "плюс отчёты бота, применённые в очереди модерации (🐞 Лог)",
+    pctDone));
+
+  box.innerHTML = tiles.join("");
+}
+
+function tile(label, value, unit, sub, cls, title, barFrac) {
+  return `<div class="kpi${barFrac != null ? " kpi-done" : ""}"${title ? ` title="${esc(title)}"` : ""}>`
+    + `<div class="kpi-label">${esc(label)}</div>`
+    + `<div class="kpi-value${cls ? " " + cls : ""}">${esc(value)}<span class="u">${esc(unit)}</span></div>`
+    + `<div class="kpi-sub">${esc(sub)}</div>`
+    + (barFrac != null ? `<div class="kpi-bar"><i style="width:${(barFrac * 100).toFixed(1)}%"></i></div>` : "")
+    + `</div>`;
 }
 
 // ---------- Хит-тест ----------
@@ -1036,7 +1128,7 @@ const SVC_RU = { pon: "PON-ветка от OLT", uplink: "аплинк к OLT" }
 
 function svcTooltip(L) {
   let h = `<div class="t-name">${esc(L.a.name || L.a.id)} 〰️ ${esc(L.b.name || L.b.id)}</div>`;
-  h += `<div class="t-sub">${SVC_RU[L.kind]} · ${L.manual ? "добавлена вручную" : "построена автоматически"}</div>`;
+  h += `<div class="t-sub">${SVC_RU[L.kind]}</div>`;
   h += `<div class="t-row">только отображение: в км и прогресс не входит</div>`;
   return h;
 }
@@ -1103,8 +1195,7 @@ function openPanel(n) {
       const other = L.a === n ? L.b : L.a;
       h += `<div class="edge-item" data-svc="${esc(L.id)}">`;
       h += `<div class="e-to">〰️ ${esc(other.name || (KIND_RU[other.kind] + " " + other.id))}</div>`;
-      h += `<div class="e-sub">${SVC_RU[L.kind]} · только отображение`
-         + (L.manual ? " · вручную" : "") + `</div>`;
+      h += `<div class="e-sub">${SVC_RU[L.kind]} · только отображение</div>`;
       h += `</div>`;
     }
   }
@@ -1151,15 +1242,14 @@ function openEdgePanel(e) {
 }
 
 // Панель извилистой линии: она декоративная, поэтому единственное действие —
-// убрать её (в режиме правки). Одинаково работает и для авто-, и для ручной.
+// убрать её (в режиме правки).
 function openServiceLinkPanel(L) {
   selected = null;
   selectedEdge = null;
   selectedService = L;
   selectedEdgeIds = new Set();
   $("pName").textContent = `${L.a.name || L.a.id} 〰️ ${L.b.name || L.b.id}`;
-  $("pKind").textContent = SVC_RU[L.kind] + " · "
-    + (L.manual ? "добавлена вручную" : "построена автоматически");
+  $("pKind").textContent = SVC_RU[L.kind];
   $("pMeta").innerHTML = `<div class="p-meta">Линия только для отображения — `
     + `на км, прогресс и маршруты не влияет.</div>`;
   $("pEdgesTitle").textContent = editMode ? "Редактирование" : "";
@@ -1200,6 +1290,23 @@ const setEditToken = (t) => {
   else localStorage.removeItem(EDIT_TOKEN_KEY);
 };
 
+// detail от FastAPI бывает двух видов: строка (наши HTTPException) и СПИСОК
+// объектов от pydantic при 422 (не тот тип поля). Без разбора списка в панель
+// правки попадало «[object Object]», и причина отказа оставалась неизвестной.
+function formatApiDetail(detail, fallback) {
+  if (!detail) return fallback;
+  if (typeof detail === "string") return detail;
+  if (Array.isArray(detail)) {
+    const parts = detail.map((e) => {
+      const field = Array.isArray(e.loc) ? e.loc[e.loc.length - 1] : null;
+      const msg = e.msg || e.type || JSON.stringify(e);
+      return field ? `«${field}»: ${msg}` : msg;
+    });
+    return parts.join("; ") || fallback;
+  }
+  return detail.msg || JSON.stringify(detail);
+}
+
 async function graphLogin(password) {
   const r = await fetch("api/graph/login", {
     method: "POST",
@@ -1208,7 +1315,7 @@ async function graphLogin(password) {
   });
   let data = {};
   try { data = await r.json(); } catch (e) { /* не JSON */ }
-  if (!r.ok) throw new Error(data.detail || (r.status + " " + r.statusText));
+  if (!r.ok) throw new Error(formatApiDetail(data.detail, r.status + " " + r.statusText));
   return data.token;
 }
 
@@ -1246,8 +1353,9 @@ async function apiPost(path, body) {
     if (r.status === 405 || r.status === 404) {
       throw new Error("сервер не знает этот эндпоинт — перезапустите server.py (обновите код на сервере)");
     }
-    let detail = r.status + " " + r.statusText;
-    try { detail = (await r.json()).detail || detail; } catch (e) { /* не JSON */ }
+    const fallback = r.status + " " + r.statusText;
+    let detail = fallback;
+    try { detail = formatApiDetail((await r.json()).detail, fallback); } catch (e) { /* не JSON */ }
     throw new Error(detail);
   }
   return await r.json();
@@ -1260,6 +1368,12 @@ function applyTotals(resp) {
     DATA.meta.counts.totalKm = resp.totals.totalKm;
     DATA.meta.counts.plannedKm = resp.totals.plannedKm;
   }
+  // Раскладка свода СМР считается от плановых линий графа (compute_smr),
+  // поэтому ЛЮБАЯ правка — длина сегмента, новая связь, удаление узла —
+  // делает прежний прогресс недействительным. Сервер свой кэш сбрасывает сам
+  // (GraphState.reload), фронту достаточно перезапросить.
+  progressVersion = null;
+  pollProgress();
 }
 
 function setEditMsg(text, cls) {
@@ -1267,10 +1381,28 @@ function setEditMsg(text, cls) {
   if (msg) { msg.textContent = text; msg.className = "edit-msg " + (cls || ""); }
 }
 
+// «Подключений по плану» — это ШТУКИ дворов, целое число: сервер объявил поле
+// как int и на «0.4» отвечал 422. Проверяем на месте, чтобы не гонять заведомо
+// негодное значение на сервер и сказать понятным текстом, что не так.
+function readConnCount(el) {
+  const raw = el.value.trim();
+  if (raw === "") return null;
+  const v = Number(raw.replace(",", "."));
+  if (!Number.isFinite(v) || !Number.isInteger(v) || v < 0) {
+    throw new Error("«Подключений по плану» — целое число (сколько подключений), например 25");
+  }
+  return v;
+}
+
 async function saveNodeEdits(n) {
   const fields = { name: $("edName").value.trim() || null };
   const connEl = $("edConn");
-  if (connEl) fields.connectionCount = connEl.value === "" ? null : Number(connEl.value);
+  try {
+    if (connEl) fields.connectionCount = readConnCount(connEl);
+  } catch (err) {
+    setEditMsg("⚠ " + err.message, "err");
+    return;
+  }
   setEditMsg("Сохраняю…");
   try {
     await saveGraphEdit("node", n.id, fields);
@@ -1321,14 +1453,40 @@ async function saveEdgeEdits(e) {
 }
 
 // ---------- Извилистые линии OLT/АТС: добавление и удаление ----------
-// Сервер на каждую правку возвращает полное состояние (ручные линии + список
-// погашенных авто-линий) — берём его целиком, чтобы фронт и файл не разъезжались.
+// Сервер на каждую правку возвращает полный список линий — берём его целиком,
+// чтобы фронт и файл не разъезжались.
 function applyServiceLinkState(resp) {
   if (!resp || !resp.serviceLinks) return;
   DATA.serviceLinks = resp.serviceLinks;
-  DATA.serviceLinksHidden = resp.serviceLinksHidden || [];
   invalidateServiceLinks();
   draw();
+}
+
+// «Удалить все линии OLT/АТС» — это НЕ фильтр и не временное скрытие: линии
+// удаляются из файла. Дальше слой пустой и наполняется заново кнопкой
+// «〰️ Линия OLT/АТС».
+async function clearServiceLinks() {
+  if (!serviceLinks) computeServiceLinks();
+  const total = serviceLinks.length;
+  if (!total) {
+    showHint("Линий OLT/АТС нет — рисуйте новые кнопкой «〰️ Линия OLT/АТС»");
+    setTimeout(hideHint, 3500);
+    return;
+  }
+  if (!confirm(
+      `Удалить ВСЕ линии OLT/АТС (${total} шт.)?\n`
+      + "Удаление окончательное: слой останется пустым, пока вы не нарисуете новые.\n"
+      + "На км, прогресс и маршруты это не влияет.")) return;
+  cancelAddMode();
+  try {
+    applyServiceLinkState(await apiPost("api/graph/clear-service-links", {}));
+    closePanel();
+    showHint(`🗑 Линии OLT/АТС удалены (${total}) — сохранено в ${GRAPH_FILE}`);
+    setTimeout(hideHint, 4000);
+  } catch (err) {
+    showHint("⚠ " + err.message);
+    setTimeout(hideHint, 5000);
+  }
 }
 
 async function deleteServiceLink(L) {
@@ -1440,16 +1598,22 @@ function openAddNodeForm(wx, wy) {
   });
   $("afCancel").addEventListener("click", closePanel);
   $("afCreate").addEventListener("click", async () => {
+    let conn;
+    try {
+      conn = $("afKind").value === "snp" ? readConnCount($("afConn")) : null;
+    } catch (err) {
+      setEditMsg("⚠ " + err.message, "err");
+      return;
+    }
     setEditMsg("Сохраняю…");
     try {
-      const conn = $("afConn").value;
       const resp = await apiPost("api/graph/add-node", {
         kind: $("afKind").value,
         subtype: $("afSub").value,
         name: $("afName").value.trim() || null,
         district: $("afDistrict").value || null,
         x: wx, y: wy,
-        connectionCount: ($("afKind").value === "snp" && conn !== "") ? Number(conn) : null,
+        connectionCount: conn,
       });
       const node = resp.node;
       node._norm = normalizeName(node.name);
@@ -1622,6 +1786,8 @@ $("btnAddSvc").addEventListener("click", () => {
   showHint("Извилистая линия: кликните ПЕРВЫЙ узел, обычно OLT или АТС (Esc — отмена)");
 });
 
+$("btnClearSvc").addEventListener("click", clearServiceLinks);
+
 document.addEventListener("keydown", (ev) => {
   if (ev.key === "Escape" && addMode) cancelAddMode();
 });
@@ -1632,6 +1798,7 @@ function setEditMode(on) {
   $("btnAddNode").classList.toggle("visible", editMode);
   $("btnAddEdge").classList.toggle("visible", editMode);
   $("btnAddSvc").classList.toggle("visible", editMode);
+  $("btnClearSvc").classList.toggle("visible", editMode);
   if (!editMode) cancelAddMode();
   // Правка меняет реальные x/y узлов — масштаб по км (виртуальные координаты)
   // в этот момент только мешал бы, поэтому на время правки отключаем его.
@@ -1856,7 +2023,6 @@ $("districtSel").addEventListener("change", (ev) => {
 $("fMufta").addEventListener("change", (ev) => { filters.mufta = ev.target.checked; draw(); });
 $("fExisting").addEventListener("change", (ev) => { filters.existing = ev.target.checked; draw(); });
 $("fPlanned").addEventListener("change", (ev) => { filters.planned = ev.target.checked; draw(); });
-$("fDemo").addEventListener("change", (ev) => { filters.demo = ev.target.checked; draw(); });
 $("fPon").addEventListener("change", (ev) => {
   filters.pon = ev.target.checked;
   // Слой выключили — панель открытой извилистой линии закрываем, а список
@@ -1937,7 +2103,7 @@ async function initGraphSelector() {
   else renderDebugPanel({ trace: [], totals: {} }, "none");
   setInterval(pollProgress, PROGRESS_POLL_MS);
 
-  // URL-параметры: ?demo=1 — демо прогресса, ?district=Название — фильтр района,
+  // URL-параметры: ?district=Название — фильтр района,
   // ?theme=light|dark — принудительная тема, ?edit=1 — сразу режим правки.
   const params = new URLSearchParams(location.search);
   if (params.get("edit") === "1") setEditMode(true);
@@ -1946,10 +2112,6 @@ async function initGraphSelector() {
     theme = th;
     document.documentElement.setAttribute("data-theme", th);
     refreshColors();
-  }
-  if (params.get("demo") === "1" || location.hash === "#demo") {
-    filters.demo = true;
-    $("fDemo").checked = true;
   }
   const d = params.get("district");
   if (d) {

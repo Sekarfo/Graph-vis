@@ -15,6 +15,11 @@ COPY server.py progress_core.py matcher.py schema.py graph-app.js index.html ent
 # (см. discover_graphs() в server.py): новая область появляется в образе
 # просто новым файлом, Dockerfile трогать не нужно.
 COPY regions/ ./regions/
+# Свод СМР («Отчет СОИ») — выгрузка из книги, собранная scripts/import_smr.py.
+# Это данные из ВНЕШНЕЙ книги, а не то, что правят через вьюер, поэтому лежат
+# в образе рядом с кодом (не в DATA_DIR-volume) и обновляются деплоем. Нет
+# файла области — /api/smr отвечает 404, слой просто не показывается.
+COPY smr/ ./smr/
 
 RUN useradd --create-home --home-dir /home/app --shell /usr/sbin/nologin appuser \
 	&& chown -R appuser:appuser /app

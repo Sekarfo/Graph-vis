@@ -35,30 +35,31 @@
    }
   },
   "counts": {
-   "nodes": 505,
+   "nodes": 508,
    "nodesByKind": {
     "mufta": 171,
     "ats": 22,
-    "snp": 158,
+    "snp": 161,
     "olt": 78,
     "atn": 76
    },
    "snpByTech": {
     "fiber": 117,
-    "wifi": 40,
-    "starlink": 1
+    "wifi": 42,
+    "starlink": 1,
+    "outside": 1
    },
    "districts": 10,
-   "edges": 303,
+   "edges": 353,
    "edgesByType": {
-    "planned": 212,
-    "no_free_fibers": 27,
-    "existing": 63,
-    "outside_project": 1
+    "planned": 227,
+    "no_free_fibers": 40,
+    "existing": 84,
+    "outside_project": 2
    },
    "externalLinks": 0,
-   "totalKm": 3404.5,
-   "plannedKm": 2149.5
+   "totalKm": 4150.8,
+   "plannedKm": 2301.8
   }
  },
  "nodes": [
@@ -303,8 +304,8 @@
    "subtype": "existing",
    "name": "М7Б",
    "district": "район Жанасемей",
-   "x": 1390.6,
-   "y": 1175.1
+   "x": 1389.2,
+   "y": 1166.6
   },
   {
    "id": "B0026",
@@ -322,8 +323,8 @@
    "subtype": "existing",
    "name": "М3",
    "district": "район Жанасемей",
-   "x": 1330.7,
-   "y": 1170.9
+   "x": 1334.5,
+   "y": 1158.6
   },
   {
    "id": "B0028",
@@ -341,8 +342,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Абайский район",
-   "x": 853.1,
-   "y": 1324.9
+   "x": 855.6,
+   "y": 1315.6
   },
   {
    "id": "B0030",
@@ -552,8 +553,8 @@
    "name": "Мостик",
    "district": "Бескарагайский район",
    "connectionCount": 55,
-   "x": 876.4,
-   "y": 895.8
+   "x": 865.3,
+   "y": 916.3
   },
   {
    "id": "B0052",
@@ -637,8 +638,8 @@
    "name": "Карагайлы",
    "district": "Бескарагайский район",
    "connectionCount": 57,
-   "x": 1022.8,
-   "y": 472.4
+   "x": 1025.2,
+   "y": 467.2
   },
   {
    "id": "B0061",
@@ -646,8 +647,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Бескарагайский район",
-   "x": 1001.5,
-   "y": 510.7
+   "x": 999.8,
+   "y": 508.5
   },
   {
    "id": "B0062",
@@ -693,8 +694,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Бескарагайский район",
-   "x": 824.5,
-   "y": 383.2
+   "x": 826.6,
+   "y": 384.4
   },
   {
    "id": "B0067",
@@ -712,8 +713,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Бескарагайский район",
-   "x": 792.0,
-   "y": 334.9
+   "x": 793.7,
+   "y": 336.1
   },
   {
    "id": "B0069",
@@ -770,8 +771,8 @@
    "name": "Бегень лесхоз",
    "district": "Бескарагайский район",
    "connectionCount": 18,
-   "x": 790.2,
-   "y": 526.6
+   "x": 774.5,
+   "y": 520.1
   },
   {
    "id": "B0075",
@@ -789,8 +790,8 @@
    "subtype": "existing",
    "name": "М2",
    "district": "Бескарагайский район",
-   "x": 1175.3,
-   "y": 839.7
+   "x": 1177.7,
+   "y": 839.2
   },
   {
    "id": "B0077",
@@ -798,8 +799,8 @@
    "subtype": "existing",
    "name": "М6",
    "district": "Бородулихинский район",
-   "x": 1565.4,
-   "y": 882.2
+   "x": 1550.1,
+   "y": 850.1
   },
   {
    "id": "B0078",
@@ -808,8 +809,8 @@
    "name": "Карагайлы",
    "district": "Бородулихинский район",
    "connectionCount": 14,
-   "x": 1500.3,
-   "y": 883.4
+   "x": 1486.7,
+   "y": 937.3
   },
   {
    "id": "B0079",
@@ -817,8 +818,8 @@
    "subtype": "existing",
    "name": "М11",
    "district": "Бородулихинский район",
-   "x": 1648.7,
-   "y": 802.7
+   "x": 1664.4,
+   "y": 823.3
   },
   {
    "id": "B0080",
@@ -874,8 +875,8 @@
    "subtype": "existing",
    "name": "М13",
    "district": "Бородулихинский район",
-   "x": 1805.4,
-   "y": 862.2
+   "x": 1794.9,
+   "y": 857.5
   },
   {
    "id": "B0086",
@@ -931,8 +932,8 @@
    "name": "Переменовка",
    "district": "Бородулихинский район",
    "connectionCount": 76,
-   "x": 2048.0,
-   "y": 659.5
+   "x": 2049.8,
+   "y": 654.4
   },
   {
    "id": "B0092",
@@ -941,8 +942,8 @@
    "name": "Андроновка",
    "district": "Бородулихинский район",
    "connectionCount": 67,
-   "x": 2081.1,
-   "y": 700.5
+   "x": 2069.1,
+   "y": 699.8
   },
   {
    "id": "B0093",
@@ -989,8 +990,8 @@
    "name": "Ремки",
    "district": "Бородулихинский район",
    "connectionCount": 11,
-   "x": 1979.7,
-   "y": 668.1
+   "x": 1975.3,
+   "y": 669.6
   },
   {
    "id": "B0098",
@@ -1006,11 +1007,11 @@
    "id": "B0099",
    "kind": "snp",
    "subtype": "wifi",
-   "name": "Поднебесно е",
+   "name": "Поднебесное",
    "district": "Бородулихинский район",
    "connectionCount": 9,
-   "x": 1763.7,
-   "y": 906.2
+   "x": 1749.7,
+   "y": 878.1
   },
   {
    "id": "B0100",
@@ -1037,8 +1038,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Жарминский район",
-   "x": 1912.6,
-   "y": 1050.2
+   "x": 1906.9,
+   "y": 1029.5
   },
   {
    "id": "B0103",
@@ -1065,8 +1066,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Жарминский район",
-   "x": 2042.4,
-   "y": 1011.2
+   "x": 2020.5,
+   "y": 1012.6
   },
   {
    "id": "B0106",
@@ -1075,8 +1076,8 @@
    "name": "Акши",
    "district": "Жарминский район",
    "connectionCount": 13,
-   "x": 2029.7,
-   "y": 1063.5
+   "x": 2009.8,
+   "y": 1067.8
   },
   {
    "id": "B0107",
@@ -1104,8 +1105,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Жарминский район",
-   "x": 2211.0,
-   "y": 818.1
+   "x": 2204.2,
+   "y": 821.1
   },
   {
    "id": "B0110",
@@ -1123,8 +1124,8 @@
    "name": "Жарбулак",
    "district": "Жарминский район",
    "connectionCount": 19,
-   "x": 2206.3,
-   "y": 1030.9
+   "x": 2200.5,
+   "y": 1037.6
   },
   {
    "id": "B0112",
@@ -1132,8 +1133,8 @@
    "subtype": "existing",
    "name": "М22",
    "district": "Жарминский район",
-   "x": 2233.7,
-   "y": 977.5
+   "x": 2230.7,
+   "y": 984.4
   },
   {
    "id": "B0113",
@@ -1161,8 +1162,8 @@
    "subtype": "existing",
    "name": "М23",
    "district": "Жарминский район",
-   "x": 2280.7,
-   "y": 1000.7
+   "x": 2291.6,
+   "y": 1009.3
   },
   {
    "id": "B0116",
@@ -1188,8 +1189,8 @@
    "subtype": "existing",
    "name": "Усть-Каменогорск",
    "district": "Жарминский район",
-   "x": 2812.7,
-   "y": 1273.0
+   "x": 2812.2,
+   "y": 1248.1
   },
   {
    "id": "B0119",
@@ -1217,8 +1218,8 @@
    "name": "Капай Батыр",
    "district": "Аягозский район",
    "connectionCount": 49,
-   "x": 2934.4,
-   "y": 1459.7
+   "x": 2932.7,
+   "y": 1459.3
   },
   {
    "id": "B0122",
@@ -1512,8 +1513,8 @@
    "subtype": "existing",
    "name": "М9",
    "district": "Кокпектинский район",
-   "x": 3464.1,
-   "y": 1579.8
+   "x": 3461.6,
+   "y": 1584.8
   },
   {
    "id": "B0153",
@@ -1692,8 +1693,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Кокпектинский район",
-   "x": 3610.1,
-   "y": 1434.2
+   "x": 3611.9,
+   "y": 1434.9
   },
   {
    "id": "B0172",
@@ -1701,8 +1702,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Кокпектинский район",
-   "x": 3550.0,
-   "y": 1385.9
+   "x": 3551.9,
+   "y": 1389.6
   },
   {
    "id": "B0173",
@@ -1758,8 +1759,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Кокпектинский район",
-   "x": 3761.4,
-   "y": 1367.4
+   "x": 3765.9,
+   "y": 1354.2
   },
   {
    "id": "B0179",
@@ -1805,7 +1806,7 @@
    "subtype": "planned",
    "name": null,
    "district": "Кокпектинский район",
-   "x": 3679.3,
+   "x": 3679.6,
    "y": 1261.3
   },
   {
@@ -1853,8 +1854,8 @@
    "name": "Шугылбай",
    "district": "Кокпектинский район",
    "connectionCount": 60,
-   "x": 3921.7,
-   "y": 1242.6
+   "x": 3926.0,
+   "y": 1241.3
   },
   {
    "id": "B0189",
@@ -1930,8 +1931,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Кокпектинский район",
-   "x": 3895.5,
-   "y": 1513.7
+   "x": 3895.8,
+   "y": 1513.3
   },
   {
    "id": "B0197",
@@ -1939,8 +1940,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Кокпектинский район",
-   "x": 3947.3,
-   "y": 1494.5
+   "x": 3937.4,
+   "y": 1493.1
   },
   {
    "id": "B0198",
@@ -1958,8 +1959,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Кокпектинский район",
-   "x": 4001.4,
-   "y": 1471.0
+   "x": 4000.9,
+   "y": 1471.8
   },
   {
    "id": "B0200",
@@ -1978,8 +1979,8 @@
    "name": "Тассай",
    "district": "Кокпектинский район",
    "connectionCount": 88,
-   "x": 4034.7,
-   "y": 1538.6
+   "x": 4028.5,
+   "y": 1539.3
   },
   {
    "id": "B0202",
@@ -1987,8 +1988,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Кокпектинский район",
-   "x": 4055.5,
-   "y": 1584.4
+   "x": 4056.5,
+   "y": 1571.1
   },
   {
    "id": "B0203",
@@ -2005,8 +2006,8 @@
    "subtype": "existing",
    "name": "М21",
    "district": "Кокпектинский район",
-   "x": 4173.5,
-   "y": 1633.1
+   "x": 4169.7,
+   "y": 1618.7
   },
   {
    "id": "B0205",
@@ -2015,8 +2016,8 @@
    "name": "Сулутал",
    "district": "Аксуатский район",
    "connectionCount": 15,
-   "x": 4240.6,
-   "y": 1702.2
+   "x": 4247.1,
+   "y": 1708.7
   },
   {
    "id": "B0206",
@@ -2034,8 +2035,8 @@
    "name": "Кожакельд ы",
    "district": "Аксуатский район",
    "connectionCount": 18,
-   "x": 4090.9,
-   "y": 1747.5
+   "x": 4060.8,
+   "y": 1748.6
   },
   {
    "id": "B0208",
@@ -2063,7 +2064,7 @@
    "name": "Сатпаев",
    "district": "Аксуатский район",
    "connectionCount": 57,
-   "x": 4245.5,
+   "x": 4237.9,
    "y": 1789.0
   },
   {
@@ -2072,8 +2073,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Аксуатский район",
-   "x": 4239.9,
-   "y": 1826.8
+   "x": 4252.9,
+   "y": 1817.6
   },
   {
    "id": "B0212",
@@ -2090,8 +2091,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Аксуатский район",
-   "x": 4003.3,
-   "y": 1865.5
+   "x": 3998.8,
+   "y": 1866.1
   },
   {
    "id": "B0214",
@@ -2100,8 +2101,8 @@
    "name": "Кызылкесе к",
    "district": "Аксуатский район",
    "connectionCount": 93,
-   "x": 4011.7,
-   "y": 1914.4
+   "x": 3986.1,
+   "y": 1907.4
   },
   {
    "id": "B0215",
@@ -2109,8 +2110,8 @@
    "subtype": "existing",
    "name": "М7",
    "district": "Аксуатский район",
-   "x": 4271.9,
-   "y": 2070.6
+   "x": 4270.5,
+   "y": 2071.4
   },
   {
    "id": "B0216",
@@ -3033,8 +3034,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Аксуатский район",
-   "x": 4066.6,
-   "y": 1846.4
+   "x": 4067.2,
+   "y": 1854.5
   },
   {
    "id": "B0314",
@@ -3145,7 +3146,7 @@
    "subtype": "planned",
    "name": null,
    "district": "Жарминский район",
-   "x": 1897.7,
+   "x": 1898.2,
    "y": 1088.4
   },
   {
@@ -3155,8 +3156,8 @@
    "name": "Байтанат",
    "district": "Бородулихинский район",
    "connectionCount": 32,
-   "x": 1335.8,
-   "y": 616.4
+   "x": 1269.4,
+   "y": 674.5
   },
   {
    "id": "B0328",
@@ -3221,8 +3222,8 @@
    "subtype": "planned",
    "name": null,
    "district": "Кокпектинский район",
-   "x": 4094.7,
-   "y": 1546.4
+   "x": 4106.0,
+   "y": 1539.0
   },
   {
    "id": "B0335",
@@ -3230,8 +3231,8 @@
    "subtype": "existing",
    "name": "М4",
    "district": "Аксуатский район",
-   "x": 4221.3,
-   "y": 2026.7
+   "x": 4225.7,
+   "y": 2017.3
   },
   {
    "id": "B0336",
@@ -3313,8 +3314,8 @@
    "subtype": "existing",
    "name": "Курчатов",
    "district": "Абайский район",
-   "x": 659.3,
-   "y": 986.2
+   "x": 691.2,
+   "y": 986.4
   },
   {
    "id": "B0345",
@@ -3367,8 +3368,8 @@
    "subtype": "planned",
    "name": "Мостик",
    "district": "Бескарагайский район",
-   "x": 885.9,
-   "y": 869.2
+   "x": 867.4,
+   "y": 903.7
   },
   {
    "id": "B0351",
@@ -3430,8 +3431,8 @@
    "subtype": "planned",
    "name": "Бородулиха",
    "district": "Бородулихинский район",
-   "x": 1771.3,
-   "y": 776.2
+   "x": 1823.6,
+   "y": 794.4
   },
   {
    "id": "B0358",
@@ -3448,8 +3449,8 @@
    "subtype": "planned",
    "name": "Новая Шульба",
    "district": "Жарминский район",
-   "x": 1912.8,
-   "y": 963.5
+   "x": 1919.3,
+   "y": 953.2
   },
   {
    "id": "B0360",
@@ -3457,8 +3458,8 @@
    "subtype": "planned",
    "name": "Жарбулак",
    "district": "Жарминский район",
-   "x": 2178.7,
-   "y": 1025.9
+   "x": 2189.9,
+   "y": 1032.2
   },
   {
    "id": "B0361",
@@ -3475,8 +3476,8 @@
    "subtype": "planned",
    "name": "Озёрки",
    "district": "район Жанасемей",
-   "x": 1385.1,
-   "y": 1007.4
+   "x": 1372.6,
+   "y": 999.5
   },
   {
    "id": "B0363",
@@ -3565,8 +3566,8 @@
    "subtype": "planned",
    "name": "Капай Батыр",
    "district": "Аягозский район",
-   "x": 2939.5,
-   "y": 1472.6
+   "x": 2934.1,
+   "y": 1471.8
   },
   {
    "id": "B0373",
@@ -3700,8 +3701,8 @@
    "subtype": "planned",
    "name": "Тассай",
    "district": "Кокпектинский район",
-   "x": 4030.9,
-   "y": 1509.5
+   "x": 4030.4,
+   "y": 1530.6
   },
   {
    "id": "B0388",
@@ -3718,8 +3719,8 @@
    "subtype": "planned",
    "name": "Бигаш",
    "district": "Кокпектинский район",
-   "x": 3664.4,
-   "y": 1614.3
+   "x": 3642.1,
+   "y": 1644.0
   },
   {
    "id": "B0390",
@@ -3736,8 +3737,8 @@
    "subtype": "planned",
    "name": "Сатпаев",
    "district": "Аксуатский район",
-   "x": 4250.5,
-   "y": 1772.5
+   "x": 4252.1,
+   "y": 1773.6
   },
   {
    "id": "B0392",
@@ -3907,8 +3908,8 @@
    "subtype": "planned",
    "name": "Красный Яр",
    "district": "Жарминский район",
-   "x": 2302.3,
-   "y": 1079.0
+   "x": 2283.8,
+   "y": 1068.6
   },
   {
    "id": "B0411",
@@ -3934,8 +3935,8 @@
    "subtype": "planned",
    "name": "Подхоз Березовка",
    "district": "Бородулихинский район",
-   "x": 1801.7,
-   "y": 624.5
+   "x": 1823.1,
+   "y": 633.2
   },
   {
    "id": "B0414",
@@ -3988,8 +3989,8 @@
    "subtype": "existing",
    "name": "Жезкент",
    "district": "Бородулихинский район",
-   "x": 2049.3,
-   "y": 428.1
+   "x": 2050.4,
+   "y": 442.6
   },
   {
    "id": "B0420",
@@ -4015,8 +4016,8 @@
    "subtype": "existing",
    "name": "ПРС Бескарагай",
    "district": "Бескарагайский район",
-   "x": 941.2,
-   "y": 676.2
+   "x": 943.0,
+   "y": 677.7
   },
   {
    "id": "B0423",
@@ -4069,8 +4070,8 @@
    "subtype": "existing",
    "name": "М11",
    "district": "Бескарагайский район",
-   "x": 1195.0,
-   "y": 800.0
+   "x": 1188.4,
+   "y": 806.2
   },
   {
    "id": "B0429",
@@ -4078,8 +4079,8 @@
    "subtype": "existing",
    "name": "М12",
    "district": "Бескарагайский район",
-   "x": 1238.2,
-   "y": 796.8
+   "x": 1242.9,
+   "y": 796.3
   },
   {
    "id": "B0430",
@@ -4105,8 +4106,8 @@
    "subtype": "existing",
    "name": "Озёрки",
    "district": "район Жанасемей",
-   "x": 1381.3,
-   "y": 1020.0
+   "x": 1373.0,
+   "y": 1010.0
   },
   {
    "id": "B0433",
@@ -4123,8 +4124,8 @@
    "subtype": "existing",
    "name": "Бегень",
    "district": "Бескарагайский район",
-   "x": 844.2,
-   "y": 551.0
+   "x": 848.5,
+   "y": 556.7
   },
   {
    "id": "B0435",
@@ -4150,8 +4151,8 @@
    "subtype": "existing",
    "name": "Бородулиха",
    "district": "Бородулихинский район",
-   "x": 1805.6,
-   "y": 785.8
+   "x": 1801.8,
+   "y": 781.1
   },
   {
    "id": "B0438",
@@ -4204,8 +4205,8 @@
    "subtype": "existing",
    "name": "АТС 42 Семей",
    "district": "район Жанасемей",
-   "x": 1274.7,
-   "y": 1154.9
+   "x": 1271.2,
+   "y": 1149.2
   },
   {
    "id": "B0444",
@@ -4222,7 +4223,7 @@
    "subtype": "existing",
    "name": "Кокпекты",
    "district": "Кокпектинский район",
-   "x": 3640.1,
+   "x": 3634.5,
    "y": 1597.9
   },
   {
@@ -4591,8 +4592,8 @@
    "subtype": "planned",
    "name": "Малая Владимировка",
    "district": "Бескарагайский район",
-   "x": 931.0,
-   "y": 590.9
+   "x": 925.9,
+   "y": 593.2
   },
   {
    "id": "B0487",
@@ -4627,8 +4628,8 @@
    "subtype": "planned",
    "name": "Жарбулак",
    "district": "Жарминский район",
-   "x": 2179.0,
-   "y": 1005.3
+   "x": 2185.3,
+   "y": 1024.7
   },
   {
    "id": "B0491",
@@ -4636,8 +4637,8 @@
    "subtype": "planned",
    "name": "Красный Яр",
    "district": "Жарминский район",
-   "x": 2302.5,
-   "y": 1061.1
+   "x": 2284.2,
+   "y": 1059.2
   },
   {
    "id": "B0492",
@@ -4663,8 +4664,8 @@
    "subtype": "planned",
    "name": "Знаменка",
    "district": "Бородулихинский район",
-   "x": 1807.8,
-   "y": 658.7
+   "x": 1820.9,
+   "y": 653.3
   },
   {
    "id": "B0495",
@@ -4726,8 +4727,8 @@
    "subtype": "existing",
    "name": "Камышенка",
    "district": "Бородулихинский район",
-   "x": 1677.4,
-   "y": 902.8
+   "x": 1659.5,
+   "y": 911.5
   },
   {
    "id": "B0502",
@@ -4762,8 +4763,37 @@
    "subtype": "planned",
    "name": "АТС 42 Семей",
    "district": "район Жанасемей",
-   "x": 1252.2,
-   "y": 1132.1
+   "x": 1256.3,
+   "y": 1130.2
+  },
+  {
+   "id": "B02bba3",
+   "kind": "snp",
+   "subtype": "wifi",
+   "name": "Баженово",
+   "district": "район Жанасемей",
+   "x": 1724.1,
+   "y": 1147.9,
+   "connectionCount": 25
+  },
+  {
+   "id": "B2a70f6",
+   "kind": "snp",
+   "subtype": "outside",
+   "name": "Боровлянка",
+   "district": "Бородулихинский район",
+   "x": 1831.5,
+   "y": 1114.2
+  },
+  {
+   "id": "B6bdf13",
+   "kind": "snp",
+   "subtype": "wifi",
+   "name": "Егиндыбулак",
+   "district": "Аксуатский район",
+   "x": 3943.8,
+   "y": 1893.8,
+   "connectionCount": 9
   }
  ],
  "edges": [
@@ -4787,13 +4817,6 @@
    "to": "B0286",
    "type": "no_free_fibers",
    "lengthKm": 12.2
-  },
-  {
-   "id": "E0004",
-   "from": "B0145",
-   "to": "B0118",
-   "type": "existing",
-   "lengthKm": 24.7
   },
   {
    "id": "E0005",
@@ -4859,13 +4882,6 @@
    "lengthKm": 72
   },
   {
-   "id": "E0014",
-   "from": "B0443",
-   "to": "B0344",
-   "type": "existing",
-   "lengthKm": 14.2
-  },
-  {
    "id": "E0015",
    "from": "B0007",
    "to": "B0008",
@@ -4906,13 +4922,6 @@
    "to": "B0014",
    "type": "planned",
    "lengthKm": 9
-  },
-  {
-   "id": "E0021",
-   "from": "B0015",
-   "to": "B0443",
-   "type": "existing",
-   "lengthKm": 16.6
   },
   {
    "id": "E0022",
@@ -5300,25 +5309,11 @@
    "lengthKm": 3.2
   },
   {
-   "id": "E0088",
-   "from": "B0104",
-   "to": "B0326",
-   "type": "planned",
-   "lengthKm": 10
-  },
-  {
    "id": "E0089",
    "from": "B0101",
    "to": "B0102",
    "type": "planned",
    "lengthKm": 10.5
-  },
-  {
-   "id": "E0090",
-   "from": "B0104",
-   "to": "B0103",
-   "type": "planned",
-   "lengthKm": 5.2
   },
   {
    "id": "E0091",
@@ -5328,25 +5323,11 @@
    "lengthKm": 16
   },
   {
-   "id": "E0092",
-   "from": "B0110",
-   "to": "B0107",
-   "type": "planned",
-   "lengthKm": 10
-  },
-  {
    "id": "E0093",
    "from": "B0109",
    "to": "B0108",
    "type": "planned",
    "lengthKm": 9.3
-  },
-  {
-   "id": "E0094",
-   "from": "B0113",
-   "to": "B0112",
-   "type": "planned",
-   "lengthKm": 24
   },
   {
    "id": "E0095",
@@ -5580,13 +5561,6 @@
    "lengthKm": 0.2
   },
   {
-   "id": "E0130",
-   "from": "B0167",
-   "to": "B0445",
-   "type": "existing",
-   "lengthKm": 13.4
-  },
-  {
    "id": "E0133",
    "from": "B0172",
    "to": "B0170",
@@ -5606,13 +5580,6 @@
    "to": "B0174",
    "type": "planned",
    "lengthKm": 0.75
-  },
-  {
-   "id": "E0136",
-   "from": "B0177",
-   "to": "B0179",
-   "type": "planned",
-   "lengthKm": 0.5
   },
   {
    "id": "E0137",
@@ -5678,13 +5645,6 @@
    "lengthKm": 7
   },
   {
-   "id": "E0148",
-   "from": "B0193",
-   "to": "B0444",
-   "type": "planned",
-   "lengthKm": 7.5
-  },
-  {
    "id": "E0149",
    "from": "B0196",
    "to": "B0194",
@@ -5706,25 +5666,11 @@
    "lengthKm": 0.5
   },
   {
-   "id": "E0152",
-   "from": "B0203",
-   "to": "B0200",
-   "type": "planned",
-   "lengthKm": 7
-  },
-  {
    "id": "E0153",
    "from": "B0202",
    "to": "B0201",
    "type": "planned",
    "lengthKm": 1
-  },
-  {
-   "id": "E0154",
-   "from": "B0448",
-   "to": "B0204",
-   "type": "existing",
-   "lengthKm": 12.3
   },
   {
    "id": "E0155",
@@ -5741,13 +5687,6 @@
    "lengthKm": 11
   },
   {
-   "id": "E0157",
-   "from": "B0209",
-   "to": "B0212",
-   "type": "planned",
-   "lengthKm": 0.5
-  },
-  {
    "id": "E0158",
    "from": "B0210",
    "to": "B0211",
@@ -5760,13 +5699,6 @@
    "to": "B0214",
    "type": "planned",
    "lengthKm": 1
-  },
-  {
-   "id": "E0160",
-   "from": "B0451",
-   "to": "B0335",
-   "type": "existing",
-   "lengthKm": 6.2
   },
   {
    "id": "E0161",
@@ -6294,13 +6226,6 @@
    "lengthKm": 59
   },
   {
-   "id": "E0246",
-   "from": "B0360",
-   "to": "B0111",
-   "type": "existing",
-   "lengthKm": 24
-  },
-  {
    "id": "E0249",
    "from": "B0476",
    "to": "B0408",
@@ -6362,20 +6287,6 @@
    "to": "B0505",
    "type": "no_free_fibers",
    "lengthKm": 4.8
-  },
-  {
-   "id": "E0259",
-   "from": "B0443",
-   "to": "B0079",
-   "type": "no_free_fibers",
-   "lengthKm": 18.4
-  },
-  {
-   "id": "E0260",
-   "from": "B0079",
-   "to": "B0117",
-   "type": "no_free_fibers",
-   "lengthKm": 18.2
   },
   {
    "id": "E0261",
@@ -6887,6 +6798,475 @@
    "to": "B0090",
    "type": "no_free_fibers",
    "lengthKm": 10.0
+  },
+  {
+   "id": "E589cfd",
+   "from": "B0328",
+   "to": "B0443",
+   "type": "no_free_fibers",
+   "lengthKm": 23.1
+  },
+  {
+   "id": "E5d72be",
+   "from": "B0328",
+   "to": "B0077",
+   "type": "no_free_fibers",
+   "lengthKm": 9.7
+  },
+  {
+   "id": "E4af150",
+   "from": "B0077",
+   "to": "B0343",
+   "type": "no_free_fibers",
+   "lengthKm": 25.0
+  },
+  {
+   "id": "E4c0039",
+   "from": "B0079",
+   "to": "B0343",
+   "type": "no_free_fibers",
+   "lengthKm": 6.0
+  },
+  {
+   "id": "Eb7b1a2",
+   "from": "B0443",
+   "to": "B0027",
+   "type": "existing",
+   "lengthKm": 6.3
+  },
+  {
+   "id": "E6b176e",
+   "from": "B0027",
+   "to": "B0025",
+   "type": "existing",
+   "lengthKm": 15.6
+  },
+  {
+   "id": "Ee442b1",
+   "from": "B0025",
+   "to": "B0023",
+   "type": "existing",
+   "lengthKm": 10.0
+  },
+  {
+   "id": "E26496a",
+   "from": "B0023",
+   "to": "B0019",
+   "type": "existing",
+   "lengthKm": 16.6
+  },
+  {
+   "id": "E31a742",
+   "from": "B0019",
+   "to": "B0021",
+   "type": "existing",
+   "lengthKm": 5.9
+  },
+  {
+   "id": "E9e0bdc",
+   "from": "B0021",
+   "to": "B0016",
+   "type": "existing",
+   "lengthKm": 9.7
+  },
+  {
+   "id": "Ed93882",
+   "from": "B0016",
+   "to": "B0015",
+   "type": "existing",
+   "lengthKm": 4.2
+  },
+  {
+   "id": "Eb09743",
+   "from": "B0017",
+   "to": "B02bba3",
+   "type": "planned",
+   "lengthKm": 0.33
+  },
+  {
+   "id": "E40ae05",
+   "from": "B0443",
+   "to": "B0011",
+   "type": "existing",
+   "lengthKm": 4.8
+  },
+  {
+   "id": "Ea5119a",
+   "from": "B0011",
+   "to": "B0038",
+   "type": "existing",
+   "lengthKm": 11.6
+  },
+  {
+   "id": "Ec8f5ad",
+   "from": "B0007",
+   "to": "B0038",
+   "type": "existing",
+   "lengthKm": 16.9
+  },
+  {
+   "id": "E173555",
+   "from": "B0007",
+   "to": "B0340",
+   "type": "existing",
+   "lengthKm": 14.2
+  },
+  {
+   "id": "E190a44",
+   "from": "B0340",
+   "to": "B0344",
+   "type": "existing",
+   "lengthKm": 92.3
+  },
+  {
+   "id": "E5d8eaa",
+   "from": "B0437",
+   "to": "B0087",
+   "type": "no_free_fibers",
+   "lengthKm": 12.0
+  },
+  {
+   "id": "Ee7fcbc",
+   "from": "B0089",
+   "to": "B0087",
+   "type": "no_free_fibers",
+   "lengthKm": 6.0
+  },
+  {
+   "id": "E19e600",
+   "from": "B0096",
+   "to": "B0089",
+   "type": "no_free_fibers",
+   "lengthKm": 5.2
+  },
+  {
+   "id": "E103592",
+   "from": "B0090",
+   "to": "B0096",
+   "type": "no_free_fibers",
+   "lengthKm": 20.0
+  },
+  {
+   "id": "Ea167be",
+   "from": "B0079",
+   "to": "B0085",
+   "type": "no_free_fibers",
+   "lengthKm": 9.0
+  },
+  {
+   "id": "E90093b",
+   "from": "B0085",
+   "to": "B0100",
+   "type": "no_free_fibers",
+   "lengthKm": 35.5
+  },
+  {
+   "id": "Eacf073",
+   "from": "B0104",
+   "to": "B0102",
+   "type": "planned",
+   "lengthKm": 10.0
+  },
+  {
+   "id": "E56a426",
+   "from": "B0102",
+   "to": "B0326",
+   "type": "planned",
+   "lengthKm": 2.5
+  },
+  {
+   "id": "E0066a7",
+   "from": "B0326",
+   "to": "B2a70f6",
+   "type": "outside_project",
+   "lengthKm": 1.0
+  },
+  {
+   "id": "E47431a",
+   "from": "B0104",
+   "to": "B0105",
+   "type": "planned",
+   "lengthKm": 5.2
+  },
+  {
+   "id": "Ecddb2b",
+   "from": "B0105",
+   "to": "B0103",
+   "type": "planned",
+   "lengthKm": 2.0
+  },
+  {
+   "id": "E01ddb7",
+   "from": "B0100",
+   "to": "B0110",
+   "type": "no_free_fibers",
+   "lengthKm": 12.0
+  },
+  {
+   "id": "Ee48711",
+   "from": "B0110",
+   "to": "B0112",
+   "type": "no_free_fibers",
+   "lengthKm": 6.0
+  },
+  {
+   "id": "Edd93b3",
+   "from": "B0110",
+   "to": "B0109",
+   "type": "planned",
+   "lengthKm": 10.0
+  },
+  {
+   "id": "E495ff8",
+   "from": "B0107",
+   "to": "B0109",
+   "type": "planned",
+   "lengthKm": 16.0
+  },
+  {
+   "id": "E887f0d",
+   "from": "B0112",
+   "to": "B0115",
+   "type": "no_free_fibers",
+   "lengthKm": 6.0
+  },
+  {
+   "id": "E1f1ed9",
+   "from": "B0112",
+   "to": "B0111",
+   "type": "planned",
+   "lengthKm": 9.0
+  },
+  {
+   "id": "E2d7b12",
+   "from": "B0111",
+   "to": "B0113",
+   "type": "planned",
+   "lengthKm": 24.0
+  },
+  {
+   "id": "E935f0f",
+   "from": "B0115",
+   "to": "B0116",
+   "type": "no_free_fibers",
+   "lengthKm": 12.0
+  },
+  {
+   "id": "E68ffa4",
+   "from": "B0116",
+   "to": "B0117",
+   "type": "no_free_fibers",
+   "lengthKm": 12.0
+  },
+  {
+   "id": "E531bb9",
+   "from": "B0118",
+   "to": "B0120",
+   "type": "existing",
+   "lengthKm": 83.5
+  },
+  {
+   "id": "Ed455c0",
+   "from": "B0120",
+   "to": "B0122",
+   "type": "existing",
+   "lengthKm": 24.7
+  },
+  {
+   "id": "E0990b8",
+   "from": "B0122",
+   "to": "B0145",
+   "type": "existing",
+   "lengthKm": 6.0
+  },
+  {
+   "id": "E815254",
+   "from": "B0179",
+   "to": "B0178",
+   "type": "planned",
+   "lengthKm": 3.3
+  },
+  {
+   "id": "Ea7d166",
+   "from": "B0178",
+   "to": "B0177",
+   "type": "planned",
+   "lengthKm": 4.2
+  },
+  {
+   "id": "E43447c",
+   "from": "B0444",
+   "to": "B0196",
+   "type": "planned",
+   "lengthKm": 12.0
+  },
+  {
+   "id": "E8492e8",
+   "from": "B0196",
+   "to": "B0197",
+   "type": "planned",
+   "lengthKm": 6.0
+  },
+  {
+   "id": "Ee958d1",
+   "from": "B0197",
+   "to": "B0199",
+   "type": "planned",
+   "lengthKm": 7.5
+  },
+  {
+   "id": "Ec9eca1",
+   "from": "B0199",
+   "to": "B0193",
+   "type": "planned",
+   "lengthKm": 4.0
+  },
+  {
+   "id": "Ebee2d8",
+   "from": "B0445",
+   "to": "B0191",
+   "type": "existing",
+   "lengthKm": 16.0
+  },
+  {
+   "id": "Eea3833",
+   "from": "B0191",
+   "to": "B0192",
+   "type": "existing",
+   "lengthKm": 12.7
+  },
+  {
+   "id": "E35ee81",
+   "from": "B0192",
+   "to": "B0203",
+   "type": "existing",
+   "lengthKm": 13.4
+  },
+  {
+   "id": "E221b4e",
+   "from": "B0203",
+   "to": "B0202",
+   "type": "planned",
+   "lengthKm": 18.0
+  },
+  {
+   "id": "Ed8dea2",
+   "from": "B0202",
+   "to": "B0334",
+   "type": "planned",
+   "lengthKm": 7.0
+  },
+  {
+   "id": "E003013",
+   "from": "B0200",
+   "to": "B0334",
+   "type": "planned",
+   "lengthKm": 4.0
+  },
+  {
+   "id": "Eab6638",
+   "from": "B0203",
+   "to": "B0204",
+   "type": "existing",
+   "lengthKm": 41.5
+  },
+  {
+   "id": "Edb3b72",
+   "from": "B0204",
+   "to": "B0167",
+   "type": "existing",
+   "lengthKm": 51.2
+  },
+  {
+   "id": "E5bf1ca",
+   "from": "B0204",
+   "to": "B0206",
+   "type": "existing",
+   "lengthKm": 21.2
+  },
+  {
+   "id": "E2b7f71",
+   "from": "B0206",
+   "to": "B0208",
+   "type": "existing",
+   "lengthKm": 10.7
+  },
+  {
+   "id": "Ef842cb",
+   "from": "B0208",
+   "to": "B0212",
+   "type": "existing",
+   "lengthKm": 12.3
+  },
+  {
+   "id": "Ef8bb8f",
+   "from": "B0212",
+   "to": "B0211",
+   "type": "planned",
+   "lengthKm": 2.0
+  },
+  {
+   "id": "Ea5a7c8",
+   "from": "B0211",
+   "to": "B0209",
+   "type": "planned",
+   "lengthKm": 10.0
+  },
+  {
+   "id": "E86edc4",
+   "from": "B0212",
+   "to": "B0313",
+   "type": "planned",
+   "lengthKm": 27.0
+  },
+  {
+   "id": "Ee760f9",
+   "from": "B0313",
+   "to": "B0213",
+   "type": "planned",
+   "lengthKm": 24.0
+  },
+  {
+   "id": "Ed4c344",
+   "from": "B0213",
+   "to": "B6bdf13",
+   "type": "planned",
+   "lengthKm": 9.0
+  },
+  {
+   "id": "Ec439b9",
+   "from": "B0212",
+   "to": "B0218",
+   "type": "existing",
+   "lengthKm": 6.8
+  },
+  {
+   "id": "Ef3734e",
+   "from": "B0218",
+   "to": "B0217",
+   "type": "existing",
+   "lengthKm": 5.6
+  },
+  {
+   "id": "Ec90934",
+   "from": "B0217",
+   "to": "B0448",
+   "type": "existing",
+   "lengthKm": 6.1
+  },
+  {
+   "id": "E3b1bbb",
+   "from": "B0335",
+   "to": "B0215",
+   "type": "existing",
+   "lengthKm": 15.5
+  },
+  {
+   "id": "Ef28159",
+   "from": "B0215",
+   "to": "B0451",
+   "type": "existing",
+   "lengthKm": 6.2
   }
  ],
  "externalLinks": [],

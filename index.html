@@ -267,6 +267,19 @@ canvas.dragging { cursor: grabbing; }
 .dbg-edges { color: var(--progress); }
 .dbg-reason { color: var(--edge-nofree); font-size: 11.5px; margin-top: 2px; }
 .dbg-when { text-align: right; }
+/* Уже применённый отчёт — заливкой, а не только цветом полоски слева:
+   в списке из полусотни строк надо с одного взгляда видеть, что разобрано. */
+.dbg-row.dbg-applied { background: color-mix(in srgb, var(--progress) 12%, var(--page)); }
+.dbg-actions { display: flex; gap: 6px; margin-top: 6px; }
+.dbg-btn {
+  flex: 1; font-size: 11px; padding: 3px 6px; cursor: pointer;
+  border: 1px solid var(--border); border-radius: 5px;
+  background: var(--surface-1); color: var(--text-secondary);
+}
+.dbg-btn:hover { border-color: var(--accent); color: var(--text-primary); }
+.dbg-btn.dbg-apply { color: var(--progress); border-color: var(--progress); }
+.dbg-btn.dbg-drop { color: var(--edge-nofree); }
+.dbg-btn.dbg-drop:hover { border-color: var(--edge-nofree); }
 
 #error {
   position: absolute; inset: 0; display: none; z-index: 40;
@@ -274,6 +287,46 @@ canvas.dragging { cursor: grabbing; }
   padding: 24px; font-size: 14px; color: var(--text-secondary); background: var(--page);
 }
 #error code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; }
+
+/* ---------- Полоса метрик плана (под шапкой) ----------
+   Главная цифра проекта — километры магистрали: сколько по своду СМР,
+   сколько лежит в графе и сколько уже сдано отчётами. Плитки идут в одном
+   ряду и переносятся на узком экране; при выбранном районе показывают
+   цифры этого района (см. renderKpi в graph-app.js). */
+#kpibar {
+  display: flex; align-items: stretch; gap: 1px; flex-wrap: wrap;
+  background: var(--border);
+  border-bottom: 1px solid var(--border);
+  z-index: 19;
+}
+#kpibar .kpi {
+  flex: 1 1 150px; min-width: 132px;
+  padding: 7px 14px;
+  background: var(--surface-1);
+}
+#kpibar .kpi-label {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--text-muted); white-space: nowrap;
+}
+#kpibar .kpi-value {
+  font-size: 19px; font-weight: 600; line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+}
+#kpibar .kpi-value .u { font-size: 12px; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
+#kpibar .kpi-sub { font-size: 11px; color: var(--text-secondary); margin-top: 1px; white-space: nowrap; }
+/* В графе км БОЛЬШЕ свода — оцифровано лишнее/свод неполон: к разбору, но
+   трасса на месте. МЕНЬШЕ — участков не хватает: это дыра в чертеже. */
+#kpibar .kpi-value.pos { color: var(--accent); }
+#kpibar .kpi-value.neg { color: var(--edge-nofree); }
+#kpibar .kpi-value.ok  { color: var(--progress); }
+/* Плитка «выполнено» шире: в неё вписана полоса прогресса от плана. */
+#kpibar .kpi.kpi-done { flex: 2 1 240px; }
+#kpibar .kpi-bar {
+  margin-top: 5px; height: 5px; border-radius: 3px;
+  background: var(--grid); overflow: hidden;
+}
+#kpibar .kpi-bar > i { display: block; height: 100%; background: var(--progress); border-radius: 3px; }
+@media (max-width: 720px) { #kpibar .kpi-value { font-size: 16px; } }
 </style>
 </head>
 <body>
@@ -291,18 +344,22 @@ canvas.dragging { cursor: grabbing; }
     <label class="chk"><input type="checkbox" id="fMufta" checked> муфты</label>
     <label class="chk"><input type="checkbox" id="fExisting" checked> сущ. ВОЛС</label>
     <label class="chk"><input type="checkbox" id="fPlanned" checked> план. ВОЛС</label>
-    <label class="chk" title="Извилистые линии как на чертеже: голубые PON-ветки от OLT к сёлам, зелёные аплинки от существующих ATN к OLT"><input type="checkbox" id="fPon" checked> PON/аплинки</label>
-    <label class="chk" title="Показать демонстрационный прогресс на плановых линиях"><input type="checkbox" id="fDemo"> демо прогресса</label>
+    <label class="chk" title="Извилистые линии, нарисованные руками: голубые PON-ветки от OLT к сёлам, зелёные аплинки от существующих ATN к OLT. Сами по себе не достраиваются"><input type="checkbox" id="fPon" checked> PON/аплинки</label>
     <label class="chk" title="Раздвинуть узлы так, чтобы расстояние на экране было пропорционально км с чертежа (плановые км берутся из lengthKm)"><input type="checkbox" id="fScaleKm"> 📏 по км</label>
     <button id="btnFit">⤢ Вписать</button>
     <button type="button" id="btnEdit" title="Режим правки: названия, плановые км, перетаскивание объектов мышью; автосохранение в JSON">✏️ Правка</button>
     <button type="button" id="btnAddNode" class="edit-only" title="Добавить объект: клик по карте — место, затем форма">➕ Объект</button>
     <button type="button" id="btnAddEdge" class="edit-only" title="Создать связь: кликните два узла по очереди">🔗 Связь</button>
     <button type="button" id="btnAddSvc" class="edit-only" title="Нарисовать извилистую линию (PON-ветка от OLT / аплинк): кликните два узла по очереди. Линия только для отображения — на км и прогресс не влияет">〰️ Линия OLT/АТС</button>
-    <button type="button" id="debugToggle" title="Debug: что вытянуто из БД и куда легло">🐞 Лог</button>
+    <button type="button" id="btnClearSvc" class="edit-only" title="Удалить ВСЕ извилистые линии OLT/АТС. Удаление окончательное: слой остаётся пустым и наполняется заново кнопкой «Линия OLT/АТС»">🗑 Удалить линии OLT/АТС</button>
+    <button type="button" id="debugToggle" title="Отчёты бота: очередь модерации — «Применить» кладёт километры отчёта на граф, «Отменить» убирает отчёт совсем">🐞 Отчёты</button>
     <button id="btnTheme" title="Тема">◐</button>
   </div>
 </header>
+
+<!-- Метрики плана в км. Наполняет renderKpi() (graph-app.js): цифры зависят
+     от выбранного района, «выполнено» приходит из api/progress. -->
+<div id="kpibar"></div>
 
 <div id="stage">
   <canvas id="canvas"></canvas>
@@ -311,7 +368,7 @@ canvas.dragging { cursor: grabbing; }
 
   <div id="debugPanel" class="open">
     <div class="dbg-titlebar">
-      <b>🐞 Что пришло из Postgres</b>
+      <b>🐞 Отчёты бота — модерация</b>
       <button type="button" class="dbg-close" id="debugClose">✕</button>
     </div>
     <div id="debugBody"></div>

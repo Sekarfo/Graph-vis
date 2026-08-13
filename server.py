@@ -60,7 +60,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from matcher import districts_compatible, normalize_name
-from progress_core import KM_METRICS, Graph, compute_progress
+from progress_core import KM_METRICS, Graph, compute_progress, compute_smr
 from schema import EDGE_FIELDS, EDGE_TYPES, EQUIP_SUBTYPES, NODE_FIELDS, NODE_KINDS, SNP_SUBTYPES
 
 log = logging.getLogger("graph-viewer")
@@ -97,6 +97,15 @@ DATA_REGIONS_DIR = DATA_DIR / "regions"
 DATA_REGIONS_DIR.mkdir(parents=True, exist_ok=True)
 
 
+# Свод СМР («Отчет СОИ», лист «СМР») — план и факт подрядчиков по СЁЛАМ.
+# Собирается из книги скриптом scripts/import_smr.py в smr/<slug>.json и
+# лежит в образе рядом с кодом, а НЕ в DATA_DIR: это выгрузка из внешней
+# книги, а не данные, которые правят через вьюер, — новая версия приезжает
+# вместе с деплоем. Нет файла — /api/smr отвечает 404, вьюер просто не
+# показывает слой (области, которых нет в своде, работают как раньше).
+SMR_DIR = BASE / "smr"
+
+
 class GraphState:
     """Всё состояние одного графа: пути файлов, progress_core.Graph для
     привязки прогресса, кэш /api/progress и лок правок. Правки разных
@@ -108,20 +117,41 @@ class GraphState:
         self.id_prefix = id_prefix
         self.path = path
         self.data_js_path = path.with_suffix("").with_suffix(".fallback.js")
+        self.smr_path = SMR_DIR / f"{slug}.json"
         self.edit_lock = asyncio.Lock()
         self.cache: dict = {"t": 0.0, "etag": None, "payload": None}
+        self.smr_cache: dict | None = None
         self.graph: Graph | None = None
         self.district_norms: set[str] = set()
         self.reload()
 
     def reload(self) -> None:
-        """Перечитать граф с диска (после правки) и сбросить кэш прогресса."""
+        """Перечитать граф с диска (после правки) и сбросить кэши прогресса.
+
+        Свод СМР сам по себе не меняется, но его раскладка по рёбрам зависит
+        от плановых линий графа — после правки графа её надо пересчитать,
+        иначе закраска осталась бы от прежней геометрии."""
         self.graph = Graph(self.path)
         self.district_norms = {
             normalize_name(n.get("district"))
             for n in self.graph.nodes.values() if n.get("district")
         }
         self.cache.update(t=0.0, etag=None, payload=None)
+        self.smr_cache = None
+
+    def smr(self) -> dict | None:
+        """Раскладка свода СМР по этому графу (кэш до следующей правки).
+        None — свода по этой области нет."""
+        if self.smr_cache is None:
+            if not self.smr_path.exists():
+                return None
+            try:
+                raw = json.loads(self.smr_path.read_text(encoding="utf-8"))
+            except Exception:  # noqa: BLE001 — битый свод не должен ронять вьюер
+                log.exception("smr/%s.json не прочитался", self.slug)
+                return None
+            self.smr_cache = compute_smr(self.graph, raw)
+        return self.smr_cache
 
 
 def discover_graphs() -> dict[str, GraphState]:
@@ -278,6 +308,47 @@ def _load_pushed_rows() -> None:
 
 _load_pushed_rows()
 
+# ---------------------------------------------------------------------------
+# Модерация отчётов бота
+# ---------------------------------------------------------------------------
+# Отчёты из Telegram-бота больше НЕ попадают на прогресс-бар сами по себе:
+# push присылает всё подряд (и старое, и новое), а привязка отчёта к участку —
+# результат фаззи-поиска, который иногда ошибается. Поэтому каждый отчёт
+# сначала висит в очереди debug-панели и ложится на граф только после кнопки
+# «Применить»; «Отменить» убирает его насовсем.
+#
+# Решение живёт в DATA_DIR (переживает рестарт и передеплой на volume) и
+# хранится по id отчёта, а не по строке снимка: push — ПОЛНЫЙ снимок, он
+# приходит заново каждые 5 минут, и решение должно к нему приклеиваться.
+MODERATION_PATH = DATA_DIR / "progress-moderation.json"
+_moderation: dict[str, set[int]] = {"approved": set(), "rejected": set()}
+# Версия решения — часть etag /api/progress: без неё кэш отдавал бы прежний
+# ответ и нажатая кнопка выглядела бы «не сработавшей».
+_moderation_rev = 0
+
+
+def _load_moderation() -> None:
+    if not MODERATION_PATH.exists():
+        return
+    try:
+        data = json.loads(MODERATION_PATH.read_text(encoding="utf-8"))
+        _moderation["approved"] = {int(i) for i in data.get("approved", [])}
+        _moderation["rejected"] = {int(i) for i in data.get("rejected", [])}
+        log.info("Модерация отчётов: применено %d, отменено %d",
+                 len(_moderation["approved"]), len(_moderation["rejected"]))
+    except Exception:  # noqa: BLE001 — битый файл не должен ронять сервер
+        log.exception("Не удалось прочитать %s — очередь начнётся с нуля",
+                      MODERATION_PATH)
+
+
+def _save_moderation() -> None:
+    _atomic_write(MODERATION_PATH, json.dumps(
+        {"approved": sorted(_moderation["approved"]),
+         "rejected": sorted(_moderation["rejected"])}, ensure_ascii=False))
+
+
+_load_moderation()
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -317,7 +388,8 @@ READ_ONLY = os.environ.get("READ_ONLY", "").lower() in ("1", "true", "yes")
 EDIT_PASSWORD = os.environ.get("EDIT_PASSWORD", "") or "1973"
 _EDIT_PATHS = {"/api/graph/edit", "/api/graph/add-node",
                "/api/graph/add-edge", "/api/graph/delete",
-               "/api/graph/add-service-link", "/api/graph/delete-service-link"}
+               "/api/graph/add-service-link", "/api/graph/delete-service-link",
+               "/api/graph/clear-service-links", "/api/graph/moderate-report"}
 
 # Сессии правки: token -> время выдачи. Только в памяти — рестарт сервера
 # разлогинивает всех, это ожидаемо для лёгкой защиты внутреннего инструмента.
@@ -442,10 +514,80 @@ async def graphs_list():
         "graphs": [
             {"slug": st.slug, "title": st.title,
              "region": st.graph.meta.get("region"),
-             "nodes": len(st.graph.nodes), "edges": len(st.graph.edges)}
+             "nodes": len(st.graph.nodes), "edges": len(st.graph.edges),
+             "hasSmr": st.smr_path.exists()}
             for st in STATES.values()
         ],
     }
+
+
+@app.get("/api/smr")
+async def smr(graph: str = DEFAULT_GRAPH):
+    """Свод СМР по области: план и факт подрядчиков ПО СЁЛАМ + доля выполнения
+    по веткам графа (см. compute_smr в progress_core).
+
+    Это ВТОРОЙ источник факта, независимый от /api/progress: там километры из
+    отчётов работников в боте, здесь — утверждённый свод из книги «Отчет СОИ».
+    Цифры разного происхождения и почти всегда расходятся, поэтому фронт
+    показывает их отдельными слоями, а не складывает."""
+    st = _state(graph)
+    payload = st.smr()
+    if payload is None:
+        raise HTTPException(404, f"свода СМР по области «{graph}» нет "
+                                 f"(соберите: python scripts/import_smr.py)")
+    return payload
+
+
+def _build_progress(st: GraphState, rows: list[dict]) -> dict:
+    """Собрать /api/progress: свод СМР на прогресс-баре + ПРИМЕНЁННЫЕ отчёты
+    бота, плюс очередь модерации в trace.
+
+    Прогресс-бар один на всех — рисовать два источника разными полосами
+    оказалось нечитаемо. Поэтому километры свода и километры применённых
+    отчётов кладутся на одно и то же поле doneKm, а при совпадении на одном
+    ребре берётся БОЛЬШЕЕ, а не сумма: оба числа описывают один и тот же
+    физический участок, и сложение посчитало бы одни и те же километры дважды.
+    """
+    approved, rejected = _moderation["approved"], _moderation["rejected"]
+    # Отменённые не участвуют нигде — ни в раскладке, ни в очереди.
+    pending_rows = [r for r in rows if r.get("report_id") not in rejected]
+    approved_rows = [r for r in pending_rows if r.get("report_id") in approved]
+
+    # Полный прогон — только ради trace: он показывает по КАЖДОМУ отчёту,
+    # на какой участок тот ляжет, если его применить. Без этого модерировать
+    # пришлось бы вслепую.
+    preview = compute_progress(st.graph, pending_rows)
+    payload = compute_progress(st.graph, approved_rows)
+    for entry in preview["trace"]:
+        entry["moderation"] = "approved" if entry["reportId"] in approved else "pending"
+    payload["trace"] = preview["trace"]
+    payload["unmatched"] = preview["unmatched"]
+    payload["totals"].update(
+        reportsTotal=preview["totals"]["reportsTotal"],
+        reportsUnmatched=preview["totals"]["reportsUnmatched"],
+        reportsPending=sum(1 for e in preview["trace"] if e["moderation"] == "pending"),
+        reportsApproved=sum(1 for e in preview["trace"] if e["moderation"] == "approved"),
+        reportsRejected=len(rejected),
+    )
+
+    smr = st.smr()
+    if smr:
+        edge_len = {e["id"]: e.get("lengthKm") for e in st.graph.edges}
+        for eid, u in smr["edges"].items():
+            length = edge_len.get(eid)
+            if not length:
+                continue
+            done = round(u["frac"] * length, 2)
+            slot = payload["edges"].get(eid)
+            if slot is None:
+                payload["edges"][eid] = {"doneKm": done, "reports": 0,
+                                         "fillFrom": u.get("fillFrom"), "source": "smr"}
+            elif done > slot["doneKm"]:
+                slot.update(doneKm=done, fillFrom=u.get("fillFrom"), source="smr")
+        payload["totals"]["doneKm"] = round(
+            sum(e["doneKm"] for e in payload["edges"].values()), 1)
+        payload["totals"]["smrAsOf"] = smr.get("asOf")
+    return payload
 
 
 @app.get("/api/progress")
@@ -453,10 +595,10 @@ async def progress(graph: str = DEFAULT_GRAPH):
     st = _state(graph)
     # Источник №1: снимок, присланный ботом, — приоритетнее прямого SQL.
     if _pushed["rows"] is not None:
-        etag = f"push:{_pushed['at']}:{len(_pushed['rows'])}"
+        etag = f"push:{_pushed['at']}:{len(_pushed['rows'])}:m{_moderation_rev}"
         if st.cache["payload"] is not None and st.cache["etag"] == etag:
             return st.cache["payload"]
-        payload = compute_progress(st.graph, _rows_for(st, _pushed["rows"]))
+        payload = _build_progress(st, _rows_for(st, _pushed["rows"]))
         payload["version"] = etag
         payload["updatedAt"] = _pushed["at"]
         st.cache.update(t=time.time(), etag=etag, payload=payload)
@@ -464,22 +606,63 @@ async def progress(graph: str = DEFAULT_GRAPH):
 
     # Источник №2: прямой SQL (локальный запуск рядом с БД, как раньше).
     if pool is None:
+        # Свод СМР от БД не зависит: даже без бота прогресс-бар должен
+        # показывать то, что есть в книге «Отчет СОИ».
+        if st.smr() is not None:
+            payload = _build_progress(st, [])
+            payload["version"] = f"smr:{payload['totals'].get('smrAsOf')}:m{_moderation_rev}"
+            payload["updatedAt"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+            return payload
         raise HTTPException(503, "нет данных: не было push от бота, БД не подключена")
     now = time.time()
     if st.cache["payload"] is not None and now - st.cache["t"] < CACHE_TTL:
         return st.cache["payload"]
     async with pool.acquire() as con:
         et = await con.fetchrow(SQL_ETAG)
-        etag = f"{et['wr_max']}:{et['rm_max']}:{et['rm_cnt']}"
+        etag = f"{et['wr_max']}:{et['rm_max']}:{et['rm_cnt']}:m{_moderation_rev}"
         if st.cache["payload"] is not None and etag == st.cache["etag"]:
             st.cache["t"] = now  # данных новых нет — продлеваем кэш без пересчёта
             return st.cache["payload"]
         rows = [dict(r) for r in await con.fetch(SQL_ROWS, KM_METRICS)]
-    payload = compute_progress(st.graph, _rows_for(st, rows))
+    payload = _build_progress(st, _rows_for(st, rows))
     payload["version"] = etag
     payload["updatedAt"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     st.cache.update(t=now, etag=etag, payload=payload)
     return payload
+
+
+class ModerateRequest(BaseModel):
+    reportId: int
+    action: Literal["approve", "reject", "reset"]
+
+
+@app.post("/api/graph/moderate-report")
+async def moderate_report(req: ModerateRequest):
+    """Решение по одному отчёту бота: «Применить» кладёт его километры на
+    граф, «Отменить» убирает отчёт насовсем, reset возвращает в очередь.
+
+    Живёт под /api/graph/*, чтобы попасть под ту же защиту, что и правка
+    графа (см. _read_only_guard): менять картинку прогресса для всех, кто
+    смотрит вьюер, — такая же правка, как переименовать узел."""
+    global _moderation_rev
+    rid = req.reportId
+    _moderation["approved"].discard(rid)
+    _moderation["rejected"].discard(rid)
+    if req.action == "approve":
+        _moderation["approved"].add(rid)
+    elif req.action == "reject":
+        _moderation["rejected"].add(rid)
+    _moderation_rev += 1
+    try:
+        _save_moderation()
+    except Exception:  # noqa: BLE001 — решение уже в памяти, диск только для рестарта
+        log.exception("Решение по отчёту #%s принято, но не сохранилось в %s",
+                      rid, MODERATION_PATH)
+    for state in STATES.values():
+        state.cache.update(t=0.0, etag=None, payload=None)
+    return {"ok": True, "reportId": rid, "action": req.action,
+            "approved": len(_moderation["approved"]),
+            "rejected": len(_moderation["rejected"])}
 
 
 # ---------------------------------------------------------------------------
@@ -701,22 +884,17 @@ async def graph_add_edge(req: AddEdgeRequest, graph: str = DEFAULT_GRAPH):
 # Извилистые линии от OLT/АТС (PON-ветки и аплинки с чертежа).
 # Чистое ОФОРМЛЕНИЕ: в км-итоги, привязку отчётов и маршруты (progress_core)
 # они не входят вообще — фронт рисует их поверх графа.
-# По умолчанию фронт достраивает их сам по топологии (Дейкстра от OLT), а
-# здесь хранятся только ручные правки этой картинки:
-#   data["serviceLinks"]        — линии, добавленные руками: {id, from, to, kind}
-#   data["serviceLinksHidden"]  — убранные руками авто-линии: ключи "idA|idB"
-#                                 (id узлов отсортированы, т.е. пара без направления)
-# Удаление = «этой линии между A и B быть не должно»: снимает ручную линию и
-# гасит авто-линию на той же паре. Добавление, наоборот, кладёт ручную линию и
-# гасит авто на этой паре, чтобы линии не задвоились.
+# Рисуются только нарисованные руками линии — data["serviceLinks"]:
+# {id, from, to, kind}. Автодостройки по топологии на фронте больше нет, поэтому
+# и «погашенных авто-линий» (прежние поля serviceLinksHidden / serviceLinksAuto /
+# serviceLinksOff) тоже нет: в старых файлах они просто лежат и не читаются.
 # ---------------------------------------------------------------------------
 def _service_key(a: str, b: str) -> str:
     return "|".join(sorted((a, b)))
 
 
 def _service_state(data: dict) -> dict:
-    return {"serviceLinks": data.get("serviceLinks", []),
-            "serviceLinksHidden": data.get("serviceLinksHidden", [])}
+    return {"serviceLinks": data.get("serviceLinks", [])}
 
 
 class AddServiceLinkRequest(BaseModel):
@@ -728,6 +906,36 @@ class AddServiceLinkRequest(BaseModel):
 class DeleteServiceLinkRequest(BaseModel):
     from_id: str
     to_id: str
+
+
+class ClearServiceLinksRequest(BaseModel):
+    pass
+
+
+@app.post("/api/graph/clear-service-links")
+async def graph_clear_service_links(req: ClearServiceLinksRequest,
+                                    graph: str = DEFAULT_GRAPH):
+    """Удалить ВСЕ извилистые линии OLT/АТС насовсем.
+
+    Линии удаляются из файла; слой остаётся пустым и наполняется заново кнопкой
+    «〰️ Линия OLT/АТС». Обратного действия нет — это правка графа, а не
+    временное скрытие галочкой «PON/аплинки».
+    """
+    st = _state(graph)
+    async with st.edit_lock:
+        data = json.loads(st.path.read_text(encoding="utf-8"))
+        removed = len(data.get("serviceLinks", []))
+        data["serviceLinks"] = []
+        # Поля старой авто-достройки больше ни на что не влияют — убираем,
+        # чтобы не тянуть их дальше в сохранённом файле.
+        data.pop("serviceLinksHidden", None)
+        data.pop("serviceLinksAuto", None)
+        data.pop("serviceLinksOff", None)
+        _persist(st, data)
+        state = _service_state(data)
+
+    log.info("graph clear-service-links [%s]: удалено линий %d", st.slug, removed)
+    return {"ok": True, "removedManual": removed, **state}
 
 
 @app.post("/api/graph/add-service-link")
@@ -749,9 +957,6 @@ async def graph_add_service_link(req: AddServiceLinkRequest, graph: str = DEFAUL
         link = {"id": _new_id("S", {x["id"] for x in links}),
                 "from": req.from_id, "to": req.to_id, "kind": req.kind}
         links.append(link)
-        hidden = data.setdefault("serviceLinksHidden", [])
-        if key not in hidden:
-            hidden.append(key)  # чтобы авто-линия на этой же паре не задвоилась
         _persist(st, data)
         state = _service_state(data)
 
@@ -769,13 +974,10 @@ async def graph_delete_service_link(req: DeleteServiceLinkRequest, graph: str = 
         removed = [x["id"] for x in links if _service_key(x["from"], x["to"]) == key]
         data["serviceLinks"] = [x for x in links
                                 if _service_key(x["from"], x["to"]) != key]
-        hidden = data.setdefault("serviceLinksHidden", [])
-        if key not in hidden:
-            hidden.append(key)
         _persist(st, data)
         state = _service_state(data)
 
-    log.info("graph delete-service-link [%s]: %s (снято ручных: %d)", st.slug, key, len(removed))
+    log.info("graph delete-service-link [%s]: %s (снято линий: %d)", st.slug, key, len(removed))
     return {"ok": True, "removed": removed, **state}
 
 
@@ -806,8 +1008,6 @@ async def graph_delete(req: DeleteRequest, graph: str = DEFAULT_GRAPH):
             # молча пропускать их как «битые» и они останутся мусором в файле.
             data["serviceLinks"] = [x for x in data.get("serviceLinks", [])
                                     if req.id not in (x["from"], x["to"])]
-            data["serviceLinksHidden"] = [k for k in data.get("serviceLinksHidden", [])
-                                          if req.id not in k.split("|")]
         total_km, planned_km = _persist(st, data)
         state = _service_state(data)
 
@@ -825,9 +1025,16 @@ async def graph_delete(req: DeleteRequest, graph: str = DEFAULT_GRAPH):
 # отдаёт актуальную DATA_DIR-копию), что при простом file:// (тогда браузер
 # читает этот же путь прямо с диска, без сервера вообще) — дублировать логику
 # «путь для сервера» / «путь для file://» во фронте не нужно.
+_NO_STORE = {"Cache-Control": "no-store"}
+
+
 @app.get("/regions/{slug}.json")
 async def _graph_json_by_slug(slug: str):
-    return FileResponse(_state(slug).path, media_type="application/json")
+    # no-store: файл меняется после каждой правки (POST /api/graph/*), а
+    # FileResponse иначе шлёт только Last-Modified/ETag без Cache-Control —
+    # браузер по эвристике HTTP-кэша может отдать версию ДО правки на обычном
+    # (не hard) reload, что фронт и не обязан ревалидировать сам по себе.
+    return FileResponse(_state(slug).path, media_type="application/json", headers=_NO_STORE)
 
 
 @app.get("/regions/{slug}.fallback.js")
@@ -835,7 +1042,7 @@ async def _graph_data_js_by_slug(slug: str):
     st = _state(slug)
     if not st.data_js_path.exists():
         raise HTTPException(404, f"нет fallback-файла {st.data_js_path.name}")
-    return FileResponse(st.data_js_path, media_type="application/javascript")
+    return FileResponse(st.data_js_path, media_type="application/javascript", headers=_NO_STORE)
 
 
 # Легаси-путь дефолтного (жамбылского) графа — старые внешние ссылки на голый
