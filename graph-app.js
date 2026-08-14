@@ -987,9 +987,10 @@ function renderKpi() {
   kpiKey = key;
 
   const tiles = [];
-  tiles.push(tile("Оцифровано в графе", kpiNum(graphKm), "км",
+  tiles.push(tile("Оцифровано в графе (без учёта распред. сети)", kpiNum(graphKm), "км",
     `${nEdges} участков · ${nSnp} СНП по проекту`, "",
-    "Сумма длин плановых линий графа (planned + большей ёмкости)"));
+    "Сумма длин плановых линий графа (planned + большей ёмкости). "
+    + "Распределительная сеть внутри села в эту цифру не входит"));
 
   const pctDone = base ? clamp(doneKm / base, 0, 1) : 0;
   tiles.push(tile("Выполнено", kpiNum(doneKm), "км",
