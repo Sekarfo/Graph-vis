@@ -105,6 +105,14 @@ DATA_REGIONS_DIR.mkdir(parents=True, exist_ok=True)
 # показывает слой (области, которых нет в своде, работают как раньше).
 SMR_DIR = BASE / "smr"
 
+# Свод «общий свод по смр СНП 2.0.xlsx» — ВТОРОЙ, более точный источник факта:
+# у каждого села есть точка подключения и разбивка маршрута на участки, поэтому
+# scripts/import_smr2.py раскладывает и план, и факт (трубка/ВОЛС) по КОНКРЕТНЫМ
+# рёбрам (Graph.shortest_path + fill_along), а не по доле всей ветки села, как
+# делает compute_smr/smr/. Payload уже готов целиком (edges/settlements/totals) —
+# сервер просто отдаёт файл, пересчёт — повторным запуском скрипта.
+SMR2_DIR = BASE / "smr2"
+
 
 class GraphState:
     """Всё состояние одного графа: пути файлов, progress_core.Graph для
@@ -536,6 +544,29 @@ async def smr(graph: str = DEFAULT_GRAPH):
         raise HTTPException(404, f"свода СМР по области «{graph}» нет "
                                  f"(соберите: python scripts/import_smr.py)")
     return payload
+
+
+@app.get("/api/smr2")
+async def smr2(graph: str = DEFAULT_GRAPH):
+    """Факт из «общий свод по смр СНП 2.0.xlsx», разложенный по КОНКРЕТНЫМ
+    рёбрам маршрута (не по доле ветки, как /api/smr) — маршрут восстановлен по
+    цепочке участков свода, см. scripts/import_smr2.py и SMR2_RECONCILE.md.
+
+    edges — {edgeId: {tubeKm, fiberKm, fillFrom, settlements}}: метрики две и
+    они не складываются (трубку прокладывают, ВОЛС в неё задувают), выбор
+    режима за фронтом. settlements — по каждому селу план/факт/статус привязки
+    (панель KPI и разбор расхождений); totals — свод по области с балансом
+    факта: куда делся каждый километр, не легший на рёбра."""
+    st = _state(graph)
+    path = SMR2_DIR / f"{st.slug}.json"
+    if not path.exists():
+        raise HTTPException(404, f"свода СНП 2.0 по области «{graph}» нет "
+                                 f"(соберите: python scripts/import_smr2.py)")
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001 — битый файл не должен ронять вьюер
+        log.exception("smr2/%s.json не прочитался", st.slug)
+        raise HTTPException(500, "smr2 повреждён, пересоберите скриптом")
 
 
 def _build_progress(st: GraphState, rows: list[dict]) -> dict:

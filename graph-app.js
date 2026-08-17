@@ -140,6 +140,13 @@ async function loadProgress() {
   return (await fetchJsonQuiet(graphUrl("api/progress"))) || (await fetchJsonQuiet("progress.json"));
 }
 
+// Факт из «общий свод по смр СНП 2.0» — уже разложен по рёбрам (см.
+// scripts/import_smr2.py). null, если для этой области файла нет (404) —
+// вьюер просто не красит прогресс, как и раньше.
+async function loadSmr2() {
+  return await fetchJsonQuiet(graphUrl("api/smr2"));
+}
+
 // ---------- Состояние ----------
 // Узлы вне Жамбылской области, попавшие в данные с чертежа: Жартас (N0250)
 // на ПДФ стоит за границей области — это Жамбылский район Алматинской обл.
@@ -258,6 +265,7 @@ function refreshColors() {
       larger_capacity: cssVar("--edge-planned")
     },
     progress: cssVar("--progress") || "#0ca30c",
+    remaining: cssVar("--remaining") || "#d97706",
     pon: cssVar("--pon") || "#00b0f0",
     uplink: cssVar("--uplink") || "#00b050",
     accent: cssVar("--accent")
@@ -286,10 +294,10 @@ function nodeRadius(n) {
 const PLANNED_EDGE_TYPES = new Set(["planned", "larger_capacity"]);
 
 /** Доля выполнения ребра 0..1 или null.
- *  Прогресс-бар ОДИН на все источники факта: сервер уже свёл в doneKm и свод
- *  СМР, и применённые модератором отчёты бота (см. _build_progress в
- *  server.py). Фронту здесь различать источники не нужно и не следует —
- *  двухцветная разметка одной и той же линии оказалась нечитаемой.
+ *  e.doneKm заполняет applyFactMode() из /api/smr2 (свод «СНП 2.0», факт
+ *  разложен по конкретным рёбрам маршрута — см. scripts/import_smr2.py), причём
+ *  той метрикой, что выбрана в #factSel: трубка или ВОЛС. Отчёты бота
+ *  (/api/progress) на карте не красятся — их точки видны в панели модерации.
  *  Если известны и doneKm, и lengthKm — обычная дробь. Если lengthKm не задан
  *  на чертеже (см. progress_core.py), а doneKm есть — км всё равно засчитаны
  *  (не обрезаны), но дроби без знаменателя не существует, поэтому просто
@@ -308,20 +316,16 @@ const PROGRESS_POLL_MS = 30000;
 let progressVersion = null;
 let edgeById = new Map();
 
-/** Применить payload прогресса ({edges:{id:{doneKm|progress}}, version, totals}).
+/** Применить payload прогресса — но БЕЗ отрисовки на графе (см. edgeFraction):
+ *  показания прогресса на карте временно убраны целиком, пока не готов новый
+ *  источник факта (общий свод по смр СНП 2.0.xlsx, привязка по рёбрам).
+ *  p.trace/p.totals по-прежнему используются панелью модерации отчётов бота.
  *  Возвращает true, если данные изменились и была перерисовка. */
 function applyProgress(p, source) {
   if (!p || !p.edges) return false;
   if (p.version && p.version === progressVersion) { renderLive(p, source); return false; }
   progressVersion = p.version || null;
   for (const e of edges) { delete e.doneKm; delete e.progress; delete e.fillFrom; }
-  for (const [eid, u] of Object.entries(p.edges)) {
-    const e = edgeById.get(eid);
-    if (!e) continue;
-    if (u.doneKm != null) e.doneKm = u.doneKm;
-    if (u.progress != null) e.progress = u.progress;
-    if (u.fillFrom) e.fillFrom = u.fillFrom;
-  }
   if (p.unmatched && p.unmatched.length) {
     console.warn("Отчёты без привязки к рёбрам графа:", p.unmatched);
   }
@@ -337,13 +341,58 @@ function applyProgress(p, source) {
   return true;
 }
 
+// ---------- Факт из свода СНП 2.0 (/api/smr2) — красит рёбра ----------
+// В отличие от api/progress (снят с показа, см. applyProgress), тут км уже
+// разложены сервером по КОНКРЕТНЫМ рёбрам маршрута, восстановленного по
+// цепочке участков свода — см. scripts/import_smr2.py. SMR2 хранит payload
+// целиком: он нужен ещё и renderKpi() (план/факт по сёлам, разрез по району).
+let SMR2 = null;
+
+// Метрик факта две и они не складываются: трубку прокладывают, ВОЛС в неё
+// задувают, поэтому ВОЛС всегда «отстаёт» и показывать их одновременно на
+// одном ребре нечем. Режим выбирает пользователь (#factSel), по умолчанию —
+// трубка как ведущая стадия работ.
+const FACT_METRICS = {
+  tubeKm: { label: "трубка", full: "Магистр. Сеть (трубка) км" },
+  fiberKm: { label: "ВОЛС", full: "Магистр. Сеть (ВОЛС) км" },
+};
+let factMode = "tubeKm";
+
+/** Разложить выбранную метрику по рёбрам: e.doneKm/e.fillFrom — те же поля,
+ *  что читает edgeFraction() и вся отрисовка, поэтому переключение режима
+ *  сводится к их переписыванию. */
+function applyFactMode() {
+  for (const e of edges) { delete e.doneKm; delete e.fillFrom; }
+  if (SMR2 && SMR2.edges) {
+    for (const [eid, u] of Object.entries(SMR2.edges)) {
+      const e = edgeById.get(eid);
+      if (!e) continue;
+      const km = u[factMode];
+      if (km != null && km > 0) { e.doneKm = km; e.fillFrom = u.fillFrom; }
+    }
+  }
+  const lg = $("legendFact");
+  if (lg) lg.textContent = `выполнено: ${FACT_METRICS[factMode].label}`;
+  kpiKey = null;                 // метрика сменилась: плитки пересобрать
+  renderKpi();
+  if (!editMode) {
+    if (selected) openPanel(selected);
+    else if (selectedEdge) openEdgePanel(selectedEdge);
+  }
+  draw();
+}
+
+function applySmr2(payload) {
+  SMR2 = payload || null;
+  applyFactMode();
+}
+
 function renderLive(p, source) {
   const el = $("live");
   if (!el) return;
   const t = new Date().toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
   let txt = `⟳ ${t}`;
   if (p && p.totals) {
-    if (p.totals.doneKm != null) txt += ` · выполнено ${p.totals.doneKm} км`;
     if (p.totals.reportsUnmatched) txt += ` · без привязки: ${p.totals.reportsUnmatched}`;
   }
   el.textContent = txt;
@@ -847,39 +896,71 @@ function draw() {
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Прогресс-бар поверх линии: выполненная доля — сплошная зелёная.
-    // Заливка идёт от узла fillFrom (откуда физически строят), по умолчанию — от e.from.
+    // Прогресс-бар поверх линии: двухцветный, как обычная полоса загрузки —
+    // выполненное зелёным от узла fillFrom (откуда физически строят), ОСТАТОК
+    // работ янтарным до другого конца. Раньше остаток ничем не отличался от
+    // самой линии плана, и объём недоделанного приходилось вычислять глазами.
     const frac = edgeFraction(e);
-    if (frac != null && frac > 0) {
+    if (frac != null) {
       const rev = e.fillFrom && e.fillFrom === e.to;
-      ctx.strokeStyle = C.progress;
-      ctx.lineWidth = st.width + 2.2;
-      ctx.lineCap = "round";
-      ctx.beginPath();
       const px1 = rev ? x2 : x1, py1 = rev ? y2 : y1;
       const px2 = rev ? x1 : x2, py2 = rev ? y1 : y2;
       const mx = px1 + (px2 - px1) * frac, my = py1 + (py2 - py1) * frac;
-      ctx.moveTo(px1, py1);
-      ctx.lineTo(mx, my);
-      ctx.stroke();
-      ctx.lineCap = "butt";
-      if (view.s > 0.8 && e.doneKm != null) {
-        // lengthKm может отсутствовать (чертёж не даёт числа для сегмента) —
-        // тогда показываем только сами км без дроби «/Y», а не додумываем знаменатель.
-        const label = e.lengthKm
-          ? e.doneKm + "/" + e.lengthKm + " км"
-          : e.doneKm + " км (длина уч. не задана)";
-        ctx.font = "600 10px system-ui, sans-serif";
-        ctx.textAlign = "center";
-        ctx.strokeStyle = C.page; ctx.lineWidth = 3; ctx.strokeText(label, mx, my - 6);
-        ctx.fillStyle = C.progress; ctx.fillText(label, mx, my - 6);
+      ctx.lineWidth = st.width + 2.2;
+      ctx.lineCap = "round";
+      if (frac < 1) {
+        ctx.strokeStyle = C.remaining;
+        ctx.beginPath();
+        ctx.moveTo(mx, my);
+        ctx.lineTo(px2, py2);
+        ctx.stroke();
       }
+      if (frac > 0) {
+        ctx.strokeStyle = C.progress;
+        ctx.beginPath();
+        ctx.moveTo(px1, py1);
+        ctx.lineTo(mx, my);
+        ctx.stroke();
+      }
+      ctx.lineCap = "butt";
+    }
+
+    // Остаток работ — ПО ЦЕНТРУ ребра, а не на границе заливки: центр виден
+    // всегда, в том числе когда ребро закрашено целиком и граница уползла на
+    // узел. Показываем именно остаток: это то, что нужно сделать.
+    const hasProgressLabel = frac != null && e.doneKm != null && view.s > 0.8;
+    if (hasProgressLabel) {
+      const cx = (x1 + x2) / 2, cy = (y1 + y2) / 2 - 5;
+      // lengthKm может отсутствовать (чертёж не даёт числа для сегмента) — тогда
+      // остаток не посчитать, показываем сделанные км, а не додумываем знаменатель.
+      let label, color;
+      if (e.lengthKm == null) {
+        label = `${fmtNum(e.doneKm)} км (длина уч. не задана)`;
+        color = C.progress;
+      } else {
+        const left = Math.max(0, e.lengthKm - e.doneKm);
+        if (left <= 0.05) {
+          label = `✓ ${fmtNum(e.lengthKm)} км`;
+          color = C.progress;
+        } else {
+          // Пока не приблизились — только остаток: в плотных кустах рёбер
+          // полная форма «ост. X из Y км» налезает на соседние подписи.
+          label = view.s > 1.2
+            ? `ост. ${fmtNum(left)} из ${fmtNum(e.lengthKm)} км`
+            : `ост. ${fmtNum(left)} км`;
+          color = C.remaining;
+        }
+      }
+      ctx.font = "600 10px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.strokeStyle = C.page; ctx.lineWidth = 3.5; ctx.strokeText(label, cx, cy);
+      ctx.fillStyle = color; ctx.fillText(label, cx, cy);
+      ctx.textAlign = "left";
     }
 
     // Длина участка (км) у середины линии — чтобы расстояние читалось прямо
-    // с карты. Не рисуем, когда на этом же ребре уже висит подпись прогресса
-    // «X/Y км», иначе цифры двоятся.
-    const hasProgressLabel = frac != null && frac > 0 && e.doneKm != null && view.s > 0.8;
+    // с карты. Не рисуем, когда на этом же ребре уже висит подпись остатка,
+    // иначе цифры двоятся.
     if (e.lengthKm != null && view.s > 0.55 && !hasProgressLabel) {
       const lx = (x1 + x2) / 2, ly = (y1 + y2) / 2 - 4;
       ctx.font = "600 9.5px system-ui, sans-serif";
@@ -940,66 +1021,80 @@ function updateStats() {
   renderKpi();
 }
 
-// ---------- Полоса метрик плана (км) ----------
-// Две плитки: сколько оцифровано в графе (сумма lengthKm по плановым рёбрам)
-// и сколько выполнено (doneKm с api/progress — свод СМР из книги «Отчет СОИ»
-// плюс отчёты бота, применённые в очереди модерации). При выбранном районе
-// обе цифры — по этому району; база для % выполнения — meta.plan.targetKm
-// (свод), если он есть для района, иначе честно от того, что в графе.
-const PLANNED_TYPES = new Set(["planned", "larger_capacity"]);
+// ---------- Полоса метрик плана/факта (свод СНП 2.0, /api/smr2) ----------
+// Три плитки: план книги, факт (трубка/ВОЛС) — обе как сумма по СЁЛАМ, это
+// просто сложение чисел из книги, без риска задвоить общий ствол; и качество
+// привязки к графу (сколько сёл легли на КОНКРЕТНЫЙ путь голова→село, а не
+// просто числятся в своде) — сюда же и уходит «сверка связей». При выбранном
+// районе все три плитки пересчитываются по нему (district — из узла графа,
+// на который село привязалось, а не из текста книги — тексты района в двух
+// источниках пишутся по-разному).
 let kpiKey = null;
-
-// Число км для плитки: без единицы (её печатает tile) и с русским разделителем.
 const kpiNum = (v) => v.toLocaleString("ru-RU", { maximumFractionDigits: 1 });
 
-function edgeInDistrict(e, d) {
-  return !d || e.a.district === d || e.b.district === d;
-}
+// Маршрут восстановлен однозначно: либо по именованным меткам цепочки, либо
+// хвостом, чья граница легла ровно на узел. Остальные статусы означают, что
+// участок определён с оговоркой или не определён вовсе — они в SMR2_RECONCILE.md.
+const BIND_EXACT = new Set(["chain", "tail"]);
 
 function renderKpi() {
   const box = $("kpibar");
   if (!box) return;
-  const plan = (DATA.meta && DATA.meta.plan) || null;
+  if (!SMR2 || !SMR2.settlements) {
+    if (box.innerHTML) box.innerHTML = "";
+    if (box.style.display !== "none") box.style.display = "none";
+    return;
+  }
   const d = filters.district || "";
+  const rows = d
+    ? SMR2.settlements.filter(s => ((s.nodeId && nodeById.get(s.nodeId)?.district) || s.district) === d)
+    : SMR2.settlements;
 
-  let graphKm = 0, doneKm = 0, nEdges = 0;
-  for (const e of edges) {
-    if (!PLANNED_TYPES.has(e.type) || !edgeInDistrict(e, d)) continue;
-    nEdges++;
-    graphKm += e.lengthKm || 0;
-    doneKm += e.doneKm || 0;
+  const M = FACT_METRICS[factMode];
+  // factKm — как есть в своде (сходится с его контрольной строкой), onMapKm —
+  // сколько из этого удалось положить на рёбра. Разница = сёла из раздела 1
+  // отчёта плюс срезанный излишек «факт > плана»; смешивать их в одну цифру
+  // нельзя, иначе плитка не сходится ни со сводом, ни с картой.
+  const painted = factMode === "tubeKm" ? "paintedTubeKm" : "paintedFiberKm";
+  let planKm = 0, factKm = 0, onMapKm = 0, okN = 0, problemN = 0;
+  for (const s of rows) {
+    planKm += s.planKm || 0;
+    factKm += s[factMode] || 0;
+    onMapKm += s[painted] || 0;
+    if (BIND_EXACT.has(s.status)) okN++; else problemN++;
   }
-  // Считаем СНП тем же разрезом, что и свод: оптика + Wi-Fi public — это и есть
-  // 164 строки плана. Starlink и «вне проекта» в своде СМР отсутствуют.
-  let nSnp = 0;
-  for (const n of nodes) {
-    if (n.kind !== "snp" || (d && n.district !== d)) continue;
-    if (n.subtype === "fiber" || n.subtype === "wifi") nSnp++;
-  }
 
-  const targetKm = plan ? (d ? plan.byDistrict[d] : plan.targetKm) : null;
-  // База для процента выполнения — свод (это план работ); если по району
-  // свода нет, честно считаем от того, что оцифровано в графе.
-  const base = targetKm || graphKm;
-
-  const key = [d, targetKm, graphKm, doneKm, nEdges, nSnp].join("|");
+  const key = [d, factMode, rows.length, planKm, factKm, onMapKm, okN].join("|");
   if (key === kpiKey) return;
   kpiKey = key;
 
   const tiles = [];
-  tiles.push(tile("Оцифровано в графе (без учёта распред. сети)", kpiNum(graphKm), "км",
-    `${nEdges} участков · ${nSnp} СНП по проекту`, "",
-    "Сумма длин плановых линий графа (planned + большей ёмкости). "
-    + "Распределительная сеть внутри села в эту цифру не входит"));
+  tiles.push(tile("План по своду СНП 2.0", kpiNum(planKm), "км",
+    `${rows.length} сёл`, "",
+    "«Общая протяженность до НП» — сумма по сёлам книги «общий свод по смр "
+    + "СНП 2.0.xlsx» (не по рёбрам графа — задвоить общий ствол тут нечем)"));
 
-  const pctDone = base ? clamp(doneKm / base, 0, 1) : 0;
-  tiles.push(tile("Выполнено", kpiNum(doneKm), "км",
-    `${kpiNum(pctDone * 100)} % от ${targetKm != null ? "свода" : "графа"} · осталось ${kpiNum(Math.max(0, base - doneKm))} км`,
-    doneKm > 0 ? "ok" : "",
-    "Километры, лежащие на плановых линиях: свод СМР из книги «Отчет СОИ» "
-    + "плюс отчёты бота, применённые в очереди модерации (🐞 Лог)",
-    pctDone));
+  const pctDone = planKm ? clamp(factKm / planKm, 0, 1) : 0;
+  const gap = factKm - onMapKm;
+  tiles.push(tile(`Факт: ${M.label}`, kpiNum(factKm), "км",
+    `${kpiNum(pctDone * 100)} % от плана · на карте ${kpiNum(onMapKm)} км`
+    + (gap > 0.05 ? ` · ${kpiNum(gap)} км ждут разбора` : ""),
+    factKm > 0 ? "ok" : "",
+    `Столбец «${M.full}» свода — цифра сходится с его контрольной строкой. `
+    + "На карту ложится меньше: часть сёл не привязана к графу, а факт сверх "
+    + "плана села не раскладывается (обе группы разобраны в SMR2_RECONCILE.md). "
+    + "Трубку прокладывают первой, ВОЛС задувают в неё — переключатель "
+    + "«Прогресс» вверху меняет метрику и на карте, и здесь", pctDone));
 
+  const pctOk = rows.length ? clamp(okN / rows.length, 0, 1) : 0;
+  tiles.push(tile("Привязка к графу", `${okN}/${rows.length}`, "сёл",
+    `${problemN ? problemN + " требуют разбора (см. SMR2_RECONCILE.md)" : "все привязаны точно"}`,
+    problemN ? (okN ? "" : "neg") : "ok",
+    "Село привязано точно, если маршрут свода лёг на граф без оговорок: "
+    + "по именованным меткам участков либо хвостом с границей ровно на узле. "
+    + "Остальные разобраны в SMR2_RECONCILE.md", pctOk));
+
+  box.style.display = "";
   box.innerHTML = tiles.join("");
 }
 
@@ -1065,6 +1160,12 @@ function pickServiceLink(sx, sy) {
 
 // ---------- Тултип ----------
 function fmtKm(v) { return v == null ? "—" : v + " км"; }
+/** Км без хвоста «.0» и без лишних знаков: подписи на рёбрах тесные, а факт
+ *  из свода приходит с тремя знаками после запятой. */
+function fmtNum(v) {
+  if (v == null) return "—";
+  return String(Math.round(v * 10) / 10);
+}
 
 function showTooltip(px, py, html) {
   tooltip.innerHTML = html;
@@ -1095,11 +1196,23 @@ function edgeTooltip(e) {
   h += `<div class="t-sub">${EDGE_RU[e.type] || e.type} · ${fmtKm(e.lengthKm)}</div>`;
   if (frac != null) {
     const done = e.doneKm != null ? e.doneKm : (e.lengthKm ? Math.round(frac * e.lengthKm * 10) / 10 : null);
-    h += `<div class="t-row">выполнено: <b>${done != null ? done + " км" : Math.round(frac * 100) + "%"}</b>`
+    h += `<div class="t-row">${FACT_METRICS[factMode].label}: <b>${done != null ? fmtNum(done) + " км" : Math.round(frac * 100) + "%"}</b>`
        + (e.lengthKm ? ` из ${e.lengthKm} км (${Math.round(frac * 100)}%)` : "") + `</div>`;
+    h += remainingRow(e, "t-row");
     h += `<div class="pbar"><div style="width:${Math.round(frac * 100)}%"></div></div>`;
   }
   return h;
+}
+
+/** Строка «осталось N км» для подсказки и панели ребра — главная цифра для
+ *  планирования работ, поэтому выносим её отдельно, а не оставляем считать
+ *  разницу в голове. */
+function remainingRow(e, cls) {
+  if (e.lengthKm == null || e.doneKm == null) return "";
+  const left = Math.max(0, e.lengthKm - e.doneKm);
+  return left <= 0.05
+    ? `<div class="${cls}" style="color:var(--progress)">участок закрыт полностью</div>`
+    : `<div class="${cls}" style="color:var(--remaining)">осталось: <b>${fmtNum(left)} км</b></div>`;
 }
 
 const SVC_RU = { pon: "PON-ветка от OLT", uplink: "аплинк к OLT" };
@@ -1158,7 +1271,7 @@ function openPanel(n) {
     h += `<div class="edge-item" data-node="${other.id}" data-edge="${e.id}">`;
     h += `<div class="e-to">${esc(other.name || (KIND_RU[other.kind] + " " + other.id))}</div>`;
     h += `<div class="e-sub">${EDGE_RU[e.type] || e.type} · ${fmtKm(e.lengthKm)}`;
-    if (frac != null) h += ` · выполнено ${Math.round(frac * 100)}%`;
+    if (frac != null) h += ` · ${FACT_METRICS[factMode].label} ${Math.round(frac * 100)}%`;
     h += `</div>`;
     if (frac != null) h += `<div class="pbar"><div style="width:${Math.round(frac * 100)}%"></div></div>`;
     h += `</div>`;
@@ -1194,8 +1307,15 @@ function openEdgePanel(e) {
 
   const frac = edgeFraction(e);
   let meta = `<div class="p-meta">📏 план по проекту: <b>${fmtKm(e.lengthKm)}</b></div>`;
-  if (e.doneKm != null && frac != null) meta += `<div class="p-meta">🟢 выполнено: <b>${e.doneKm} км</b>`
-    + (frac != null && e.lengthKm ? ` (${Math.round(frac * 100)}%)` : "") + `</div>`;
+  if (e.doneKm != null && frac != null) {
+    meta += `<div class="p-meta">🟢 ${FACT_METRICS[factMode].label}: <b>${fmtNum(e.doneKm)} км</b>`
+      + (frac != null && e.lengthKm ? ` (${Math.round(frac * 100)}%)` : "") + `</div>`;
+    meta += remainingRow(e, "p-meta");
+    const cell = SMR2 && SMR2.edges && SMR2.edges[e.id];
+    if (cell && cell.settlements && cell.settlements.length) {
+      meta += `<div class="p-meta">по сёлам: ${esc(cell.settlements.join(", "))}</div>`;
+    }
+  }
   if (frac != null) meta += `<div class="pbar"><div style="width:${Math.round(frac * 100)}%"></div></div>`;
   $("pMeta").innerHTML = meta;
 
@@ -1998,6 +2118,10 @@ $("districtSel").addEventListener("change", (ev) => {
   closePanel();
   fitView();
 });
+$("factSel").addEventListener("change", (ev) => {
+  factMode = FACT_METRICS[ev.target.value] ? ev.target.value : "tubeKm";
+  applyFactMode();
+});
 $("fMufta").addEventListener("change", (ev) => { filters.mufta = ev.target.checked; draw(); });
 $("fExisting").addEventListener("change", (ev) => { filters.existing = ev.target.checked; draw(); });
 $("fPlanned").addEventListener("change", (ev) => { filters.planned = ev.target.checked; draw(); });
@@ -2060,7 +2184,7 @@ async function initGraphSelector() {
 
 // ---------- Старт ----------
 (async () => {
-  const [graph, progress] = await Promise.all([loadGraph(), loadProgress()]);
+  const [graph, progress, smr2] = await Promise.all([loadGraph(), loadProgress(), loadSmr2()]);
   if (!graph) {
     $("error").style.display = "flex";
     return;
@@ -2079,11 +2203,20 @@ async function initGraphSelector() {
   repositionNodePanel();
   if (progress) applyProgress(progress, progress.version ? "api" : "file");
   else renderDebugPanel({ trace: [], totals: {} }, "none");
+  // URL-параметры: ?district=Название — фильтр района, ?fact=tubeKm|fiberKm —
+  // метрика прогресса, ?theme=light|dark — тема, ?edit=1 — сразу режим правки.
+  const params = new URLSearchParams(location.search);
+
+  // Режим факта: явный параметр важнее, чем выбор, восстановленный браузером
+  // в <select> после перезагрузки; иначе карта покажет трубку, а подпись — ВОЛС.
+  const fs = $("factSel");
+  const wanted = params.get("fact");
+  if (FACT_METRICS[wanted]) factMode = wanted;
+  else if (fs && FACT_METRICS[fs.value]) factMode = fs.value;
+  if (fs) fs.value = factMode;
+  applySmr2(smr2);
   setInterval(pollProgress, PROGRESS_POLL_MS);
 
-  // URL-параметры: ?district=Название — фильтр района,
-  // ?theme=light|dark — принудительная тема, ?edit=1 — сразу режим правки.
-  const params = new URLSearchParams(location.search);
   if (params.get("edit") === "1") setEditMode(true);
   const th = params.get("theme");
   if (th === "light" || th === "dark") {

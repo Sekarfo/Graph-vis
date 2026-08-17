@@ -36,6 +36,9 @@
   --edge-outside: #c3c2b7;
   --edge-nofree: #e34948;
   --progress: #0ca30c;
+  /* Незакрытый остаток работ по ребру. Намеренно НЕ красный: красный уже занят
+     «нет свободных волокон», а остаток — это не авария, а объём работы. */
+  --remaining: #d97706;
 
   /* Извилистые линии с чертежа: PON-ветка от OLT и аплинк сущ. ATN ↔ OLT */
   --pon: #00b0f0;
@@ -71,6 +74,7 @@
     --edge-planned: #3987e5;
     --edge-outside: #383835;
     --edge-nofree: #e66767;
+    --remaining: #f59e0b;
 
     --pon: #22b9f2;
     --uplink: #21bd63;
@@ -85,6 +89,7 @@
   --ats: #1c74c9; --olt: #1f9d4f; --olt-planned: #8fb4e3; --atn: #1f9d4f; --atn-planned: #d94040;
   --netengine: #e87ba4; --mufta: #2c2c2a; --mufta-planned: #e0b100; --mufta-outside: #7030a0;
   --edge-existing: #a6a49c; --edge-planned: #2a78d6; --edge-outside: #c3c2b7; --edge-nofree: #e34948;
+  --remaining: #d97706;
   --pon: #00b0f0; --uplink: #00b050;
   --accent: #2a78d6;
 }
@@ -95,6 +100,7 @@
   --ats: #3987e5; --olt: #27b35c; --olt-planned: #6f9fd8; --atn: #27b35c; --atn-planned: #e05252;
   --netengine: #d55181; --mufta: #d6d5cf; --mufta-planned: #e5c027; --mufta-outside: #a877d6;
   --edge-existing: #52514e; --edge-planned: #3987e5; --edge-outside: #383835; --edge-nofree: #e66767;
+  --remaining: #f59e0b;
   --pon: #22b9f2; --uplink: #21bd63;
   --accent: #3987e5;
 }
@@ -341,6 +347,13 @@ canvas.dragging { cursor: grabbing; }
   <div class="controls">
     <select id="graphSel" title="Область (граф)" style="display:none"></select>
     <select id="districtSel" title="Фильтр по району"><option value="">Все районы</option></select>
+    <!-- Факт из свода СНП 2.0 — две независимые метрики: сначала прокладывают
+         трубку, потом задувают в неё ВОЛС. Показываем что-то одно, иначе
+         непонятно, какая из двух цифр на ребре. -->
+    <select id="factSel" title="Какой факт показывать на рёбрах: проложенную трубку или уже задутый в неё ВОЛС">
+      <option value="tubeKm">Прогресс: трубка</option>
+      <option value="fiberKm">Прогресс: ВОЛС</option>
+    </select>
     <label class="chk"><input type="checkbox" id="fMufta" checked> муфты</label>
     <label class="chk"><input type="checkbox" id="fExisting" checked> сущ. ВОЛС</label>
     <label class="chk"><input type="checkbox" id="fPlanned" checked> план. ВОЛС</label>
@@ -357,8 +370,9 @@ canvas.dragging { cursor: grabbing; }
   </div>
 </header>
 
-<!-- Метрики плана в км. Наполняет renderKpi() (graph-app.js): цифры зависят
-     от выбранного района, «выполнено» приходит из api/progress. -->
+<!-- Полоса метрик плана/факта: наполняет renderKpi() из /api/smr2 и прячет,
+     пока свода по области нет. Цифры зависят от режима в #factSel (трубка
+     или ВОЛС) и от выбранного района. -->
 <div id="kpibar"></div>
 
 <div id="stage">
@@ -395,7 +409,8 @@ canvas.dragging { cursor: grabbing; }
       <div class="lrow"><span class="ln" style="border-top:2px solid var(--edge-existing)"></span> существующая</div>
       <div class="lrow"><span class="ln" style="border-top:2px dashed var(--edge-planned)"></span> по проекту</div>
       <div class="lrow"><span class="ln" style="border-top:2px dotted var(--edge-outside)"></span> вне проекта</div>
-      <div class="lrow"><span class="ln" style="border-top:3px solid var(--progress)"></span> выполнено (только на плановых)</div>
+      <div class="lrow"><span class="ln" style="border-top:3px solid var(--progress)"></span> <span id="legendFact">выполнено</span></div>
+      <div class="lrow"><span class="ln" style="border-top:3px solid var(--remaining)"></span> осталось по этому участку</div>
       <div class="lrow"><svg width="26" height="10" viewBox="0 0 26 10" style="flex:none"><path d="M0 5 C 4 0, 7 10, 13 5 S 22 0, 26 5" fill="none" stroke="var(--pon)" stroke-width="1.6"/></svg> PON-ветка от OLT к СНП</div>
       <div class="lrow"><svg width="26" height="10" viewBox="0 0 26 10" style="flex:none"><path d="M0 5 C 4 0, 7 10, 13 5 S 22 0, 26 5" fill="none" stroke="var(--uplink)" stroke-width="1.6"/></svg> аплинк сущ. ATN → OLT</div>
     </details>
