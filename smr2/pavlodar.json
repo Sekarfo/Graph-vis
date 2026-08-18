@@ -3,7 +3,7 @@
   "slug": "pavlodar",
   "title": "Павлодарская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T05:32:39+00:00",
+  "generated": "2026-08-18T14:48:04+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -3720,7 +3720,7 @@
    "head": "с.Карашокы",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 1.0,
-   "tubeKm": 1.916,
+   "tubeKm": 2.066,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -3741,7 +3741,7 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.916,
+   "clippedTubeKm": 1.066,
    "clippedFiberKm": 0.0,
    "paintedTubeKm": 1.0,
    "paintedFiberKm": 0.0,
@@ -6775,7 +6775,7 @@
    "head": "Теренколь",
    "tech": "ВОЛС",
    "planKm": 1.6,
-   "tubeKm": 0.755,
+   "tubeKm": 1.452,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -6804,7 +6804,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.755,
+   "paintedTubeKm": 1.452,
    "paintedFiberKm": 0.0,
    "capKm": 1.6,
    "homonyms": 1
@@ -7275,7 +7275,7 @@
    "head": "АТС Федоровка",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 3.9,
-   "tubeKm": 0.0,
+   "tubeKm": 3.427,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -7304,7 +7304,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 3.427,
    "paintedFiberKm": 0.0,
    "capKm": 3.9,
    "homonyms": 1
@@ -7317,7 +7317,7 @@
    "head": "АТС Федоровка",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 7.0,
-   "tubeKm": 0.0,
+   "tubeKm": 6.232,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -7348,7 +7348,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 6.232,
    "paintedFiberKm": 0.0,
    "capKm": 7.0,
    "homonyms": 1
@@ -8574,11 +8574,27 @@
    ]
   },
   "E0220": {
-   "tubeKm": 0.755,
+   "tubeKm": 1.452,
    "fiberKm": 0,
    "fillFrom": "P0160",
    "settlements": [
     "с.Осьмерыжск"
+   ]
+  },
+  "E0207": {
+   "tubeKm": 3.427,
+   "fiberKm": 0,
+   "fillFrom": "P0159",
+   "settlements": [
+    "с.Воронцовка"
+   ]
+  },
+  "E0011": {
+   "tubeKm": 6.232,
+   "fiberKm": 0,
+   "fillFrom": "P0065",
+   "settlements": [
+    "с.Кызылдау"
    ]
   },
   "E0212": {
@@ -8640,9 +8656,9 @@
  },
  "totals": {
   "planKm": 2246.1,
-  "tubeKm": 623.7,
+  "tubeKm": 634.2,
   "fiberKm": 33.8,
-  "paintedTubeKm": 360.4,
+  "paintedTubeKm": 370.8,
   "paintedFiberKm": 32.8,
   "graphTouchedKm": 1992.8,
   "graphPlannedKm": 2245.7,
@@ -8652,7 +8668,7 @@
     "fiberKm": 0.0
    },
    "clipped": {
-    "tubeKm": 173.3,
+    "tubeKm": 173.4,
     "fiberKm": 1.0
    },
    "spill": {

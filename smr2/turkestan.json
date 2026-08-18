@@ -3,7 +3,7 @@
   "slug": "turkestan",
   "title": "Туркестанская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T05:33:36+00:00",
+  "generated": "2026-08-18T14:49:07+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -5067,7 +5067,7 @@
    "head": "АТС Ленгер",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 5.5,
-   "tubeKm": 0.93,
+   "tubeKm": 3.9,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5098,7 +5098,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.93,
+   "paintedTubeKm": 3.9,
    "paintedFiberKm": 0.0,
    "capKm": 5.5,
    "homonyms": 1
@@ -11749,7 +11749,7 @@
    "head": "СНП Келес",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 2.6,
-   "tubeKm": 2.166,
+   "tubeKm": 2.844,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -11778,9 +11778,9 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
+   "clippedTubeKm": 0.244,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 2.166,
+   "paintedTubeKm": 2.6,
    "paintedFiberKm": 0.0,
    "capKm": 2.6,
    "homonyms": 1
@@ -16773,7 +16773,7 @@
    ]
   },
   "E0081": {
-   "tubeKm": 0.93,
+   "tubeKm": 3.9,
    "fiberKm": 0,
    "fillFrom": "U0093",
    "settlements": [
@@ -16974,7 +16974,7 @@
    ]
   },
   "E0643": {
-   "tubeKm": 2.166,
+   "tubeKm": 2.6,
    "fiberKm": 0,
    "fillFrom": "U0329",
    "settlements": [
@@ -17466,9 +17466,9 @@
  },
  "totals": {
   "planKm": 2503.4,
-  "tubeKm": 622.2,
+  "tubeKm": 625.9,
   "fiberKm": 111.3,
-  "paintedTubeKm": 449.6,
+  "paintedTubeKm": 453.0,
   "paintedFiberKm": 106.5,
   "graphTouchedKm": 2320.9,
   "graphPlannedKm": 2487.6,
@@ -17478,7 +17478,7 @@
     "fiberKm": 0.0
    },
    "clipped": {
-    "tubeKm": 137.7,
+    "tubeKm": 137.9,
     "fiberKm": 4.8
    },
    "spill": {

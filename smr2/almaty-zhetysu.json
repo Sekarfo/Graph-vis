@@ -3,7 +3,7 @@
   "slug": "almaty-zhetysu",
   "title": "Алматинская область и Жетісу",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T05:31:58+00:00",
+  "generated": "2026-08-18T14:47:21+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -749,7 +749,7 @@
    "head": "СНП Енбекши",
    "tech": "ВОЛС",
    "planKm": 6.2,
-   "tubeKm": 3.645,
+   "tubeKm": 4.26,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -780,7 +780,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 3.645,
+   "paintedTubeKm": 4.26,
    "paintedFiberKm": 0.0,
    "capKm": 6.2,
    "homonyms": 2
@@ -925,7 +925,7 @@
    "head": "АТС КазЦик",
    "tech": "ВОЛС",
    "planKm": 3.2,
-   "tubeKm": 1.672,
+   "tubeKm": 2.412,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -956,7 +956,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 1.672,
+   "paintedTubeKm": 2.412,
    "paintedFiberKm": 0.0,
    "capKm": 3.2,
    "homonyms": 1
@@ -3120,7 +3120,7 @@
    "tech": "ВОЛС",
    "planKm": 11.0,
    "tubeKm": 11.522,
-   "fiberKm": 0.0,
+   "fiberKm": 6.237,
    "segs": [
     {
      "label": "М14",
@@ -3151,7 +3151,7 @@
    "clippedTubeKm": 0.522,
    "clippedFiberKm": 0.0,
    "paintedTubeKm": 11.0,
-   "paintedFiberKm": 0.0,
+   "paintedFiberKm": 6.237,
    "capKm": 11.0,
    "homonyms": 1
   },
@@ -3293,7 +3293,7 @@
    "tech": "ВОЛС",
    "planKm": 8.5,
    "tubeKm": 8.993,
-   "fiberKm": 0.0,
+   "fiberKm": 9.186,
    "segs": [
     {
      "label": "с.Сарыколь",
@@ -3322,9 +3322,9 @@
     }
    ],
    "clippedTubeKm": 0.493,
-   "clippedFiberKm": 0.0,
+   "clippedFiberKm": 0.686,
    "paintedTubeKm": 8.5,
-   "paintedFiberKm": 0.0,
+   "paintedFiberKm": 8.5,
    "capKm": 8.5,
    "homonyms": 1
   },
@@ -3469,7 +3469,7 @@
    "tech": "ВОЛС",
    "planKm": 21.1,
    "tubeKm": 7.999,
-   "fiberKm": 0.0,
+   "fiberKm": 5.611,
    "segs": [
     {
      "label": "АТС Сарыжаз",
@@ -3501,7 +3501,7 @@
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
    "paintedTubeKm": 7.999,
-   "paintedFiberKm": 0.0,
+   "paintedFiberKm": 5.611,
    "capKm": 21.1,
    "homonyms": 1
   },
@@ -4457,7 +4457,7 @@
    "head": "АТС Кызылагаш",
    "tech": "ВОЛС",
    "planKm": 10.5,
-   "tubeKm": 0.0,
+   "tubeKm": 1.021,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -4493,7 +4493,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 1.021,
    "paintedFiberKm": 0.0,
    "capKm": 10.5,
    "homonyms": 1
@@ -4630,7 +4630,7 @@
    "head": "с.им.М.Тулебаева",
    "tech": "ВОЛС",
    "planKm": 30.0,
-   "tubeKm": 31.089,
+   "tubeKm": 42.967,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -4669,7 +4669,7 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 1.089,
+   "clippedTubeKm": 12.967,
    "clippedFiberKm": 0.0,
    "paintedTubeKm": 30.0,
    "paintedFiberKm": 0.0,
@@ -5371,7 +5371,7 @@
    "head": "АТС Кабанбай",
    "tech": "ВОЛС",
    "planKm": 14.2,
-   "tubeKm": 0.0,
+   "tubeKm": 5.427,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5402,7 +5402,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 5.427,
    "paintedFiberKm": 0.0,
    "capKm": 14.2,
    "homonyms": 1
@@ -5772,7 +5772,7 @@
    "head": "СНП Жыланды",
    "tech": "ВОЛС",
    "planKm": 7.3,
-   "tubeKm": 2.907,
+   "tubeKm": 5.215,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5803,7 +5803,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 2.907,
+   "paintedTubeKm": 5.215,
    "paintedFiberKm": 0.0,
    "capKm": 7.3,
    "homonyms": 1
@@ -5992,7 +5992,7 @@
    "head": "СНП Токжайлау",
    "tech": "ВОЛС",
    "planKm": 0.8,
-   "tubeKm": 0.42,
+   "tubeKm": 0.684,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -6023,7 +6023,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.42,
+   "paintedTubeKm": 0.684,
    "paintedFiberKm": 0.0,
    "capKm": 0.8,
    "homonyms": 1
@@ -10337,7 +10337,7 @@
    ]
   },
   "E0290": {
-   "tubeKm": 3.645,
+   "tubeKm": 4.26,
    "fiberKm": 0,
    "fillFrom": "A0293",
    "settlements": [
@@ -10345,7 +10345,7 @@
    ]
   },
   "E0292": {
-   "tubeKm": 1.672,
+   "tubeKm": 2.412,
    "fiberKm": 0,
    "fillFrom": "A0238",
    "settlements": [
@@ -10466,7 +10466,7 @@
   },
   "E0802": {
    "tubeKm": 11.0,
-   "fiberKm": 0,
+   "fiberKm": 6.237,
    "fillFrom": "A0378",
    "settlements": [
     "с.Жалаулы"
@@ -10506,7 +10506,7 @@
   },
   "E0798": {
    "tubeKm": 8.5,
-   "fiberKm": 0,
+   "fiberKm": 8.5,
    "fillFrom": "A0399",
    "settlements": [
     "с.Ереул"
@@ -10538,7 +10538,7 @@
   },
   "E0790": {
    "tubeKm": 7.999,
-   "fiberKm": 0,
+   "fiberKm": 5.611,
    "fillFrom": "A0405",
    "settlements": [
     "с.Комирши"
@@ -10550,6 +10550,14 @@
    "fillFrom": "A0413",
    "settlements": [
     "с.Тузкол"
+   ]
+  },
+  "E0866": {
+   "tubeKm": 1.021,
+   "fiberKm": 0,
+   "fillFrom": "A0587",
+   "settlements": [
+    "с.Колтабан"
    ]
   },
   "E0875": {
@@ -10566,6 +10574,14 @@
    "fillFrom": "A1020",
    "settlements": [
     "с.Кураксу"
+   ]
+  },
+  "E0927": {
+   "tubeKm": 5.427,
+   "fiberKm": 0,
+   "fillFrom": "A0663",
+   "settlements": [
+    "с.Коныр"
    ]
   },
   "E0935": {
@@ -10601,7 +10617,7 @@
    ]
   },
   "E0930": {
-   "tubeKm": 2.907,
+   "tubeKm": 5.215,
    "fiberKm": 0,
    "fillFrom": "A0673",
    "settlements": [
@@ -10617,7 +10633,7 @@
    ]
   },
   "E0931": {
-   "tubeKm": 0.42,
+   "tubeKm": 0.684,
    "fiberKm": 0,
    "fillFrom": "A0679",
    "settlements": [
@@ -10627,11 +10643,11 @@
  },
  "totals": {
   "planKm": 2304.1,
-  "tubeKm": 362.0,
-  "fiberKm": 0.0,
-  "paintedTubeKm": 331.2,
-  "paintedFiberKm": 0,
-  "graphTouchedKm": 2111.5,
+  "tubeKm": 384.2,
+  "fiberKm": 21.0,
+  "paintedTubeKm": 341.5,
+  "paintedFiberKm": 20.3,
+  "graphTouchedKm": 2111.6,
   "graphPlannedKm": 2246.7,
   "lost": {
    "unbound": {
@@ -10639,8 +10655,8 @@
     "fiberKm": 0.0
    },
    "clipped": {
-    "tubeKm": 7.7,
-    "fiberKm": 0.0
+    "tubeKm": 19.6,
+    "fiberKm": 0.7
    },
    "spill": {
     "tubeKm": 0.0,

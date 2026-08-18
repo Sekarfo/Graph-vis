@@ -3,7 +3,7 @@
   "slug": "vko",
   "title": "Восточно-Казахстанская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T05:33:43+00:00",
+  "generated": "2026-08-18T14:49:15+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -1033,7 +1033,7 @@
    "head": "",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 14.0,
-   "tubeKm": 8.3,
+   "tubeKm": 12.3,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1065,7 +1065,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 8.3,
+   "paintedTubeKm": 12.3,
    "paintedFiberKm": 0.0,
    "capKm": 14.0,
    "homonyms": 1
@@ -1426,7 +1426,7 @@
    "tech": "ВОЛС",
    "planKm": 5.0,
    "tubeKm": 6.517,
-   "fiberKm": 0.0,
+   "fiberKm": 6.7,
    "segs": [
     {
      "label": "АТС Каратал",
@@ -1456,9 +1456,9 @@
     }
    ],
    "clippedTubeKm": 1.517,
-   "clippedFiberKm": 0.0,
+   "clippedFiberKm": 1.7,
    "paintedTubeKm": 5.0,
-   "paintedFiberKm": 0.0,
+   "paintedFiberKm": 5.0,
    "capKm": 5.0,
    "homonyms": 1
   },
@@ -6298,7 +6298,7 @@
    "head": "АТС Октябрьское",
    "tech": "ВОЛС",
    "planKm": 14.0,
-   "tubeKm": 9.11,
+   "tubeKm": 11.01,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -6329,7 +6329,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 9.11,
+   "paintedTubeKm": 11.01,
    "paintedFiberKm": 0.0,
    "capKm": 14.0,
    "homonyms": 1
@@ -8186,7 +8186,7 @@
    ]
   },
   "E0447": {
-   "tubeKm": 8.3,
+   "tubeKm": 12.3,
    "fiberKm": 0,
    "fillFrom": "V0021",
    "settlements": [
@@ -8211,7 +8211,7 @@
   },
   "E0456": {
    "tubeKm": 5.0,
-   "fiberKm": 0,
+   "fiberKm": 5.0,
    "fillFrom": "V001F",
    "settlements": [
     "с.Улкен Каратал"
@@ -8394,7 +8394,7 @@
    ]
   },
   "E0010": {
-   "tubeKm": 9.11,
+   "tubeKm": 11.01,
    "fiberKm": 0,
    "fillFrom": "V004E",
    "settlements": [
@@ -8428,10 +8428,10 @@
  },
  "totals": {
   "planKm": 2169.7,
-  "tubeKm": 326.8,
-  "fiberKm": 0.0,
-  "paintedTubeKm": 203.4,
-  "paintedFiberKm": 0,
+  "tubeKm": 332.7,
+  "fiberKm": 6.7,
+  "paintedTubeKm": 209.3,
+  "paintedFiberKm": 5.0,
   "graphTouchedKm": 1904.6,
   "graphPlannedKm": 2165.7,
   "lost": {
@@ -8441,7 +8441,7 @@
    },
    "clipped": {
     "tubeKm": 54.2,
-    "fiberKm": 0.0
+    "fiberKm": 1.7
    },
    "spill": {
     "tubeKm": 0.0,

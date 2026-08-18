@@ -3,7 +3,7 @@
   "slug": "abai",
   "title": "Область Абай",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T05:31:01+00:00",
+  "generated": "2026-08-18T14:46:19+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -817,7 +817,7 @@
    "head": "СНП Озерки",
    "tech": "ВОЛС",
    "planKm": 13.0,
-   "tubeKm": 0.0,
+   "tubeKm": 8.786,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -840,7 +840,7 @@
    "segChecks": [],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 8.786,
    "paintedFiberKm": 0.0,
    "capKm": 13.0,
    "homonyms": 1
@@ -1172,7 +1172,7 @@
    "head": "с.Мостик",
    "tech": "ВОЛС",
    "planKm": 1.0,
-   "tubeKm": 21.219,
+   "tubeKm": 21.642,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1193,7 +1193,7 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 20.219,
+   "clippedTubeKm": 20.642,
    "clippedFiberKm": 0.0,
    "paintedTubeKm": 1.0,
    "paintedFiberKm": 0.0,
@@ -1296,7 +1296,7 @@
    "head": "АТС Канонерка",
    "tech": "ВОЛС",
    "planKm": 45.1,
-   "tubeKm": 0.0,
+   "tubeKm": 0.495,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1363,7 +1363,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 0.495,
    "paintedFiberKm": 0.0,
    "capKm": 45.1,
    "homonyms": 1
@@ -1508,7 +1508,7 @@
    "head": "с.Жетижар",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 1.0,
-   "tubeKm": 25.517,
+   "tubeKm": 29.203,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1529,7 +1529,7 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 24.517,
+   "clippedTubeKm": 28.203,
    "clippedFiberKm": 0.0,
    "paintedTubeKm": 1.0,
    "paintedFiberKm": 0.0,
@@ -5833,7 +5833,7 @@
    "head": "СНП Алтыншокы",
    "tech": "ВОЛС",
    "planKm": 2.0,
-   "tubeKm": 0.0,
+   "tubeKm": 2.148,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5862,9 +5862,9 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
+   "clippedTubeKm": 0.148,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 2.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.0,
    "homonyms": 1
@@ -6641,7 +6641,7 @@
    "head": "с.Караагаш",
    "tech": "ВОЛС",
    "planKm": 28.5,
-   "tubeKm": 21.622,
+   "tubeKm": 26.178,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -6669,7 +6669,7 @@
    "segChecks": [],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 21.622,
+   "paintedTubeKm": 26.178,
    "paintedFiberKm": 0.0,
    "capKm": 28.5,
    "homonyms": 2
@@ -6952,6 +6952,14 @@
     "с.Жазык"
    ]
   },
+  "E1949e6": {
+   "tubeKm": 8.786,
+   "fiberKm": 0,
+   "fillFrom": "B0035",
+   "settlements": [
+    "с.Талица"
+   ]
+  },
   "E0034": {
    "tubeKm": 8.235,
    "fiberKm": 0,
@@ -6998,6 +7006,14 @@
    "fillFrom": "B0050",
    "settlements": [
     "с.Долонь"
+   ]
+  },
+  "E0000": {
+   "tubeKm": 0.495,
+   "fiberKm": 0,
+   "fillFrom": "B0435",
+   "settlements": [
+    "с.Джеланды"
    ]
   },
   "E0052": {
@@ -7136,6 +7152,14 @@
     "с.Бургон"
    ]
   },
+  "E0196": {
+   "tubeKm": 2.0,
+   "fiberKm": 0,
+   "fillFrom": "B0255",
+   "settlements": [
+    "с.Текебулак"
+   ]
+  },
   "E0211": {
    "tubeKm": 19.0,
    "fiberKm": 0,
@@ -7201,7 +7225,7 @@
    ]
   },
   "E0175": {
-   "tubeKm": 21.622,
+   "tubeKm": 26.178,
    "fiberKm": 0,
    "fillFrom": "B0229",
    "settlements": [
@@ -7243,9 +7267,9 @@
  },
  "totals": {
   "planKm": 2284.4,
-  "tubeKm": 590.2,
+  "tubeKm": 610.3,
   "fiberKm": 16.6,
-  "paintedTubeKm": 429.1,
+  "paintedTubeKm": 444.9,
   "paintedFiberKm": 16.6,
   "graphTouchedKm": 2194.7,
   "graphPlannedKm": 2301.8,
@@ -7255,7 +7279,7 @@
     "fiberKm": 0.0
    },
    "clipped": {
-    "tubeKm": 116.4,
+    "tubeKm": 120.7,
     "fiberKm": 0.0
    },
    "spill": {

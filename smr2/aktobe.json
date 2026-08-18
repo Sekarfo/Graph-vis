@@ -3,7 +3,7 @@
   "slug": "aktobe",
   "title": "Актюбинская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T05:31:31+00:00",
+  "generated": "2026-08-18T14:46:53+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -118,8 +118,8 @@
    "head": "с.Жанаталап",
    "tech": "ВОЛС",
    "planKm": 22.6,
-   "tubeKm": 24.764,
-   "fiberKm": 0.0,
+   "tubeKm": 25.614,
+   "fiberKm": 3.3,
    "segs": [
     {
      "label": "М1",
@@ -151,10 +151,10 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 2.164,
+   "clippedTubeKm": 3.014,
    "clippedFiberKm": 0.0,
    "paintedTubeKm": 22.6,
-   "paintedFiberKm": 0.0,
+   "paintedFiberKm": 3.3,
    "capKm": 22.6,
    "homonyms": 1
   },
@@ -166,7 +166,7 @@
    "head": "с.Жанаталап",
    "tech": "ВОЛС",
    "planKm": 10.8,
-   "tubeKm": 9.5,
+   "tubeKm": 11.06,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -195,9 +195,9 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
+   "clippedTubeKm": 0.26,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 9.5,
+   "paintedTubeKm": 10.8,
    "paintedFiberKm": 0.0,
    "capKm": 10.8,
    "homonyms": 1
@@ -210,7 +210,7 @@
    "head": "с.Жанаталап",
    "tech": "ВОЛС",
    "planKm": 15.3,
-   "tubeKm": 1.0,
+   "tubeKm": 13.22,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -241,7 +241,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 1.0,
+   "paintedTubeKm": 13.22,
    "paintedFiberKm": 0.0,
    "capKm": 15.3,
    "homonyms": 1
@@ -298,7 +298,7 @@
    "head": "с.Жанаталап",
    "tech": "ВОЛС",
    "planKm": 13.1,
-   "tubeKm": 11.35,
+   "tubeKm": 15.87,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -327,9 +327,9 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
+   "clippedTubeKm": 2.77,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 11.35,
+   "paintedTubeKm": 13.1,
    "paintedFiberKm": 0.0,
    "capKm": 13.1,
    "homonyms": 1
@@ -665,7 +665,7 @@
    "head": "с.Жиренкопа",
    "tech": "ВОЛС",
    "planKm": 23.0,
-   "tubeKm": 2.5,
+   "tubeKm": 3.5,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -706,7 +706,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 2.5,
+   "paintedTubeKm": 3.5,
    "paintedFiberKm": 0.0,
    "capKm": 23.0,
    "homonyms": 1
@@ -719,7 +719,7 @@
    "head": "с.Жиренкопа",
    "tech": "ВОЛС",
    "planKm": 0.0,
-   "tubeKm": 0.0,
+   "tubeKm": 16.8,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -740,9 +740,9 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
+   "clippedTubeKm": 16.2,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 0.6,
    "paintedFiberKm": 0.0,
    "capKm": 0.6,
    "homonyms": 1
@@ -755,7 +755,7 @@
    "head": "с.Жиренкопа",
    "tech": "ВОЛС",
    "planKm": 20.3,
-   "tubeKm": 11.06,
+   "tubeKm": 24.88,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -776,9 +776,9 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
+   "clippedTubeKm": 4.58,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 11.06,
+   "paintedTubeKm": 20.3,
    "paintedFiberKm": 0.0,
    "capKm": 20.3,
    "homonyms": 1
@@ -7294,7 +7294,7 @@
  "edges": {
   "E0341": {
    "tubeKm": 18.2,
-   "fiberKm": 0,
+   "fiberKm": 3.3,
    "fillFrom": "K01AF",
    "settlements": [
     "с.Жанаталап"
@@ -7309,7 +7309,7 @@
    ]
   },
   "E0173": {
-   "tubeKm": 9.5,
+   "tubeKm": 10.8,
    "fiberKm": 0,
    "fillFrom": "K0122",
    "settlements": [
@@ -7317,7 +7317,7 @@
    ]
   },
   "E0174": {
-   "tubeKm": 1.0,
+   "tubeKm": 13.22,
    "fiberKm": 0,
    "fillFrom": "K0122",
    "settlements": [
@@ -7333,7 +7333,7 @@
    ]
   },
   "E0215": {
-   "tubeKm": 11.35,
+   "tubeKm": 13.1,
    "fiberKm": 0,
    "fillFrom": "K0154",
    "settlements": [
@@ -7357,15 +7357,23 @@
    ]
   },
   "E0347": {
-   "tubeKm": 2.5,
+   "tubeKm": 3.5,
    "fiberKm": 0,
    "fillFrom": "K01B3",
    "settlements": [
     "с.Жиренкопа"
    ]
   },
+  "E0177": {
+   "tubeKm": 0.6,
+   "fiberKm": 0,
+   "fillFrom": "K01B4",
+   "settlements": [
+    "с.Когалы"
+   ]
+  },
   "E0349": {
-   "tubeKm": 11.06,
+   "tubeKm": 20.3,
    "fiberKm": 0,
    "fillFrom": "K01B4",
    "settlements": [
@@ -7465,10 +7473,10 @@
  },
  "totals": {
   "planKm": 3321.3,
-  "tubeKm": 277.1,
-  "fiberKm": 0.0,
-  "paintedTubeKm": 223.9,
-  "paintedFiberKm": 0,
+  "tubeKm": 327.9,
+  "fiberKm": 3.3,
+  "paintedTubeKm": 250.0,
+  "paintedFiberKm": 3.3,
   "graphTouchedKm": 3325.1,
   "graphPlannedKm": 3315.1,
   "lost": {
@@ -7477,7 +7485,7 @@
     "fiberKm": 0.0
    },
    "clipped": {
-    "tubeKm": 12.9,
+    "tubeKm": 37.6,
     "fiberKm": 0.0
    },
    "spill": {
