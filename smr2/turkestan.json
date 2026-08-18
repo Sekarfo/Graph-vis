@@ -3,7 +3,7 @@
   "slug": "turkestan",
   "title": "Туркестанская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T05:27:47+00:00",
+  "generated": "2026-08-18T05:33:36+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -14467,7 +14467,7 @@
    "head": "СНП Ақтас",
    "tech": "ВОЛС",
    "planKm": 6.5,
-   "tubeKm": 0.0,
+   "tubeKm": 5.448,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -14507,7 +14507,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 5.448,
    "paintedFiberKm": 0.0,
    "capKm": 6.5,
    "homonyms": 1
@@ -17395,7 +17395,16 @@
    "fiberKm": 0,
    "fillFrom": "U0299",
    "settlements": [
+    "Тоғансай",
     "Атамекен (Қожатоғай)"
+   ]
+  },
+  "E0380": {
+   "tubeKm": 4.448,
+   "fiberKm": 0,
+   "fillFrom": "U0294",
+   "settlements": [
+    "Тоғансай"
    ]
   },
   "E0382": {
@@ -17457,9 +17466,9 @@
  },
  "totals": {
   "planKm": 2503.4,
-  "tubeKm": 616.8,
+  "tubeKm": 622.2,
   "fiberKm": 111.3,
-  "paintedTubeKm": 445.2,
+  "paintedTubeKm": 449.6,
   "paintedFiberKm": 106.5,
   "graphTouchedKm": 2320.9,
   "graphPlannedKm": 2487.6,
@@ -17477,7 +17486,7 @@
     "fiberKm": 0.0
    },
    "edgecap": {
-    "tubeKm": 1.2,
+    "tubeKm": 2.2,
     "fiberKm": 0.0
    }
   }
