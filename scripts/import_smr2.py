@@ -38,6 +38,7 @@ import argparse
 import json
 import re
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -53,11 +54,66 @@ REGIONS_DIR = BASE / "regions"
 OUT_DIR = BASE / "smr2"
 REPORT = BASE / "SMR2_RECONCILE.md"
 
-# --- раскладка листа (индексы столбцов, 0-based) ---------------------------
-C_NUM, C_REGION, C_DISTRICT, C_OKRUG, C_NAME, C_HEAD = 0, 1, 2, 3, 4, 5
-C_PLAN, C_TECH = 6, 9
-SEG_PAIRS = [(10, 11), (12, 13), (14, 15), (16, 17), (18, 19), (20, 21)]
-COL_TUBE, COL_FIBER = 614, 805
+# --- раскладка листа ------------------------------------------------------
+# Номера столбцов НЕ зашиты: книгу правят руками, и столбцы в ней уже уезжали.
+# Между локальной копией от 14.08 и текущей таблицей в Google вставили три
+# столбца («ДХ/ГУ по запросу»), из-за чего итог трубки переехал с WQ на WT —
+# по старым индексам мы прочитали бы соседнюю пустую колонку и молча потеряли
+# факт (так по с.Терсакан выходило 14.242 вместо 30.123). Поэтому каждый
+# столбец ищется по заголовку, см. locate_columns().
+HDR_REGION, HDR_DISTRICT = "Область", "Район"
+HDR_OKRUG, HDR_NAME = "Сельский округ", "Нас пункт"
+HDR_HEAD, HDR_PLAN, HDR_TECH = "Подключение к сети СПД", "Общая протяженность до НП", "Технология"
+HDR_SEG_KM = "протяженность км"          # повторяется у каждого участка
+HDR_TUBE, HDR_FIBER = "Магистр. Сеть (трубка) км", "Магистр. Сеть (ВОЛС) км"
+
+# Ссылка на живую таблицу: экспорт открыт по ссылке, авторизация не нужна.
+SHEET_ID = "1hI6neYEmaB8x5vJsNfEXaDtJ_x5ToS_jt9Ja1T4EcZU"
+SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=xlsx"
+
+
+def _norm_hdr(v) -> str:
+    """Заголовок к сравнимому виду: в книге они с переносами строк и хвостовыми
+    пробелами («Утвержд. акт выбора трассы »)."""
+    return " ".join(str(v).split()).strip().lower() if v is not None else ""
+
+
+class Columns:
+    """Индексы столбцов конкретного листа, найденные по заголовкам."""
+
+    def __init__(self, header: tuple):
+        idx: dict[str, int] = {}
+        seg_km: list[int] = []
+        for c, v in enumerate(header):
+            h = _norm_hdr(v)
+            if not h:
+                continue
+            if h == _norm_hdr(HDR_SEG_KM):
+                seg_km.append(c)
+            elif h not in idx:            # берём ПЕРВОЕ вхождение: «Распред.
+                idx[h] = c                # Сеть (ВОЛС) км» в книге задвоена
+        def need(title: str) -> int:
+            c = idx.get(_norm_hdr(title))
+            if c is None:
+                raise KeyError(f"в шапке листа нет столбца «{title}»")
+            return c
+        self.region = need(HDR_REGION)
+        # Блок опознавания села (№ | Область | Район | Сельский округ | Нас пункт)
+        # идёт подряд во всех листах книги, но подписи местами стёрты — в
+        # Костанайской пустует заголовок над столбцом района, хотя данные там
+        # есть. Отсчитываем от «Области», раз уж она нашлась.
+        self.district = idx.get(_norm_hdr(HDR_DISTRICT), self.region + 1)
+        self.okrug = idx.get(_norm_hdr(HDR_OKRUG), self.region + 2)
+        self.name = need(HDR_NAME)
+        self.head = need(HDR_HEAD)
+        self.plan = need(HDR_PLAN)
+        self.tech = need(HDR_TECH)
+        self.tube = need(HDR_TUBE)
+        self.fiber = need(HDR_FIBER)
+        # Метка участка стоит в столбце слева от его километража.
+        self.segs = [(c - 1, c) for c in seg_km]
+        if not self.segs:
+            raise KeyError(f"в шапке листа нет ни одного столбца «{HDR_SEG_KM}»")
 
 SHEET_TO_SLUG = {
     "Туркестанская область": "turkestan",
@@ -124,36 +180,39 @@ def parse_sheet(ws) -> tuple[list[dict], dict]:
     поэтому читаем строго до итогов и обрываемся.
 
     Итоговая строка не подписана словом «Итого»: в ней вместо названия области
-    стоит счётчик (Жамбыл, стр. 167: [164, 1, 10, 89, 164, 55, 1412.5, 84]).
+    стоит счётчик (Жамбыл: [164, 1, 10, 89, 164, 55, 1412.5, 84]).
     Отсюда признак конца — «Область» перестала быть текстом."""
     recs: list[dict] = []
     control: dict = {}
+    cols: Columns | None = None
     for i, row in enumerate(ws.iter_rows(values_only=True), 1):
-        if i <= 2:
+        if i == 1:
+            cols = Columns(row)
             continue
-        region = clean(row[C_REGION] if len(row) > C_REGION else None)
-        name = clean(row[C_NAME] if len(row) > C_NAME else None)
-        if name.lower().startswith("итого") or region.lower().startswith("итого") \
-                or (region and num(row[C_REGION]) is not None):
+        if i == 2:
+            continue
+
+        def cell(c: int):
+            return row[c] if c < len(row) else None
+
+        region = clean(cell(cols.region))
+        name = clean(cell(cols.name))
+        if name.lower().startswith("итого") or region.lower().startswith("итого")                 or (region and num(cell(cols.region)) is not None):
             # Итоги листа — независимая проверка нашего разбора (см. main).
             control = {
                 "row": i,
-                "np": num(row[C_NAME]),
-                "planKm": num(row[C_PLAN]),
-                "tubeKm": num(row[COL_TUBE] if len(row) > COL_TUBE else None),
-                "fiberKm": num(row[COL_FIBER] if len(row) > COL_FIBER else None),
+                "np": num(cell(cols.name)),
+                "planKm": num(cell(cols.plan)),
+                "tubeKm": num(cell(cols.tube)),
+                "fiberKm": num(cell(cols.fiber)),
             }
             break                        # итоговая строка → таблица кончилась
         if not name or not region:
             continue
-        if num(row[C_NUM]) is None:
-            continue
 
         segs = []
-        for lc, kc in SEG_PAIRS:
-            if lc >= len(row):
-                break
-            label, km = clean(row[lc]), num(row[kc] if kc < len(row) else None)
+        for lc, kc in cols.segs:
+            label, km = clean(cell(lc)), num(cell(kc))
             if not label and not km:
                 continue
             segs.append({"label": label, "km": km or 0.0})
@@ -161,14 +220,14 @@ def parse_sheet(ws) -> tuple[list[dict], dict]:
         recs.append({
             "row": i,
             "name": name,
-            "district": clean(row[C_DISTRICT]),
-            "okrug": clean(row[C_OKRUG]),
-            "head": clean(row[C_HEAD]),
-            "tech": clean(row[C_TECH]),
-            "planKm": num(row[C_PLAN]) or 0.0,
+            "district": clean(cell(cols.district)),
+            "okrug": clean(cell(cols.okrug)),
+            "head": clean(cell(cols.head)),
+            "tech": clean(cell(cols.tech)),
+            "planKm": num(cell(cols.plan)) or 0.0,
             "segs": segs,
-            "tubeKm": num(row[COL_TUBE] if len(row) > COL_TUBE else None) or 0.0,
-            "fiberKm": num(row[COL_FIBER] if len(row) > COL_FIBER else None) or 0.0,
+            "tubeKm": num(cell(cols.tube)) or 0.0,
+            "fiberKm": num(cell(cols.fiber)) or 0.0,
         })
     return recs, control
 
@@ -333,13 +392,92 @@ def extend_upstream(graph: Graph, anchor_id: str, first_edge_id: str | None,
 
 
 # ------------------------------------------------------------ привязка ---
+# Свод часто подписывает село как «НовоеИмя (СтароеИмя)», а в графе стоит только
+# одно из двух — причём иногда слитно («с.Жайлау кол (Победа)» против узла
+# «Жайлаукол»). Поэтому пробуем строку целиком, без скобки и только скобку.
+_PAREN_RE = re.compile(r"^([^()]+)\((.+?)\)\s*$")
+
+
+def name_variants(raw: str) -> list[str]:
+    out = [raw.strip()]
+    m = _PAREN_RE.match(raw.strip())
+    if m:
+        out += [m.group(1).strip(), m.group(2).strip()]
+    return [v for v in out if v]
+
+
+def name_index(graph: Graph) -> list[tuple[str, str, dict]]:
+    """(норм. имя, норм. район, узел) — считается один раз на граф.
+
+    Нормализация запроса и узлов — самое горячее место разбора: без индекса
+    node_score перенормализовал бы название узла на каждое сравнение."""
+    cached = getattr(graph, "_smr2_index", None)
+    if cached is not None:
+        return cached
+    idx = []
+    for n in graph.nodes.values():
+        nn = normalize_name(n.get("name"))
+        if nn:
+            idx.append((nn, normalize_name(n.get("district")), n))
+    graph._smr2_index = idx
+    return idx
+
+
+def best_nodes(graph: Graph, raw: str, district: str, *,
+               kinds: tuple | None = None, in_component_of: str | None = None
+               ) -> tuple[float, list[dict]]:
+    """(лучший счёт, все узлы с этим счётом) по названию из свода.
+
+    Варианты названия проверяются по очереди, и каждый следующий получает
+    крошечный штраф — чтобы при РАВНОМ счёте побеждала исходная строка. Иначе
+    «с.Орта тобе (Береке)», где в графе узел назван так же со скобкой, уехал бы
+    на постороннее «Береке» из соседнего района с тем же счётом."""
+    queries = [(normalize_name(v), i * 0.001) for i, v in enumerate(name_variants(raw))]
+    queries = [(q, pen) for q, pen in queries if len(q) >= 2]
+    if not queries:
+        return 0.0, []
+    dn = normalize_name(district)
+    comp = components(graph) if in_component_of else None
+    best_sc, cands = 0.0, []
+    for nn, ndn, n in name_index(graph):
+        if kinds and n.get("kind") not in kinds:
+            continue
+        if comp is not None and comp.get(n["id"]) != comp.get(in_component_of):
+            continue
+        sc = 0.0
+        for q, pen in queries:
+            # graph._score — та же шкала, что у find_node_scored (бонус за snp,
+            # бонус/штраф за район); берём её, чтобы привязка здесь и в
+            # остальном вьюере оценивалась одинаково.
+            v = graph._score(q, dn, nn, ndn, n) - pen
+            if v > sc:
+                sc = v
+        if sc > best_sc + 1e-9:
+            best_sc, cands = sc, [n]
+        elif abs(sc - best_sc) <= 1e-9 and sc > 0:
+            cands.append(n)
+    return best_sc, cands
+
+
+def nearest_of(graph: Graph, cands: list[dict], near_id: str | None) -> dict | None:
+    """Из равных по названию — ближайший ПО ГРАФУ к якорю: муфты нумеруются в
+    пределах ветки («М 3» встречается десятками), и участок связывает близкие
+    точки, а не тёзок с другого конца области."""
+    if not cands:
+        return None
+    if len(cands) == 1 or not near_id:
+        return cands[0]
+
+    def km_to_near(n: dict) -> float:
+        path = graph.shortest_path(n["id"], near_id)
+        return path_km(path) if path is not None else float("inf")
+
+    return min(cands, key=km_to_near)
+
+
 def resolve_label(graph: Graph, label: str, district: str,
                   near_id: str | None) -> dict | None:
     """Узел графа для метки участка.
-
-    near_id обязателен для муфт: «М 3» встречается в графе десятками (нумерация
-    идёт в пределах ветки), и без якоря выбор превращается в лотерею — find_node_
-    scored среди РАВНЫХ по счёту кандидатов берёт ближайшего по графу к селу.
 
     Если near_id задан, кандидат обязан быть с ним в одной компоненте связности:
     иначе матчер выбирает тёзку, до которого маршрута физически нет. В Жамбыле
@@ -348,33 +486,17 @@ def resolve_label(graph: Graph, label: str, district: str,
     соседнего района (штраф −15), хотя у него нет ни одного ребра."""
     if not label or is_placeholder(label):
         return None
-    node, _ = graph.find_node_scored(label, district, LABEL_MIN, near_id=near_id)
+    sc, cands = best_nodes(graph, label, district)
+    node = nearest_of(graph, cands, near_id) if sc >= LABEL_MIN else None
     if node is None or near_id is None:
         return node
     comp = components(graph)
     if comp.get(node["id"]) == comp.get(near_id):
         return node
-    best_sc, cands = 0, []
-    for n in graph.nodes.values():
-        if comp.get(n["id"]) != comp.get(near_id):
-            continue
-        sc = graph.node_score(label, district, n)
-        if sc < LABEL_MIN:
-            continue
-        if sc > best_sc:
-            best_sc, cands = sc, [n]
-        elif sc == best_sc:
-            cands.append(n)
-    if not cands:
-        return node
-    if len(cands) > 1:
-        # Тот же приоритет, что и в find_node_scored: из равных по названию
-        # берём ближайшего по графу к селу — участок связывает близкие точки.
-        def km_to_near(n: dict) -> float:
-            path = graph.shortest_path(n["id"], near_id)
-            return path_km(path) if path is not None else float("inf")
-        cands.sort(key=km_to_near)
-    return cands[0]
+    sc2, cands2 = best_nodes(graph, label, district, in_component_of=near_id)
+    if sc2 >= LABEL_MIN and cands2:
+        return nearest_of(graph, cands2, near_id)
+    return node
 
 
 def resolve_head(graph: Graph, label: str, district: str, snp: dict) -> dict | None:
@@ -390,14 +512,13 @@ def resolve_head(graph: Graph, label: str, district: str, snp: dict) -> dict | N
     node = resolve_label(graph, label, district, near_id=snp["id"])
     if node is not None and node["id"] != snp["id"]:
         return node
-    comp = components(graph)
+    sc, cands = best_nodes(graph, label, district, kinds=HEAD_KINDS,
+                           in_component_of=snp["id"])
+    if sc < LABEL_MIN:
+        return node
     best, best_km = None, None
-    for n in graph.nodes.values():
-        if n.get("kind") not in HEAD_KINDS or n["id"] == snp["id"]:
-            continue
-        if comp.get(n["id"]) != comp.get(snp["id"]):
-            continue
-        if graph.node_score(label, district, n) < LABEL_MIN:
+    for n in cands:
+        if n["id"] == snp["id"]:
             continue
         path = graph.shortest_path(n["id"], snp["id"])
         if path is None:
@@ -456,16 +577,8 @@ def snp_candidates(graph: Graph, rec: dict) -> list[dict]:
     решает не название, а МАРШРУТ свода: правильный «Сауыншы» — тот, что в
     1.3 км от АТС Бекболат, как и записано в строке. Поэтому здесь только
     собираем кандидатов, а выбирает bind() — по тому, чей коридор сошёлся."""
-    scored = []
-    for n in graph.nodes.values():
-        sc = graph.node_score(rec["name"], rec["district"], n)
-        if sc >= LABEL_MIN:
-            scored.append((sc, n))
-    if not scored:
-        return []
-    scored.sort(key=lambda t: -t[0])
-    top = scored[0][0]
-    return [n for sc, n in scored if sc >= top - 10][:6]
+    sc, cands = best_nodes(graph, rec["name"], rec["district"])
+    return cands[:6] if sc >= LABEL_MIN else []
 
 
 # Насколько привязка удачна: меньше — лучше. Точная цепочка бьёт всё, разбор
@@ -473,7 +586,7 @@ def snp_candidates(graph: Graph, rec: dict) -> list[dict]:
 # ближе к плану свода.
 _RANK = {
     "chain": 0, "tail": 0,
-    "donor_segment": 1, "tail_short": 1,
+    "donor_segment": 1, "tail_short": 1, "head_to_np": 1,
     "from_np": 2,
     "chain_len_mismatch": 3, "tail_inexact": 3,
     "implausible_corridor": 4, "no_route": 4, "head_not_found": 4,
@@ -541,9 +654,27 @@ def bind_to(graph: Graph, rec: dict, snp: dict | None, recs: list[dict]) -> dict
                            f"«{seg['label'] or 'П'}» →{seg['km']}→ «{rec['name']}»")
             res["_corridor"], res["_farId"] = corridor, far_id
             return res
+        # Участка в чужих строках тоже нет — тогда просто берём отрезок между
+        # ПкСС и селом и кладём факт на него. Что лежит по пути (муфты, другие
+        # объекты) и какой он длины — неважно: задача найти нужный участок между
+        # двумя точками. Акмолинская, с.Маншук Маметова: метка участка в своде
+        # склеена в мусор «(АТС Жалгызкудук) 0 (АТС Шалкар)», но ПкСС назван —
+        # «с.Шалкар», и путь Шалкар →0.4→ муфта →11.9→ Маншук в графе есть.
+        if head is not None:
+            path = graph.shortest_path(head["id"], snp["id"])
+            if path:
+                res["status"] = "head_to_np"
+                res["capKm"] = path_km(path)
+                res["corridorKm"] = round(res["capKm"], 3)
+                res["edgeIds"] = [e["id"] for e in path]
+                res["note"] = (f"плана в своде нет; взят отрезок ПкСС→село: "
+                               f"«{head.get('name')}» →{res['corridorKm']}→ "
+                               f"«{snp.get('name')}»")
+                res["_corridor"], res["_farId"] = path, head["id"]
+                return res
         res["status"] = "skipped_no_plan"
-        res["note"] = ("в своде нет протяжённости до НП, и в чужих строках "
-                       "участок до этого села не описан — строка пропущена")
+        res["note"] = ("в своде нет протяжённости до НП, участка в чужих строках "
+                       "нет, а до ПкСС маршрута не нашлось — строка пропущена")
         return res
 
     # --- 1. Якорь: первая ИМЕНОВАННАЯ метка цепочки, опознанная в графе.
@@ -730,7 +861,7 @@ def build(graph: Graph, slug: str, title: str, recs: list[dict]) -> dict:
             "edgecap": {"tubeKm": 0.0, "fiberKm": 0.0}}   # ребро уже заполнено
 
     PAINTABLE = {"chain", "chain_len_mismatch", "tail", "tail_inexact",
-                 "tail_short", "from_np", "donor_segment"}
+                 "tail_short", "from_np", "donor_segment", "head_to_np"}
     for si, b in enumerate(bound):
         corridor = b.pop("_corridor", None)
         far_id = b.pop("_farId", None)
@@ -846,6 +977,7 @@ STATUS_RU = {
     "upstream_ambiguous": "излишек выше ПкСС — развилка, к разбору",
     "from_np": "собрано от села вверх (голова недоступна)",
     "donor_segment": "участок взят из строки соседнего НП",
+    "head_to_np": "плана нет — взят отрезок ПкСС→село",
     "implausible_corridor": "коридор в разы длиннее плана — якорь неверен",
     "no_route": "нет пути в графе",
     "np_not_found": "села нет в графе",
@@ -1000,6 +1132,60 @@ def render_report(payload: dict) -> str:
 
 
 # ----------------------------------------------------------------- вход ---
+GUARD_PLAN_DRIFT = 0.25
+GUARD_BIND_DROP = 0.15
+
+
+def suspicious(path: Path, payload: dict) -> str:
+    """Причина не перезаписывать файл области, либо пустая строка.
+
+    Свод правят руками, и одна сдвинутая колонка способна обнулить привязку по
+    всей области. Раз обновление автоматическое и никто не смотрит на него
+    каждый день, сравниваем с прошлым разбором и отказываемся затирать
+    осмысленные данные подозрительными."""
+    if not path.exists():
+        return ""
+    try:
+        old = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:               # noqa: BLE001
+        return ""
+
+    def bind_share(p: dict) -> float:
+        rows = p.get("settlements") or []
+        if not rows:
+            return 0.0
+        return sum(1 for s in rows if s.get("status") in ("chain", "tail")) / len(rows)
+
+    old_plan = (old.get("totals") or {}).get("planKm") or 0.0
+    new_plan = (payload.get("totals") or {}).get("planKm") or 0.0
+    if old_plan > 0 and abs(new_plan - old_plan) / old_plan > GUARD_PLAN_DRIFT:
+        return (f"план области изменился с {old_plan} на {new_plan} км "
+                f"— похоже на сдвиг столбцов")
+    drop = bind_share(old) - bind_share(payload)
+    if drop > GUARD_BIND_DROP:
+        return (f"привязка просела с {bind_share(old):.0%} до "
+                f"{bind_share(payload):.0%} сёл")
+    return ""
+
+
+def fetch_sheet(url: str = SHEET_URL) -> Path:
+    """Скачать живую таблицу как xlsx во временный файл.
+
+    Экспорт открыт по ссылке, ключи не нужны. Google кладёт в выгрузку и
+    посчитанные значения формул, поэтому итоговые столбцы читаются как числа."""
+    import urllib.request
+
+    dst = Path(tempfile.gettempdir()) / "snp2-svod.xlsx"
+    req = urllib.request.Request(url, headers={"User-Agent": "graph-vis/smr2"})
+    with urllib.request.urlopen(req, timeout=180) as resp:
+        data = resp.read()
+    if not data.startswith(b"PK"):
+        raise SystemExit("Google вернул не xlsx — проверьте доступ по ссылке")
+    dst.write_bytes(data)
+    print(f"  скачано из Google: {len(data) / 1e6:.1f} МБ → {dst}")
+    return dst
+
+
 def find_xlsx() -> Path:
     for p in (BASE.parent / "data").glob("*.xlsx"):
         if "свод" in p.name.lower() and "снп" in p.name.lower():
@@ -1012,6 +1198,8 @@ def main() -> None:
     ap.add_argument("--region", default="zhambyl",
                     help="slug области или несколько через запятую; "
                          "'all' — все листы свода")
+    ap.add_argument("--from-sheet", action="store_true",
+                    help="взять свод прямо из Google-таблицы, а не из data/")
     ap.add_argument("--report-only", action="store_true",
                     help="не писать smr2/*.json, только отчёт в stdout")
     args = ap.parse_args()
@@ -1023,7 +1211,7 @@ def main() -> None:
 
     import openpyxl
 
-    xlsx = find_xlsx()
+    xlsx = fetch_sheet() if args.from_sheet else find_xlsx()
     wb = openpyxl.load_workbook(xlsx, data_only=True, read_only=True)
 
     # Области разбираем по одной, но отчёт общий: перечислите уже разобранные
@@ -1032,12 +1220,19 @@ def main() -> None:
         s.strip() for s in args.region.split(",") if s.strip()}
     by_slug: dict[str, list[dict]] = {}
     titles: dict[str, str] = {}
+    failed: dict[str, str] = {}
+
     for sheet, slug in SHEET_TO_SLUG.items():
         if sheet not in wb.sheetnames:
             continue
         if wanted and slug not in wanted:
             continue
-        recs, control = parse_sheet(wb[sheet])
+        try:
+            recs, control = parse_sheet(wb[sheet])
+        except Exception as exc:        # noqa: BLE001
+            failed[slug] = f"лист «{sheet}»: {exc}"
+            print(f"  ! лист {sheet:<30} НЕ РАЗОБРАН: {exc}")
+            continue
         by_slug.setdefault(slug, []).extend(recs)
         titles.setdefault(slug, sheet)
         print(f"  лист {sheet:<32} → {slug:<18} строк {len(recs)}")
@@ -1077,9 +1272,17 @@ def main() -> None:
         print(f"  {slug:<18} сёл {len(recs):>4} · привязано точно {ok:>4} · "
               f"план {t['planKm']:>8} км · трубка {t['tubeKm']:>7} км · "
               f"ВОЛС {t['fiberKm']:>7} км")
-        if not args.report_only:
-            (OUT_DIR / f"{slug}.json").write_text(
-                json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
+        if slug in failed:
+            print(f"      ! {slug}: часть листов не разобрана, файл не трогаю")
+        elif not args.report_only:
+            why = suspicious(OUT_DIR / f"{slug}.json", payload)
+            if why:
+                failed[slug] = why
+                print(f"      ! {slug}: {why} — файл НЕ перезаписан")
+            else:
+                (OUT_DIR / f"{slug}.json").write_text(
+                    json.dumps(payload, ensure_ascii=False, indent=1),
+                    encoding="utf-8")
         reports.append(render_report(payload))
 
     text = "\n\n---\n\n".join(reports)
@@ -1088,6 +1291,13 @@ def main() -> None:
     else:
         REPORT.write_text(text, encoding="utf-8")
         print(f"\nзаписано: smr2/*.json и {REPORT.name}")
+
+    if failed:
+        print("\nОБЛАСТИ БЕЗ ОБНОВЛЕНИЯ "
+              "(на карте осталась прежняя версия):")
+        for slug, why in sorted(failed.items()):
+            print(f"  · {slug}: {why}")
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

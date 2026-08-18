@@ -20,6 +20,11 @@ COPY regions/ ./regions/
 # в образе рядом с кодом (не в DATA_DIR-volume) и обновляются деплоем. Нет
 # файла области — /api/smr отвечает 404, слой просто не показывается.
 COPY smr/ ./smr/
+# Свод «СНП 2.0» — второй слой факта, разложенный по КОНКРЕТНЫМ рёбрам
+# маршрута (scripts/import_smr2.py). Так же, как smr/, это выгрузка из внешней
+# книги, а не данные вьюера, поэтому едет в образе. Нет файла — /api/smr2
+# отвечает 404 и слой километров по рёбрам просто не появляется.
+COPY smr2/ ./smr2/
 
 RUN useradd --create-home --home-dir /home/app --shell /usr/sbin/nologin appuser \
 	&& chown -R appuser:appuser /app

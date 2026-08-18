@@ -1,0 +1,7493 @@
+{
+ "meta": {
+  "slug": "aktobe",
+  "title": "Актюбинская область",
+  "source": "общий свод по смр СНП 2.0.xlsx",
+  "generated": "2026-08-18T05:31:31+00:00",
+  "metrics": {
+   "tubeKm": "Магистр. Сеть (трубка) км",
+   "fiberKm": "Магистр. Сеть (ВОЛС) км"
+  },
+  "counts": {
+   "from_np": 11,
+   "chain_len_mismatch": 10,
+   "chain": 80,
+   "np_not_found": 7,
+   "tail_short": 13,
+   "tail": 20,
+   "no_route": 1,
+   "donor_segment": 5,
+   "upstream_ambiguous": 1,
+   "tail_inexact": 2,
+   "implausible_corridor": 21,
+   "head_not_found": 1
+  }
+ },
+ "settlements": [
+  {
+   "row": 3,
+   "name": "с.Булак",
+   "district": "Хобдинский район",
+   "okrug": "Булакский с.о.",
+   "head": "АТС Алпысай",
+   "tech": "ВОЛС",
+   "planKm": 17.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М6",
+     "km": 17.7
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (нет пути «М 6» → «Булак» (граф разорван)); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K014E",
+   "headNodeId": "K0014",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 17.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0338"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "М6",
+     "expectKm": 17.7,
+     "state": "не лежит на коридоре",
+     "nodeName": "М 6"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 17.7,
+   "homonyms": 1
+  },
+  {
+   "row": 4,
+   "name": "с.Косоткель",
+   "district": "Хобдинский район",
+   "okrug": "с.о.Имангали Билтабанова",
+   "head": "АТС Кобда",
+   "tech": "ВОЛС",
+   "planKm": 8.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М2",
+     "km": 8.4
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (нет пути «М 2» → «Косоткель» (граф разорван)); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K011F",
+   "headNodeId": "K004F",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 8.4,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0350"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "М2",
+     "expectKm": 8.4,
+     "state": "не лежит на коридоре",
+     "nodeName": "М 2"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 8.4,
+   "homonyms": 2
+  },
+  {
+   "row": 5,
+   "name": "с.Жанаталап",
+   "district": "Хобдинский район",
+   "okrug": "Терисакканский с.о.",
+   "head": "с.Жанаталап",
+   "tech": "ВОЛС",
+   "planKm": 22.6,
+   "tubeKm": 24.764,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М1",
+     "km": 22.6
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «М1» до села — 77.5 км, свод даёт 22.6 км",
+   "nodeId": "K0122",
+   "headNodeId": "K004C",
+   "anchorLabel": "М1",
+   "anchorNodeId": "K01AF",
+   "corridorKm": 77.5,
+   "diffKm": 54.9,
+   "edgeIds": [
+    "E0341",
+    "E0330",
+    "E0453",
+    "E08a467",
+    "E182ecd"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М1",
+     "expectKm": 22.6,
+     "graphKm": 77.5,
+     "nodeName": "М 11",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 2.164,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 22.6,
+   "paintedFiberKm": 0.0,
+   "capKm": 22.6,
+   "homonyms": 1
+  },
+  {
+   "row": 6,
+   "name": "с.Терисаккан",
+   "district": "Хобдинский район",
+   "okrug": "Терисакканский с.о.",
+   "head": "с.Жанаталап",
+   "tech": "ВОЛС",
+   "planKm": 10.8,
+   "tubeKm": 9.5,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Жанаталап",
+     "km": 10.8
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0094",
+   "headNodeId": "K0122",
+   "anchorLabel": "с.Жанаталап",
+   "anchorNodeId": "K0122",
+   "corridorKm": 10.8,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0173"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Жанаталап",
+     "expectKm": 10.8,
+     "graphKm": 10.8,
+     "nodeName": "Жанаталап",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 9.5,
+   "paintedFiberKm": 0.0,
+   "capKm": 10.8,
+   "homonyms": 1
+  },
+  {
+   "row": 7,
+   "name": "с.Бестау",
+   "district": "Хобдинский район",
+   "okrug": "Бестауский с.о.",
+   "head": "с.Жанаталап",
+   "tech": "ВОЛС",
+   "planKm": 15.3,
+   "tubeKm": 1.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Жанаталап",
+     "km": 15.3
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0121",
+   "headNodeId": "K0122",
+   "anchorLabel": "с.Жанаталап",
+   "anchorNodeId": "K0122",
+   "corridorKm": 15.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0174"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Жанаталап",
+     "expectKm": 15.3,
+     "graphKm": 15.3,
+     "nodeName": "Жанаталап",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 1.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 15.3,
+   "homonyms": 1
+  },
+  {
+   "row": 8,
+   "name": "с.Жарсай",
+   "district": "Хобдинский район",
+   "okrug": "Жарсайский с.о.",
+   "head": "с.Жанаталап",
+   "tech": "ВОЛС",
+   "planKm": 13.1,
+   "tubeKm": 12.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Жанаталап",
+     "km": 13.1
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0154",
+   "headNodeId": "K0122",
+   "anchorLabel": "с.Жанаталап",
+   "anchorNodeId": "K0122",
+   "corridorKm": 13.1,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0216"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Жанаталап",
+     "expectKm": 13.1,
+     "graphKm": 13.1,
+     "nodeName": "Жанаталап",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 12.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.1,
+   "homonyms": 1
+  },
+  {
+   "row": 9,
+   "name": "с.Аксай",
+   "district": "Хобдинский район",
+   "okrug": "Жарсайский с.о.",
+   "head": "с.Жанаталап",
+   "tech": "ВОЛС",
+   "planKm": 13.1,
+   "tubeKm": 11.35,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Жарсай",
+     "km": 13.1
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0120",
+   "headNodeId": "K0122",
+   "anchorLabel": "с.Жарсай",
+   "anchorNodeId": "K0154",
+   "corridorKm": 13.1,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0215"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Жарсай",
+     "expectKm": 13.1,
+     "graphKm": 13.1,
+     "nodeName": "Жарсай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 11.35,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.1,
+   "homonyms": 1
+  },
+  {
+   "row": 10,
+   "name": "с.Сарбулак",
+   "district": "Хобдинский район",
+   "okrug": "Сарбулакский с.о.",
+   "head": "с.им.Имангали Билтабанова",
+   "tech": "ВОЛС",
+   "planKm": 22.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.им.Имангали Билтабанова",
+     "km": 22.6
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (ПкСС «с.им.Имангали Билтабанова» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K011A",
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 22.6,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0180"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "с.им.Имангали Билтабанова",
+     "expectKm": 22.6,
+     "state": "не опознана в графе"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 22.6,
+   "homonyms": 1
+  },
+  {
+   "row": 11,
+   "name": "с.им.Имангали Билтабанова",
+   "district": "Хобдинский район",
+   "okrug": "с.о.Имангали Билтабанова",
+   "head": "с.им.Имангали Билтабанова",
+   "tech": "ВОЛС",
+   "planKm": 15.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М2",
+     "km": 15.0
+    }
+   ],
+   "status": "np_not_found",
+   "note": "села нет в графе (или название расходится)",
+   "nodeId": null,
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 15.0,
+   "homonyms": 1
+  },
+  {
+   "row": 12,
+   "name": "с.Курсай",
+   "district": "Хобдинский район",
+   "okrug": "Кобдинский с.о.",
+   "head": "АТС Кобда",
+   "tech": "ВОЛС",
+   "planKm": 26.0,
+   "tubeKm": 3.5,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Кобда",
+     "km": 18.0
+    },
+    {
+     "label": "П1",
+     "km": 8.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K011D",
+   "headNodeId": "K004F",
+   "anchorLabel": "АТС Кобда",
+   "anchorNodeId": "K004F",
+   "corridorKm": 26.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0451",
+    "E0454",
+    "E0351"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Кобда",
+     "expectKm": 26.0,
+     "graphKm": 26.0,
+     "nodeName": "Кобда",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 3.5,
+   "paintedFiberKm": 0.0,
+   "capKm": 26.0,
+   "homonyms": 1
+  },
+  {
+   "row": 13,
+   "name": "с.Акраб",
+   "district": "Хобдинский район",
+   "okrug": "Акрабский с.о.",
+   "head": "с.Акраб",
+   "tech": "ВОЛС",
+   "planKm": 38.3,
+   "tubeKm": 4.392,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 21.0
+    },
+    {
+     "label": "П2",
+     "km": 2.3
+    },
+    {
+     "label": "П3",
+     "km": 15.0
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 38.3 км — остаток отнесён выше ПкСС",
+   "nodeId": "K00F3",
+   "headNodeId": "K004D",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 38.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0352",
+    "E0345",
+    "E0346"
+   ],
+   "upstreamKm": 38.3,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 4.392,
+   "paintedFiberKm": 0.0,
+   "capKm": 38.3,
+   "homonyms": 1
+  },
+  {
+   "row": 14,
+   "name": "с.Жарык",
+   "district": "Хобдинский район",
+   "okrug": "Жарыкский с.о.",
+   "head": "с.Акраб",
+   "tech": "ВОЛС",
+   "planKm": 3.9,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П3",
+     "km": 3.9
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K0103",
+   "headNodeId": "K00F3",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 3.9,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0148"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 3.9,
+   "homonyms": 2
+  },
+  {
+   "row": 15,
+   "name": "с.Отек",
+   "district": "Хобдинский район",
+   "okrug": "Отекский с.о.",
+   "head": "с.Акраб",
+   "tech": "ВОЛС",
+   "planKm": 16.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 16.5
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K012D",
+   "headNodeId": "K00F3",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 16.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0344"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 16.5,
+   "homonyms": 1
+  },
+  {
+   "row": 16,
+   "name": "с.Кызылжар",
+   "district": "Хобдинский район",
+   "okrug": "Кызылжарский с.о.",
+   "head": "с.Акраб",
+   "tech": "ВОЛС",
+   "planKm": 20.6,
+   "tubeKm": 2.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Акраб",
+     "km": 19.8
+    },
+    {
+     "label": "П4",
+     "km": 0.8
+    }
+   ],
+   "status": "no_route",
+   "note": "нет пути «Акраб» → «Кызылжар» (граф разорван); ход от села вверх тоже не вышел — развилка из 2: «Борте» (20.0 км), «Шевченко» (13.0 км)",
+   "nodeId": "K00D7",
+   "headNodeId": "K00F3",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 20.6,
+   "homonyms": 1
+  },
+  {
+   "row": 17,
+   "name": "с.Каракемер",
+   "district": "Хобдинский район",
+   "okrug": "Кызылжарский с.о.",
+   "head": "с.Акраб",
+   "tech": "ВОЛС",
+   "planKm": 9.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П4",
+     "km": 8.5
+    },
+    {
+     "label": "П5",
+     "km": 0.8
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K0123",
+   "headNodeId": "K00F3",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 9.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0348",
+    "E0175"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 9.3,
+   "homonyms": 2
+  },
+  {
+   "row": 18,
+   "name": "с.Жиренкопа",
+   "district": "Хобдинский район",
+   "okrug": "Жиренкопинский с.о.",
+   "head": "с.Жиренкопа",
+   "tech": "ВОЛС",
+   "planKm": 23.0,
+   "tubeKm": 2.5,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П5",
+     "km": 18.7
+    },
+    {
+     "label": "П6",
+     "km": 0.6
+    },
+    {
+     "label": "с.Когалы",
+     "km": 3.7
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00E2",
+   "headNodeId": "K00E2",
+   "anchorLabel": "с.Когалы",
+   "anchorNodeId": "K0125",
+   "corridorKm": 23.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0347",
+    "E0177",
+    "Ea76444"
+   ],
+   "upstreamKm": 19.3,
+   "segChecks": [
+    {
+     "label": "с.Когалы",
+     "expectKm": 3.7,
+     "graphKm": 3.7,
+     "nodeName": "Когалы",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 2.5,
+   "paintedFiberKm": 0.0,
+   "capKm": 23.0,
+   "homonyms": 1
+  },
+  {
+   "row": 19,
+   "name": "с.Когалы",
+   "district": "Хобдинский район",
+   "okrug": "Согалинский с.о.",
+   "head": "с.Жиренкопа",
+   "tech": "ВОЛС",
+   "planKm": 0.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Когалы",
+     "km": 0.0
+    }
+   ],
+   "status": "donor_segment",
+   "note": "плана в своде нет; участок взят из строки 18 «с.Жиренкопа»: «П6» →0.6→ «с.Когалы»",
+   "nodeId": "K0125",
+   "headNodeId": "K00E2",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.6,
+   "diffKm": null,
+   "edgeIds": [
+    "E0177"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 0.6,
+   "homonyms": 1
+  },
+  {
+   "row": 20,
+   "name": "с.Кок Уй",
+   "district": "Хобдинский район",
+   "okrug": "Согалинский с.о.",
+   "head": "с.Жиренкопа",
+   "tech": "ВОЛС",
+   "planKm": 20.3,
+   "tubeKm": 11.06,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П6",
+     "km": 20.3
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K0124",
+   "headNodeId": "K00E2",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 20.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0349"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 11.06,
+   "paintedFiberKm": 0.0,
+   "capKm": 20.3,
+   "homonyms": 1
+  },
+  {
+   "row": 21,
+   "name": "с.Егиндибулак",
+   "district": "Хобдинский район",
+   "okrug": "с.о.им.И.Курманова",
+   "head": "АТС Бестамак",
+   "tech": "ВОЛС",
+   "planKm": 6.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М11",
+     "km": 6.7
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K014B",
+   "headNodeId": "K0013",
+   "anchorLabel": "М11",
+   "anchorNodeId": "K01AF",
+   "corridorKm": 6.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0340"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М11",
+     "expectKm": 6.7,
+     "graphKm": 6.7,
+     "nodeName": "М 11",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 6.7,
+   "homonyms": 1
+  },
+  {
+   "row": 22,
+   "name": "с.Аккемер",
+   "district": "Уилский район",
+   "okrug": "Саралжынский с.о.",
+   "head": "АТС Бестамак",
+   "tech": "ВОЛС",
+   "planKm": 15.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М17",
+     "km": 15.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0118",
+   "headNodeId": "K0013",
+   "anchorLabel": "М17",
+   "anchorNodeId": "K01A8",
+   "corridorKm": 15.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0333"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М17",
+     "expectKm": 15.0,
+     "graphKm": 15.0,
+     "nodeName": "М17",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 15.0,
+   "homonyms": 1
+  },
+  {
+   "row": 23,
+   "name": "с.Шикудук",
+   "district": "Уилский район",
+   "okrug": "Саралжынский с.о.",
+   "head": "СНП Кемер",
+   "tech": "ВОЛС",
+   "planKm": 6.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Кемер",
+     "km": 6.7
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0119",
+   "headNodeId": "K0051",
+   "anchorLabel": "АТС Кемер",
+   "anchorNodeId": "K0051",
+   "corridorKm": 6.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0015"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Кемер",
+     "expectKm": 6.7,
+     "graphKm": 6.7,
+     "nodeName": "Кемер",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 6.7,
+   "homonyms": 1
+  },
+  {
+   "row": 24,
+   "name": "с.Косембай",
+   "district": "Уилский район",
+   "okrug": "Каиндинский с.о.",
+   "head": "СНП Кемер",
+   "tech": "ВОЛС",
+   "planKm": 3.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М3",
+     "km": 3.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K012F",
+   "headNodeId": "K0051",
+   "anchorLabel": "М3",
+   "anchorNodeId": "K01DF",
+   "corridorKm": 3.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0403"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М3",
+     "expectKm": 3.0,
+     "graphKm": 3.0,
+     "nodeName": "М 3",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 3.0,
+   "homonyms": 1
+  },
+  {
+   "row": 25,
+   "name": "с.Каратал",
+   "district": "Уилский район",
+   "okrug": "с.о.им. Ш.Берсиева",
+   "head": "АТС Каратал",
+   "tech": "ВОЛС",
+   "planKm": 24.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М28",
+     "km": 3.0
+    },
+    {
+     "label": "П1",
+     "km": 21.6
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00C9",
+   "headNodeId": "K00C9",
+   "anchorLabel": "М28",
+   "anchorNodeId": "K01AB",
+   "corridorKm": 24.6,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0357",
+    "E0355"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М28",
+     "expectKm": 24.6,
+     "graphKm": 24.6,
+     "nodeName": "М 28",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 24.6,
+   "homonyms": 1
+  },
+  {
+   "row": 26,
+   "name": "с.Карасу",
+   "district": "Уилский район",
+   "okrug": "Коптогайский с.о.",
+   "head": "АТС Каратал",
+   "tech": "ВОЛС",
+   "planKm": 9.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Каратал",
+     "km": 9.4
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K014C",
+   "headNodeId": "K00C9",
+   "anchorLabel": "АТС Каратал",
+   "anchorNodeId": "K00C9",
+   "corridorKm": 9.4,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0208"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Каратал",
+     "expectKm": 9.4,
+     "graphKm": 9.4,
+     "nodeName": "Каратал",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 9.4,
+   "homonyms": 2
+  },
+  {
+   "row": 27,
+   "name": "с.Кумжарган",
+   "district": "Уилский район",
+   "okrug": "с.о.им. Ш.Берсиева",
+   "head": "АТС Каратал",
+   "tech": "ВОЛС",
+   "planKm": 16.9,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 16.9
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K0148",
+   "headNodeId": "K00C9",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 16.9,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0356"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 16.9,
+   "homonyms": 1
+  },
+  {
+   "row": 28,
+   "name": "с.Каракемер",
+   "district": "Уилский район",
+   "okrug": "Уилский с.о.",
+   "head": "с.Каракемер",
+   "tech": "ВОЛС",
+   "planKm": 14.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М11",
+     "km": 13.8
+    },
+    {
+     "label": "П1",
+     "km": 0.5
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K011E",
+   "headNodeId": "K0054",
+   "anchorLabel": "М11",
+   "anchorNodeId": "K01AD",
+   "corridorKm": 14.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0337",
+    "E0358"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М11",
+     "expectKm": 14.3,
+     "graphKm": 14.3,
+     "nodeName": "М 11",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 14.3,
+   "homonyms": 1
+  },
+  {
+   "row": 29,
+   "name": "с.Акшатау",
+   "district": "Уилский район",
+   "okrug": "Уилский с.о.",
+   "head": "с.Каракемер",
+   "tech": "ВОЛС",
+   "planKm": 18.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 18.3
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K014A",
+   "headNodeId": "K011E",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 18.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0359"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 18.3,
+   "homonyms": 1
+  },
+  {
+   "row": 30,
+   "name": "с.Коптогай",
+   "district": "Уилский район",
+   "okrug": "Коптогайский с.о.",
+   "head": "с.Коптогай",
+   "tech": "ВОЛС",
+   "planKm": 24.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М13",
+     "km": 24.4
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K011B",
+   "headNodeId": "K0052",
+   "anchorLabel": "М13",
+   "anchorNodeId": "K01AC",
+   "corridorKm": 24.4,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0170"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М13",
+     "expectKm": 24.4,
+     "graphKm": 24.4,
+     "nodeName": "М 13",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 24.4,
+   "homonyms": 1
+  },
+  {
+   "row": 31,
+   "name": "с.Карасу",
+   "district": "Уилский район",
+   "okrug": "с.о.им. Ш.Берсиева",
+   "head": "с.Коптогай",
+   "tech": "ВОЛС",
+   "planKm": 16.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Коптогай",
+     "km": 16.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0139",
+   "headNodeId": "K011B",
+   "anchorLabel": "с.Коптогай",
+   "anchorNodeId": "K011B",
+   "corridorKm": 16.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0169"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Коптогай",
+     "expectKm": 16.0,
+     "graphKm": 16.0,
+     "nodeName": "Коптогай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 16.0,
+   "homonyms": 2
+  },
+  {
+   "row": 32,
+   "name": "с.Аманкельды",
+   "district": "Уилский район",
+   "okrug": "Коптогайский с.о.",
+   "head": "с.Коптогай",
+   "tech": "ВОЛС",
+   "planKm": 12.8,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Коптогай",
+     "km": 12.8
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0149",
+   "headNodeId": "K011B",
+   "anchorLabel": "с.Коптогай",
+   "anchorNodeId": "K011B",
+   "corridorKm": 12.8,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0167",
+    "E0207"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Коптогай",
+     "expectKm": 12.8,
+     "graphKm": 12.8,
+     "nodeName": "Коптогай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 12.8,
+   "homonyms": 1
+  },
+  {
+   "row": 33,
+   "name": "с.Шубарши",
+   "district": "Уилский район",
+   "okrug": "Коптогайский с.о.",
+   "head": "с.Коптогай",
+   "tech": "ВОЛС",
+   "planKm": 12.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Коптогай",
+     "km": 12.7
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K011C",
+   "headNodeId": "K011B",
+   "anchorLabel": "с.Коптогай",
+   "anchorNodeId": "K011B",
+   "corridorKm": 12.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0168"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Коптогай",
+     "expectKm": 12.7,
+     "graphKm": 12.7,
+     "nodeName": "Коптогай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 12.7,
+   "homonyms": 1
+  },
+  {
+   "row": 34,
+   "name": "с.Караколь",
+   "district": "Уилский район",
+   "okrug": "Сарыбийский с.о.",
+   "head": "СНП Сарбие",
+   "tech": "ВОЛС",
+   "planKm": 13.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Сарбие",
+     "km": 13.3
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0126",
+   "headNodeId": "K0053",
+   "anchorLabel": "АТС Сарбие",
+   "anchorNodeId": "K0053",
+   "corridorKm": 13.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0178"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Сарбие",
+     "expectKm": 13.3,
+     "graphKm": 13.3,
+     "nodeName": "Сарбие",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.3,
+   "homonyms": 1
+  },
+  {
+   "row": 35,
+   "name": "с.Кумсай",
+   "district": "Мартукский район",
+   "okrug": "Мартукский с.о.",
+   "head": "АТС Мартук",
+   "tech": "ВОЛС",
+   "planKm": 10.3,
+   "tubeKm": 6.087,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Мартук",
+     "km": 10.3
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (ПкСС «АТС Мартук» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K00D4",
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 10.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0456"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "АТС Мартук",
+     "expectKm": 10.3,
+     "state": "не опознана в графе"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 6.087,
+   "paintedFiberKm": 0.0,
+   "capKm": 10.3,
+   "homonyms": 1
+  },
+  {
+   "row": 36,
+   "name": "с.Каратаусай",
+   "district": "Мартукский район",
+   "okrug": "Карашайский с.о.",
+   "head": "АТС Казанка",
+   "tech": "ВОЛС",
+   "planKm": 18.7,
+   "tubeKm": 13.276,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Мартук",
+     "km": 2.2
+    },
+    {
+     "label": "Казанка",
+     "km": 16.5
+    }
+   ],
+   "status": "upstream_ambiguous",
+   "note": "2.2 км выше «Казанка» разложить нельзя — тупик: выше по сети продолжения нет",
+   "nodeId": "K00EC",
+   "headNodeId": "K0059",
+   "anchorLabel": "Казанка",
+   "anchorNodeId": "K0059",
+   "corridorKm": 16.5,
+   "diffKm": -2.2,
+   "edgeIds": [
+    "E0230",
+    "E0231"
+   ],
+   "upstreamKm": 2.2,
+   "segChecks": [
+    {
+     "label": "АТС Мартук",
+     "expectKm": 18.7,
+     "state": "не опознана в графе"
+    },
+    {
+     "label": "Казанка",
+     "expectKm": 16.5,
+     "graphKm": 16.5,
+     "nodeName": "Казанка",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 18.7,
+   "homonyms": 2
+  },
+  {
+   "row": 37,
+   "name": "с.Аккайын",
+   "district": "Мартукский район",
+   "okrug": "Карашайский с.о.",
+   "head": "АТС Казанка",
+   "tech": "ВОЛС",
+   "planKm": 10.8,
+   "tubeKm": 13.316,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Каратаусай",
+     "km": 10.8
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00C8",
+   "headNodeId": "K0059",
+   "anchorLabel": "с.Каратаусай",
+   "anchorNodeId": "K00EC",
+   "corridorKm": 10.8,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0130"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Каратаусай",
+     "expectKm": 10.8,
+     "graphKm": 10.8,
+     "nodeName": "Каратаусай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 2.516,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 10.8,
+   "paintedFiberKm": 0.0,
+   "capKm": 10.8,
+   "homonyms": 1
+  },
+  {
+   "row": 38,
+   "name": "с.Дмитриевка",
+   "district": "Мартукский район",
+   "okrug": "Байторысайский с.о.",
+   "head": "АТС Байтурасай",
+   "tech": "ВОЛС",
+   "planKm": 2.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М7",
+     "km": 2.4
+    }
+   ],
+   "status": "np_not_found",
+   "note": "села нет в графе (или название расходится)",
+   "nodeId": null,
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 2.4,
+   "homonyms": 1
+  },
+  {
+   "row": 39,
+   "name": "с.Покровка",
+   "district": "Мартукский район",
+   "okrug": "Байторысайский с.о.",
+   "head": "АТС Байтурасай",
+   "tech": "ВОЛС",
+   "planKm": 0.78,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Байтурасай",
+     "km": 0.78
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «АТС Байтурасай» до села — 9.8 км, свод даёт 0.8 км",
+   "nodeId": "K00E9",
+   "headNodeId": "K005F",
+   "anchorLabel": "АТС Байтурасай",
+   "anchorNodeId": "K005F",
+   "corridorKm": 9.78,
+   "diffKm": 9.0,
+   "edgeIds": [
+    "E0022"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Байтурасай",
+     "expectKm": 0.78,
+     "graphKm": 9.78,
+     "nodeName": "Байтурасай ATC",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 0.78,
+   "homonyms": 1
+  },
+  {
+   "row": 40,
+   "name": "с.Полтавка",
+   "district": "Мартукский район",
+   "okrug": "Байторысайский с.о.",
+   "head": "АТС Байтурасай",
+   "tech": "ВОЛС",
+   "planKm": 14.5,
+   "tubeKm": 8.17,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Байтурасай",
+     "km": 14.5
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00EA",
+   "headNodeId": "K005F",
+   "anchorLabel": "АТС Байтурасай",
+   "anchorNodeId": "K005F",
+   "corridorKm": 14.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0023"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Байтурасай",
+     "expectKm": 14.5,
+     "graphKm": 14.5,
+     "nodeName": "Байтурасай ATC",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 8.17,
+   "paintedFiberKm": 0.0,
+   "capKm": 14.5,
+   "homonyms": 1
+  },
+  {
+   "row": 41,
+   "name": "с.Кызылжар",
+   "district": "Мартукский район",
+   "okrug": "Кызылжарский с.о.",
+   "head": "с.Кызылжар",
+   "tech": "ВОЛС",
+   "planKm": 29.0,
+   "tubeKm": 9.241,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Байтурасай",
+     "km": 16.0
+    },
+    {
+     "label": "Шевченко",
+     "km": 13.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00D7",
+   "headNodeId": "K0019",
+   "anchorLabel": "АТС Байтурасай",
+   "anchorNodeId": "K005F",
+   "corridorKm": 29.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E886cb4",
+    "E0116"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Байтурасай",
+     "expectKm": 29.0,
+     "graphKm": 29.0,
+     "nodeName": "Байтурасай ATC",
+     "state": "ок"
+    },
+    {
+     "label": "Шевченко",
+     "expectKm": 13.0,
+     "graphKm": 13.0,
+     "nodeName": "Шевченко",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 29.0,
+   "homonyms": 1
+  },
+  {
+   "row": 42,
+   "name": "с.Шевченко",
+   "district": "Мартукский район",
+   "okrug": "Кызылжарский с.о.",
+   "head": "с.Кызылжар",
+   "tech": "ВОЛС",
+   "planKm": 0.0,
+   "tubeKm": 15.191,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Шевченко",
+     "km": 0.0
+    }
+   ],
+   "status": "donor_segment",
+   "note": "плана в своде нет; участок взят из строки 41 «с.Кызылжар»: «АТС Байтурасай» →16.0→ «с.Шевченко»",
+   "nodeId": "K00D8",
+   "headNodeId": "K00D7",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 16.0,
+   "diffKm": null,
+   "edgeIds": [
+    "E886cb4"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 15.191,
+   "paintedFiberKm": 0.0,
+   "capKm": 16.0,
+   "homonyms": 1
+  },
+  {
+   "row": 43,
+   "name": "с.Борте",
+   "district": "Мартукский район",
+   "okrug": "Кызылжарский с.о.",
+   "head": "с.Кызылжар",
+   "tech": "ВОЛС",
+   "planKm": 20.0,
+   "tubeKm": 15.654,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Кызылжар",
+     "km": 20.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00D6",
+   "headNodeId": "K00D7",
+   "anchorLabel": "с.Кызылжар",
+   "anchorNodeId": "K00D7",
+   "corridorKm": 20.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0115"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Кызылжар",
+     "expectKm": 20.0,
+     "graphKm": 20.0,
+     "nodeName": "Кызылжар",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 15.654,
+   "paintedFiberKm": 0.0,
+   "capKm": 20.0,
+   "homonyms": 1
+  },
+  {
+   "row": 44,
+   "name": "с.Достык",
+   "district": "Мартукский район",
+   "okrug": "Аккудыкский с.о.",
+   "head": "с.Достык",
+   "tech": "ВОЛС",
+   "planKm": 23.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М7",
+     "km": 23.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00EB",
+   "headNodeId": "K0057",
+   "anchorLabel": "М7",
+   "anchorNodeId": "K0163",
+   "corridorKm": 23.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0129"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М7",
+     "expectKm": 23.0,
+     "graphKm": 23.0,
+     "nodeName": "М 7",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 23.0,
+   "homonyms": 1
+  },
+  {
+   "row": 45,
+   "name": "с.Вознесеновка",
+   "district": "Мартукский район",
+   "okrug": "Аккудыкский с.о.",
+   "head": "с.Вознесеновка",
+   "tech": "ВОЛС",
+   "planKm": 49.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Мартук",
+     "km": 33.0
+    },
+    {
+     "label": "П1",
+     "km": 16.0
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 49.0 км — остаток отнесён выше ПкСС",
+   "nodeId": "K00D5",
+   "headNodeId": "K0017",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 49.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0234",
+    "E0233"
+   ],
+   "upstreamKm": 49.0,
+   "segChecks": [
+    {
+     "label": "АТС Мартук",
+     "expectKm": 49.0,
+     "state": "не опознана в графе"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 49.0,
+   "homonyms": 1
+  },
+  {
+   "row": 46,
+   "name": "с.Кокпекти",
+   "district": "Мартукский район",
+   "okrug": "Жайсанский с.о.",
+   "head": "с.Кокпекти",
+   "tech": "ВОЛС",
+   "planKm": 28.0,
+   "tubeKm": 28.1,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М2",
+     "km": 5.3
+    },
+    {
+     "label": "П1",
+     "km": 22.7
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00E3",
+   "headNodeId": "K00E3",
+   "anchorLabel": "М2",
+   "anchorNodeId": "K0165",
+   "corridorKm": 28.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "Eb115ca"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М2",
+     "expectKm": 28.0,
+     "graphKm": 28.0,
+     "nodeName": "М 2",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.1,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 28.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 28.0,
+   "homonyms": 1
+  },
+  {
+   "row": 47,
+   "name": "с.Акмоласай",
+   "district": "Мартукский район",
+   "okrug": "с.о.Байнассай",
+   "head": "с.Байнассай",
+   "tech": "ВОЛС",
+   "planKm": 16.0,
+   "tubeKm": 23.114,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 16.0
+    }
+   ],
+   "status": "tail_inexact",
+   "note": "хвост в 16.0 км не ложится на узел: ближайшая граница 17.0 км",
+   "nodeId": "K00D2",
+   "headNodeId": "K00D3",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 17.0,
+   "diffKm": 1.0,
+   "edgeIds": [
+    "E0108"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 7.114,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 8.305,
+   "paintedFiberKm": 0.0,
+   "capKm": 16.0,
+   "homonyms": 1
+  },
+  {
+   "row": 48,
+   "name": "с.Байнассай",
+   "district": "Мартукский район",
+   "okrug": "с.о.Байнассай",
+   "head": "с.Байнассай",
+   "tech": "ВОЛС",
+   "planKm": 17.0,
+   "tubeKm": 16.751,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Акмоласай",
+     "km": 17.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00D3",
+   "headNodeId": "K0016",
+   "anchorLabel": "с.Акмоласай",
+   "anchorNodeId": "K00D2",
+   "corridorKm": 17.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0108"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Акмоласай",
+     "expectKm": 17.0,
+     "graphKm": 17.0,
+     "nodeName": "Акмоласай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 8.695,
+   "paintedFiberKm": 0.0,
+   "capKm": 17.0,
+   "homonyms": 1
+  },
+  {
+   "row": 49,
+   "name": "с.Егизата",
+   "district": "Мартукский район",
+   "okrug": "с.о. Курмансай",
+   "head": "с.Курмансай",
+   "tech": "ВОЛС",
+   "planKm": 17.7,
+   "tubeKm": 16.613,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Курмансай",
+     "km": 17.7
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00D1",
+   "headNodeId": "K00E7",
+   "anchorLabel": "с.Курмансай",
+   "anchorNodeId": "K00E7",
+   "corridorKm": 17.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0106"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Курмансай",
+     "expectKm": 17.7,
+     "graphKm": 17.7,
+     "nodeName": "Курмансай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 16.613,
+   "paintedFiberKm": 0.0,
+   "capKm": 17.7,
+   "homonyms": 1
+  },
+  {
+   "row": 50,
+   "name": "с.Курмансай",
+   "district": "Мартукский район",
+   "okrug": "с.о. Курмансай",
+   "head": "с.Курмансай",
+   "tech": "ВОЛС",
+   "planKm": 28.5,
+   "tubeKm": 29.513,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М2А",
+     "km": 28.5
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «М2А» до села — 102.4 км, свод даёт 28.5 км",
+   "nodeId": "K00E7",
+   "headNodeId": "K0056",
+   "anchorLabel": "М2А",
+   "anchorNodeId": "K01E3",
+   "corridorKm": 102.39,
+   "diffKm": 73.89,
+   "edgeIds": [
+    "E46c5f4",
+    "Efcb8fc",
+    "E3713b2",
+    "E0224",
+    "E0140",
+    "E0139",
+    "E0106"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М2А",
+     "expectKm": 28.5,
+     "graphKm": 102.39,
+     "nodeName": "М2A",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 1.013,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 28.5,
+   "paintedFiberKm": 0.0,
+   "capKm": 28.5,
+   "homonyms": 1
+  },
+  {
+   "row": 51,
+   "name": "с.Хазретовка",
+   "district": "Мартукский район",
+   "okrug": "Хазретовский с.о.",
+   "head": "с.Хазретовка",
+   "tech": "ВОЛС",
+   "planKm": 36.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М17",
+     "km": 36.0
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «М17» до села — 88.0 км, свод даёт 36.0 км",
+   "nodeId": "K00D9",
+   "headNodeId": "K005A",
+   "anchorLabel": "М17",
+   "anchorNodeId": "K0163",
+   "corridorKm": 88.0,
+   "diffKm": 52.0,
+   "edgeIds": [
+    "E0024",
+    "E886cb4",
+    "E0116",
+    "E0115",
+    "E0113"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М17",
+     "expectKm": 36.0,
+     "graphKm": 88.0,
+     "nodeName": "М 7",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 36.0,
+   "homonyms": 1
+  },
+  {
+   "row": 52,
+   "name": "с.Кемпирсай",
+   "district": "Каргалинский район",
+   "okrug": "Кемпирсайский с.о.",
+   "head": "СНП Бадамша",
+   "tech": "ВОЛС",
+   "planKm": 0.85,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М4",
+     "km": 0.85
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 618.8 км при плане 0.8 км (728× ) — якорь «М4» опознан неверно",
+   "nodeId": "K00DA",
+   "headNodeId": "Kdae453",
+   "anchorLabel": "М4",
+   "anchorNodeId": "K01CB",
+   "corridorKm": 618.849,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 0.85,
+   "homonyms": 1
+  },
+  {
+   "row": 53,
+   "name": "с.Преображеновка",
+   "district": "Каргалинский район",
+   "okrug": "Ащылысайский с.о.",
+   "head": "АТС Григорьевка",
+   "tech": "ВОЛС",
+   "planKm": 1.06,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Григорьевка",
+     "km": 1.06
+    }
+   ],
+   "status": "np_not_found",
+   "note": "села нет в графе (или название расходится)",
+   "nodeId": null,
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 1.06,
+   "homonyms": 1
+  },
+  {
+   "row": 54,
+   "name": "с.Акколь",
+   "district": "Каргалинский район",
+   "okrug": "Ащылысайский с.о.",
+   "head": "АТС Григорьевка",
+   "tech": "ВОЛС",
+   "planKm": 7.49,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Григорьевка",
+     "km": 7.49
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00EE",
+   "headNodeId": "K005D",
+   "anchorLabel": "АТС Григорьевка",
+   "anchorNodeId": "K005D",
+   "corridorKm": 7.49,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0055",
+    "E0058"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Григорьевка",
+     "expectKm": 7.49,
+     "graphKm": 7.49,
+     "nodeName": "Григорьевка",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 7.49,
+   "homonyms": 1
+  },
+  {
+   "row": 55,
+   "name": "с.Бозтобе",
+   "district": "Каргалинский район",
+   "okrug": "Ащылысайский с.о.",
+   "head": "АТС Григорьевка",
+   "tech": "ВОЛС",
+   "planKm": 24.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Акколь",
+     "km": 24.1
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00EF",
+   "headNodeId": "K005D",
+   "anchorLabel": "с.Акколь",
+   "anchorNodeId": "K00EE",
+   "corridorKm": 24.1,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0131"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Акколь",
+     "expectKm": 24.1,
+     "graphKm": 24.1,
+     "nodeName": "Акколь",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 24.1,
+   "homonyms": 1
+  },
+  {
+   "row": 56,
+   "name": "с.Акжайык",
+   "district": "Каргалинский район",
+   "okrug": "Велиховский с.о.",
+   "head": "АТС Велиховка",
+   "tech": "ВОЛС",
+   "planKm": 14.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Велиховка",
+     "km": 14.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00DD",
+   "headNodeId": "K0082",
+   "anchorLabel": "АТС Велиховка",
+   "anchorNodeId": "K0082",
+   "corridorKm": 14.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "Ef214c8"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Велиховка",
+     "expectKm": 14.0,
+     "graphKm": 14.0,
+     "nodeName": "АТС Велиховка",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 14.0,
+   "homonyms": 1
+  },
+  {
+   "row": 57,
+   "name": "с.Кайракты",
+   "district": "Каргалинский район",
+   "okrug": "Степной с.о.",
+   "head": "с.Кайракты",
+   "tech": "ВОЛС",
+   "planKm": 24.2,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Бадамша",
+     "km": 24.2
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00DB",
+   "headNodeId": "K0058",
+   "anchorLabel": "АТС Бадамша",
+   "anchorNodeId": "Kdae453",
+   "corridorKm": 24.2,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "Ed2bcc4"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Бадамша",
+     "expectKm": 24.2,
+     "graphKm": 24.2,
+     "nodeName": "Бадамша",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 24.2,
+   "homonyms": 1
+  },
+  {
+   "row": 58,
+   "name": "с.Степное",
+   "district": "Каргалинский район",
+   "okrug": "Степной с.о.",
+   "head": "с.Кайракты",
+   "tech": "ВОЛС",
+   "planKm": 22.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Кайракты",
+     "km": 22.5
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00DC",
+   "headNodeId": "K00DB",
+   "anchorLabel": "с.Кайракты",
+   "anchorNodeId": "K00DB",
+   "corridorKm": 22.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0121"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Кайракты",
+     "expectKm": 22.5,
+     "graphKm": 22.5,
+     "nodeName": "Кайракты",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 22.5,
+   "homonyms": 1
+  },
+  {
+   "row": 59,
+   "name": "ст.Жазык",
+   "district": "Хромтауский район",
+   "okrug": "Акжарский с.о.",
+   "head": "АТС Хромтау",
+   "tech": "ВОЛС",
+   "planKm": 0.787,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М12/14",
+     "km": 0.787
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (нет пути «М 12/14» → «Жарык» (граф разорван)); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K0103",
+   "headNodeId": "K002C",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 3.9,
+   "diffKm": 3.113,
+   "edgeIds": [
+    "E0148"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "М12/14",
+     "expectKm": 0.787,
+     "state": "не лежит на коридоре",
+     "nodeName": "М 12/14"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 0.787,
+   "homonyms": 3
+  },
+  {
+   "row": 60,
+   "name": "с.Абай",
+   "district": "Хромтауский район",
+   "okrug": "Абайский с.о.",
+   "head": "АТС Хромтау",
+   "tech": "ВОЛС",
+   "planKm": 9.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М15",
+     "km": 9.6
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00DF",
+   "headNodeId": "K002C",
+   "anchorLabel": "М15",
+   "anchorNodeId": "K0168",
+   "corridorKm": 9.6,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0124"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М15",
+     "expectKm": 9.6,
+     "graphKm": 9.6,
+     "nodeName": "М15",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 9.6,
+   "homonyms": 1
+  },
+  {
+   "row": 61,
+   "name": "с.Тассай",
+   "district": "Хромтауский район",
+   "okrug": "Тассайский с.о.",
+   "head": "с.Тассай",
+   "tech": "ВОЛС",
+   "planKm": 30.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М11",
+     "km": 30.6
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (нет пути «М11» → «Тассай» (граф разорван)); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K00E0",
+   "headNodeId": "K00E0",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 48.0,
+   "diffKm": 17.4,
+   "edgeIds": [
+    "E0019"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "М11",
+     "expectKm": 30.6,
+     "state": "не лежит на коридоре",
+     "nodeName": "М11"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 30.6,
+   "homonyms": 1
+  },
+  {
+   "row": 62,
+   "name": "с.Онгар",
+   "district": "Хромтауский район",
+   "okrug": "с.о.Дон",
+   "head": "АТС Дон",
+   "tech": "ВОЛС",
+   "planKm": 6.11,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Дон",
+     "km": 4.98
+    },
+    {
+     "label": "П1",
+     "km": 1.13
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00CE",
+   "headNodeId": "K002D",
+   "anchorLabel": "АТС Дон",
+   "anchorNodeId": "K002D",
+   "corridorKm": 6.11,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0007",
+    "E0248"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Дон",
+     "expectKm": 6.11,
+     "graphKm": 6.11,
+     "nodeName": "Дон",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 6.11,
+   "homonyms": 1
+  },
+  {
+   "row": 63,
+   "name": "с.Сарысай",
+   "district": "Хромтауский район",
+   "okrug": "Кызылсуский с.о.",
+   "head": "АТС Дон",
+   "tech": "ВОЛС",
+   "planKm": 11.45,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 10.0
+    },
+    {
+     "label": "П2",
+     "km": 1.45
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K00D0",
+   "headNodeId": "K002D",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 11.45,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0249",
+    "E0105"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 11.45,
+   "homonyms": 1
+  },
+  {
+   "row": 64,
+   "name": "с.Кызылсу",
+   "district": "Хромтауский район",
+   "okrug": "Кызылсуский с.о.",
+   "head": "АТС Дон",
+   "tech": "ВОЛС",
+   "planKm": 12.17,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 12.17
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K00CF",
+   "headNodeId": "K002D",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 12.17,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0104"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 12.17,
+   "homonyms": 1
+  },
+  {
+   "row": 65,
+   "name": "с.Карлау",
+   "district": "Хромтауский район",
+   "okrug": "Богетсайский с.о.",
+   "head": "СНП Богетсай",
+   "tech": "ВОЛС",
+   "planKm": 2.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М13",
+     "km": 2.1
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 90.6 км при плане 2.1 км (43× ) — якорь «М13» опознан неверно",
+   "nodeId": "K00BC",
+   "headNodeId": "K01EF",
+   "anchorLabel": "М13",
+   "anchorNodeId": "K0168",
+   "corridorKm": 90.59,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 2.1,
+   "homonyms": 1
+  },
+  {
+   "row": 66,
+   "name": "с.Тамды",
+   "district": "Хромтауский район",
+   "okrug": "Копинский с.о.",
+   "head": "СНП Богетсай",
+   "tech": "ВОЛС",
+   "planKm": 27.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Богетсай",
+     "km": 27.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00A4",
+   "headNodeId": "K002B",
+   "anchorLabel": "АТС Богетсай",
+   "anchorNodeId": "K002B",
+   "corridorKm": 27.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0082"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Богетсай",
+     "expectKm": 27.0,
+     "graphKm": 27.0,
+     "nodeName": "Богетсай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 27.0,
+   "homonyms": 1
+  },
+  {
+   "row": 67,
+   "name": "с.Копа",
+   "district": "Хромтауский район",
+   "okrug": "Копинский с.о.",
+   "head": "с.Копа",
+   "tech": "ВОЛС",
+   "planKm": 42.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М6",
+     "km": 16.0
+    },
+    {
+     "label": "П1",
+     "km": 26.1
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 408.9 км при плане 42.1 км (10× ) — якорь «М6» опознан неверно",
+   "nodeId": "K00BE",
+   "headNodeId": "K0040",
+   "anchorLabel": "М6",
+   "anchorNodeId": "K0186",
+   "corridorKm": 408.89,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 42.1,
+   "homonyms": 1
+  },
+  {
+   "row": 68,
+   "name": "с.Кудуксай",
+   "district": "Хромтауский район",
+   "okrug": "Кудуксайский с.о.",
+   "head": "с.Копа",
+   "tech": "ВОЛС",
+   "planKm": 1.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 1.5
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K00BA",
+   "headNodeId": "K00BE",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 1.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0264"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 1.5,
+   "homonyms": 1
+  },
+  {
+   "row": 69,
+   "name": "с.Аккудык",
+   "district": "Хромтауский район",
+   "okrug": "Аккудыкский с.о.",
+   "head": "с.Коктау",
+   "tech": "ВОЛС",
+   "planKm": 28.9,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М6",
+     "km": 28.9
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 395.7 км при плане 28.9 км (14× ) — якорь «М6» опознан неверно",
+   "nodeId": "K00A0",
+   "headNodeId": "K0099",
+   "anchorLabel": "М6",
+   "anchorNodeId": "K0186",
+   "corridorKm": 395.69,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 28.9,
+   "homonyms": 1
+  },
+  {
+   "row": 70,
+   "name": "с.Коктау",
+   "district": "Хромтауский район",
+   "okrug": "Коктауский с.о.",
+   "head": "с.Коктау",
+   "tech": "ВОЛС",
+   "planKm": 21.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "Аккудык",
+     "km": 21.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0099",
+   "headNodeId": "K0099",
+   "anchorLabel": "Аккудык",
+   "anchorNodeId": "K00A0",
+   "corridorKm": 21.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E84ec54"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "Аккудык",
+     "expectKm": 21.0,
+     "graphKm": 21.0,
+     "nodeName": "Аккудык",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 21.0,
+   "homonyms": 1
+  },
+  {
+   "row": 71,
+   "name": "с.Майтобе",
+   "district": "Хромтауский район",
+   "okrug": "Коктобинский с.о.",
+   "head": "с.Коктау",
+   "tech": "ВОЛС",
+   "planKm": 19.2,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "Коктау",
+     "km": 19.2
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00C7",
+   "headNodeId": "K0099",
+   "anchorLabel": "Коктау",
+   "anchorNodeId": "K0099",
+   "corridorKm": 19.2,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0100"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "Коктау",
+     "expectKm": 19.2,
+     "graphKm": 19.2,
+     "nodeName": "Коктау",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 19.2,
+   "homonyms": 1
+  },
+  {
+   "row": 72,
+   "name": "с.Табантал",
+   "district": "Хромтауский район",
+   "okrug": "Табантальский с.о.",
+   "head": "с.Табантал",
+   "tech": "ВОЛС",
+   "planKm": 28.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М7",
+     "km": 28.5
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00DE",
+   "headNodeId": "K001A",
+   "anchorLabel": "М7",
+   "anchorNodeId": "K0167",
+   "corridorKm": 28.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0242"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М7",
+     "expectKm": 28.5,
+     "graphKm": 28.5,
+     "nodeName": "М7",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 28.5,
+   "homonyms": 1
+  },
+  {
+   "row": 73,
+   "name": "с.Тасоткель",
+   "district": "Хромтауский район",
+   "okrug": "Тасоткельский с.о.",
+   "head": "с.Тасоткель",
+   "tech": "ВОЛС",
+   "planKm": 39.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М17",
+     "km": 2.0
+    },
+    {
+     "label": "П1",
+     "km": 37.0
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «М17» до села — 151.9 км, свод даёт 39.0 км",
+   "nodeId": "K00C1",
+   "headNodeId": "K00C1",
+   "anchorLabel": "М17",
+   "anchorNodeId": "K0168",
+   "corridorKm": 151.89,
+   "diffKm": 112.89,
+   "edgeIds": [
+    "E0427",
+    "E0050",
+    "E0049",
+    "E0253",
+    "E0254",
+    "E0268",
+    "E0275",
+    "Eb1ce28"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М17",
+     "expectKm": 39.0,
+     "graphKm": 151.89,
+     "nodeName": "М15",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 39.0,
+   "homonyms": 2
+  },
+  {
+   "row": 74,
+   "name": "с.Акбулак",
+   "district": "Хромтауский район",
+   "okrug": "Тасоткельский с.о.",
+   "head": "с.Тасоткель",
+   "tech": "ВОЛС (Wi-Fi public)",
+   "planKm": 0.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Тасоткель",
+     "km": 0.0
+    }
+   ],
+   "status": "np_not_found",
+   "note": "села нет в графе (или название расходится)",
+   "nodeId": null,
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 0.0,
+   "homonyms": 1
+  },
+  {
+   "row": 75,
+   "name": "с.Белкопа",
+   "district": "Айтекебийский район",
+   "okrug": "Карабутакский с.о.",
+   "head": "с.Белкопа",
+   "tech": "ВОЛС",
+   "planKm": 3.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1(Тасоткель)",
+     "km": 3.1
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 45.5 км при плане 3.1 км (15× ) — якорь «П1(Тасоткель)» опознан неверно",
+   "nodeId": "K00A8",
+   "headNodeId": "K00A8",
+   "anchorLabel": "П1(Тасоткель)",
+   "anchorNodeId": "K00C6",
+   "corridorKm": 45.5,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 3.1,
+   "homonyms": 1
+  },
+  {
+   "row": 76,
+   "name": "с.Енбекту",
+   "district": "Айтекебийский район",
+   "okrug": "Карабутакский с.о.",
+   "head": "АТС Карабутак",
+   "tech": "ВОЛС",
+   "planKm": 1.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М23",
+     "km": 1.0
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 589.5 км при плане 1.0 км (590× ) — якорь «М23» опознан неверно",
+   "nodeId": "K00BB",
+   "headNodeId": "K0075",
+   "anchorLabel": "М23",
+   "anchorNodeId": "K01BC",
+   "corridorKm": 589.5,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 1.0,
+   "homonyms": 1
+  },
+  {
+   "row": 77,
+   "name": "с.Жароткель",
+   "district": "Айтекебийский район",
+   "okrug": "Карабутакский с.о.",
+   "head": "АТС Карабутак",
+   "tech": "ВОЛС",
+   "planKm": 3.9,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Карабутак",
+     "km": 3.9
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00C6",
+   "headNodeId": "K0075",
+   "anchorLabel": "АТС Карабутак",
+   "anchorNodeId": "K0075",
+   "corridorKm": 3.9,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0038"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Карабутак",
+     "expectKm": 3.9,
+     "graphKm": 3.9,
+     "nodeName": "АТС Карабутак",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 3.9,
+   "homonyms": 1
+  },
+  {
+   "row": 78,
+   "name": "с.Акколь",
+   "district": "Айтекебийский район",
+   "okrug": "Аккольский с.о.",
+   "head": "АТС Карабутак",
+   "tech": "ВОЛС",
+   "planKm": 33.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Жароткель",
+     "km": 33.1
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00C2",
+   "headNodeId": "K0075",
+   "anchorLabel": "с.Жароткель",
+   "anchorNodeId": "K00C6",
+   "corridorKm": 33.1,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0098"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Жароткель",
+     "expectKm": 33.1,
+     "graphKm": 33.1,
+     "nodeName": "Жароткель",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 33.1,
+   "homonyms": 1
+  },
+  {
+   "row": 79,
+   "name": "с.Аралтобе",
+   "district": "Айтекебийский район",
+   "okrug": "Кызылжулдузский с.о.",
+   "head": "АТС Карабутак",
+   "tech": "ВОЛС",
+   "planKm": 5.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М5",
+     "km": 5.1
+    }
+   ],
+   "status": "np_not_found",
+   "note": "села нет в графе (или название расходится)",
+   "nodeId": null,
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 5.1,
+   "homonyms": 1
+  },
+  {
+   "row": 80,
+   "name": "Отделение Улгайсын",
+   "district": "Айтекебийский район",
+   "okrug": "Аралтогайский с.о.",
+   "head": "Отделение Улгайсын",
+   "tech": "ВОЛС",
+   "planKm": 51.9,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Жароткель",
+     "km": 31.7
+    },
+    {
+     "label": "П1",
+     "km": 20.0
+    },
+    {
+     "label": "П2",
+     "km": 0.2
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00C0",
+   "headNodeId": "K00C0",
+   "anchorLabel": "с.Жароткель",
+   "anchorNodeId": "K00C6",
+   "corridorKm": 51.9,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0099",
+    "E0278",
+    "E0260"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Жароткель",
+     "expectKm": 51.9,
+     "graphKm": 51.9,
+     "nodeName": "Жароткель",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 51.9,
+   "homonyms": 1
+  },
+  {
+   "row": 81,
+   "name": "с.Киякты",
+   "district": "Айтекебийский район",
+   "okrug": "Аралтогайский с.о.",
+   "head": "Отделение Улгайсын",
+   "tech": "ВОЛС",
+   "planKm": 3.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 3.7
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K00C5",
+   "headNodeId": "K00C0",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 3.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0277"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 3.7,
+   "homonyms": 1
+  },
+  {
+   "row": 82,
+   "name": "с.Милысай",
+   "district": "Айтекебийский район",
+   "okrug": "Аралтогайский с.о.",
+   "head": "Отделение Улгайсын",
+   "tech": "ВОЛС",
+   "planKm": 26.8,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 26.0
+    },
+    {
+     "label": "П3",
+     "km": 0.8
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K00BD",
+   "headNodeId": "K00C0",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 26.8,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0261",
+    "E0262"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 26.8,
+   "homonyms": 1
+  },
+  {
+   "row": 83,
+   "name": "с.Талдык",
+   "district": "Айтекебийский район",
+   "okrug": "Кайрактинский с.о.",
+   "head": "с.Талдык",
+   "tech": "ВОЛС",
+   "planKm": 50.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 50.7
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 50.7 км — остаток отнесён выше ПкСС",
+   "nodeId": "K00BF",
+   "headNodeId": "K0024",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 50.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0095"
+   ],
+   "upstreamKm": 50.7,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 50.7,
+   "homonyms": 1
+  },
+  {
+   "row": 84,
+   "name": "с.Ушкатты",
+   "district": "Айтекебийский район",
+   "okrug": "Ушкаттинский с.о.",
+   "head": "АТС Жамбыл",
+   "tech": "ВОЛС",
+   "planKm": 38.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Жамбыл",
+     "km": 38.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00A2",
+   "headNodeId": "K00C3",
+   "anchorLabel": "АТС Жамбыл",
+   "anchorNodeId": "K00C3",
+   "corridorKm": 38.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E7a625d"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Жамбыл",
+     "expectKm": 38.0,
+     "graphKm": 38.0,
+     "nodeName": "АТС Жамбыл",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 38.0,
+   "homonyms": 1
+  },
+  {
+   "row": 85,
+   "name": "с.Актасты",
+   "district": "Айтекебийский район",
+   "okrug": "Актастынский с.о.",
+   "head": "с.Актасты",
+   "tech": "ВОЛС",
+   "planKm": 17.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М14",
+     "km": 17.4
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 502.1 км при плане 17.4 км (29× ) — якорь «М14» опознан неверно",
+   "nodeId": "K00A3",
+   "headNodeId": "K00A3",
+   "anchorLabel": "М14",
+   "anchorNodeId": "K0188",
+   "corridorKm": 502.1,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 17.4,
+   "homonyms": 1
+  },
+  {
+   "row": 86,
+   "name": "с.Жабасак",
+   "district": "Айтекебийский район",
+   "okrug": "Жабасакский с.о.",
+   "head": "с.Жабасак",
+   "tech": "ВОЛС",
+   "planKm": 42.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М1",
+     "km": 42.7
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 552.3 км при плане 42.7 км (13× ) — якорь «М1» опознан неверно",
+   "nodeId": "K00A9",
+   "headNodeId": "K0028",
+   "anchorLabel": "М1",
+   "anchorNodeId": "K018B",
+   "corridorKm": 552.3,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 42.7,
+   "homonyms": 1
+  },
+  {
+   "row": 87,
+   "name": "с.Сулуколь",
+   "district": "Айтекебийский район",
+   "okrug": "Сулукольский с.о.",
+   "head": "АТС Теренсай",
+   "tech": "ВОЛС",
+   "planKm": 12.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М4",
+     "km": 12.5
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 824.0 км при плане 12.5 км (66× ) — якорь «М4» опознан неверно",
+   "nodeId": "K00B4",
+   "headNodeId": "K002A",
+   "anchorLabel": "М4",
+   "anchorNodeId": "K01CB",
+   "corridorKm": 824.049,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 12.5,
+   "homonyms": 1
+  },
+  {
+   "row": 88,
+   "name": "с.Кайындысай",
+   "district": "Алгинский район",
+   "okrug": "Маржанбулакский с.о.",
+   "head": "СНП Маржанбулак",
+   "tech": "ВОЛС",
+   "planKm": 2.19,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М12",
+     "km": 2.19
+    }
+   ],
+   "status": "np_not_found",
+   "note": "села нет в графе (или название расходится)",
+   "nodeId": null,
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 2.19,
+   "homonyms": 1
+  },
+  {
+   "row": 89,
+   "name": "с. Каракудык",
+   "district": "Алгинский район",
+   "okrug": "Каракудыкский с.о.",
+   "head": "СНП Маржанбулак",
+   "tech": "ВОЛС",
+   "planKm": 10.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Маржанбулак",
+     "km": 10.3
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «АТС Маржанбулак» до села — 12.3 км, свод даёт 10.3 км",
+   "nodeId": "K0143",
+   "headNodeId": "K004B",
+   "anchorLabel": "АТС Маржанбулак",
+   "anchorNodeId": "K004B",
+   "corridorKm": 12.3,
+   "diffKm": 2.0,
+   "edgeIds": [
+    "E0223",
+    "E0199"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Маржанбулак",
+     "expectKm": 10.3,
+     "graphKm": 12.3,
+     "nodeName": "Маржанбулак",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 10.3,
+   "homonyms": 1
+  },
+  {
+   "row": 90,
+   "name": "с.Жеруйык",
+   "district": "Алгинский район",
+   "okrug": "Ушкудукский с.о.",
+   "head": "СНП Ушкудык",
+   "tech": "ВОЛС",
+   "planKm": 3.8,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М2",
+     "km": 3.8
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 142.3 км при плане 3.8 км (37× ) — якорь «М2» опознан неверно",
+   "nodeId": "K00F8",
+   "headNodeId": "K01FC",
+   "anchorLabel": "М2",
+   "anchorNodeId": "K0165",
+   "corridorKm": 142.3,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 3.8,
+   "homonyms": 1
+  },
+  {
+   "row": 91,
+   "name": "с.Карахобда",
+   "district": "Алгинский район",
+   "okrug": "Карахобдинский с.о.",
+   "head": "СНП Ушкудык",
+   "tech": "ВОЛС",
+   "planKm": 15.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Ушкудык",
+     "km": 14.0
+    },
+    {
+     "label": "П1",
+     "km": 1.6
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0134",
+   "headNodeId": "K01FC",
+   "anchorLabel": "АТС Ушкудык",
+   "anchorNodeId": "K01FC",
+   "corridorKm": 15.6,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0450",
+    "E0393"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Ушкудык",
+     "expectKm": 15.6,
+     "graphKm": 15.6,
+     "nodeName": "Ушкудык",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 15.6,
+   "homonyms": 1
+  },
+  {
+   "row": 92,
+   "name": "с.Тиккайын",
+   "district": "Алгинский район",
+   "okrug": "Каракудыкский с.о.",
+   "head": "СНП Ушкудык",
+   "tech": "ВОЛС",
+   "planKm": 8.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 8.1
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K0142",
+   "headNodeId": "K01FC",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 8.1,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E7beb83"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 8.1,
+   "homonyms": 1
+  },
+  {
+   "row": 93,
+   "name": "с.Коктогай",
+   "district": "Алгинский район",
+   "okrug": "Каракудыкский с.о.",
+   "head": "СНП Ушкудык",
+   "tech": "ВОЛС",
+   "planKm": 7.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Тиккайын",
+     "km": 7.4
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00F6",
+   "headNodeId": "K01FC",
+   "anchorLabel": "с.Тиккайын",
+   "anchorNodeId": "K0142",
+   "corridorKm": 7.4,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "Eeaafdb"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Тиккайын",
+     "expectKm": 7.4,
+     "graphKm": 7.4,
+     "nodeName": "Тиккайын",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 7.4,
+   "homonyms": 1
+  },
+  {
+   "row": 94,
+   "name": "с.Акай",
+   "district": "Алгинский район",
+   "okrug": "Акайский с.о.",
+   "head": "с.Акай",
+   "tech": "ВОЛС",
+   "planKm": 27.04,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 12.52
+    },
+    {
+     "label": "П2",
+     "km": 14.52
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 27.0 км — остаток отнесён выше ПкСС",
+   "nodeId": "K014F",
+   "headNodeId": "K0048",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 27.04,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0394",
+    "E0212"
+   ],
+   "upstreamKm": 27.04,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 27.04,
+   "homonyms": 1
+  },
+  {
+   "row": 95,
+   "name": "с.Кольтабан",
+   "district": "Алгинский район",
+   "okrug": "Акайский с.о.",
+   "head": "с.Акай",
+   "tech": "ВОЛС",
+   "planKm": 12.19,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Акай",
+     "km": 12.19
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0150",
+   "headNodeId": "K014F",
+   "anchorLabel": "с.Акай",
+   "anchorNodeId": "K014F",
+   "corridorKm": 12.19,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0211"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Акай",
+     "expectKm": 12.19,
+     "graphKm": 12.19,
+     "nodeName": "Акай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 12.19,
+   "homonyms": 1
+  },
+  {
+   "row": 96,
+   "name": "с.Сарыхобда",
+   "district": "Алгинский район",
+   "okrug": "Сарыхобдинский с.о.",
+   "head": "с.Сарыхобда",
+   "tech": "ВОЛС",
+   "planKm": 22.97,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 22.97
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 23.0 км — остаток отнесён выше ПкСС",
+   "nodeId": "K0133",
+   "headNodeId": "K004A",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 22.97,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0188"
+   ],
+   "upstreamKm": 22.97,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 22.97,
+   "homonyms": 1
+  },
+  {
+   "row": 97,
+   "name": "с.Болгарка",
+   "district": "Алгинский район",
+   "okrug": "Сарыхобдинский с.о.",
+   "head": "с.Сарыхобда",
+   "tech": "ВОЛС",
+   "planKm": 18.65,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Сарыхобда",
+     "km": 18.65
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00F5",
+   "headNodeId": "K0133",
+   "anchorLabel": "с.Сарыхобда",
+   "anchorNodeId": "K0133",
+   "corridorKm": 18.65,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0187"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Сарыхобда",
+     "expectKm": 18.65,
+     "graphKm": 18.65,
+     "nodeName": "Сарыхобда",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 18.65,
+   "homonyms": 1
+  },
+  {
+   "row": 98,
+   "name": "с.Бескоспа",
+   "district": "Алгинский район",
+   "okrug": "Бестамакский с.о.",
+   "head": "АТС Бестамак",
+   "tech": "ВОЛС",
+   "planKm": 10.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Бестамак",
+     "km": 10.5
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (нет пути «Бестамак» → «Бескоспа» (граф разорван)); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K00F4",
+   "headNodeId": "K0013",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 10.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0052"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "АТС Бестамак",
+     "expectKm": 10.5,
+     "state": "не лежит на коридоре",
+     "nodeName": "Бестамак"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 10.5,
+   "homonyms": 1
+  },
+  {
+   "row": 99,
+   "name": "с.Самбай",
+   "district": "Алгинский район",
+   "okrug": "Караагашский с.о.",
+   "head": "АТС Алга",
+   "tech": "ВОЛС",
+   "planKm": 13.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М9",
+     "km": 13.6
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 225.1 км при плане 13.6 км (17× ) — якорь «М9» опознан неверно",
+   "nodeId": "K0131",
+   "headNodeId": "K0047",
+   "anchorLabel": "М9",
+   "anchorNodeId": "K01D9",
+   "corridorKm": 225.1,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.6,
+   "homonyms": 1
+  },
+  {
+   "row": 100,
+   "name": "с.Нурбулак",
+   "district": "Алгинский район",
+   "okrug": "Караагашский с.о.",
+   "head": "АТС Алга",
+   "tech": "ВОЛС",
+   "planKm": 14.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Самбай",
+     "km": 14.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0132",
+   "headNodeId": "K0047",
+   "anchorLabel": "с.Самбай",
+   "anchorNodeId": "K0131",
+   "corridorKm": 14.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0185"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Самбай",
+     "expectKm": 14.0,
+     "graphKm": 14.0,
+     "nodeName": "Самбай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 14.0,
+   "homonyms": 1
+  },
+  {
+   "row": 101,
+   "name": "с.Талдысай",
+   "district": "Алгинский район",
+   "okrug": "Тамдинский с.о.",
+   "head": "АТС Алга",
+   "tech": "ВОЛС",
+   "planKm": 8.67,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М12",
+     "km": 8.67
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 263.5 км при плане 8.7 км (30× ) — якорь «М12» опознан неверно",
+   "nodeId": "K0130",
+   "headNodeId": "K0047",
+   "anchorLabel": "М12",
+   "anchorNodeId": "K3dccba",
+   "corridorKm": 263.47,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 8.67,
+   "homonyms": 1
+  },
+  {
+   "row": 102,
+   "name": "с.Еркинкуш",
+   "district": "Алгинский район",
+   "okrug": "Тамдинский с.о.",
+   "head": "АТС Алга",
+   "tech": "ВОЛС",
+   "planKm": 5.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М13",
+     "km": 5.5
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 123.6 км при плане 5.5 км (22× ) — якорь «М13» опознан неверно",
+   "nodeId": "K0135",
+   "headNodeId": "K0047",
+   "anchorLabel": "М13",
+   "anchorNodeId": "K0197",
+   "corridorKm": 123.6,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 5.5,
+   "homonyms": 1
+  },
+  {
+   "row": 103,
+   "name": "с.Кайнар",
+   "district": "Алгинский район",
+   "okrug": "Токмансайский с.о.",
+   "head": "с.Кайнар",
+   "tech": "ВОЛС",
+   "planKm": 55.31,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Алга",
+     "km": 50.31
+    },
+    {
+     "label": "Токмансай",
+     "km": 5.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0096",
+   "headNodeId": "K0007",
+   "anchorLabel": "АТС Алга",
+   "anchorNodeId": "K0047",
+   "corridorKm": 55.31,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0445",
+    "E0219",
+    "E0218"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Алга",
+     "expectKm": 55.31,
+     "graphKm": 55.31,
+     "nodeName": "Алга",
+     "state": "ок"
+    },
+    {
+     "label": "Токмансай",
+     "expectKm": 5.0,
+     "graphKm": 5.0,
+     "nodeName": "Токмансай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 55.31,
+   "homonyms": 1
+  },
+  {
+   "row": 104,
+   "name": "с.Токмансай",
+   "district": "Алгинский район",
+   "okrug": "Токмансайский с.о.",
+   "head": "с.Кайнар",
+   "tech": "ВОЛС",
+   "planKm": 0.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "Токмансай",
+     "km": 0.0
+    }
+   ],
+   "status": "donor_segment",
+   "note": "плана в своде нет; участок взят из строки 103 «с.Кайнар»: «АТС Алга» →50.31→ «с.Токмансай»",
+   "nodeId": "K0158",
+   "headNodeId": "K0096",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 50.31,
+   "diffKm": null,
+   "edgeIds": [
+    "E0445",
+    "E0219"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 50.31,
+   "homonyms": 1
+  },
+  {
+   "row": 105,
+   "name": "с.Котибар",
+   "district": "Мугалжарский район",
+   "okrug": "Аккемерский с.о.",
+   "head": "АТС Аккемир",
+   "tech": "ВОЛС",
+   "planKm": 14.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Аккемир",
+     "km": 14.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0136",
+   "headNodeId": "K0008",
+   "anchorLabel": "АТС Аккемир",
+   "anchorNodeId": "K0008",
+   "corridorKm": 14.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0039",
+    "E0040"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Аккемир",
+     "expectKm": 14.0,
+     "graphKm": 14.0,
+     "nodeName": "АТС Аккемир",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 14.0,
+   "homonyms": 1
+  },
+  {
+   "row": 106,
+   "name": "с.Елек",
+   "district": "Мугалжарский район",
+   "okrug": "Аккемерский с.о.",
+   "head": "АТС Аккемир",
+   "tech": "ВОЛС",
+   "planKm": 3.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М17",
+     "km": 3.4
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 155.3 км при плане 3.4 км (46× ) — якорь «М17» опознан неверно",
+   "nodeId": "K0091",
+   "headNodeId": "K0008",
+   "anchorLabel": "М17",
+   "anchorNodeId": "K0188",
+   "corridorKm": 155.3,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 3.4,
+   "homonyms": 1
+  },
+  {
+   "row": 107,
+   "name": "с.Жарык",
+   "district": "Мугалжарский район",
+   "okrug": "Аккемерский с.о.",
+   "head": "АТС Кандыагаш",
+   "tech": "ВОЛС",
+   "planKm": 13.8,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М18",
+     "km": 13.8
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 149.8 км при плане 13.8 км (11× ) — якорь «М18» опознан неверно",
+   "nodeId": "K008E",
+   "headNodeId": null,
+   "anchorLabel": "М18",
+   "anchorNodeId": "K0188",
+   "corridorKm": 149.8,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.8,
+   "homonyms": 1
+  },
+  {
+   "row": 108,
+   "name": "с.Жанатурмыс",
+   "district": "Мугалжарский район",
+   "okrug": "с.о.им.Кудайбергена Жубанова",
+   "head": "АТС Журын",
+   "tech": "ВОЛС",
+   "planKm": 23.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Журын",
+     "km": 12.8
+    },
+    {
+     "label": "П1",
+     "km": 10.3
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0151",
+   "headNodeId": "K007B",
+   "anchorLabel": "АТС Журын",
+   "anchorNodeId": "K007B",
+   "corridorKm": 23.1,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0284",
+    "E0286"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Журын",
+     "expectKm": 23.1,
+     "graphKm": 23.1,
+     "nodeName": "АТС Журын",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 23.1,
+   "homonyms": 1
+  },
+  {
+   "row": 109,
+   "name": "с.Сабындыколь",
+   "district": "Мугалжарский район",
+   "okrug": "Ащысайский с.о.",
+   "head": "с.Сабындыколь",
+   "tech": "ВОЛС",
+   "planKm": 41.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 20.9
+    },
+    {
+     "label": "с.Караколь",
+     "km": 20.6
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0145",
+   "headNodeId": "K0009",
+   "anchorLabel": "с.Караколь",
+   "anchorNodeId": "K0092",
+   "corridorKm": 41.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0285",
+    "E0201"
+   ],
+   "upstreamKm": 20.9,
+   "segChecks": [
+    {
+     "label": "с.Караколь",
+     "expectKm": 20.6,
+     "graphKm": 20.6,
+     "nodeName": "Караколь",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 41.5,
+   "homonyms": 1
+  },
+  {
+   "row": 110,
+   "name": "с.Караколь",
+   "district": "Мугалжарский район",
+   "okrug": "с.о.им.Кудайбергена Жубанова",
+   "head": "с.Сабындыколь",
+   "tech": "ВОЛС",
+   "planKm": 20.9,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Караколь",
+     "km": 0.0
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K0092",
+   "headNodeId": "K0145",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 20.6,
+   "diffKm": -0.3,
+   "edgeIds": [
+    "E0201"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "с.Караколь",
+     "expectKm": 0.0,
+     "graphKm": 0.0,
+     "nodeName": "Караколь",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 20.9,
+   "homonyms": 1
+  },
+  {
+   "row": 111,
+   "name": "с.Ащысай",
+   "district": "Мугалжарский район",
+   "okrug": "Ащысайский с.о.",
+   "head": "с.Сабындыколь",
+   "tech": "ВОЛС",
+   "planKm": 8.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Сабындыколь",
+     "km": 8.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0093",
+   "headNodeId": "K0145",
+   "anchorLabel": "с.Сабындыколь",
+   "anchorNodeId": "K0145",
+   "corridorKm": 8.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0202"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Сабындыколь",
+     "expectKm": 8.0,
+     "graphKm": 8.0,
+     "nodeName": "Сабындыколь",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 8.0,
+   "homonyms": 1
+  },
+  {
+   "row": 112,
+   "name": "с.Аксу",
+   "district": "Мугалжарский район",
+   "okrug": "Ащысайский с.о.",
+   "head": "с.Сабындыколь",
+   "tech": "ВОЛС",
+   "planKm": 33.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Сабындыколь",
+     "km": 33.5
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00FA",
+   "headNodeId": "K0145",
+   "anchorLabel": "с.Сабындыколь",
+   "anchorNodeId": "K0145",
+   "corridorKm": 33.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0203"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Сабындыколь",
+     "expectKm": 33.5,
+     "graphKm": 33.5,
+     "nodeName": "Сабындыколь",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 33.5,
+   "homonyms": 1
+  },
+  {
+   "row": 113,
+   "name": "с.Кумжарган",
+   "district": "Мугалжарский район",
+   "okrug": "Кумжарганский с.о.",
+   "head": "АТС Бирлик",
+   "tech": "ВОЛС",
+   "planKm": 7.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М18",
+     "km": 7.3
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «М18» до села — 16.0 км, свод даёт 7.3 км",
+   "nodeId": "K00FD",
+   "headNodeId": "K009C",
+   "anchorLabel": "М18",
+   "anchorNodeId": "K0188",
+   "corridorKm": 16.0,
+   "diffKm": 8.7,
+   "edgeIds": [
+    "E9c563d",
+    "E0142"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М18",
+     "expectKm": 7.3,
+     "graphKm": 16.0,
+     "nodeName": "М 14",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 7.3,
+   "homonyms": 1
+  },
+  {
+   "row": 114,
+   "name": "с.Сага",
+   "district": "Мугалжарский район",
+   "okrug": "Батпаккольский с.о.",
+   "head": "СНП Жанажол",
+   "tech": "ВОЛС",
+   "planKm": 2.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М2",
+     "km": 2.4
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 285.4 км при плане 2.4 км (119× ) — якорь «М2» опознан неверно",
+   "nodeId": "K0117",
+   "headNodeId": "K0077",
+   "anchorLabel": "М2",
+   "anchorNodeId": "K0185",
+   "corridorKm": 285.426,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 2.4,
+   "homonyms": 1
+  },
+  {
+   "row": 115,
+   "name": "с.Шенгельши",
+   "district": "Мугалжарский район",
+   "okrug": "Кумжарганский с.о.",
+   "head": "СНП Жанажол",
+   "tech": "ВОЛС",
+   "planKm": 2.73,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М3",
+     "km": 2.73
+    }
+   ],
+   "status": "np_not_found",
+   "note": "села нет в графе (или название расходится)",
+   "nodeId": null,
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 2.73,
+   "homonyms": 1
+  },
+  {
+   "row": 116,
+   "name": "с.Кожасай",
+   "district": "Мугалжарский район",
+   "okrug": "Батпаккольский с.о.",
+   "head": "с.Кожасай",
+   "tech": "ВОЛС",
+   "planKm": 47.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Жанажол",
+     "km": 47.1
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 419.5 км при плане 47.1 км (9× ) — якорь «АТС Жанажол» опознан неверно",
+   "nodeId": "K0116",
+   "headNodeId": "K000C",
+   "anchorLabel": "АТС Жанажол",
+   "anchorNodeId": "K0077",
+   "corridorKm": 419.526,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 47.1,
+   "homonyms": 1
+  },
+  {
+   "row": 117,
+   "name": "с.Кайынды",
+   "district": "Мугалжарский район",
+   "okrug": "Кайындинский с.о.",
+   "head": "с.Кайынды",
+   "tech": "ВОЛС",
+   "planKm": 80.8,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М2РС",
+     "km": 80.8
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 80.8 км — остаток отнесён выше ПкСС",
+   "nodeId": "K009D",
+   "headNodeId": "K0004",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 80.8,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0075"
+   ],
+   "upstreamKm": 80.8,
+   "segChecks": [
+    {
+     "label": "М2РС",
+     "expectKm": 80.8,
+     "state": "не опознана в графе"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 80.8,
+   "homonyms": 1
+  },
+  {
+   "row": 118,
+   "name": "с.Алтынды",
+   "district": "Мугалжарский район",
+   "okrug": "Кайындинский с.о.",
+   "head": "с.Кайынды",
+   "tech": "ВОЛС",
+   "planKm": 33.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Кайынды",
+     "km": 33.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K009E",
+   "headNodeId": "K009D",
+   "anchorLabel": "с.Кайынды",
+   "anchorNodeId": "K009D",
+   "corridorKm": 33.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0073"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Кайынды",
+     "expectKm": 33.0,
+     "graphKm": 33.0,
+     "nodeName": "Кайынды",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 33.0,
+   "homonyms": 1
+  },
+  {
+   "row": 119,
+   "name": "с. Темир-Мост",
+   "district": "Мугалжарский район",
+   "okrug": "Енбекский с.о.",
+   "head": "АТС Сагашили",
+   "tech": "ВОЛС",
+   "planKm": 8.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Сагашили",
+     "km": 2.0
+    },
+    {
+     "label": "П1",
+     "km": 6.0
+    },
+    {
+     "label": "П2",
+     "km": 0.7
+    }
+   ],
+   "status": "head_not_found",
+   "note": "ПкСС «АТС Сагашили» не опознан, якорей в цепочке нет; ход от села вверх тоже не вышел — тупик: выше по сети продолжения нет",
+   "nodeId": "K00F1",
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 8.7,
+   "homonyms": 1
+  },
+  {
+   "row": 120,
+   "name": "с.Енбек",
+   "district": "Мугалжарский район",
+   "okrug": "Талдысайский с.о.",
+   "head": "АТС Сагашили",
+   "tech": "ВОЛС",
+   "planKm": 18.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с. Темир-Мост",
+     "km": 18.0
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (нет пути «Темир» → «Енбек» (граф разорван)); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K00A5",
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 18.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0133"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "с. Темир-Мост",
+     "expectKm": 18.0,
+     "state": "не лежит на коридоре",
+     "nodeName": "Темир"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 18.0,
+   "homonyms": 1
+  },
+  {
+   "row": 121,
+   "name": "с.Басшили",
+   "district": "Мугалжарский район",
+   "okrug": "Енбекский с.о.",
+   "head": "АТС Сагашили",
+   "tech": "ВОЛС",
+   "planKm": 10.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 6.0
+    },
+    {
+     "label": "М12",
+     "km": 4.7
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 229.5 км при плане 10.7 км (21× ) — якорь «М12» опознан неверно",
+   "nodeId": "K00F2",
+   "headNodeId": null,
+   "anchorLabel": "М12",
+   "anchorNodeId": "K0185",
+   "corridorKm": 229.5,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 6.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 10.7,
+   "homonyms": 1
+  },
+  {
+   "row": 122,
+   "name": "с.Талдысай",
+   "district": "Мугалжарский район",
+   "okrug": "Талдысайский с.о.",
+   "head": "АТС Сагашили",
+   "tech": "ВОЛС",
+   "planKm": 32.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 32.0
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (ПкСС «АТС Сагашили» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K0101",
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 32.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0147"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 32.0,
+   "homonyms": 1
+  },
+  {
+   "row": 123,
+   "name": "ст.Калмаккырылган",
+   "district": "Темирский район",
+   "okrug": "Кенестуский с.о.",
+   "head": "АТС Копа",
+   "tech": "ВОЛС",
+   "planKm": 2.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М5",
+     "km": 2.6
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 222.5 км при плане 2.6 км (86× ) — якорь «М5» опознан неверно",
+   "nodeId": "K0152",
+   "headNodeId": "K0102",
+   "anchorLabel": "М5",
+   "anchorNodeId": "K0187",
+   "corridorKm": 222.5,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 2.6,
+   "homonyms": 1
+  },
+  {
+   "row": 124,
+   "name": "ст.Жаксымай",
+   "district": "Темирский район",
+   "okrug": "Жаксымайский с.о.",
+   "head": "АТС Копа",
+   "tech": "ВОЛС",
+   "planKm": 1.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М2",
+     "km": 1.3
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0100",
+   "headNodeId": "K0102",
+   "anchorLabel": "М2",
+   "anchorNodeId": "K019E",
+   "corridorKm": 1.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0315"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М2",
+     "expectKm": 1.3,
+     "graphKm": 1.3,
+     "nodeName": "М2",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 1.3,
+   "homonyms": 1
+  },
+  {
+   "row": 125,
+   "name": "с.Жамбыл",
+   "district": "Темирский район",
+   "okrug": "",
+   "head": "СНП Темир",
+   "tech": "ВОЛС",
+   "planKm": 31.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Темир",
+     "km": 31.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0153",
+   "headNodeId": "K01F9",
+   "anchorLabel": "АТС Темир",
+   "anchorNodeId": "K01F9",
+   "corridorKm": 31.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0214"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Темир",
+     "expectKm": 31.0,
+     "graphKm": 31.0,
+     "nodeName": "г.Темир",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 31.0,
+   "homonyms": 1
+  },
+  {
+   "row": 126,
+   "name": "с.Кумсай",
+   "district": "Темирский район",
+   "okrug": "Саркольский с.о.",
+   "head": "СНП Сарыколь",
+   "tech": "ВОЛС",
+   "planKm": 7.73,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М7",
+     "km": 7.0
+    },
+    {
+     "label": "П1",
+     "km": 0.73
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 291.8 км при плане 7.7 км (38× ) — якорь «М7» опознан неверно",
+   "nodeId": "K0098",
+   "headNodeId": null,
+   "anchorLabel": "М7",
+   "anchorNodeId": "K0167",
+   "corridorKm": 291.776,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 7.73,
+   "homonyms": 1
+  },
+  {
+   "row": 127,
+   "name": "с.Копа",
+   "district": "Темирский район",
+   "okrug": "Саркольский с.о.",
+   "head": "СНП Сарыколь",
+   "tech": "ВОЛС",
+   "planKm": 11.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 11.0
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (ПкСС «СНП Сарыколь» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K0102",
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 11.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0319"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 11.0,
+   "homonyms": 1
+  },
+  {
+   "row": 128,
+   "name": "с.Алтыкарасу",
+   "district": "Темирский район",
+   "okrug": "Алтыкарасуский с.о.",
+   "head": "с.Алтыкарасу",
+   "tech": "ВОЛС",
+   "planKm": 51.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М11",
+     "km": 27.5
+    },
+    {
+     "label": "П1",
+     "km": 4.2
+    },
+    {
+     "label": "Сарытогай",
+     "km": 20.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00A1",
+   "headNodeId": "K00A1",
+   "anchorLabel": "М11",
+   "anchorNodeId": "K0193",
+   "corridorKm": 51.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0300",
+    "E0145",
+    "E0144"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М11",
+     "expectKm": 51.7,
+     "graphKm": 51.7,
+     "nodeName": "М11",
+     "state": "ок"
+    },
+    {
+     "label": "Сарытогай",
+     "expectKm": 20.0,
+     "graphKm": 20.0,
+     "nodeName": "Сартогай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 51.7,
+   "homonyms": 1
+  },
+  {
+   "row": 129,
+   "name": "с.Сарытогай",
+   "district": "Темирский район",
+   "okrug": "Алтыкарасуский с.о.",
+   "head": "с.Алтыкарасу",
+   "tech": "ВОЛС",
+   "planKm": 0.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "Сарытогай",
+     "km": 0.0
+    }
+   ],
+   "status": "donor_segment",
+   "note": "плана в своде нет; участок взят из строки 128 «с.Алтыкарасу»: «П1» →4.2→ «с.Сарытогай»",
+   "nodeId": "K00FF",
+   "headNodeId": "K00A1",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 4.2,
+   "diffKm": null,
+   "edgeIds": [
+    "E0145"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 4.2,
+   "homonyms": 1
+  },
+  {
+   "row": 130,
+   "name": "с.Кумкудык",
+   "district": "Темирский район",
+   "okrug": "Кайындинский с.о.",
+   "head": "с.Кумкудык",
+   "tech": "ВОЛС",
+   "planKm": 44.1,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 29.5
+    },
+    {
+     "label": "П2",
+     "km": 14.6
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 44.1 км — остаток отнесён выше ПкСС",
+   "nodeId": "K0115",
+   "headNodeId": "K000B",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 44.1,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0302",
+    "E0301",
+    "E0002"
+   ],
+   "upstreamKm": 44.1,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 44.1,
+   "homonyms": 1
+  },
+  {
+   "row": 131,
+   "name": "с.Бабатай",
+   "district": "Темирский район",
+   "okrug": "Кайындинский с.о.",
+   "head": "с.Кумкудык",
+   "tech": "ВОЛС",
+   "planKm": 13.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 13.0
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K00FE",
+   "headNodeId": "K0115",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 13.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0143"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.0,
+   "homonyms": 1
+  },
+  {
+   "row": 132,
+   "name": "с.Енбекши",
+   "district": "Темирский район",
+   "okrug": "Алтыкарасуский с.о.",
+   "head": "СНП Аксай",
+   "tech": "ВОЛС",
+   "planKm": 32.05,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Аксай",
+     "km": 12.8
+    },
+    {
+     "label": "П1",
+     "km": 19.25
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0147",
+   "headNodeId": "K01FA",
+   "anchorLabel": "АТС Аксай",
+   "anchorNodeId": "K01FA",
+   "corridorKm": 32.05,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0444",
+    "E0313",
+    "E0206"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Аксай",
+     "expectKm": 32.05,
+     "graphKm": 32.05,
+     "nodeName": "Аксай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 32.05,
+   "homonyms": 1
+  },
+  {
+   "row": 133,
+   "name": "с.Шыгырлы",
+   "district": "Темирский район",
+   "okrug": "Аксайский с.о.",
+   "head": "с.Шыгырлы",
+   "tech": "ВОЛС",
+   "planKm": 25.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 25.3
+    }
+   ],
+   "status": "tail_inexact",
+   "note": "хвост в 25.3 км не ложится на узел: ближайшая граница 45.6 км",
+   "nodeId": "K0137",
+   "headNodeId": "K0041",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 45.6,
+   "diffKm": 20.3,
+   "edgeIds": [
+    "E0146"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 25.3,
+   "homonyms": 1
+  },
+  {
+   "row": 134,
+   "name": "с. Бирлик",
+   "district": "Темирский район",
+   "okrug": "Аксайский с.о.",
+   "head": "с.Шыгырлы",
+   "tech": "ВОЛС (Wi-Fi public)",
+   "planKm": 15.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "Шагырлы",
+     "km": 15.0
+    }
+   ],
+   "status": "implausible_corridor",
+   "note": "коридор 215.4 км при плане 15.0 км (14× ) — якорь «Шагырлы» опознан неверно",
+   "nodeId": "K009C",
+   "headNodeId": "K0137",
+   "anchorLabel": "Шагырлы",
+   "anchorNodeId": "K0137",
+   "corridorKm": 215.4,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 15.0,
+   "homonyms": 1
+  },
+  {
+   "row": 135,
+   "name": "с.Таскопа",
+   "district": "Темирский район",
+   "okrug": "Таскопинский с.о.",
+   "head": "с.Таскопа",
+   "tech": "ВОЛС",
+   "planKm": 33.12,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М2",
+     "km": 33.12
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «М2» до села — 135.8 км, свод даёт 33.1 км",
+   "nodeId": "K0114",
+   "headNodeId": "K000F",
+   "anchorLabel": "М2",
+   "anchorNodeId": "K019E",
+   "corridorKm": 135.82,
+   "diffKm": 102.7,
+   "edgeIds": [
+    "E5081de",
+    "E60cb62",
+    "E0304",
+    "E0325",
+    "E0324",
+    "E0298",
+    "E0162"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М2",
+     "expectKm": 33.12,
+     "graphKm": 135.82,
+     "nodeName": "М2",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 33.12,
+   "homonyms": 1
+  },
+  {
+   "row": 136,
+   "name": "с.Косарал",
+   "district": "Байганинский район",
+   "okrug": "Карауылкелдинский с.о.",
+   "head": "с.Косарал",
+   "tech": "ВОЛС",
+   "planKm": 24.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М1",
+     "km": 2.3
+    },
+    {
+     "label": "П1",
+     "km": 19.4
+    },
+    {
+     "label": "П2",
+     "km": 2.9
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «М1» до села — 30.6 км, свод даёт 24.6 км",
+   "nodeId": "K0113",
+   "headNodeId": "K0011",
+   "anchorLabel": "М1",
+   "anchorNodeId": "K4beee9",
+   "corridorKm": 30.6,
+   "diffKm": 6.0,
+   "edgeIds": [
+    "Eee0c91",
+    "E0294",
+    "E0295",
+    "E0296"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М1",
+     "expectKm": 24.6,
+     "graphKm": 30.6,
+     "nodeName": "M17",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 24.6,
+   "homonyms": 1
+  },
+  {
+   "row": 137,
+   "name": "с.Кокбулак",
+   "district": "Байганинский район",
+   "okrug": "Карауылкелдинский с.о.",
+   "head": "с.Кокбулак",
+   "tech": "ВОЛС",
+   "planKm": 18.07,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 18.07
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 18.1 км — остаток отнесён выше ПкСС",
+   "nodeId": "K0112",
+   "headNodeId": "K0044",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 18.07,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0160"
+   ],
+   "upstreamKm": 18.07,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 18.07,
+   "homonyms": 1
+  },
+  {
+   "row": 138,
+   "name": "с.Кемерши",
+   "district": "Байганинский район",
+   "okrug": "Кызылбулакский с.о.",
+   "head": "с.Кемерши",
+   "tech": "ВОЛС",
+   "planKm": 84.49,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 23.5
+    },
+    {
+     "label": "П3",
+     "km": 60.99
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 84.5 км — остаток отнесён выше ПкСС",
+   "nodeId": "K0095",
+   "headNodeId": "K0010",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 84.49,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0297",
+    "E0068"
+   ],
+   "upstreamKm": 84.49,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 84.49,
+   "homonyms": 1
+  },
+  {
+   "row": 139,
+   "name": "с.Булактыколь",
+   "district": "Байганинский район",
+   "okrug": "Кызылбулакский с.о.",
+   "head": "с.Кемерши",
+   "tech": "ВОЛС",
+   "planKm": 21.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "Кемерши",
+     "km": 21.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0087",
+   "headNodeId": "K0095",
+   "anchorLabel": "Кемерши",
+   "anchorNodeId": "K0095",
+   "corridorKm": 21.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0067",
+    "E0062"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "Кемерши",
+     "expectKm": 21.0,
+     "graphKm": 21.0,
+     "nodeName": "Кемерши",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 21.0,
+   "homonyms": 1
+  },
+  {
+   "row": 140,
+   "name": "с.Жаркамыс",
+   "district": "Байганинский район",
+   "okrug": "Жаркамысский с.о.",
+   "head": "с.Жаркамыс",
+   "tech": "ВОЛС",
+   "planKm": 54.2,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П3",
+     "km": 54.2
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 54.2 км — остаток отнесён выше ПкСС",
+   "nodeId": "K000D",
+   "headNodeId": "K000D",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 54.2,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0066",
+    "E0063"
+   ],
+   "upstreamKm": 54.2,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 54.2,
+   "homonyms": 1
+  },
+  {
+   "row": 141,
+   "name": "с.Каражар",
+   "district": "Байганинский район",
+   "okrug": "Жаркамысский с.о.",
+   "head": "с.Жаркамыс",
+   "tech": "ВОЛС",
+   "planKm": 25.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "Жаркамыс",
+     "km": 25.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0089",
+   "headNodeId": "K000D",
+   "anchorLabel": "Жаркамыс",
+   "anchorNodeId": "K000D",
+   "corridorKm": 25.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0063",
+    "E0064"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "Жаркамыс",
+     "expectKm": 25.0,
+     "graphKm": 25.0,
+     "nodeName": "Жаркамыс",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 25.0,
+   "homonyms": 1
+  },
+  {
+   "row": 142,
+   "name": "с.Ебейти",
+   "district": "Байганинский район",
+   "okrug": "Копинский с.о.",
+   "head": "с.Ебейти",
+   "tech": "ВОЛС",
+   "planKm": 32.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М18",
+     "km": 20.5
+    },
+    {
+     "label": "П1",
+     "km": 10.0
+    },
+    {
+     "label": "П2",
+     "km": 2.2
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K010E",
+   "headNodeId": "K010E",
+   "anchorLabel": "М18",
+   "anchorNodeId": "Ka35782",
+   "corridorKm": 32.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E47190d",
+    "E0293",
+    "E0157"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М18",
+     "expectKm": 32.7,
+     "graphKm": 32.7,
+     "nodeName": "M18",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 32.7,
+   "homonyms": 1
+  },
+  {
+   "row": 143,
+   "name": "с.Копа",
+   "district": "Байганинский район",
+   "okrug": "Копинский с.о.",
+   "head": "с.Ебейти",
+   "tech": "ВОЛС",
+   "planKm": 0.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 0.4
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K010F",
+   "headNodeId": "K010E",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.4,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0292"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 0.4,
+   "homonyms": 1
+  },
+  {
+   "row": 144,
+   "name": "с.Баршакум",
+   "district": "Байганинский район",
+   "okrug": "Сарытогайский с.о.",
+   "head": "с.Ебейти",
+   "tech": "ВОЛС",
+   "planKm": 28.2,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 28.2
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K0110",
+   "headNodeId": "K010E",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 28.2,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0158"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 28.2,
+   "homonyms": 1
+  },
+  {
+   "row": 145,
+   "name": "с.Кораши",
+   "district": "Байганинский район",
+   "okrug": "Кольтабанский с.о.",
+   "head": "АТС Жарлы",
+   "tech": "ВОЛС",
+   "planKm": 13.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М12",
+     "km": 13.5
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0111",
+   "headNodeId": "K000E",
+   "anchorLabel": "М12",
+   "anchorNodeId": "K3dccba",
+   "corridorKm": 13.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E5ca91b"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М12",
+     "expectKm": 13.5,
+     "graphKm": 13.5,
+     "nodeName": "M12",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.5,
+   "homonyms": 1
+  },
+  {
+   "row": 146,
+   "name": "с.Жанатан",
+   "district": "Байганинский район",
+   "okrug": "Кызылбулакский с.о.",
+   "head": "с.Кожасай",
+   "tech": "ВОЛС",
+   "planKm": 15.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Кожасай",
+     "km": 15.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K009A",
+   "headNodeId": "K0116",
+   "anchorLabel": "с.Кожасай",
+   "anchorNodeId": "K0116",
+   "corridorKm": 15.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0165"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Кожасай",
+     "expectKm": 15.0,
+     "graphKm": 15.0,
+     "nodeName": "Кожасай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 15.0,
+   "homonyms": 1
+  },
+  {
+   "row": 147,
+   "name": "с.Сарсай",
+   "district": "Шалкарский район",
+   "okrug": "с.о.Бершугир",
+   "head": "АТС Биршогыр",
+   "tech": "ВОЛС",
+   "planKm": 3.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М1 (РС)",
+     "km": 0.4
+    },
+    {
+     "label": "П1",
+     "km": 3.2
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00FB",
+   "headNodeId": "K0003",
+   "anchorLabel": "М1 (РС)",
+   "anchorNodeId": "K018B",
+   "corridorKm": 3.6,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0291",
+    "E0141"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М1 (РС)",
+     "expectKm": 3.6,
+     "graphKm": 3.6,
+     "nodeName": "М 1",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 3.6,
+   "homonyms": 1
+  },
+  {
+   "row": 148,
+   "name": "с.Алабас",
+   "district": "Шалкарский район",
+   "okrug": "с.о.Бершугир",
+   "head": "АТС Биршогыр",
+   "tech": "ВОЛС",
+   "planKm": 10.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 10.6
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K00FC",
+   "headNodeId": "K0003",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 10.6,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0290"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 10.6,
+   "homonyms": 1
+  },
+  {
+   "row": 149,
+   "name": "с.Котртас",
+   "district": "Шалкарский район",
+   "okrug": "Актогайский с.о.",
+   "head": "с.Котртас",
+   "tech": "ВОЛС",
+   "planKm": 4.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М15",
+     "km": 4.5
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00A6",
+   "headNodeId": "K00A6",
+   "anchorLabel": "М15",
+   "anchorNodeId": "K01DA",
+   "corridorKm": 4.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0085"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М15",
+     "expectKm": 4.5,
+     "graphKm": 4.5,
+     "nodeName": "М 15",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 4.5,
+   "homonyms": 1
+  },
+  {
+   "row": 150,
+   "name": "с.Жылтыр",
+   "district": "Шалкарский район",
+   "okrug": "Челкарский с.о.",
+   "head": "АТС Шалкар",
+   "tech": "ВОЛС",
+   "planKm": 6.2,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Шалкар",
+     "km": 3.8
+    },
+    {
+     "label": "М1",
+     "km": 2.4
+    }
+   ],
+   "status": "chain_len_mismatch",
+   "note": "путь от «АТС Шалкар» до села — 16.0 км, свод даёт 6.2 км",
+   "nodeId": "K013C",
+   "headNodeId": "K0086",
+   "anchorLabel": "АТС Шалкар",
+   "anchorNodeId": "K0086",
+   "corridorKm": 16.0,
+   "diffKm": 9.8,
+   "edgeIds": [
+    "Ed42b23",
+    "E0193"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Шалкар",
+     "expectKm": 6.2,
+     "graphKm": 16.0,
+     "nodeName": "АТС ОУП Шалкар",
+     "state": "расстояние расходится"
+    },
+    {
+     "label": "М1",
+     "expectKm": 2.4,
+     "state": "не лежит на коридоре",
+     "nodeName": "М 1"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 6.2,
+   "homonyms": 1
+  },
+  {
+   "row": 151,
+   "name": "с.Тумалыколь",
+   "district": "Шалкарский район",
+   "okrug": "Шетиргизский с.о.",
+   "head": "с.Тумалыколь",
+   "tech": "ВОЛС",
+   "planKm": 30.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М8",
+     "km": 30.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K009F",
+   "headNodeId": "K009F",
+   "anchorLabel": "М8",
+   "anchorNodeId": "K01C3",
+   "corridorKm": 30.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0077"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М8",
+     "expectKm": 30.0,
+     "graphKm": 30.0,
+     "nodeName": "М 8",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 30.0,
+   "homonyms": 1
+  },
+  {
+   "row": 152,
+   "name": "с.Аккайтым",
+   "district": "Шалкарский район",
+   "okrug": "Жанаконысский с.о.",
+   "head": "с.Аккайтым",
+   "tech": "ВОЛС",
+   "planKm": 51.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "ОУП Шалкар",
+     "km": 49.7
+    },
+    {
+     "label": "П1",
+     "km": 0.3
+    },
+    {
+     "label": "П2",
+     "km": 1.5
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K007D",
+   "headNodeId": "K007D",
+   "anchorLabel": "ОУП Шалкар",
+   "anchorNodeId": "K0086",
+   "corridorKm": 51.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0059",
+    "E0365",
+    "E960267"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "ОУП Шалкар",
+     "expectKm": 51.5,
+     "graphKm": 51.5,
+     "nodeName": "АТС ОУП Шалкар",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 51.5,
+   "homonyms": 1
+  },
+  {
+   "row": 153,
+   "name": "с.Копасор",
+   "district": "Шалкарский район",
+   "okrug": "Жанаконысский с.о.",
+   "head": "с.Аккайтым",
+   "tech": "ВОЛС",
+   "planKm": 34.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 34.0
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K0105",
+   "headNodeId": "K007D",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 34.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0151"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 34.0,
+   "homonyms": 1
+  },
+  {
+   "row": 154,
+   "name": "с.Байкадам",
+   "district": "Шалкарский район",
+   "okrug": "с.о.им.Есета Котибарова",
+   "head": "с.Аккайтым",
+   "tech": "ВОЛС",
+   "planKm": 16.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 14.2
+    },
+    {
+     "label": "П3",
+     "km": 2.1
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K006E",
+   "headNodeId": "K007D",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 16.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0370",
+    "E0033"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 16.3,
+   "homonyms": 1
+  },
+  {
+   "row": 155,
+   "name": "с.Бегимбет",
+   "district": "Шалкарский район",
+   "okrug": "Айшуакский с.о.",
+   "head": "с.Бегимбет",
+   "tech": "ВОЛС",
+   "planKm": 41.8,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П3",
+     "km": 35.5
+    },
+    {
+     "label": "НУП Бегимбет",
+     "km": 3.0
+    },
+    {
+     "label": "П4",
+     "km": 3.3
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 41.8 км — остаток отнесён выше ПкСС",
+   "nodeId": "K006D",
+   "headNodeId": "K006D",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 41.8,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0369",
+    "E0367",
+    "Eca5862"
+   ],
+   "upstreamKm": 41.8,
+   "segChecks": [
+    {
+     "label": "НУП Бегимбет",
+     "expectKm": 6.3,
+     "graphKm": 0.0,
+     "nodeName": "АТС Бегимбет",
+     "state": "расстояние расходится"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 41.8,
+   "homonyms": 1
+  },
+  {
+   "row": 156,
+   "name": "с.Есетата",
+   "district": "Шалкарский район",
+   "okrug": "Айшуакский с.о.",
+   "head": "с.Бегимбет",
+   "tech": "ВОЛС",
+   "planKm": 14.9,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Бегимбет",
+     "km": 2.3
+    },
+    {
+     "label": "П1",
+     "km": 12.6
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0085",
+   "headNodeId": "K006D",
+   "anchorLabel": "АТС Бегимбет",
+   "anchorNodeId": "K006D",
+   "corridorKm": 14.9,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0371",
+    "E0372"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Бегимбет",
+     "expectKm": 14.9,
+     "graphKm": 14.9,
+     "nodeName": "АТС Бегимбет",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 14.9,
+   "homonyms": 1
+  },
+  {
+   "row": 157,
+   "name": "с.Бозой",
+   "district": "Шалкарский район",
+   "okrug": "Бозойский с.о.",
+   "head": "с.Бозой",
+   "tech": "ВОЛС",
+   "planKm": 108.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 90.0
+    },
+    {
+     "label": "П2",
+     "km": 18.0
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 108.0 км — остаток отнесён выше ПкСС",
+   "nodeId": "K006C",
+   "headNodeId": "K0036",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 108.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0373",
+    "E0032"
+   ],
+   "upstreamKm": 108.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 108.0,
+   "homonyms": 1
+  },
+  {
+   "row": 158,
+   "name": "с.Канбакты",
+   "district": "Шалкарский район",
+   "okrug": "Бозойский с.о.",
+   "head": "с.Канбакты",
+   "tech": "ВОЛС",
+   "planKm": 25.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П2",
+     "km": 25.5
+    }
+   ],
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 25.5 км — остаток отнесён выше ПкСС",
+   "nodeId": "K0155",
+   "headNodeId": "K0037",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 25.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0374"
+   ],
+   "upstreamKm": 25.5,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 25.5,
+   "homonyms": 1
+  },
+  {
+   "row": 159,
+   "name": "с.Копмула",
+   "district": "Шалкарский район",
+   "okrug": "Тогызский с.о.",
+   "head": "АТС Шалкар",
+   "tech": "ВОЛС",
+   "planKm": 1.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М5",
+     "km": 1.7
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K013A",
+   "headNodeId": "K0001",
+   "anchorLabel": "М5",
+   "anchorNodeId": "K01D3",
+   "corridorKm": 1.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0191"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М5",
+     "expectKm": 1.7,
+     "graphKm": 1.7,
+     "nodeName": "М 5",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 1.7,
+   "homonyms": 1
+  },
+  {
+   "row": 160,
+   "name": "с.Жылан",
+   "district": "Шалкарский район",
+   "okrug": "Тогызский с.о.",
+   "head": "с.Тогыз",
+   "tech": "ВОЛС",
+   "planKm": 2.2,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М10",
+     "km": 2.2
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0141",
+   "headNodeId": "K0140",
+   "anchorLabel": "М10",
+   "anchorNodeId": "K01D4",
+   "corridorKm": 2.2,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0197"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М10",
+     "expectKm": 2.2,
+     "graphKm": 2.2,
+     "nodeName": "М 10",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 2.2,
+   "homonyms": 1
+  },
+  {
+   "row": 161,
+   "name": "с.Тогыз",
+   "district": "Шалкарский район",
+   "okrug": "Тогызский с.о.",
+   "head": "с.Тогыз",
+   "tech": "ВОЛС",
+   "planKm": 2.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М14",
+     "km": 2.4
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0140",
+   "headNodeId": "K0140",
+   "anchorLabel": "М14",
+   "anchorNodeId": "K01D5",
+   "corridorKm": 2.4,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0196"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М14",
+     "expectKm": 2.4,
+     "graphKm": 2.4,
+     "nodeName": "М 14",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 2.4,
+   "homonyms": 1
+  },
+  {
+   "row": 162,
+   "name": "с.Карашокат",
+   "district": "Шалкарский район",
+   "okrug": "Кишикумский с.о.",
+   "head": "с.Карашокат",
+   "tech": "ВОЛС",
+   "planKm": 2.8,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М19",
+     "km": 2.8
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0104",
+   "headNodeId": "K0039",
+   "anchorLabel": "М19",
+   "anchorNodeId": "K01BD",
+   "corridorKm": 2.8,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0150"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М19",
+     "expectKm": 2.8,
+     "graphKm": 2.8,
+     "nodeName": "М 19",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 2.8,
+   "homonyms": 1
+  },
+  {
+   "row": 163,
+   "name": "с.Шокысу",
+   "district": "Шалкарский район",
+   "okrug": "Кишикумский с.о.",
+   "head": "с.Карашокат",
+   "tech": "ВОЛС",
+   "planKm": 3.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М23",
+     "km": 3.3
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K013B",
+   "headNodeId": "K0104",
+   "anchorLabel": "М23",
+   "anchorNodeId": "K01BC",
+   "corridorKm": 3.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0192"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М23",
+     "expectKm": 3.3,
+     "graphKm": 3.3,
+     "nodeName": "М 23",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 3.3,
+   "homonyms": 1
+  },
+  {
+   "row": 164,
+   "name": "с.Акши",
+   "district": "Иргизский район",
+   "okrug": "Иргизский с.о.",
+   "head": "АТС Курылыс",
+   "tech": "ВОЛС",
+   "planKm": 13.585,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М4",
+     "km": 13.585
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0106",
+   "headNodeId": "K0032",
+   "anchorLabel": "М4",
+   "anchorNodeId": "K01CB",
+   "corridorKm": 13.585,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0152"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М4",
+     "expectKm": 13.585,
+     "graphKm": 13.585,
+     "nodeName": "М 4",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.585,
+   "homonyms": 1
+  },
+  {
+   "row": 165,
+   "name": "с. Жаныс би",
+   "district": "Иргизский район",
+   "okrug": "Кызылжарский с.о.",
+   "head": "АТС Курылыс",
+   "tech": "ВОЛС",
+   "planKm": 23.5,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Курылыс",
+     "km": 23.4
+    },
+    {
+     "label": "П1",
+     "km": 0.1
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K010D",
+   "headNodeId": "K0032",
+   "anchorLabel": "АТС Курылыс",
+   "anchorNodeId": "K0032",
+   "corridorKm": 23.5,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0435",
+    "E0377",
+    "E0376"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Курылыс",
+     "expectKm": 23.5,
+     "graphKm": 23.5,
+     "nodeName": "АТС Курылыс",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 23.5,
+   "homonyms": 1
+  },
+  {
+   "row": 166,
+   "name": "с.Шенбертал",
+   "district": "Иргизский район",
+   "okrug": "Кызылжарский с.о.",
+   "head": "АТС Курылыс",
+   "tech": "ВОЛС",
+   "planKm": 13.3,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "П1",
+     "km": 13.3
+    }
+   ],
+   "status": "tail",
+   "note": "",
+   "nodeId": "K007E",
+   "headNodeId": "K0032",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 13.3,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0048"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.3,
+   "homonyms": 1
+  },
+  {
+   "row": 167,
+   "name": "с.Аманколь",
+   "district": "Иргизский район",
+   "okrug": "Аманкольский с.о.",
+   "head": "СНП Иргиз",
+   "tech": "ВОЛС",
+   "planKm": 15.6,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М1",
+     "km": 15.6
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0107",
+   "headNodeId": "K0030",
+   "anchorLabel": "М1",
+   "anchorNodeId": "K01CF",
+   "corridorKm": 15.6,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0153"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М1",
+     "expectKm": 15.6,
+     "graphKm": 15.6,
+     "nodeName": "М 1",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 15.6,
+   "homonyms": 1
+  },
+  {
+   "row": 168,
+   "name": "с.Жарма",
+   "district": "Иргизский район",
+   "okrug": "Аманкольский с.о.",
+   "head": "СНП Кутиколь",
+   "tech": "ВОЛС",
+   "planKm": 13.7,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "Кутиколь",
+     "km": 13.7
+    }
+   ],
+   "status": "from_np",
+   "note": "голова недоступна (ПкСС «СНП Кутиколь» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "nodeId": "K013D",
+   "headNodeId": null,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 13.7,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0194"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "Кутиколь",
+     "expectKm": 13.7,
+     "state": "не опознана в графе"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 13.7,
+   "homonyms": 1
+  },
+  {
+   "row": 169,
+   "name": "с.Белшер",
+   "district": "Иргизский район",
+   "okrug": "Hуринский с.о.",
+   "head": "СНП Нура",
+   "tech": "ВОЛС",
+   "planKm": 22.453,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "АТС Нура",
+     "km": 22.45
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0146",
+   "headNodeId": "K002E",
+   "anchorLabel": "АТС Нура",
+   "anchorNodeId": "K002E",
+   "corridorKm": 22.453,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0204"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "АТС Нура",
+     "expectKm": 22.45,
+     "graphKm": 22.453,
+     "nodeName": "АТС Нура",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 22.453,
+   "homonyms": 1
+  },
+  {
+   "row": 170,
+   "name": "с.Дукен",
+   "district": "Иргизский район",
+   "okrug": "Hуринский с.о.",
+   "head": "с.Дукен",
+   "tech": "ВОЛС",
+   "planKm": 25.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М8",
+     "km": 25.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0108",
+   "headNodeId": "K002F",
+   "anchorLabel": "М8",
+   "anchorNodeId": "K01CD",
+   "corridorKm": 25.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0156"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М8",
+     "expectKm": 25.0,
+     "graphKm": 25.0,
+     "nodeName": "М 8",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 25.0,
+   "homonyms": 1
+  },
+  {
+   "row": 171,
+   "name": "с.Мамыр",
+   "district": "Иргизский район",
+   "okrug": "Hуринский с.о.",
+   "head": "СНП Нура",
+   "tech": "ВОЛС",
+   "planKm": 30.4,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М14",
+     "km": 30.4
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K0144",
+   "headNodeId": "K002E",
+   "anchorLabel": "М14",
+   "anchorNodeId": "K01CE",
+   "corridorKm": 30.4,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0384"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М14",
+     "expectKm": 30.4,
+     "graphKm": 30.4,
+     "nodeName": "М 14",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 30.4,
+   "homonyms": 1
+  },
+  {
+   "row": 172,
+   "name": "с.Кумтогай",
+   "district": "Иргизский район",
+   "okrug": "Кумтогайский с.о.",
+   "head": "с.Кумтогай",
+   "tech": "ВОЛС",
+   "planKm": 101.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "М3",
+     "km": 76.0
+    },
+    {
+     "label": "П1",
+     "km": 10.0
+    },
+    {
+     "label": "Каракудык",
+     "km": 15.0
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00AE",
+   "headNodeId": "K00AE",
+   "anchorLabel": "М3",
+   "anchorNodeId": "K01CA",
+   "corridorKm": 101.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0379",
+    "E0381",
+    "E470d8d"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М3",
+     "expectKm": 101.0,
+     "graphKm": 101.0,
+     "nodeName": "М 3",
+     "state": "ок"
+    },
+    {
+     "label": "Каракудык",
+     "expectKm": 15.0,
+     "graphKm": 15.0,
+     "nodeName": "Каракудык",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 101.0,
+   "homonyms": 1
+  },
+  {
+   "row": 173,
+   "name": "с.Каракудык",
+   "district": "Иргизский район",
+   "okrug": "Кумтогайский с.о.",
+   "head": "с.Кумтогай",
+   "tech": "ВОЛС",
+   "planKm": 0.0,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [],
+   "status": "donor_segment",
+   "note": "плана в своде нет; участок взят из строки 172 «с.Кумтогай»: «П1» →10.0→ «с.Каракудык»",
+   "nodeId": "K013F",
+   "headNodeId": "K00AE",
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 10.0,
+   "diffKm": null,
+   "edgeIds": [
+    "E0381"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 10.0,
+   "homonyms": 1
+  },
+  {
+   "row": 174,
+   "name": "с.Карасай",
+   "district": "Иргизский район",
+   "okrug": "Кумтогайский с.о.",
+   "head": "с.Кумтогай",
+   "tech": "ВОЛС",
+   "planKm": 5.25,
+   "tubeKm": 0.0,
+   "fiberKm": 0.0,
+   "segs": [
+    {
+     "label": "с.Кумтогай",
+     "km": 5.25
+    }
+   ],
+   "status": "chain",
+   "note": "",
+   "nodeId": "K00B2",
+   "headNodeId": "K00AE",
+   "anchorLabel": "с.Кумтогай",
+   "anchorNodeId": "K00AE",
+   "corridorKm": 5.25,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0089"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "с.Кумтогай",
+     "expectKm": 5.25,
+     "graphKm": 5.25,
+     "nodeName": "Кумтогай",
+     "state": "ок"
+    }
+   ],
+   "clippedTubeKm": 0.0,
+   "clippedFiberKm": 0.0,
+   "paintedTubeKm": 0.0,
+   "paintedFiberKm": 0.0,
+   "capKm": 5.25,
+   "homonyms": 1
+  }
+ ],
+ "edges": {
+  "E0341": {
+   "tubeKm": 18.2,
+   "fiberKm": 0,
+   "fillFrom": "K01AF",
+   "settlements": [
+    "с.Жанаталап"
+   ]
+  },
+  "E0330": {
+   "tubeKm": 4.4,
+   "fiberKm": 0,
+   "fillFrom": "K01A6",
+   "settlements": [
+    "с.Жанаталап"
+   ]
+  },
+  "E0173": {
+   "tubeKm": 9.5,
+   "fiberKm": 0,
+   "fillFrom": "K0122",
+   "settlements": [
+    "с.Терисаккан"
+   ]
+  },
+  "E0174": {
+   "tubeKm": 1.0,
+   "fiberKm": 0,
+   "fillFrom": "K0122",
+   "settlements": [
+    "с.Бестау"
+   ]
+  },
+  "E0216": {
+   "tubeKm": 12.0,
+   "fiberKm": 0,
+   "fillFrom": "K0122",
+   "settlements": [
+    "с.Жарсай"
+   ]
+  },
+  "E0215": {
+   "tubeKm": 11.35,
+   "fiberKm": 0,
+   "fillFrom": "K0154",
+   "settlements": [
+    "с.Аксай"
+   ]
+  },
+  "E0451": {
+   "tubeKm": 3.5,
+   "fiberKm": 0,
+   "fillFrom": "K004F",
+   "settlements": [
+    "с.Курсай"
+   ]
+  },
+  "E0352": {
+   "tubeKm": 4.392,
+   "fiberKm": 0,
+   "fillFrom": "K01B6",
+   "settlements": [
+    "с.Акраб"
+   ]
+  },
+  "E0347": {
+   "tubeKm": 2.5,
+   "fiberKm": 0,
+   "fillFrom": "K01B3",
+   "settlements": [
+    "с.Жиренкопа"
+   ]
+  },
+  "E0349": {
+   "tubeKm": 11.06,
+   "fiberKm": 0,
+   "fillFrom": "K01B4",
+   "settlements": [
+    "с.Кок Уй"
+   ]
+  },
+  "E0456": {
+   "tubeKm": 6.087,
+   "fiberKm": 0,
+   "fillFrom": "K0201",
+   "settlements": [
+    "с.Кумсай"
+   ]
+  },
+  "E0130": {
+   "tubeKm": 10.8,
+   "fiberKm": 0,
+   "fillFrom": "K00EC",
+   "settlements": [
+    "с.Аккайын"
+   ]
+  },
+  "E0023": {
+   "tubeKm": 8.17,
+   "fiberKm": 0,
+   "fillFrom": "K005F",
+   "settlements": [
+    "с.Полтавка"
+   ]
+  },
+  "E886cb4": {
+   "tubeKm": 15.191,
+   "fiberKm": 0,
+   "fillFrom": "K005F",
+   "settlements": [
+    "с.Кызылжар",
+    "с.Шевченко"
+   ]
+  },
+  "E0115": {
+   "tubeKm": 15.654,
+   "fiberKm": 0,
+   "fillFrom": "K00D7",
+   "settlements": [
+    "с.Борте"
+   ]
+  },
+  "Eb115ca": {
+   "tubeKm": 28.0,
+   "fiberKm": 0,
+   "fillFrom": "K0165",
+   "settlements": [
+    "с.Кокпекти"
+   ]
+  },
+  "E0108": {
+   "tubeKm": 17.0,
+   "fiberKm": 0,
+   "fillFrom": "K00D3",
+   "settlements": [
+    "с.Акмоласай",
+    "с.Байнассай"
+   ]
+  },
+  "E0106": {
+   "tubeKm": 16.613,
+   "fiberKm": 0,
+   "fillFrom": "K00E7",
+   "settlements": [
+    "с.Егизата"
+   ]
+  },
+  "E46c5f4": {
+   "tubeKm": 3.3,
+   "fiberKm": 0,
+   "fillFrom": "K01E3",
+   "settlements": [
+    "с.Курмансай"
+   ]
+  },
+  "Efcb8fc": {
+   "tubeKm": 13.5,
+   "fiberKm": 0,
+   "fillFrom": "K01ED",
+   "settlements": [
+    "с.Курмансай"
+   ]
+  },
+  "E3713b2": {
+   "tubeKm": 11.7,
+   "fiberKm": 0,
+   "fillFrom": "K01D1",
+   "settlements": [
+    "с.Курмансай"
+   ]
+  }
+ },
+ "totals": {
+  "planKm": 3321.3,
+  "tubeKm": 277.1,
+  "fiberKm": 0.0,
+  "paintedTubeKm": 223.9,
+  "paintedFiberKm": 0,
+  "graphTouchedKm": 3325.1,
+  "graphPlannedKm": 3315.1,
+  "lost": {
+   "unbound": {
+    "tubeKm": 15.3,
+    "fiberKm": 0.0
+   },
+   "clipped": {
+    "tubeKm": 12.9,
+    "fiberKm": 0.0
+   },
+   "spill": {
+    "tubeKm": 0.0,
+    "fiberKm": 0.0
+   },
+   "edgecap": {
+    "tubeKm": 25.0,
+    "fiberKm": 0.0
+   }
+  }
+ }
+}

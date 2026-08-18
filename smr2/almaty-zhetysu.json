@@ -3,7 +3,7 @@
   "slug": "almaty-zhetysu",
   "title": "Алматинская область и Жетісу",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-17T10:41:50+00:00",
+  "generated": "2026-08-18T05:31:58+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -16,8 +16,8 @@
    "chain_len_mismatch": 1,
    "np_not_found": 1,
    "from_np": 9,
-   "no_route": 2,
-   "tail_inexact": 2,
+   "no_route": 3,
+   "tail_inexact": 1,
    "upstream_ambiguous": 1
   }
  },
@@ -125,7 +125,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 54.3,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 5,
@@ -394,12 +394,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0217",
-   "headNodeId": "A0204",
+   "headNodeId": "A0203",
    "anchorLabel": "АТС Каракастек",
-   "anchorNodeId": "A0204",
+   "anchorNodeId": "A0203",
    "corridorKm": 4.6,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0381",
     "E0295"
    ],
    "upstreamKm": 0,
@@ -438,12 +439,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0200",
-   "headNodeId": "A0206",
+   "headNodeId": "A0205",
    "anchorLabel": "СНП Сункар",
-   "anchorNodeId": "A0206",
+   "anchorNodeId": "A0205",
    "corridorKm": 2.5,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0386",
     "E0303"
    ],
    "upstreamKm": 0,
@@ -747,7 +749,7 @@
    "head": "СНП Енбекши",
    "tech": "ВОЛС",
    "planKm": 6.2,
-   "tubeKm": 3.0,
+   "tubeKm": 3.645,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -778,7 +780,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 3.0,
+   "paintedTubeKm": 3.645,
    "paintedFiberKm": 0.0,
    "capKm": 6.2,
    "homonyms": 2
@@ -923,7 +925,7 @@
    "head": "АТС КазЦик",
    "tech": "ВОЛС",
    "planKm": 3.2,
-   "tubeKm": 0.0,
+   "tubeKm": 1.672,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -954,7 +956,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 1.672,
    "paintedFiberKm": 0.0,
    "capKm": 3.2,
    "homonyms": 1
@@ -1011,7 +1013,7 @@
    "head": "АТС Шамалган",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 4.7,
-   "tubeKm": 0.0,
+   "tubeKm": 0.3,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1042,7 +1044,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 0.3,
    "paintedFiberKm": 0.0,
    "capKm": 4.7,
    "homonyms": 1
@@ -1055,7 +1057,7 @@
    "head": "АТС Шамалган",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 1.3,
-   "tubeKm": 0.4,
+   "tubeKm": 0.54,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1086,7 +1088,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.4,
+   "paintedTubeKm": 0.54,
    "paintedFiberKm": 0.0,
    "capKm": 1.3,
    "homonyms": 2
@@ -1112,10 +1114,11 @@
    "nodeId": "A0318",
    "headNodeId": null,
    "anchorLabel": "Карасайский РПУТ",
-   "anchorNodeId": "A0315",
+   "anchorNodeId": "A0314",
    "corridorKm": 18.5,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0369",
     "E0850"
    ],
    "upstreamKm": 0,
@@ -1588,12 +1591,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0109",
-   "headNodeId": "A0103",
+   "headNodeId": "A0102",
    "anchorLabel": "АТС Байдибек би",
-   "anchorNodeId": "A0103",
+   "anchorNodeId": "A0102",
    "corridorKm": 12.0,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0632",
     "Eba457d"
    ],
    "upstreamKm": 0,
@@ -1655,7 +1659,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.5,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 40,
@@ -2159,7 +2163,7 @@
    "head": "АТС Шенгельды",
    "tech": "ВОЛС",
    "planKm": 15.5,
-   "tubeKm": 14.851,
+   "tubeKm": 15.365,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -2182,7 +2186,7 @@
    "segChecks": [],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 14.851,
+   "paintedTubeKm": 15.365,
    "paintedFiberKm": 0.0,
    "capKm": 15.5,
    "homonyms": 1
@@ -2319,7 +2323,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 73.6,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 55,
@@ -2447,7 +2451,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 68.0,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 58,
@@ -2540,7 +2544,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 73.0,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 60,
@@ -2576,7 +2580,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 18.5,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 61,
@@ -2762,7 +2766,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 19.9,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 65,
@@ -3198,7 +3202,7 @@
    "paintedTubeKm": 2.664,
    "paintedFiberKm": 0.0,
    "capKm": 20.9,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 75,
@@ -3410,7 +3414,7 @@
    "paintedTubeKm": 12.414,
    "paintedFiberKm": 0.0,
    "capKm": 12.5,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 80,
@@ -3475,12 +3479,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0407",
-   "headNodeId": "A0406",
+   "headNodeId": "A0405",
    "anchorLabel": "АТС Сарыжаз",
-   "anchorNodeId": "A0406",
+   "anchorNodeId": "A0405",
    "corridorKm": 21.1,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0790",
     "E0792"
    ],
    "upstreamKm": 0,
@@ -4625,7 +4630,7 @@
    "head": "с.им.М.Тулебаева",
    "tech": "ВОЛС",
    "planKm": 30.0,
-   "tubeKm": 0.0,
+   "tubeKm": 31.089,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -4664,9 +4669,9 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
+   "clippedTubeKm": 1.089,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 30.0,
    "paintedFiberKm": 0.0,
    "capKm": 30.0,
    "homonyms": 1
@@ -4733,7 +4738,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 33.0,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 30,
@@ -4830,12 +4835,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0606",
-   "headNodeId": "A0626",
+   "headNodeId": "A0625",
    "anchorLabel": "(OLT) СНП Аксу",
-   "anchorNodeId": "A0626",
+   "anchorNodeId": "A0625",
    "corridorKm": 2.5,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0715",
     "E0060",
     "E0055"
    ],
@@ -4879,7 +4885,7 @@
    "status": "tail",
    "note": "",
    "nodeId": "A0605",
-   "headNodeId": "A0626",
+   "headNodeId": "A0625",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 2.5,
@@ -4920,7 +4926,7 @@
    "status": "tail",
    "note": "",
    "nodeId": "A0610",
-   "headNodeId": "A0626",
+   "headNodeId": "A0625",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 10.1,
@@ -4957,7 +4963,7 @@
    "status": "tail",
    "note": "",
    "nodeId": "A0617",
-   "headNodeId": "A0626",
+   "headNodeId": "A0625",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 4.1,
@@ -4993,7 +4999,7 @@
    "status": "tail",
    "note": "",
    "nodeId": "A0602",
-   "headNodeId": "A0626",
+   "headNodeId": "A0625",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 25.5,
@@ -5223,7 +5229,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 20.5,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 42,
@@ -5409,7 +5415,7 @@
    "head": "АТС Кабанбай",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 3.4,
-   "tubeKm": 2.963,
+   "tubeKm": 3.256,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5420,7 +5426,7 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0686",
-   "headNodeId": "A0668",
+   "headNodeId": "A0667",
    "anchorLabel": "АТС Теректы\n(Осиновка)",
    "anchorNodeId": "A0676",
    "corridorKm": 3.4,
@@ -5440,7 +5446,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 2.963,
+   "paintedTubeKm": 3.256,
    "paintedFiberKm": 0.0,
    "capKm": 3.4,
    "homonyms": 1
@@ -5464,7 +5470,7 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0672",
-   "headNodeId": "A0668",
+   "headNodeId": "A0667",
    "anchorLabel": "М15",
    "anchorNodeId": "A0671",
    "corridorKm": 2.8,
@@ -5717,7 +5723,7 @@
    "head": "СНП Жыланды",
    "tech": "ВОЛС",
    "planKm": 7.9,
-   "tubeKm": 0.0,
+   "tubeKm": 6.591,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5753,7 +5759,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 6.591,
    "paintedFiberKm": 0.0,
    "capKm": 7.9,
    "homonyms": 1
@@ -5766,7 +5772,7 @@
    "head": "СНП Жыланды",
    "tech": "ВОЛС",
    "planKm": 7.3,
-   "tubeKm": 0.0,
+   "tubeKm": 2.907,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5797,7 +5803,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 2.907,
    "paintedFiberKm": 0.0,
    "capKm": 7.3,
    "homonyms": 1
@@ -5942,7 +5948,7 @@
    "head": "СНП Лепсинск",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 21.7,
-   "tubeKm": 21.635,
+   "tubeKm": 21.678,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5973,7 +5979,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 21.635,
+   "paintedTubeKm": 21.678,
    "paintedFiberKm": 0.0,
    "capKm": 21.7,
    "homonyms": 1
@@ -5986,7 +5992,7 @@
    "head": "СНП Токжайлау",
    "tech": "ВОЛС",
    "planKm": 0.8,
-   "tubeKm": 0.0,
+   "tubeKm": 0.42,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -6017,7 +6023,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 0.42,
    "paintedFiberKm": 0.0,
    "capKm": 0.8,
    "homonyms": 1
@@ -6196,7 +6202,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.0,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 64,
@@ -6437,12 +6443,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0747",
-   "headNodeId": "A0746",
+   "headNodeId": "A0745",
    "anchorLabel": "АТС Карабулак",
-   "anchorNodeId": "A0746",
+   "anchorNodeId": "A0745",
    "corridorKm": 6.0,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0081",
     "E0075"
    ],
    "upstreamKm": 0,
@@ -7423,7 +7430,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.2,
-   "homonyms": 3
+   "homonyms": 1
   },
   {
    "row": 93,
@@ -7704,7 +7711,7 @@
    "status": "tail",
    "note": "",
    "nodeId": "A0776",
-   "headNodeId": "A1031",
+   "headNodeId": "A0328",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 31.5,
@@ -7720,7 +7727,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 31.5,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 100,
@@ -7882,7 +7889,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 13.0,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 104,
@@ -8044,31 +8051,23 @@
      "km": 8.0
     }
    ],
-   "status": "tail_inexact",
-   "note": "хвост в 8.0 км не ложится на узел: ближайшая граница 13.0 км",
-   "nodeId": "A0910",
-   "headNodeId": "A0917",
+   "status": "no_route",
+   "note": "нет пути «З.Тамшыбай» → «Муканшы» (граф разорван); ход от села вверх тоже не вышел — развилка из 2: «Мусабек» (8.0 км), «М» (8.0 км)",
+   "nodeId": "A0919",
+   "headNodeId": "A0916",
    "anchorLabel": null,
    "anchorNodeId": null,
-   "corridorKm": 13.0,
-   "diffKm": 5.0,
-   "edgeIds": [
-    "E0131"
-   ],
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
    "upstreamKm": 0.0,
-   "segChecks": [
-    {
-     "label": "М",
-     "expectKm": 8.0,
-     "state": "не опознана в графе"
-    }
-   ],
+   "segChecks": [],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.0,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 108,
@@ -8145,12 +8144,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0918",
-   "headNodeId": "A0926",
+   "headNodeId": "A0925",
    "anchorLabel": "Талапты",
-   "anchorNodeId": "A0926",
+   "anchorNodeId": "A0925",
    "corridorKm": 21.0,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0786",
     "E0123"
    ],
    "upstreamKm": 0,
@@ -8189,7 +8189,7 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0914",
-   "headNodeId": "A0926",
+   "headNodeId": "A0925",
    "anchorLabel": "Актекше",
    "anchorNodeId": "A0918",
    "corridorKm": 2.0,
@@ -8277,12 +8277,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0890",
-   "headNodeId": "A1080",
+   "headNodeId": "A1079",
    "anchorLabel": "СНП Рудничный",
-   "anchorNodeId": "A1080",
+   "anchorNodeId": "A1079",
    "corridorKm": 12.0,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0752",
     "E0137"
    ],
    "upstreamKm": 0,
@@ -8365,12 +8366,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0892",
-   "headNodeId": "A0879",
+   "headNodeId": "A0878",
    "anchorLabel": "СНП Шубары",
-   "anchorNodeId": "A0879",
+   "anchorNodeId": "A0878",
    "corridorKm": 3.0,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0756",
     "E0136"
    ],
    "upstreamKm": 0,
@@ -8409,12 +8411,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0876",
-   "headNodeId": "A0879",
+   "headNodeId": "A0878",
    "anchorLabel": "СНП Шубары",
-   "anchorNodeId": "A0879",
+   "anchorNodeId": "A0878",
    "corridorKm": 9.0,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0756",
     "E0134"
    ],
    "upstreamKm": 0,
@@ -8887,12 +8890,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0856",
-   "headNodeId": "A0863",
+   "headNodeId": "A0862",
    "anchorLabel": "АТС Басши",
-   "anchorNodeId": "A0863",
+   "anchorNodeId": "A0862",
    "corridorKm": 12.0,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0702",
     "E0152"
    ],
    "upstreamKm": 0,
@@ -8931,7 +8935,7 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0848",
-   "headNodeId": "A0863",
+   "headNodeId": "A0862",
    "anchorLabel": "Нурум",
    "anchorNodeId": "A0856",
    "corridorKm": 4.0,
@@ -9078,7 +9082,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.0,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 131,
@@ -9279,12 +9283,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0857",
-   "headNodeId": "A0865",
+   "headNodeId": "A0864",
    "anchorLabel": "РПУТ Сарыозек",
-   "anchorNodeId": "A0865",
+   "anchorNodeId": "A0864",
    "corridorKm": 14.0,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0696",
     "E0148",
     "E0147"
    ],
@@ -9328,7 +9333,7 @@
    "status": "tail",
    "note": "",
    "nodeId": "A0851",
-   "headNodeId": "A0865",
+   "headNodeId": "A0864",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 15.0,
@@ -9365,7 +9370,7 @@
    "status": "tail",
    "note": "",
    "nodeId": "A0844",
-   "headNodeId": "A0865",
+   "headNodeId": "A0864",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 15.0,
@@ -9468,7 +9473,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.0,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 140,
@@ -9894,7 +9899,7 @@
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.0,
-   "homonyms": 2
+   "homonyms": 1
   },
   {
    "row": 150,
@@ -10129,12 +10134,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0989",
-   "headNodeId": "A0993",
+   "headNodeId": "A0992",
    "anchorLabel": "СНП Надек",
-   "anchorNodeId": "A0993",
+   "anchorNodeId": "A0992",
    "corridorKm": 4.2,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0556",
     "E0833"
    ],
    "upstreamKm": 0,
@@ -10173,12 +10179,13 @@
    "status": "chain",
    "note": "",
    "nodeId": "A0988",
-   "headNodeId": "A0993",
+   "headNodeId": "A0992",
    "anchorLabel": "СНП Надек",
-   "anchorNodeId": "A0993",
+   "anchorNodeId": "A0992",
    "corridorKm": 14.5,
    "diffKm": 0.0,
    "edgeIds": [
+    "E0556",
     "E0834"
    ],
    "upstreamKm": 0,
@@ -10257,18 +10264,18 @@
     "с.Кызылсок"
    ]
   },
-  "E0295": {
+  "E0381": {
    "tubeKm": 4.453,
    "fiberKm": 0,
-   "fillFrom": "A0204",
+   "fillFrom": "A0203",
    "settlements": [
     "с.Ушбулак"
    ]
   },
-  "E0303": {
+  "E0386": {
    "tubeKm": 2.5,
    "fiberKm": 0,
-   "fillFrom": "A0206",
+   "fillFrom": "A0205",
    "settlements": [
     "с.Караарша"
    ]
@@ -10330,15 +10337,31 @@
    ]
   },
   "E0290": {
-   "tubeKm": 3.0,
+   "tubeKm": 3.645,
    "fiberKm": 0,
    "fillFrom": "A0293",
    "settlements": [
     "с.Сауыншы"
    ]
   },
+  "E0292": {
+   "tubeKm": 1.672,
+   "fiberKm": 0,
+   "fillFrom": "A0238",
+   "settlements": [
+    "с.Каратобе"
+   ]
+  },
+  "E0288": {
+   "tubeKm": 0.3,
+   "fiberKm": 0,
+   "fillFrom": "A0300",
+   "settlements": [
+    "с.Кайрат"
+   ]
+  },
   "E0287": {
-   "tubeKm": 0.4,
+   "tubeKm": 0.54,
    "fiberKm": 0,
    "fillFrom": "A0306",
    "settlements": [
@@ -10386,7 +10409,7 @@
    ]
   },
   "E0282": {
-   "tubeKm": 14.851,
+   "tubeKm": 15.365,
    "fiberKm": 0,
    "fillFrom": "A0573",
    "settlements": [
@@ -10513,10 +10536,10 @@
     "с.Акбеит"
    ]
   },
-  "E0792": {
+  "E0790": {
    "tubeKm": 7.999,
    "fiberKm": 0,
-   "fillFrom": "A0406",
+   "fillFrom": "A0405",
    "settlements": [
     "с.Комирши"
    ]
@@ -10529,8 +10552,24 @@
     "с.Тузкол"
    ]
   },
+  "E0875": {
+   "tubeKm": 1.0,
+   "fiberKm": 0,
+   "fillFrom": "A1019",
+   "settlements": [
+    "с.Кураксу"
+   ]
+  },
+  "E0874": {
+   "tubeKm": 29.0,
+   "fiberKm": 0,
+   "fillFrom": "A1020",
+   "settlements": [
+    "с.Кураксу"
+   ]
+  },
   "E0935": {
-   "tubeKm": 2.963,
+   "tubeKm": 3.256,
    "fiberKm": 0,
    "fillFrom": "A0676",
    "settlements": [
@@ -10545,20 +10584,52 @@
     "с.Ушкаиын"
    ]
   },
+  "E0928": {
+   "tubeKm": 2.6,
+   "fiberKm": 0,
+   "fillFrom": "A0666",
+   "settlements": [
+    "с.Шынжылы"
+   ]
+  },
+  "E0929": {
+   "tubeKm": 3.991,
+   "fiberKm": 0,
+   "fillFrom": "A0669",
+   "settlements": [
+    "с.Шынжылы"
+   ]
+  },
+  "E0930": {
+   "tubeKm": 2.907,
+   "fiberKm": 0,
+   "fillFrom": "A0673",
+   "settlements": [
+    "с.Кокжар"
+   ]
+  },
   "E0932": {
-   "tubeKm": 21.635,
+   "tubeKm": 21.678,
    "fiberKm": 0,
    "fillFrom": "A0654",
    "settlements": [
     "с.Чимбулак"
    ]
+  },
+  "E0931": {
+   "tubeKm": 0.42,
+   "fiberKm": 0,
+   "fillFrom": "A0679",
+   "settlements": [
+    "с.Сапак"
+   ]
   }
  },
  "totals": {
   "planKm": 2304.1,
-  "tubeKm": 317.3,
+  "tubeKm": 362.0,
   "fiberKm": 0.0,
-  "paintedTubeKm": 287.6,
+  "paintedTubeKm": 331.2,
   "paintedFiberKm": 0,
   "graphTouchedKm": 2111.5,
   "graphPlannedKm": 2246.7,
@@ -10568,7 +10639,7 @@
     "fiberKm": 0.0
    },
    "clipped": {
-    "tubeKm": 6.6,
+    "tubeKm": 7.7,
     "fiberKm": 0.0
    },
    "spill": {

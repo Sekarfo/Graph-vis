@@ -1,0 +1,71 @@
+# Факт СМР из живой Google-таблицы «общий свод по смр СНП 2.0» → smr2/*.json.
+#
+# Свод правят каждый день, поэтому карта должна подтягивать его сама. Джоба
+# скачивает таблицу (экспорт открыт по ссылке, ключи не нужны), пересобирает
+# раскладку факта по рёбрам и коммитит результат — Railway разворачивает новый
+# образ по push в main, так что отдельный деплой не нужен.
+#
+# Расписание — дважды в сутки по времени Астаны (UTC+5): 07:10 и 19:10.
+# Минуты не круглые намеренно: в :00 у GitHub пик очереди и запуск может
+# задержаться на десятки минут.
+name: Свод СНП 2.0 → факт на графах
+
+on:
+  schedule:
+    - cron: "10 2 * * *"    # 07:10 Астана
+    - cron: "10 14 * * *"   # 19:10 Астана
+  workflow_dispatch:        # и вручную, кнопкой, когда свод правили только что
+
+# Пишем в репозиторий, поэтому нужен доступ на запись; параллельные запуски
+# запрещены, иначе два коммита в один файл разъедутся.
+permissions:
+  contents: write
+concurrency:
+  group: smr2-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Поставить зависимости разбора
+        # openpyxl нужен только этой джобе: сервер книгу не читает, он отдаёт
+        # уже разложенный smr2/*.json.
+        run: pip install openpyxl
+
+      - name: Пересобрать факт по всем областям
+        id: build
+        run: python scripts/import_smr2.py --region all --from-sheet
+
+      - name: Закоммитить обновление
+        # Ставится даже если прошлый шаг упал: при развале одной области скрипт
+        # возвращает ненулевой код, но остальные области он уже пересобрал —
+        # их обновление терять незачем (см. suspicious() в скрипте).
+        if: always() && (steps.build.outcome == 'success' || steps.build.outcome == 'failure')
+        run: |
+          git config user.name  "smr2-sync"
+          git config user.email "smr2-sync@users.noreply.github.com"
+          git add smr2 SMR2_RECONCILE.md
+          if git diff --cached --quiet; then
+            echo "Свод не изменился — коммитить нечего."
+            exit 0
+          fi
+          git commit -m "Факт СМР из свода СНП 2.0 на $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
+
+      - name: Проверить, все ли области обновились
+        # Отдельным шагом в конце: сначала сохранить то, что собралось, и лишь
+        # потом покраснеть — иначе неудача одной области прячет свежие данные
+        # остальных.
+        if: steps.build.outcome == 'failure'
+        run: |
+          echo "::error::Часть областей не обновилась — смотрите лог шага сборки."
+          exit 1
