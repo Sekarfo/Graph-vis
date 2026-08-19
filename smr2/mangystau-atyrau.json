@@ -3,7 +3,7 @@
   "slug": "mangystau-atyrau",
   "title": "Мангистауская и Атырауская области",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T12:45:30+00:00",
+  "generated": "2026-08-19T07:37:33+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -17,14 +17,16 @@
   },
   "verify": {
    "hard": [],
-   "soft": [],
+   "soft": [
+    "вернулось на карту: 1 — с.Коздикора"
+   ],
    "stats": {
-    "edges": 11,
+    "edges": 12,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
     "shadowed": 0,
-    "restored": 0,
+    "restored": 1,
     "dropped": 0
    }
   }
@@ -1610,7 +1612,7 @@
    "head": "АТС Тандай",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 16.0,
-   "tubeKm": 0.0,
+   "tubeKm": 0.508,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1641,7 +1643,7 @@
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 0.508,
    "paintedFiberKm": 0.0,
    "capKm": 16.0,
    "homonyms": 1
@@ -1735,13 +1737,21 @@
    "settlements": [
     "с.Буйрек"
    ]
+  },
+  "E0073": {
+   "tubeKm": 0.508,
+   "fiberKm": 0,
+   "fillFrom": "M008D",
+   "settlements": [
+    "с.Коздикора"
+   ]
   }
  },
  "totals": {
   "planKm": 501.4,
-  "tubeKm": 180.9,
+  "tubeKm": 181.4,
   "fiberKm": 0.0,
-  "paintedTubeKm": 180.4,
+  "paintedTubeKm": 180.9,
   "paintedFiberKm": 0,
   "graphTouchedKm": 556.8,
   "graphPlannedKm": 759.0,

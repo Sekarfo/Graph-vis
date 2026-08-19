@@ -3,7 +3,7 @@
   "slug": "aktobe",
   "title": "Актюбинская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T12:44:38+00:00",
+  "generated": "2026-08-19T07:36:40+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -26,8 +26,7 @@
    "hard": [],
    "soft": [
     "2 сёл с фактом не легли на граф (раздел 1 отчёта)",
-    "1 сёл делят трассу с соседом: отрезок закрашен, зачёт у того, кто прошёл дальше",
-    "вернулось на карту: 1 — с.Когалы"
+    "1 сёл делят трассу с соседом: отрезок закрашен, зачёт у того, кто прошёл дальше"
    ],
    "stats": {
     "edges": 22,
@@ -35,7 +34,7 @@
     "orphans": 0,
     "unbound": 2,
     "shadowed": 1,
-    "restored": 1,
+    "restored": 0,
     "dropped": 0
    }
   }
@@ -1636,7 +1635,7 @@
    "head": "АТС Байтурасай",
    "tech": "ВОЛС",
    "planKm": 14.5,
-   "tubeKm": 8.17,
+   "tubeKm": 18.19,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1665,9 +1664,9 @@
      "state": "ок"
     }
    ],
-   "overPlanTubeKm": 0.0,
+   "overPlanTubeKm": 3.69,
    "overPlanFiberKm": 0.0,
-   "paintedTubeKm": 8.17,
+   "paintedTubeKm": 14.5,
    "paintedFiberKm": 0.0,
    "capKm": 14.5,
    "homonyms": 1
@@ -7411,7 +7410,7 @@
    ]
   },
   "E0023": {
-   "tubeKm": 8.17,
+   "tubeKm": 14.5,
    "fiberKm": 0,
    "fillFrom": "K005F",
    "settlements": [
@@ -7487,9 +7486,9 @@
  },
  "totals": {
   "planKm": 3321.3,
-  "tubeKm": 327.9,
+  "tubeKm": 337.9,
   "fiberKm": 3.3,
-  "paintedTubeKm": 254.1,
+  "paintedTubeKm": 260.4,
   "paintedFiberKm": 3.3,
   "graphTouchedKm": 3325.1,
   "graphPlannedKm": 3315.1,
@@ -7499,7 +7498,7 @@
     "fiberKm": 0.0
    },
    "spill": {
-    "tubeKm": 32.54,
+    "tubeKm": 36.23,
     "fiberKm": 0.0
    },
    "edgecap": {

@@ -3,7 +3,7 @@
   "slug": "almaty-zhetysu",
   "title": "Алматинская область и Жетісу",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T12:45:02+00:00",
+  "generated": "2026-08-19T07:37:05+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -23,15 +23,15 @@
   "verify": {
    "hard": [],
    "soft": [
-    "2 сёл делят трассу с соседом: отрезок закрашен, зачёт у того, кто прошёл дальше",
-    "вернулось на карту: 1 — с.Коныр"
+    "1 сёл делят трассу с соседом: отрезок закрашен, зачёт у того, кто прошёл дальше",
+    "вернулось на карту: 1 — с.Жанатасашы"
    ],
    "stats": {
     "edges": 54,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
-    "shadowed": 2,
+    "shadowed": 1,
     "restored": 1,
     "dropped": 0
    }
@@ -3225,7 +3225,7 @@
    "tech": "ВОЛС",
    "planKm": 0.3,
    "tubeKm": 2.824,
-   "fiberKm": 0.0,
+   "fiberKm": 2.296,
    "segs": [
     {
      "label": "П1",
@@ -3246,9 +3246,9 @@
    "upstreamKm": 0.0,
    "segChecks": [],
    "overPlanTubeKm": 2.524,
-   "overPlanFiberKm": 0.0,
+   "overPlanFiberKm": 1.996,
    "paintedTubeKm": 0.3,
-   "paintedFiberKm": 0.0,
+   "paintedFiberKm": 0.3,
    "capKm": 0.3,
    "homonyms": 1
   },
@@ -10491,7 +10491,7 @@
   },
   "E0793": {
    "tubeKm": 0.3,
-   "fiberKm": 0,
+   "fiberKm": 0.3,
    "fillFrom": "A0401",
    "settlements": [
     "с.Жанатасашы"
@@ -10645,10 +10645,10 @@
  "totals": {
   "planKm": 2304.1,
   "tubeKm": 384.2,
-  "fiberKm": 21.0,
+  "fiberKm": 23.3,
   "paintedTubeKm": 341.5,
-  "paintedFiberKm": 20.3,
-  "graphTouchedKm": 2111.6,
+  "paintedFiberKm": 20.6,
+  "graphTouchedKm": 2111.5,
   "graphPlannedKm": 2246.7,
   "lost": {
    "unbound": {
@@ -10657,7 +10657,7 @@
    },
    "spill": {
     "tubeKm": 19.584,
-    "fiberKm": 0.686
+    "fiberKm": 2.682
    },
    "edgecap": {
     "tubeKm": 23.096,
