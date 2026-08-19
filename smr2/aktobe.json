@@ -3,7 +3,7 @@
   "slug": "aktobe",
   "title": "Актюбинская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-19T07:36:40+00:00",
+  "generated": "2026-08-19T14:47:24+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -135,7 +135,7 @@
    "tech": "ВОЛС",
    "planKm": 22.6,
    "tubeKm": 25.614,
-   "fiberKm": 3.3,
+   "fiberKm": 4.4,
    "segs": [
     {
      "label": "М1",
@@ -170,7 +170,7 @@
    "overPlanTubeKm": 3.014,
    "overPlanFiberKm": 0.0,
    "paintedTubeKm": 25.614,
-   "paintedFiberKm": 3.3,
+   "paintedFiberKm": 4.4,
    "capKm": 22.6,
    "homonyms": 1
   },
@@ -7307,7 +7307,7 @@
  "edges": {
   "E0341": {
    "tubeKm": 18.2,
-   "fiberKm": 3.3,
+   "fiberKm": 4.4,
    "fillFrom": "K01AF",
    "settlements": [
     "с.Жанаталап"
@@ -7487,9 +7487,9 @@
  "totals": {
   "planKm": 3321.3,
   "tubeKm": 337.9,
-  "fiberKm": 3.3,
+  "fiberKm": 4.4,
   "paintedTubeKm": 260.4,
-  "paintedFiberKm": 3.3,
+  "paintedFiberKm": 4.4,
   "graphTouchedKm": 3325.1,
   "graphPlannedKm": 3315.1,
   "lost": {
