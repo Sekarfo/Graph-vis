@@ -3,7 +3,7 @@
   "slug": "akmola",
   "title": "Акмолинская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T05:31:24+00:00",
+  "generated": "2026-08-18T12:44:31+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -20,6 +20,19 @@
    "from_np": 6,
    "implausible_corridor": 1,
    "head_not_found": 1
+  },
+  "verify": {
+   "hard": [],
+   "soft": [],
+   "stats": {
+    "edges": 12,
+    "deadEdges": 0,
+    "orphans": 0,
+    "unbound": 0,
+    "shadowed": 0,
+    "restored": 0,
+    "dropped": 0
+   }
   }
  },
  "settlements": [
@@ -60,8 +73,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.7,
@@ -104,8 +117,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.1,
@@ -148,8 +161,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.2,
@@ -203,8 +216,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 73.0,
@@ -239,8 +252,8 @@
    ],
    "upstreamKm": 28.9,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 28.9,
@@ -281,8 +294,8 @@
      "state": "не опознана в графе"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.7,
@@ -323,8 +336,8 @@
    "edgeIds": [],
    "upstreamKm": 37.7,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 37.7,
@@ -359,8 +372,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 11.3,
@@ -395,8 +408,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.3,
@@ -431,8 +444,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.6,
@@ -480,8 +493,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.2,
@@ -521,8 +534,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.6,
@@ -559,8 +572,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 13.664,
@@ -603,8 +616,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.2,
@@ -647,8 +660,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.7,
@@ -691,8 +704,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.2,
@@ -733,8 +746,8 @@
      "state": "не опознана в графе"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.1,
@@ -775,8 +788,8 @@
      "state": "не опознана в графе"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.6,
@@ -819,8 +832,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.1,
@@ -855,8 +868,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.5,
@@ -904,8 +917,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.5,
@@ -945,8 +958,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.7,
@@ -981,8 +994,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 3.5,
    "paintedFiberKm": 0.0,
    "capKm": 11.9,
@@ -1025,8 +1038,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.6,
@@ -1069,8 +1082,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.5,
@@ -1113,8 +1126,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.9,
@@ -1162,8 +1175,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.2,
@@ -1198,8 +1211,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 14.9,
@@ -1242,8 +1255,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 20.7,
@@ -1286,8 +1299,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.2,
@@ -1366,8 +1379,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 29.6,
@@ -1410,8 +1423,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 16.4,
@@ -1454,8 +1467,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.5,
@@ -1498,8 +1511,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 1.181,
    "paintedFiberKm": 1.302,
    "capKm": 1.7,
@@ -1542,8 +1555,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.9,
@@ -1586,8 +1599,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.5,
@@ -1630,8 +1643,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.8,
@@ -1674,8 +1687,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.7,
@@ -1723,8 +1736,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 13.2,
@@ -1759,8 +1772,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 21.2,
@@ -1803,8 +1816,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.2,
@@ -1847,8 +1860,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.9,
@@ -1891,8 +1904,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.4,
@@ -1935,8 +1948,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.0,
@@ -1979,8 +1992,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.6,
@@ -2040,8 +2053,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 11.1,
@@ -2076,8 +2089,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 14.8,
@@ -2120,8 +2133,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.3,
@@ -2164,8 +2177,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.7,
@@ -2208,8 +2221,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 1.469,
    "paintedFiberKm": 1.407,
    "capKm": 1.5,
@@ -2253,8 +2266,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 21.9,
@@ -2297,8 +2310,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.6,
@@ -2341,8 +2354,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.0,
@@ -2385,8 +2398,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.7,
@@ -2434,8 +2447,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 15.7,
@@ -2470,8 +2483,8 @@
    ],
    "upstreamKm": 33.7,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 33.7,
@@ -2514,8 +2527,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 30.1,
@@ -2563,8 +2576,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 37.2,
@@ -2607,8 +2620,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 19.7,
@@ -2643,8 +2656,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 13.6,
@@ -2689,8 +2702,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 25.0,
@@ -2736,8 +2749,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.2,
@@ -2791,8 +2804,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 18.1,
@@ -2827,8 +2840,8 @@
    ],
    "upstreamKm": 14.8,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 14.8,
@@ -2871,8 +2884,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 19.0,
@@ -2917,8 +2930,8 @@
    ],
    "upstreamKm": 24.5,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 24.5,
@@ -2953,8 +2966,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.0,
@@ -2989,8 +3002,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.6,
@@ -3043,8 +3056,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.7,
@@ -3081,8 +3094,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.8,
@@ -3137,8 +3150,8 @@
    ],
    "upstreamKm": 36.1,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 36.1,
@@ -3173,8 +3186,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.5,
@@ -3209,8 +3222,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.0,
@@ -3246,9 +3259,9 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 15.9,
-   "clippedFiberKm": 0.0,
-   "paintedTubeKm": 1.3,
+   "overPlanTubeKm": 15.9,
+   "overPlanFiberKm": 0.0,
+   "paintedTubeKm": 8.53,
    "paintedFiberKm": 0.0,
    "capKm": 1.3,
    "homonyms": 1
@@ -3287,8 +3300,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.6,
@@ -3328,8 +3341,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.2,
@@ -3364,8 +3377,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.9,
@@ -3413,8 +3426,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 5.9,
@@ -3449,8 +3462,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.6,
@@ -3499,8 +3512,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 11.2,
@@ -3535,8 +3548,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.5,
@@ -3571,8 +3584,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 14.6,
@@ -3615,8 +3628,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 5.5,
@@ -3659,8 +3672,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.9,
@@ -3708,8 +3721,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.2,
@@ -3754,8 +3767,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 15.4,
@@ -3790,8 +3803,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.6,
@@ -3831,8 +3844,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.1,
@@ -3867,8 +3880,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 13.7,
@@ -3921,8 +3934,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.2,
@@ -3962,8 +3975,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.5,
@@ -3998,8 +4011,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.7,
@@ -4034,8 +4047,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 11.2,
@@ -4080,8 +4093,8 @@
    "edgeIds": [],
    "upstreamKm": 28.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 28.0,
@@ -4114,8 +4127,8 @@
    "edgeIds": [],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.2,
@@ -4155,8 +4168,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.4,
@@ -4191,8 +4204,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.3,
@@ -4227,8 +4240,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 16.9,
@@ -4276,8 +4289,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 11.3,
@@ -4317,8 +4330,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 10.1,
@@ -4353,8 +4366,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.9,
@@ -4397,8 +4410,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.0,
@@ -4441,8 +4454,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.1,
@@ -4490,8 +4503,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 10.0,
@@ -4526,8 +4539,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.2,
@@ -4570,8 +4583,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 11.0,
@@ -4614,8 +4627,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.0,
@@ -4658,8 +4671,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.0,
@@ -4702,8 +4715,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.0,
@@ -4746,8 +4759,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.6,
@@ -4790,8 +4803,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.3,
@@ -4834,8 +4847,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.1,
@@ -4883,8 +4896,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 34.4,
@@ -4919,8 +4932,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.3,
@@ -4968,8 +4981,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 5.8,
@@ -5009,8 +5022,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.4,
@@ -5045,8 +5058,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.0,
@@ -5089,8 +5102,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.6,
@@ -5133,8 +5146,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.6,
@@ -5177,8 +5190,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.6,
@@ -5221,8 +5234,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.5,
@@ -5265,8 +5278,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 14.0,
@@ -5309,8 +5322,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.4,
@@ -5353,8 +5366,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.9,
@@ -5397,8 +5410,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.9,
@@ -5431,8 +5444,8 @@
    "edgeIds": [],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.8,
@@ -5475,8 +5488,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.3,
@@ -5524,8 +5537,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 14.3,
@@ -5560,8 +5573,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.7,
@@ -5609,8 +5622,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 19.5,
@@ -5645,8 +5658,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.4,
@@ -5689,8 +5702,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.6,
@@ -5738,8 +5751,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 8.626,
    "paintedFiberKm": 0.0,
    "capKm": 27.4,
@@ -5774,8 +5787,8 @@
    ],
    "upstreamKm": 56.1,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 30.123,
    "paintedFiberKm": 0.0,
    "capKm": 56.1,
@@ -5818,8 +5831,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.4,
@@ -5862,8 +5875,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.8,
@@ -5906,8 +5919,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.4,
@@ -5950,8 +5963,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 16.5,
@@ -5994,8 +6007,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 26.4,
@@ -6043,8 +6056,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.5,
@@ -6079,8 +6092,8 @@
    ],
    "upstreamKm": 31.3,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 31.3,
@@ -6123,8 +6136,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.1,
@@ -6172,8 +6185,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 16.0,
@@ -6216,8 +6229,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.1,
@@ -6260,8 +6273,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.2,
@@ -6304,8 +6317,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.2,
@@ -6348,8 +6361,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 5.4,
@@ -6392,8 +6405,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.7,
@@ -6451,8 +6464,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 22.5,
@@ -6487,8 +6500,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.5,
@@ -6523,8 +6536,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.5,
@@ -6567,8 +6580,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.3,
@@ -6603,8 +6616,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 28.7,
@@ -6647,8 +6660,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.8,
@@ -6696,8 +6709,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 15.8,
@@ -6732,8 +6745,8 @@
    ],
    "upstreamKm": 19.4,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 19.4,
@@ -6776,8 +6789,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 34.1,
@@ -6820,8 +6833,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.8,
@@ -6864,8 +6877,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.9,
@@ -6908,8 +6921,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.8,
@@ -6952,8 +6965,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 15.4,
@@ -6996,8 +7009,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 13.4,
@@ -7040,8 +7053,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.9,
@@ -7084,8 +7097,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 14.4,
@@ -7128,8 +7141,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.4,
@@ -7172,8 +7185,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.5,
@@ -7216,8 +7229,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.6,
@@ -7262,8 +7275,8 @@
    ],
    "upstreamKm": 44.8,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 44.8,
@@ -7298,8 +7311,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.2,
@@ -7334,8 +7347,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 13.6,
@@ -7370,8 +7383,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.2,
@@ -7419,8 +7432,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 17.3,
@@ -7453,8 +7466,8 @@
    "edgeIds": [],
    "upstreamKm": 0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.5,
@@ -7497,8 +7510,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.4,
@@ -7546,8 +7559,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 37.8,
@@ -7600,8 +7613,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 33.1,
@@ -7634,8 +7647,8 @@
    "edgeIds": [],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 10.9,
@@ -7672,8 +7685,8 @@
    "edgeIds": [],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 19.8,
@@ -7708,8 +7721,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.0,
@@ -7749,8 +7762,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 16.8,
@@ -7793,8 +7806,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 18.1,
@@ -7837,8 +7850,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.9,
@@ -7881,8 +7894,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.0,
@@ -7935,8 +7948,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 32.4,
@@ -7971,8 +7984,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 18.8,
@@ -8013,8 +8026,8 @@
    ],
    "upstreamKm": 10.47,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 29.2,
@@ -8054,8 +8067,8 @@
    ],
    "upstreamKm": 16.7,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 16.7,
@@ -8090,8 +8103,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 13.2,
@@ -8134,8 +8147,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 5.7,
@@ -8178,8 +8191,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.999,
    "capKm": 5.9,
@@ -8239,8 +8252,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 1.955,
    "capKm": 29.9,
@@ -8276,8 +8289,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 2.043,
    "capKm": 12.3,
@@ -8317,8 +8330,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.1,
@@ -8361,8 +8374,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.6,
@@ -8405,8 +8418,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.4,
@@ -8455,8 +8468,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.0,
@@ -8511,8 +8524,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 14.7,
@@ -8555,8 +8568,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.5,
@@ -8599,8 +8612,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 3.5,
@@ -8655,8 +8668,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.4,
@@ -8699,8 +8712,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.1,
@@ -8743,8 +8756,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 9.9,
@@ -8792,8 +8805,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 5.2,
@@ -8828,8 +8841,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.7,
@@ -8872,8 +8885,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.3,
@@ -8916,8 +8929,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.2,
@@ -8960,8 +8973,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.5,
@@ -9004,8 +9017,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 18.7,
@@ -9064,8 +9077,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 17.5,
@@ -9100,8 +9113,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 5.0,
@@ -9147,8 +9160,8 @@
      "state": "не опознана в графе"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.5,
@@ -9193,8 +9206,8 @@
    ],
    "upstreamKm": 38.9,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 38.9,
@@ -9229,8 +9242,8 @@
    ],
    "upstreamKm": 0.8,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.8,
@@ -9265,8 +9278,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.5,
@@ -9312,8 +9325,8 @@
      "state": "не опознана в графе"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 18.7,
@@ -9348,8 +9361,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 12.6,
@@ -9392,8 +9405,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.8,
@@ -9428,8 +9441,8 @@
    ],
    "upstreamKm": 2.4,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.4,
@@ -9464,8 +9477,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 5.0,
@@ -9520,8 +9533,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 16.1,
@@ -9564,8 +9577,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.2,
@@ -9598,8 +9611,8 @@
    "edgeIds": [],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.7,
@@ -9650,8 +9663,8 @@
      "state": "не опознана в графе"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 17.5,
@@ -9686,8 +9699,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 14.7,
@@ -9727,8 +9740,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 16.0,
@@ -9763,8 +9776,8 @@
    ],
    "upstreamKm": 40.3,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 40.3,
@@ -9817,8 +9830,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 10.3,
@@ -9853,8 +9866,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 11.3,
@@ -9894,8 +9907,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 24.2,
@@ -9930,8 +9943,8 @@
    ],
    "upstreamKm": 39.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 39.0,
@@ -9974,8 +9987,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 11.0,
@@ -10018,8 +10031,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 19.4,
@@ -10067,8 +10080,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 30.4,
@@ -10103,8 +10116,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.6,
@@ -10152,8 +10165,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 10.1,
@@ -10188,8 +10201,8 @@
    ],
    "upstreamKm": 24.1,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 24.1,
@@ -10237,8 +10250,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 17.9,
@@ -10273,8 +10286,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 5.3,
@@ -10322,8 +10335,8 @@
      "state": "расстояние расходится"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.9,
@@ -10358,8 +10371,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 16.3,
@@ -10414,8 +10427,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.2,
@@ -10458,8 +10471,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.7,
@@ -10502,8 +10515,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 1.4,
@@ -10546,8 +10559,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 4.6,
@@ -10590,8 +10603,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.8,
@@ -10634,8 +10647,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.7,
@@ -10678,8 +10691,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 13.1,
@@ -10722,8 +10735,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 20.7,
@@ -10771,8 +10784,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 7.3,
@@ -10807,8 +10820,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 19.5,
@@ -10847,8 +10860,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 0.6,
@@ -10883,8 +10896,8 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 8.5,
@@ -10927,8 +10940,8 @@
      "state": "ок"
     }
    ],
-   "clippedTubeKm": 0.0,
-   "clippedFiberKm": 0.0,
+   "overPlanTubeKm": 0.0,
+   "overPlanFiberKm": 0.0,
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 15.3,
@@ -10961,9 +10974,17 @@
    ]
   },
   "E0369": {
-   "tubeKm": 1.3,
+   "tubeKm": 7.951,
    "fiberKm": 0,
    "fillFrom": "D0719",
+   "settlements": [
+    "с.Жанааул"
+   ]
+  },
+  "E0368": {
+   "tubeKm": 0.579,
+   "fiberKm": 0,
+   "fillFrom": "D0709",
    "settlements": [
     "с.Жанааул"
    ]
@@ -11029,7 +11050,7 @@
   "planKm": 2877.1,
   "tubeKm": 62.1,
   "fiberKm": 7.7,
-  "paintedTubeKm": 46.2,
+  "paintedTubeKm": 53.4,
   "paintedFiberKm": 7.7,
   "graphTouchedKm": 2667.4,
   "graphPlannedKm": 2948.8,
@@ -11038,12 +11059,8 @@
     "tubeKm": 0.0,
     "fiberKm": 0.0
    },
-   "clipped": {
-    "tubeKm": 15.9,
-    "fiberKm": 0.0
-   },
    "spill": {
-    "tubeKm": 0.0,
+    "tubeKm": 8.67,
     "fiberKm": 0.0
    },
    "edgecap": {

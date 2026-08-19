@@ -265,6 +265,54 @@ def components(graph: Graph) -> dict[str, int]:
     return comp
 
 
+# Насколько близко значок OLT должен стоять к объекту, чтобы считаться его
+# декорацией. Единицы — координаты чертежа; в оцифровке пара «объект + его OLT»
+# стоит в 3..25 единиц друг от друга при медианной длине ребра под 80.
+DECOR_NEAR = 25.0
+HOST_KINDS = ("ats", "atn", "netengine", "snp")
+
+
+def decorations(graph: Graph) -> set[str]:
+    """id OLT-значков, которые на чертеже — декорация к соседнему объекту.
+
+    Правило оцифровки области: если рядом с АТС/ATN/СНП нарисован OLT, вся сеть
+    в этой точке идёт через ОДИН объект, а связь к самому значку (если её всё
+    же нарисовали) — символическая, без длины. Якориться на такой значок
+    нельзя: маршрут тогда начинается с ребра БЕЗ длины, а fill_along отдаёт
+    ребру без длины ВЕСЬ остаток километров (см. progress_core) — и факт села
+    целиком ложится на декорацию вместо трассы. В Алматинской так ушло 15.4 км
+    трубки на три «связи» OLT—АТС.
+
+    Значок, через который реально идёт сеть (есть рёбра не к своему объекту),
+    декорацией НЕ считается: чертёж главнее правила."""
+    cached = getattr(graph, "_smr2_decor", None)
+    if cached is not None:
+        return cached
+    hosts = [n for n in graph.nodes.values() if n.get("kind") in HOST_KINDS]
+    decor: set[str] = set()
+    for o in graph.nodes.values():
+        if o.get("kind") != "olt":
+            continue
+        on = normalize_name(o.get("name"))
+        if not on:
+            continue
+        host = None
+        for h in hosts:
+            if normalize_name(h.get("name")) != on:
+                continue
+            dx = (o.get("x") or 0.0) - (h.get("x") or 0.0)
+            dy = (o.get("y") or 0.0) - (h.get("y") or 0.0)
+            if dx * dx + dy * dy <= DECOR_NEAR * DECOR_NEAR:
+                host = h
+                break
+        if host is None:
+            continue
+        if all(other_end(e, o["id"]) == host["id"] for e in graph.adj.get(o["id"], ())):
+            decor.add(o["id"])
+    graph._smr2_decor = decor
+    return decor
+
+
 def node_label(graph: Graph, node_id: str) -> str:
     """Человекочитаемое имя узла для отчёта: часть муфт в чертеже безымянна,
     и «None» в тексте разбирать невозможно — показываем kind и id."""
@@ -414,8 +462,11 @@ def name_index(graph: Graph) -> list[tuple[str, str, dict]]:
     cached = getattr(graph, "_smr2_index", None)
     if cached is not None:
         return cached
+    decor = decorations(graph)
     idx = []
     for n in graph.nodes.values():
+        if n["id"] in decor:
+            continue          # декорация: сеть идёт через соседний объект
         nn = normalize_name(n.get("name"))
         if nn:
             idx.append((nn, normalize_name(n.get("district")), n))
@@ -622,7 +673,7 @@ def bind_to(graph: Graph, rec: dict, snp: dict | None, recs: list[dict]) -> dict
         "status": "", "note": "",
         "nodeId": None, "headNodeId": None, "anchorLabel": None, "anchorNodeId": None,
         "corridorKm": 0.0, "diffKm": None, "edgeIds": [], "upstreamKm": 0.0,
-        "segChecks": [], "clippedTubeKm": 0.0, "clippedFiberKm": 0.0,
+        "segChecks": [], "overPlanTubeKm": 0.0, "overPlanFiberKm": 0.0,
         "paintedTubeKm": 0.0, "paintedFiberKm": 0.0,
         "capKm": rec["planKm"], "homonyms": 1,
     }
@@ -848,6 +899,12 @@ def check_segments(graph: Graph, rec: dict, corridor: list[dict],
 
 
 # --------------------------------------------------------------- сборка ---
+# Статусы, при которых км села реально ложатся на рёбра. Всё остальное — либо
+# ручной разбор, либо сознательный пропуск: такие км на карте не видны.
+PAINTABLE = {"chain", "chain_len_mismatch", "tail", "tail_inexact",
+             "tail_short", "from_np", "donor_segment", "head_to_np"}
+
+
 def build(graph: Graph, slug: str, title: str, recs: list[dict]) -> dict:
     bound = [bind(graph, r, recs) for r in recs]
     edge_by_id = {e["id"]: e for e in graph.edges}
@@ -856,12 +913,9 @@ def build(graph: Graph, slug: str, title: str, recs: list[dict]) -> dict:
     # Баланс км: каждый факт из свода обязан найтись в одной из четырёх
     # корзин, иначе цифры на карте молча разойдутся со сводом (см. отчёт).
     lost = {"unbound": {"tubeKm": 0.0, "fiberKm": 0.0},   # село не привязано
-            "clipped": {"tubeKm": 0.0, "fiberKm": 0.0},   # факт > плана
-            "spill": {"tubeKm": 0.0, "fiberKm": 0.0},     # коридор короче факта
+            "spill": {"tubeKm": 0.0, "fiberKm": 0.0},     # маршрут короче факта
             "edgecap": {"tubeKm": 0.0, "fiberKm": 0.0}}   # ребро уже заполнено
 
-    PAINTABLE = {"chain", "chain_len_mismatch", "tail", "tail_inexact",
-                 "tail_short", "from_np", "donor_segment", "head_to_np"}
     for si, b in enumerate(bound):
         corridor = b.pop("_corridor", None)
         far_id = b.pop("_farId", None)
@@ -869,18 +923,17 @@ def build(graph: Graph, slug: str, title: str, recs: list[dict]) -> dict:
             lost["unbound"]["tubeKm"] += b["tubeKm"]
             lost["unbound"]["fiberKm"] += b["fiberKm"]
             continue
-        # Факт обрезаем по плану: свод местами показывает больше, чем сам же
-        # запланировал (сдают участок, не разнеся его по строкам). Излишек не
-        # выдумываем, куда положить, — он уходит в отчёт.
-        # Потолок — план строки, а у строк без плана (donor_segment) длина
-        # участка, взятого из чужой строки.
+        # Факт кладём КАК ЕСТЬ, без обрезки по плану. Свод регулярно
+        # показывает больше, чем сам же запланировал (сдают участок, не разнеся
+        # его по строкам), но решать за составителей свода, какие километры
+        # «настоящие», — не наша задача: мы цифру получаем и показываем.
+        # Единственный предел дальше — геометрия: длиннее самого маршрута
+        # уложить физически некуда, неуместившееся видно в балансе (spill).
         plan = b.get("capKm") or b["planKm"]
-        tube = min(b["tubeKm"], plan)
-        fiber = min(b["fiberKm"], plan)
-        b["clippedTubeKm"] = round(max(0.0, b["tubeKm"] - tube), 3)
-        b["clippedFiberKm"] = round(max(0.0, b["fiberKm"] - fiber), 3)
-        lost["clipped"]["tubeKm"] += b["clippedTubeKm"]
-        lost["clipped"]["fiberKm"] += b["clippedFiberKm"]
+        tube, fiber = b["tubeKm"], b["fiberKm"]
+        # Превышение плана только фиксируем — на раскладку оно не влияет.
+        b["overPlanTubeKm"] = round(max(0.0, tube - plan), 3)
+        b["overPlanFiberKm"] = round(max(0.0, fiber - plan), 3)
 
         for metric, km in (("tubeKm", tube), ("fiberKm", fiber)):
             if km <= 0:
@@ -924,9 +977,12 @@ def build(graph: Graph, slug: str, title: str, recs: list[dict]) -> dict:
             for g in groups.values():
                 if not g:
                     continue
-                top = max(g.values())
-                for si, km in g.items():
-                    painted[si][metric] += (km if km >= top else 0.0) * scale
+                # Зачёт получает РОВНО ОДИН вкладчик — тот, чей кусок длиннее.
+                # При равенстве (оба села закрыли ребро целиком) берём первого:
+                # иначе одни и те же км засчитаются дважды и сумма по сёлам
+                # разойдётся с картой (Туркестанская — лишний километр).
+                winner = max(g.items(), key=lambda kv: (kv[1], -kv[0]))[0]
+                painted[winner][metric] += g[winner] * scale
         del cell["_by"]
 
     for b, got in zip(bound, painted):
@@ -962,7 +1018,9 @@ def build(graph: Graph, slug: str, title: str, recs: list[dict]) -> dict:
             "graphPlannedKm": round(
                 sum(e.get("lengthKm") or 0.0 for e in graph.edges
                     if e.get("type") == "planned"), 1),
-            "lost": {k: {m: round(v, 1) for m, v in d.items()} for k, d in lost.items()},
+            # Три знака, а не один: пять корзин, округлённых по отдельности,
+            # дают до ±0.25 км расхождения с итогом — баланс должен сходиться.
+            "lost": {k: {m: round(v, 3) for m, v in d.items()} for k, d in lost.items()},
         },
     }
 
@@ -1002,7 +1060,7 @@ def render_report(payload: dict) -> str:
     A("Маршрут каждого села восстановлен по цепочке участков свода "
       "(метка → км → метка → … → НП), затем сопоставлен с графом. "
       "Факт — столбцы «Магистр. Сеть (трубка) км» и «Магистр. Сеть (ВОЛС) км», "
-      "обрезанный по плану строки.\n")
+      "взятый как есть, без обрезки по плану строки.\n")
 
     A("## Итого\n")
     A("| показатель | км |")
@@ -1020,14 +1078,12 @@ def render_report(payload: dict) -> str:
     A("|---|---:|---:|")
     A(f"| Всего в своде | {t['tubeKm']} | {t['fiberKm']} |")
     A(f"| — легло на рёбра карты | {t['paintedTubeKm']} | {t['paintedFiberKm']} |")
-    A(f"| — село не привязано (раздел 1) | {lo['unbound']['tubeKm']} | "
-      f"{lo['unbound']['fiberKm']} |")
-    A(f"| — срезано, факт > плана (раздел 4) | {lo['clipped']['tubeKm']} | "
-      f"{lo['clipped']['fiberKm']} |")
-    A(f"| — коридор в графе короче факта | {lo['spill']['tubeKm']} | "
-      f"{lo['spill']['fiberKm']} |")
-    A(f"| — тот же отрезок уже учтён другим селом | {lo['edgecap']['tubeKm']} | "
-      f"{lo['edgecap']['fiberKm']} |")
+    A(f"| — село не привязано (раздел 1) | {lo['unbound']['tubeKm']:.1f} | "
+      f"{lo['unbound']['fiberKm']:.1f} |")
+    A(f"| — маршрут короче факта, класть некуда (раздел 4) "
+      f"| {lo['spill']['tubeKm']:.1f} | {lo['spill']['fiberKm']:.1f} |")
+    A(f"| — тот же отрезок уже учтён другим селом | {lo['edgecap']['tubeKm']:.1f} | "
+      f"{lo['edgecap']['fiberKm']:.1f} |")
     A("")
 
     A("## Как привязались сёла\n")
@@ -1064,6 +1120,28 @@ def render_report(payload: dict) -> str:
           ["стр", "НП", "ПкСС", "план", "трубка", "ВОЛС", "статус", "что не так"],
           "— все сёла с фактом привязаны точно —")
 
+    v = m.get("verify") or {}
+    if v:
+        st = v.get("stats") or {}
+        A("## Сверка целостности\n")
+        A("Прямой прогон по всем записям при каждом обновлении. Раскладка "
+          "ссылается на рёбра по id, а граф правят руками: удалённое или "
+          "перерисованное ребро иначе унесло бы запись с карты молча.\n")
+        A("| проверка | значение |")
+        A("|---|---:|")
+        A(f"| рёбер в раскладке | {st.get('edges', 0)} |")
+        A(f"| из них нет в графе | {st.get('deadEdges', 0)} |")
+        A(f"| сёл с фактом мимо карты | {st.get('unbound', 0)} |")
+        A(f"| сёл, чей зачёт у соседа по трассе | {st.get('shadowed', 0)} |")
+        A(f"| вернулось на карту с прошлого разбора | {st.get('restored', 0)} |")
+        A(f"| перестало показываться | {st.get('dropped', 0)} |")
+        A("")
+        for line in v.get("hard", []):
+            A(f"* **{line}**")
+        for line in v.get("soft", []):
+            A(f"* {line}")
+        A("")
+
     A("## 1. Требуют ручного разбора\n")
     A("Ничего не закрашено на карте: алгоритм не смог однозначно определить "
       "участок.\n")
@@ -1099,16 +1177,18 @@ def render_report(payload: dict) -> str:
            lambda p: p[1].get("graphKm", "—"), lambda p: p[1]["state"]],
           ["стр", "НП", "метка свода", "узел графа", "свод, км", "граф, км", "состояние"])
 
-    A("## 4. Факт больше плана (обрезано)\n")
-    A("По договорённости лишние км не раскладываются: ребро красится максимум "
-      "на 100 %, а излишек — сюда.\n")
-    ov = sorted([s for s in S if s["clippedTubeKm"] > 0.05 or s["clippedFiberKm"] > 0.05],
-                key=lambda s: -max(s["clippedTubeKm"], s["clippedFiberKm"]))
+    A("## 4. Факт больше плана свода\n")
+    A("Цифра свода кладётся на маршрут как есть, ничего не срезается. Список "
+      "справочный: это вопрос к своду, а не к карте. Маршрут при этом "
+      "закрашивается целиком, а километры, которым не хватило длины маршрута, "
+      "видны в балансе строкой «маршрут короче факта».\n")
+    ov = sorted([s for s in S if s["overPlanTubeKm"] > 0.05 or s["overPlanFiberKm"] > 0.05],
+                key=lambda s: -max(s["overPlanTubeKm"], s["overPlanFiberKm"]))
     table(ov,
           [lambda s: s["row"], lambda s: s["name"], lambda s: s["planKm"],
            lambda s: s["tubeKm"], lambda s: s["fiberKm"],
-           lambda s: f"{s['clippedTubeKm']} / {s['clippedFiberKm']}"],
-          ["стр", "НП", "план", "трубка", "ВОЛС", "срезано трубка / ВОЛС"])
+           lambda s: f"{s['overPlanTubeKm']} / {s['overPlanFiberKm']}"],
+          ["стр", "НП", "план", "трубка", "ВОЛС", "сверх плана трубка / ВОЛС"])
 
     A("## 5. Хвост не лёг на узел\n")
     A("В цепочке одни П-N, поэтому взят хвост маршрута длиной в план, но план "
@@ -1131,23 +1211,202 @@ def render_report(payload: dict) -> str:
     return "\n".join(L) + "\n"
 
 
+# --------------------------------------------------------------- сверка ---
+# Граф правят руками: ошибочное ребро удаляют и рисуют заново, узел
+# переименовывают, кусок области переоцифровывают. У НОВОГО ребра другой id, а
+# факт лежит отдельным файлом и ссылается на рёбра по id — фронт неизвестный id
+# молча пропускает (applyFactMode в graph-app.js). То есть запись способна
+# исчезнуть с карты без единого слова, и заметить это можно только сверкой.
+# Поэтому каждое обновление заканчивается прямым прогоном по ВСЕМ записям:
+# всё ли, что должно быть на графе, на нём есть.
+VERIFY_TOL = 0.15
+
+
+def _fact_km(s: dict) -> float:
+    return (s.get("tubeKm") or 0.0) + (s.get("fiberKm") or 0.0)
+
+
+def _painted_km(s: dict) -> float:
+    return (s.get("paintedTubeKm") or 0.0) + (s.get("paintedFiberKm") or 0.0)
+
+
+def verify(graph: Graph, payload: dict, previous: dict | None = None) -> dict:
+    """Прогон по всем записям области против ТЕКУЩЕГО графа.
+
+    hard — карта врёт прямо сейчас, прогон обязан покраснеть;
+    soft — объяснимо, но человек должен знать (и это идёт в отчёт)."""
+    edge_by_id = {e["id"]: e for e in graph.edges}
+    cells = payload.get("edges") or {}
+    rows = payload.get("settlements") or []
+    hard: list[str] = []
+    soft: list[str] = []
+
+    # 1. Каждое ребро раскладки обязано существовать в графе. Не существует —
+    #    значит его удалили или перерисовали после разбора, и км с него на
+    #    карте уже не видно.
+    dead = sorted(eid for eid in cells if eid not in edge_by_id)
+    if dead:
+        hard.append(f"{len(dead)} рёбер раскладки нет в графе: "
+                    + ", ".join(dead[:8]) + (" и др." if len(dead) > 8 else ""))
+
+    # 2. Конец, ОТ которого заливаем, обязан быть концом самого ребра, иначе
+    #    фронт закрасит зелёным не ту половину участка.
+    bad_fill = sorted(
+        eid for eid, c in cells.items()
+        if eid in edge_by_id
+        and c.get("fillFrom") not in (edge_by_id[eid]["from"], edge_by_id[eid]["to"]))
+    if bad_fill:
+        hard.append(f"{len(bad_fill)} рёбер заливаются от чужого узла: "
+                    + ", ".join(bad_fill[:8]))
+
+    # 3. Ребро не может быть закрашено сверх собственной длины.
+    over = []
+    for eid, c in cells.items():
+        length = (edge_by_id.get(eid) or {}).get("lengthKm")
+        if not length:
+            continue
+        for metric in ("tubeKm", "fiberKm"):
+            km = c.get(metric) or 0.0
+            if km - length > TOL:
+                over.append(f"{eid}: {km} км при длине {length}")
+    if over:
+        hard.append(f"{len(over)} рёбер закрашено сверх длины: "
+                    + "; ".join(over[:5]))
+
+    # 4. Главное: каждая запись с фактом обязана быть видна на карте.
+    orphan, unbound, shadowed = [], [], []
+    for s in rows:
+        if _fact_km(s) <= TOL:
+            continue
+        # Хватит и ОДНОГО исчезнувшего ребра: км с него на карте уже не видно,
+        # даже если остальной коридор села цел.
+        vanished = [eid for eid in (s.get("edgeIds") or []) if eid not in edge_by_id]
+        if s.get("status") not in PAINTABLE:
+            unbound.append(s)          # известная дыра, раздел 1 отчёта
+        elif vanished:
+            orphan.append(s)           # ребро было и пропало — правку графа
+        elif _painted_km(s) <= TOL:
+            shadowed.append(s)         # трассу закрыл сосед (правило максимума)
+    if orphan:
+        hard.append(f"{len(orphan)} записей ссылаются на исчезнувшие рёбра: "
+                    + ", ".join(f"{s.get('name')} (стр {s.get('row')})"
+                                for s in orphan[:8])
+                    + (" и др." if len(orphan) > 8 else ""))
+    if unbound:
+        soft.append(f"{len(unbound)} сёл с фактом не легли на граф "
+                    "(раздел 1 отчёта)")
+    if shadowed:
+        soft.append(f"{len(shadowed)} сёл делят трассу с соседом: отрезок "
+                    "закрашен, зачёт у того, кто прошёл дальше")
+
+    # 5. Баланс: свод = легло на карту + четыре корзины потерь.
+    t = payload.get("totals") or {}
+    lo = t.get("lost") or {}
+    for metric, painted_key in (("tubeKm", "paintedTubeKm"),
+                                ("fiberKm", "paintedFiberKm")):
+        total = t.get(metric) or 0.0
+        got = (t.get(painted_key) or 0.0) + sum(
+            (bucket or {}).get(metric, 0.0) for bucket in lo.values())
+        if abs(got - total) > VERIFY_TOL:
+            hard.append(f"баланс {metric}: свод {total}, разложено {got:.3f}, "
+                        f"расхождение {got - total:+.3f} км")
+
+    # 6. Что изменилось против прошлого разбора. Ради этого сверка и нужна:
+    #    удалили ребро и нарисовали заново — запись обязана ВЕРНУТЬСЯ, и здесь
+    #    видно, вернулась ли.
+    back, gone = [], []
+    if previous:
+        was = {(s.get("row"), s.get("name")): _painted_km(s)
+               for s in (previous.get("settlements") or [])}
+        # Село, чей зачёт просто перешёл к соседу по трассе, не считается
+        # пропавшим: отрезок на карте закрашен, изменился только владелец км.
+        shadow = {(s.get("row"), s.get("name")) for s in shadowed}
+        for s in rows:
+            key = (s.get("row"), s.get("name"))
+            # Строки без факта пропускаем: если свод обнулил километры, показывать
+            # действительно нечего, и это не потеря.
+            if key not in was or _fact_km(s) <= TOL:
+                continue
+            now = _painted_km(s)
+            if was[key] <= TOL < now:
+                back.append(s)
+            elif now <= TOL < was[key] and key not in shadow:
+                gone.append(s)
+    if back:
+        soft.append(f"вернулось на карту: {len(back)} — "
+                    + ", ".join(str(s.get("name")) for s in back[:8]))
+    if gone:
+        # Факт есть, вчера был на карте, сегодня нет — либо правка графа порвала
+        # маршрут, либо строка свода перестала разбираться. Прогон краснеет.
+        hard.append(f"перестало показываться при живом факте: {len(gone)} — "
+                    + ", ".join(f"{s.get('name')} (стр {s.get('row')})"
+                                for s in gone[:8])
+                    + (" и др." if len(gone) > 8 else ""))
+
+    return {
+        "hard": hard,
+        "soft": soft,
+        "stats": {"edges": len(cells), "deadEdges": len(dead),
+                  "orphans": len(orphan), "unbound": len(unbound),
+                  "shadowed": len(shadowed),
+                  "restored": len(back), "dropped": len(gone)},
+    }
+
+
+def verify_disk(slugs: set[str] | None = None) -> list[str]:
+    """Сверить то, что РЕАЛЬНО лежит в smr2/ и уйдёт на карту.
+
+    Отдельный проход поверх сборки: файл области мог остаться с прошлого раза —
+    лист не разобрался, guard отказался перезаписывать, область выпала из
+    книги. Такой файл всё равно отдаётся через /api/smr2, и если граф с тех пор
+    правили, он ссылается на рёбра, которых уже нет."""
+    problems: list[str] = []
+    for path in sorted(OUT_DIR.glob("*.json")):
+        slug = path.stem
+        if slugs and slug not in slugs:
+            continue
+        gpath = REGIONS_DIR / f"{slug}.json"
+        if not gpath.exists():
+            problems.append(f"{slug}: есть факт, но нет графа {gpath.name}")
+            print(f"  ! {slug}: нет графа {gpath.name}")
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except Exception as exc:        # noqa: BLE001
+            problems.append(f"{slug}: файл факта не читается: {exc}")
+            print(f"  ! {slug}: файл факта не читается: {exc}")
+            continue
+        res = verify(Graph(gpath), payload)
+        st = res["stats"]
+        rows = payload.get("settlements") or []
+        on_map = sum(1 for s in rows if _fact_km(s) > TOL and _painted_km(s) > TOL)
+        with_fact = sum(1 for s in rows if _fact_km(s) > TOL)
+        stamp = ((payload.get("meta") or {}).get("generated") or "?")[:10]
+        mark = "!" if res["hard"] else " "
+        print(f"  {mark} {slug:<18} "
+              f"рёбер {st['edges']:>4}, из них мёртвых {st['deadEdges']:>3} · "
+              f"сёл с фактом {with_fact:>3}, на карте {on_map:>3} · {stamp}")
+        for line in res["hard"]:
+            problems.append(f"{slug}: {line}")
+            print(f"      ! {line}")
+        for line in res["soft"]:
+            print(f"      · {line}")
+    return problems
+
+
 # ----------------------------------------------------------------- вход ---
 GUARD_PLAN_DRIFT = 0.25
 GUARD_BIND_DROP = 0.15
 
 
-def suspicious(path: Path, payload: dict) -> str:
+def suspicious(old: dict | None, payload: dict, graph: Graph) -> str:
     """Причина не перезаписывать файл области, либо пустая строка.
 
     Свод правят руками, и одна сдвинутая колонка способна обнулить привязку по
     всей области. Раз обновление автоматическое и никто не смотрит на него
     каждый день, сравниваем с прошлым разбором и отказываемся затирать
     осмысленные данные подозрительными."""
-    if not path.exists():
-        return ""
-    try:
-        old = json.loads(path.read_text(encoding="utf-8"))
-    except Exception:               # noqa: BLE001
+    if not old:
         return ""
 
     def bind_share(p: dict) -> float:
@@ -1163,6 +1422,14 @@ def suspicious(path: Path, payload: dict) -> str:
                 f"— похоже на сдвиг столбцов")
     drop = bind_share(old) - bind_share(payload)
     if drop > GUARD_BIND_DROP:
+        # ИСКЛЮЧЕНИЕ: если старый файл ссылается на рёбра, которых в графе уже
+        # нет, значит граф правили после прошлого разбора — просадка объясняется
+        # самой правкой. Отказ от записи в этом случае вреден: на карте
+        # осталась бы раскладка по УДАЛЁННЫМ рёбрам, то есть часть работ
+        # исчезла бы с карты навсегда, до ручного вмешательства.
+        ids = {e["id"] for e in graph.edges}
+        if any(eid not in ids for eid in (old.get("edges") or {})):
+            return ""
         return (f"привязка просела с {bind_share(old):.0%} до "
                 f"{bind_share(payload):.0%} сёл")
     return ""
@@ -1195,32 +1462,51 @@ def find_xlsx() -> Path:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--region", default="zhambyl",
+    ap.add_argument("--region", default=None,
                     help="slug области или несколько через запятую; "
                          "'all' — все листы свода")
     ap.add_argument("--from-sheet", action="store_true",
                     help="взять свод прямо из Google-таблицы, а не из data/")
     ap.add_argument("--report-only", action="store_true",
                     help="не писать smr2/*.json, только отчёт в stdout")
+    ap.add_argument("--verify-only", action="store_true",
+                    help="ничего не тянуть: прогнать сверку того, что уже "
+                         "лежит в smr2/, против текущих графов")
     args = ap.parse_args()
+    # По умолчанию разбираем Жамбыл (с него начинали), но сверка без разбора
+    # осмысленна только по всем областям сразу.
+    if args.region is None:
+        args.region = "all" if args.verify_only else "zhambyl"
 
     # Консоль Windows по умолчанию в cp1251 и давится на «→» в логе прогона.
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8", errors="replace")
 
+    # Области разбираем по одной, но отчёт общий: перечислите уже разобранные
+    # через запятую, иначе SMR2_RECONCILE.md потеряет их разделы.
+    wanted = None if args.region == "all" else {
+        s.strip() for s in args.region.split(",") if s.strip()}
+
+    # Сверка без разбора: пригодится сразу после правки графа — покажет, не
+    # осталось ли записей, ссылающихся на удалённые рёбра, не дожидаясь
+    # ближайшего автообновления.
+    if args.verify_only:
+        print("Сверка smr2/*.json с текущими графами:")
+        if verify_disk(wanted):
+            raise SystemExit(1)
+        print("\nВсе записи на месте.")
+        return
+
     import openpyxl
 
     xlsx = fetch_sheet() if args.from_sheet else find_xlsx()
     wb = openpyxl.load_workbook(xlsx, data_only=True, read_only=True)
 
-    # Области разбираем по одной, но отчёт общий: перечислите уже разобранные
-    # через запятую, иначе SMR2_RECONCILE.md потеряет их разделы.
-    wanted = None if args.region == "all" else {
-        s.strip() for s in args.region.split(",") if s.strip()}
     by_slug: dict[str, list[dict]] = {}
     titles: dict[str, str] = {}
     failed: dict[str, str] = {}
+    broken: list[str] = []      # находки сверки, из-за которых прогон краснеет
 
     for sheet, slug in SHEET_TO_SLUG.items():
         if sheet not in wb.sheetnames:
@@ -1267,15 +1553,33 @@ def main() -> None:
         graph = Graph(gpath)
         title = graph.meta.get("registry", {}).get("title") or titles[slug]
         payload = build(graph, slug, title, recs)
+
+        # Прошлый разбор нужен и guard-у, и сверке: по нему видно, что за сутки
+        # ушло с карты, а что вернулось (например, после перерисовки ребра).
+        opath = OUT_DIR / f"{slug}.json"
+        old = None
+        if opath.exists():
+            try:
+                old = json.loads(opath.read_text(encoding="utf-8"))
+            except Exception:           # noqa: BLE001
+                old = None
+        res = verify(graph, payload, old)
+        payload["meta"]["verify"] = res
+
         t, c = payload["totals"], payload["meta"]["counts"]
         ok = c.get("chain", 0) + c.get("tail", 0)
         print(f"  {slug:<18} сёл {len(recs):>4} · привязано точно {ok:>4} · "
               f"план {t['planKm']:>8} км · трубка {t['tubeKm']:>7} км · "
               f"ВОЛС {t['fiberKm']:>7} км")
+        for line in res["hard"]:
+            broken.append(f"{slug}: {line}")
+            print(f"      ! сверка: {line}")
+        for line in res["soft"]:
+            print(f"      · сверка: {line}")
         if slug in failed:
             print(f"      ! {slug}: часть листов не разобрана, файл не трогаю")
         elif not args.report_only:
-            why = suspicious(OUT_DIR / f"{slug}.json", payload)
+            why = suspicious(old, payload, graph)
             if why:
                 failed[slug] = why
                 print(f"      ! {slug}: {why} — файл НЕ перезаписан")
@@ -1292,11 +1596,24 @@ def main() -> None:
         REPORT.write_text(text, encoding="utf-8")
         print(f"\nзаписано: smr2/*.json и {REPORT.name}")
 
-    if failed:
-        print("\nОБЛАСТИ БЕЗ ОБНОВЛЕНИЯ "
-              "(на карте осталась прежняя версия):")
-        for slug, why in sorted(failed.items()):
-            print(f"  · {slug}: {why}")
+    # Финальный прямой прогон по ВСЕМ файлам факта, а не только по собранным
+    # сейчас: на карту уходит содержимое папки целиком, включая области,
+    # которые в этот раз не обновились (guard, битый лист, отсутствующий граф).
+    stale: list[str] = []
+    if not args.report_only:
+        print("\nСверка того, что лежит на диске и уйдёт на карту:")
+        stale = verify_disk()
+
+    if failed or stale or broken:
+        if failed:
+            print("\nОБЛАСТИ БЕЗ ОБНОВЛЕНИЯ "
+                  "(на карте осталась прежняя версия):")
+            for slug, why in sorted(failed.items()):
+                print(f"  · {slug}: {why}")
+        if broken or stale:
+            print("\nСВЕРКА НЕ СОШЛАСЬ (карта покажет не то, что в своде):")
+            for line in broken + [x for x in stale if x not in broken]:
+                print(f"  · {line}")
         raise SystemExit(1)
 
 
