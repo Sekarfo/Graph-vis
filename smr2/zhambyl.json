@@ -3,7 +3,7 @@
   "slug": "zhambyl",
   "title": "Жамбылская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-18T14:49:23+00:00",
+  "generated": "2026-08-19T03:12:45+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -324,7 +324,7 @@
    "head": "РРС Жума",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 26.0,
-   "tubeKm": 16.341,
+   "tubeKm": 19.241,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -365,7 +365,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 16.341,
+   "paintedTubeKm": 19.241,
    "paintedFiberKm": 0.0,
    "capKm": 26.0,
    "homonyms": 1
@@ -5246,7 +5246,7 @@
    "head": "АТС Мерке",
    "tech": "ВОЛС",
    "planKm": 10.0,
-   "tubeKm": 0.724,
+   "tubeKm": 0.968,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5269,7 +5269,7 @@
    "segChecks": [],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 0.724,
+   "paintedTubeKm": 0.968,
    "paintedFiberKm": 0.0,
    "capKm": 10.0,
    "homonyms": 1
@@ -6857,7 +6857,7 @@
    "head": "Қарасай батыр",
    "tech": "ВОЛС",
    "planKm": 39.2,
-   "tubeKm": 27.993,
+   "tubeKm": 28.076,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -6893,7 +6893,7 @@
    ],
    "clippedTubeKm": 0.0,
    "clippedFiberKm": 0.0,
-   "paintedTubeKm": 27.993,
+   "paintedTubeKm": 28.076,
    "paintedFiberKm": 0.0,
    "capKm": 39.2,
    "homonyms": 1
@@ -7173,7 +7173,7 @@
    ]
   },
   "E0598": {
-   "tubeKm": 1.341,
+   "tubeKm": 4.241,
    "fiberKm": 0,
    "fillFrom": "N0112",
    "settlements": [
@@ -7302,7 +7302,7 @@
    ]
   },
   "E1201": {
-   "tubeKm": 0.724,
+   "tubeKm": 0.968,
    "fiberKm": 0,
    "fillFrom": "N1158",
    "settlements": [
@@ -7422,7 +7422,7 @@
    ]
   },
   "E0285": {
-   "tubeKm": 27.993,
+   "tubeKm": 28.076,
    "fiberKm": 0,
    "fillFrom": "N1194",
    "settlements": [
@@ -7448,9 +7448,9 @@
  },
  "totals": {
   "planKm": 1412.5,
-  "tubeKm": 227.2,
+  "tubeKm": 230.4,
   "fiberKm": 58.9,
-  "paintedTubeKm": 178.5,
+  "paintedTubeKm": 181.8,
   "paintedFiberKm": 49.4,
   "graphTouchedKm": 1441.4,
   "graphPlannedKm": 1468.5,
