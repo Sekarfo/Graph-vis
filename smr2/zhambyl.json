@@ -3,7 +3,7 @@
   "slug": "zhambyl",
   "title": "Жамбылская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-19T14:49:28+00:00",
+  "generated": "2026-08-20T03:11:46+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -21,7 +21,7 @@
    "hard": [],
    "soft": [],
    "stats": {
-    "edges": 35,
+    "edges": 37,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
@@ -337,7 +337,7 @@
    "head": "РРС Жума",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 26.0,
-   "tubeKm": 19.241,
+   "tubeKm": 22.911,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -378,7 +378,7 @@
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "paintedTubeKm": 19.241,
+   "paintedTubeKm": 22.911,
    "paintedFiberKm": 0.0,
    "capKm": 26.0,
    "homonyms": 1
@@ -1681,7 +1681,7 @@
    "head": "Кәріқорған",
    "tech": "ВОЛС",
    "planKm": 8.0,
-   "tubeKm": 6.419,
+   "tubeKm": 7.073,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1709,7 +1709,7 @@
    "segChecks": [],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "paintedTubeKm": 6.419,
+   "paintedTubeKm": 7.073,
    "paintedFiberKm": 0.0,
    "capKm": 8.0,
    "homonyms": 1
@@ -3605,7 +3605,7 @@
    "head": "СНП Дихан",
    "tech": "ВОЛС",
    "planKm": 7.0,
-   "tubeKm": 0.0,
+   "tubeKm": 0.32,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -3636,7 +3636,7 @@
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 0.32,
    "paintedFiberKm": 0.0,
    "capKm": 7.0,
    "homonyms": 1
@@ -3649,7 +3649,7 @@
    "head": "СНП Дихан",
    "tech": "ВОЛС",
    "planKm": 3.0,
-   "tubeKm": 1.331,
+   "tubeKm": 1.611,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -3680,7 +3680,7 @@
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "paintedTubeKm": 1.331,
+   "paintedTubeKm": 1.611,
    "paintedFiberKm": 0.0,
    "capKm": 3.0,
    "homonyms": 1
@@ -5259,7 +5259,7 @@
    "head": "АТС Мерке",
    "tech": "ВОЛС",
    "planKm": 10.0,
-   "tubeKm": 0.968,
+   "tubeKm": 1.174,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5282,7 +5282,7 @@
    "segChecks": [],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "paintedTubeKm": 0.968,
+   "paintedTubeKm": 1.174,
    "paintedFiberKm": 0.0,
    "capKm": 10.0,
    "homonyms": 1
@@ -6870,7 +6870,7 @@
    "head": "Қарасай батыр",
    "tech": "ВОЛС",
    "planKm": 39.2,
-   "tubeKm": 28.076,
+   "tubeKm": 28.088,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -6906,7 +6906,7 @@
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "paintedTubeKm": 28.076,
+   "paintedTubeKm": 28.088,
    "paintedFiberKm": 0.0,
    "capKm": 39.2,
    "homonyms": 1
@@ -7186,7 +7186,7 @@
    ]
   },
   "E0598": {
-   "tubeKm": 4.241,
+   "tubeKm": 7.911,
    "fiberKm": 0,
    "fillFrom": "N0112",
    "settlements": [
@@ -7234,9 +7234,17 @@
    ]
   },
   "E0353": {
-   "tubeKm": 6.419,
+   "tubeKm": 6.5,
    "fiberKm": 0,
    "fillFrom": "N0772",
+   "settlements": [
+    "Шыңбұлақ"
+   ]
+  },
+  "E0354": {
+   "tubeKm": 0.573,
+   "fiberKm": 0,
+   "fillFrom": "N0777",
    "settlements": [
     "Шыңбұлақ"
    ]
@@ -7282,8 +7290,16 @@
     "Ақтасты"
    ]
   },
+  "E0451": {
+   "tubeKm": 0.32,
+   "fiberKm": 0,
+   "fillFrom": "N1181",
+   "settlements": [
+    "Жеңіс"
+   ]
+  },
   "E0452": {
-   "tubeKm": 1.331,
+   "tubeKm": 1.611,
    "fiberKm": 0,
    "fillFrom": "N0704",
    "settlements": [
@@ -7315,7 +7331,7 @@
    ]
   },
   "E1201": {
-   "tubeKm": 0.968,
+   "tubeKm": 1.174,
    "fiberKm": 0,
    "fillFrom": "N1158",
    "settlements": [
@@ -7435,7 +7451,7 @@
    ]
   },
   "E0285": {
-   "tubeKm": 28.076,
+   "tubeKm": 28.088,
    "fiberKm": 0,
    "fillFrom": "N1194",
    "settlements": [
@@ -7461,9 +7477,9 @@
  },
  "totals": {
   "planKm": 1412.5,
-  "tubeKm": 230.4,
+  "tubeKm": 235.5,
   "fiberKm": 58.9,
-  "paintedTubeKm": 181.8,
+  "paintedTubeKm": 186.9,
   "paintedFiberKm": 49.4,
   "graphTouchedKm": 1441.4,
   "graphPlannedKm": 1468.5,
