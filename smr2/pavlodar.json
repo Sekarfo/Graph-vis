@@ -3,20 +3,20 @@
   "slug": "pavlodar",
   "title": "Павлодарская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-20T05:30:28+00:00",
+  "generated": "2026-08-20T14:51:05+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
   },
   "counts": {
-   "tail": 92,
+   "tail": 101,
    "chain": 39,
    "tail_short": 29,
-   "from_np": 13,
    "tail_inexact": 3,
    "upstream_ambiguous": 9,
    "np_not_found": 3,
    "no_route": 3,
+   "from_np": 4,
    "chain_len_mismatch": 2,
    "skipped_no_plan": 1
   },
@@ -27,7 +27,7 @@
     "1 сёл делят трассу с соседом: отрезок закрашен, зачёт у того, кто прошёл дальше"
    ],
    "stats": {
-    "edges": 57,
+    "edges": 56,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 5,
@@ -129,7 +129,7 @@
    "name": "с.Караагаш",
    "district": "Иртышский район",
    "okrug": "Северный с.о.",
-   "head": "",
+   "head": "СНП АТС Северное",
    "tech": "ВОЛС",
    "planKm": 8.0,
    "tubeKm": 0.0,
@@ -143,7 +143,7 @@
    "status": "chain",
    "note": "",
    "nodeId": "P00E3",
-   "headNodeId": null,
+   "headNodeId": "PF19949",
    "anchorLabel": "АТС Северное",
    "anchorNodeId": "PF19949",
    "corridorKm": 8.0,
@@ -232,7 +232,7 @@
    "name": "с.Агашорын",
    "district": "Иртышский район",
    "okrug": "Агашорынский с.о.",
-   "head": "",
+   "head": "с.Ленино",
    "tech": "ВОЛС",
    "planKm": 1.0,
    "tubeKm": 0.0,
@@ -243,10 +243,10 @@
      "km": 1.0
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "tail",
+   "note": "",
    "nodeId": "P005D",
-   "headNodeId": null,
+   "headNodeId": "P00E2",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 1.0,
@@ -269,7 +269,7 @@
    "name": "с.Амангельды",
    "district": "Иртышский район",
    "okrug": "Амагельдинский с.о.",
-   "head": "",
+   "head": "с.Ленино",
    "tech": "ВОЛС",
    "planKm": 19.0,
    "tubeKm": 1.8,
@@ -280,10 +280,10 @@
      "km": 19.0
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "tail",
+   "note": "",
    "nodeId": "P0080",
-   "headNodeId": null,
+   "headNodeId": "P00E2",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 19.0,
@@ -354,7 +354,7 @@
    "name": "с.Кызылкак",
    "district": "Иртышский район",
    "okrug": "Коскольский с.о.",
-   "head": "",
+   "head": "с.Кызылкак",
    "tech": "ВОЛС",
    "planKm": 25.2,
    "tubeKm": 13.0,
@@ -365,10 +365,10 @@
      "km": 25.2
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "tail",
+   "note": "",
    "nodeId": "P0067",
-   "headNodeId": null,
+   "headNodeId": "PF19952",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 25.2,
@@ -446,7 +446,7 @@
    "name": "с.Буланбай",
    "district": "Иртышский район",
    "okrug": "Селетинский с.о.",
-   "head": "",
+   "head": "с.Селета",
    "tech": "ВОЛС",
    "planKm": 1.0,
    "tubeKm": 0.0,
@@ -457,10 +457,10 @@
      "km": 1.0
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "tail",
+   "note": "",
    "nodeId": "P00DF",
-   "headNodeId": null,
+   "headNodeId": "P00E0",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 1.0,
@@ -483,7 +483,7 @@
    "name": "с.Кызылагаш",
    "district": "Иртышский район",
    "okrug": "Селетинский с.о.",
-   "head": "",
+   "head": "с.Селета",
    "tech": "ВОЛС",
    "planKm": 22.3,
    "tubeKm": 0.0,
@@ -498,10 +498,10 @@
      "km": 1.0
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "tail",
+   "note": "",
    "nodeId": "P00E1",
-   "headNodeId": null,
+   "headNodeId": "P00E0",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 22.3,
@@ -573,7 +573,7 @@
    "name": "с.Косагаш",
    "district": "Иртышский район",
    "okrug": "Панфиловский с.о.",
-   "head": "",
+   "head": "БТС Панфилово",
    "tech": "ВОЛС",
    "planKm": 17.5,
    "tubeKm": 0.0,
@@ -587,7 +587,7 @@
    "status": "chain",
    "note": "",
    "nodeId": "P00DD",
-   "headNodeId": null,
+   "headNodeId": "P00DC",
    "anchorLabel": "БТС Панфилово",
    "anchorNodeId": "P00DC",
    "corridorKm": 17.5,
@@ -704,7 +704,7 @@
    "name": "с.Караой",
    "district": "Актогайский район",
    "okrug": "Кожамжарский с.о.",
-   "head": "",
+   "head": "АТС Актогай",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 2.2,
    "tubeKm": 0.0,
@@ -718,7 +718,7 @@
    "status": "chain",
    "note": "",
    "nodeId": "P0137",
-   "headNodeId": null,
+   "headNodeId": "P957257",
    "anchorLabel": "Жамбыл",
    "anchorNodeId": "P0062",
    "corridorKm": 2.2,
@@ -749,7 +749,7 @@
    "name": "с.Кайран",
    "district": "Актогайский район",
    "okrug": "Кожамжарский с.о.",
-   "head": "",
+   "head": "АТС Актогай",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 2.6,
    "tubeKm": 0.0,
@@ -760,10 +760,10 @@
      "km": 2.6
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "tail",
+   "note": "",
    "nodeId": "P0101",
-   "headNodeId": null,
+   "headNodeId": "P957257",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 2.6,
@@ -792,7 +792,7 @@
    "name": "с.Харьковка",
    "district": "Актогайский район",
    "okrug": "Актогайский с.о.",
-   "head": "",
+   "head": "АТС Актогай",
    "tech": "ВОЛС",
    "planKm": 26.4,
    "tubeKm": 0.0,
@@ -807,10 +807,10 @@
      "km": 1.0
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "tail",
+   "note": "",
    "nodeId": "P007D",
-   "headNodeId": null,
+   "headNodeId": "P957257",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 26.4,
@@ -941,7 +941,7 @@
    "name": "с.Баскамыс",
    "district": "Актогайский район",
    "okrug": "с.о.Ақжол",
-   "head": "",
+   "head": "с.Каракога",
    "tech": "ВОЛС",
    "planKm": 1.0,
    "tubeKm": 45.174,
@@ -952,10 +952,10 @@
      "km": 1.0
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "tail",
+   "note": "",
    "nodeId": "P007C",
-   "headNodeId": null,
+   "headNodeId": "P0076",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 1.0,
@@ -978,7 +978,7 @@
    "name": "с.Шуга",
    "district": "Актогайский район",
    "okrug": "Жолболдинский с.о.",
-   "head": "",
+   "head": "с.Каракога",
    "tech": "ВОЛС",
    "planKm": 11.0,
    "tubeKm": 0.0,
@@ -992,7 +992,7 @@
    "status": "chain",
    "note": "",
    "nodeId": "P00D8",
-   "headNodeId": null,
+   "headNodeId": "P0076",
    "anchorLabel": "Каракога",
    "anchorNodeId": "P0076",
    "corridorKm": 11.0,
@@ -1066,7 +1066,7 @@
    "name": "с.Шиликты",
    "district": "Актогайский район",
    "okrug": "Жолболдинский с.о.",
-   "head": "",
+   "head": "СНП АТС Жолболды",
    "tech": "ВОЛС",
    "planKm": 18.7,
    "tubeKm": 0.0,
@@ -1077,10 +1077,10 @@
      "km": 18.7
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "tail",
+   "note": "",
    "nodeId": "P00DA",
-   "headNodeId": null,
+   "headNodeId": "P21fff3",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 18.7,
@@ -5061,7 +5061,7 @@
    "tech": "ВОЛС",
    "planKm": 13.3,
    "tubeKm": 0.0,
-   "fiberKm": 6.0,
+   "fiberKm": 0.0,
    "segs": [
     {
      "label": "П2",
@@ -5090,7 +5090,7 @@
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
    "paintedTubeKm": 0.0,
-   "paintedFiberKm": 6.0,
+   "paintedFiberKm": 0.0,
    "capKm": 13.3,
    "homonyms": 1
   },
@@ -5254,7 +5254,7 @@
    "tech": "ВОЛС",
    "planKm": 5.0,
    "tubeKm": 18.5,
-   "fiberKm": 0.0,
+   "fiberKm": 6.0,
    "segs": [
     {
      "label": "П2",
@@ -8727,14 +8727,6 @@
     "с.Назаровка"
    ]
   },
-  "E0268": {
-   "tubeKm": 0,
-   "fiberKm": 6.0,
-   "fillFrom": "P017F",
-   "settlements": [
-    "с.Малиновка"
-   ]
-  },
   "E0271": {
    "tubeKm": 1.0,
    "fiberKm": 0,
@@ -8893,13 +8885,13 @@
   "tubeKm": 634.2,
   "fiberKm": 33.8,
   "paintedTubeKm": 370.8,
-  "paintedFiberKm": 32.8,
+  "paintedFiberKm": 26.8,
   "graphTouchedKm": 1992.8,
   "graphPlannedKm": 2245.7,
   "lost": {
    "unbound": {
     "tubeKm": 77.026,
-    "fiberKm": 0.0
+    "fiberKm": 6.0
    },
    "spill": {
     "tubeKm": 173.414,

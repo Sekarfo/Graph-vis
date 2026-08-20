@@ -50,11 +50,11 @@
     "outside": 6
    },
    "districts": 20,
-   "edges": 976,
+   "edges": 971,
    "edgesByType": {
     "outside_project": 16,
     "planned": 289,
-    "existing": 667,
+    "existing": 662,
     "no_free_fibers": 4
    },
    "externalLinks": 5,
@@ -1307,8 +1307,8 @@
    "name": "АТС Таукаратурык",
    "district": "Енбекшиказахский район",
    "oblast": "Алматинская",
-   "x": 9193.3,
-   "y": 2676.1
+   "x": 9188.9,
+   "y": 2695.4
   },
   {
    "id": "A0123",
