@@ -1,0 +1,87 @@
+# regions/ — ЗЕРКАЛО прода, а не рабочая копия графа.
+#
+# Граф правят кнопкой «✏️ Правка» во вьюере; в репозиторий его привозит шаг
+# экспорта джобы «Графы с прода + свод СНП 2.0 → факт» (scripts/export_regions.py).
+# Правка regions/*.json руками поэтому опасна ДВАЖДЫ: на прод она не доедет
+# (с примонтированным томом сервер копирует из образа только отсутствующие
+# файлы, см. discover_graphs() в server.py), а следующий экспорт молча затрёт
+# её состоянием прода. Потерянную работу при этом ничего не подсвечивает —
+# отсюда эта проверка.
+#
+# Что делать вместо ручной правки: править во вьюере и запустить джобу кнопкой
+# (workflow_dispatch), она увезёт правку в repo сама.
+#
+# Законные исключения — структурные операции, которых на фронте нет: новая
+# область (scripts/new_region.py), переномерация id (scripts/repair_id_prefix.py),
+# спасение состояния прода в git. Для них добавьте в сообщение коммита маркер
+# [regions-ok] — проверка его пропускает.
+#
+# Проверка сообщает, но не запрещает: чтобы пуш действительно не проходил,
+# включите в Settings → Branches защиту main с обязательной проверкой
+# «Кто правил regions/».
+name: regions/ — только с прода
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "regions/**"
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # нужна история, чтобы разобрать диапазон пуша
+
+      - name: Кто правил regions/
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          set -u
+          # Пуш новой ветки/после force-push приходит с нулевым before —
+          # проверяем тогда только верхний коммит.
+          if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ] \
+             && git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            commits=$(git rev-list "${BEFORE}..${AFTER}")
+          else
+            commits="$AFTER"
+          fi
+
+          bad=0
+          for c in $commits; do
+            # Мерж сам по себе графы не правит — их правил коммит из ветки,
+            # который в диапазон уже попал.
+            if [ "$(git rev-list --parents -n 1 "$c" | wc -w)" -gt 2 ]; then
+              continue
+            fi
+            git diff-tree --no-commit-id --name-only -r "$c" -- regions | grep -q . || continue
+
+            author=$(git log -1 --format='%an' "$c")
+            subject=$(git log -1 --format='%s' "$c")
+            body=$(git log -1 --format='%B' "$c")
+
+            if [ "$author" = "smr2-sync" ]; then
+              echo "ok: $c — экспорт с прода ($subject)"
+              continue
+            fi
+            case "$body" in
+              *"[regions-ok]"*)
+                echo "ok: $c — ручная правка с маркером [regions-ok] ($subject)"
+                continue
+                ;;
+            esac
+
+            files=$(git diff-tree --no-commit-id --name-only -r "$c" -- regions | tr '\n' ' ')
+            echo "::error::Коммит $c ($author) правит графы руками: $files"
+            echo "::error::regions/ — зеркало прода. Правьте во вьюере и запустите"
+            echo "::error::джобу «Графы с прода + свод СНП 2.0 → факт» кнопкой Run workflow —"
+            echo "::error::иначе следующий экспорт затрёт эту правку состоянием прода."
+            echo "::error::Структурная операция (новая область, переномерация id)?"
+            echo "::error::Добавьте в сообщение коммита маркер [regions-ok]."
+            bad=1
+          done
+          exit $bad
