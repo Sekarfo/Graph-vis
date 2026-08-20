@@ -64,7 +64,7 @@ jobs:
         run: |
           git config user.name  "smr2-sync"
           git config user.email "smr2-sync@users.noreply.github.com"
-          git add smr2 SMR2_RECONCILE.md
+          git add smr2 SMR2_RECONCILE.md SVOD_ISSUES.md
           if git diff --cached --quiet; then
             echo "Свод не изменился — коммитить нечего."
             exit 0

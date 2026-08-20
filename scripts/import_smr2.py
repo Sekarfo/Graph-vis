@@ -146,7 +146,14 @@ LABEL_MIN = 80
 # «П1», «П-1», «П 1» — безымянная муфта: в чертеже у неё нет своего имени,
 # в графе ей соответствует узел, который мы находим ходом по маршруту, а не
 # по названию. А вот «М1», «М18/1» — это НАСТОЯЩИЕ имена муфт графа.
-_PLACEHOLDER_RE = re.compile(r"^\s*п\s*-?\s*\d+\s*$", re.IGNORECASE)
+#
+# Скобки после номера — ПОДСКАЗКА, ГДЕ эта муфта стоит: «П1(Октябрьское-
+# Конюхово)» = безымянная муфта на перегоне Октябрьское—Конюхово, а не объект
+# по имени «Конюхово». Без этого разбор цеплялся за название ВНУТРИ скобок и
+# начинал маршрут на 20 км выше нужного (СКО, с.Гаврино: свод 40.5 = ровно
+# ребро S0047—Гаврино, а коридор выходил 60.5).
+_PLACEHOLDER_RE = re.compile(
+    r"^\s*п\s*-?\s*\d+\s*(?:[(\[][^)\]]*[)\]])?\s*$", re.IGNORECASE)
 
 
 def is_placeholder(label: str | None) -> bool:
@@ -311,6 +318,46 @@ def decorations(graph: Graph) -> set[str]:
             decor.add(o["id"])
     graph._smr2_decor = decor
     return decor
+
+
+def prefer_measured(graph: Graph) -> list[str]:
+    """Убрать из маршрутизации безразмерные дубли параллельных линий.
+
+    Две точки чертежа нередко соединяет несколько линий сразу (существующая +
+    плановая + «нет свободных волокон»), но длина проставлена не у каждой.
+    Кратчайший путь цеплял линию БЕЗ длины, коридор выходил короче свода, а
+    дальше срабатывала вторая беда: fill_along отдаёт ребру без длины ВЕСЬ
+    остаток километров. По СКО так «разъезжались» 7 строк из 11 — с.Каратал
+    2.4 км вместо 14.2 (тот же перегон М8—М5 рядом лежит на 11.8), с.Тищенко
+    6.5 вместо 10.0, с.Байсал 5.5 вместо 8.5.
+
+    Убираем ТОЛЬКО дубль по той же паре точек: физически это тот же перегон,
+    и длина у него та, что проставлена. Одиночные рёбра без длины (их в
+    чертеже хватает) остаются как есть — их не с чем сравнивать."""
+    dropped = getattr(graph, "_smr2_dropped", None)
+    if dropped is not None:
+        return dropped
+    by_pair: dict[frozenset, list[dict]] = {}
+    for e in graph.edges:
+        by_pair.setdefault(frozenset((e["from"], e["to"])), []).append(e)
+    dead = set()
+    for group in by_pair.values():
+        if len(group) < 2:
+            continue
+        if not any(e.get("lengthKm") for e in group):
+            continue
+        for e in group:
+            if not e.get("lengthKm"):
+                dead.add(e["id"])
+    if dead:
+        graph.edges = [e for e in graph.edges if e["id"] not in dead]
+        graph.adj = {}
+        for e in graph.edges:
+            graph.adj.setdefault(e["from"], []).append(e)
+            graph.adj.setdefault(e["to"], []).append(e)
+        graph._hops_cache = {}
+    graph._smr2_dropped = sorted(dead)
+    return graph._smr2_dropped
 
 
 def node_label(graph: Graph, node_id: str) -> str:
@@ -674,6 +721,7 @@ def bind_to(graph: Graph, rec: dict, snp: dict | None, recs: list[dict]) -> dict
         "nodeId": None, "headNodeId": None, "anchorLabel": None, "anchorNodeId": None,
         "corridorKm": 0.0, "diffKm": None, "edgeIds": [], "upstreamKm": 0.0,
         "segChecks": [], "overPlanTubeKm": 0.0, "overPlanFiberKm": 0.0,
+        "blankEdges": [],
         "paintedTubeKm": 0.0, "paintedFiberKm": 0.0,
         "capKm": rec["planKm"], "homonyms": 1,
     }
@@ -988,6 +1036,14 @@ def build(graph: Graph, slug: str, title: str, recs: list[dict]) -> dict:
     for b, got in zip(bound, painted):
         b["paintedTubeKm"] = round(got["tubeKm"], 3)
         b["paintedFiberKm"] = round(got["fiberKm"], 3)
+        # Линии коридора без километров: если такая ровно одна, а коридор
+        # короче плана ровно на недостающее — свод и подсказывает её длину.
+        b["blankEdges"] = [
+            {"id": eid,
+             "from": node_label(graph, edge_by_id[eid]["from"]),
+             "to": node_label(graph, edge_by_id[eid]["to"])}
+            for eid in b["edgeIds"]
+            if eid in edge_by_id and not edge_by_id[eid].get("lengthKm")]
 
     # Охват графа считаем по ОБЪЕДИНЕНИЮ рёбер: наивная сумма коридоров кратно
     # переоценивает область, потому что магистраль делят десятки сёл ниже неё.
@@ -1199,6 +1255,27 @@ def render_report(payload: dict) -> str:
            lambda s: s["planKm"], lambda s: s["corridorKm"], lambda s: s["note"]],
           ["стр", "НП", "ПкСС", "план", "коридор", "подробности"])
 
+    A("## 7. Чертёж: длину подсказывает свод\n")
+    A("В коридоре ровно одна линия БЕЗ километров, и ровно на столько коридор "
+      "короче плана строки. То есть длину этого участка свод знает, а чертёж — "
+      "нет: её можно просто проставить. Цифру всё же сверьте — план строки сам "
+      "может быть с опиской.\n")
+    fill = []
+    for x in S:
+        if len(x.get("blankEdges") or []) != 1:
+            continue
+        need = -(x.get("diffKm") or 0.0)
+        if need <= 0.3 or (x.get("corridorKm") or 0.0) < 0:
+            continue
+        fill.append((x, x["blankEdges"][0], need))
+    fill.sort(key=lambda p: -p[2])
+    table(fill,
+          [lambda p: p[0]["row"], lambda p: p[0]["name"],
+           lambda p: f"{p[1]['from']} — {p[1]['to']}", lambda p: p[1]["id"],
+           lambda p: p[0]["planKm"], lambda p: round(p[0]["corridorKm"], 3),
+           lambda p: round(p[2], 3)],
+          ["стр", "НП", "участок в графе", "ребро", "план", "коридор", "не хватает км"])
+
     A("## 6. Работы выше ПкСС (случай B)\n")
     A("Цепочка свода начинается выше самого ПкСС — эти км разложены вверх по "
       "сети, пока путь был однозначен.\n")
@@ -1394,6 +1471,151 @@ def verify_disk(slugs: set[str] | None = None) -> list[str]:
     return problems
 
 
+ISSUES = BASE / "SVOD_ISSUES.md"
+
+# Во сколько раз план строки должен разойтись с длиной найденного маршрута,
+# чтобы это перестало быть «чертёж чуть иначе» и стало похоже на описку.
+TYPO_RATIO = 2.5
+# Статусы, при которых маршрут действительно найден и его длине можно верить.
+# implausible_corridor сюда не входит намеренно: там кривой якорь у НАС, свод
+# ни при чём, и такие строки в вопросы к своду попадать не должны.
+TRUSTED = ("chain", "chain_len_mismatch", "tail", "tail_short", "tail_inexact",
+           "donor_segment")
+
+
+def render_issues(payloads: list[dict]) -> str:
+    """Единый список вопросов к своду по ВСЕМ областям сразу.
+
+    Отдельно от SMR2_RECONCILE.md: тот — рабочая сверка по области, а этот файл
+    отдают тем, кто ведёт книгу. Поэтому здесь только то, что чинится в СВОДЕ
+    или в чертеже, без нашей внутренней кухни."""
+    L: list[str] = []
+    A = L.append
+    A("# Вопросы к своду «СНП 2.0»\n")
+    A(f"Собрано {datetime.now(timezone.utc).isoformat(timespec='seconds')} · "
+      f"`scripts/import_smr2.py` по всем областям сразу.\n")
+    A("Маршрут каждого села восстановлен по цепочке участков свода и сопоставлен "
+      "с графом области. Ниже — только те строки, где вопрос к самой книге или "
+      "к чертежу; наши собственные промахи привязки сюда не попадают "
+      "(они в `SMR2_RECONCILE.md`).\n")
+
+    rows = [(p["meta"]["title"], s) for p in payloads for s in p["settlements"]]
+
+    def table(items, headers, cols, empty="— нет —"):
+        if not items:
+            A(empty + "\n")
+            return
+        A("| " + " | ".join(headers) + " |")
+        A("|" + "|".join("---" for _ in headers) + "|")
+        for it in items:
+            A("| " + " | ".join(str(c(it)) for c in cols) + " |")
+        A("")
+
+    def ratio(s):
+        c, pl = s.get("corridorKm") or 0.0, s.get("planKm") or 0.0
+        if c <= 0.5 or pl <= 0.5:
+            return None
+        return pl / c
+
+    def comma_hint(s):
+        """Ровно в 10 раз — почти наверняка съехавшая запятая."""
+        c, pl = s.get("corridorKm") or 0.0, s.get("planKm") or 0.0
+        if c < 0.1:
+            return ""
+        if abs(pl - c * 10) <= 0.08 * c * 10:
+            return f"похоже на запятую: {pl} вместо {round(c, 3)}"
+        if abs(pl - c / 10) <= 0.08 * c / 10:
+            return f"похоже на запятую: {pl} вместо {round(c, 3)}"
+        return ""
+
+    typo = []
+    for title, s in rows:
+        if s["status"] not in TRUSTED:
+            continue
+        r = ratio(s)
+        if r is None or (1 / TYPO_RATIO) < r < TYPO_RATIO:
+            continue
+        typo.append((title, s, r))
+    typo.sort(key=lambda x: -abs((x[1]["planKm"] or 0) - (x[1]["corridorKm"] or 0)))
+
+    A("## 1. Похоже на описку в своде\n")
+    A(f"Маршрут в графе найден и совпал с цепочкой участков, но план строки "
+      f"расходится с ним больше чем в {TYPO_RATIO} раза. Столько не набегает "
+      f"из-за неточности чертежа — скорее ошибка в цифре.\n")
+    table(typo,
+          ["область", "стр", "НП", "район", "план свода", "по графу", "во сколько раз", "заметка"],
+          [lambda x: x[0], lambda x: x[1]["row"], lambda x: x[1]["name"],
+           lambda x: x[1]["district"], lambda x: x[1]["planKm"],
+           lambda x: round(x[1]["corridorKm"], 3),
+           lambda x: f"×{x[2]:.1f}" if x[2] >= 1 else f"÷{1 / x[2]:.1f}",
+           lambda x: comma_hint(x[1])])
+
+    blind = [(t, s) for t, s in rows
+             if s["status"] in TRUSTED and (s.get("planKm") or 0) >= 1.0
+             and (s.get("corridorKm") or 0) < 0.5 and s.get("edgeIds")]
+    A("### Сверить не с чем — у линии в чертеже не проставлена длина\n")
+    A("Маршрут найден, но ни у одного его участка в графе нет километров, "
+      "поэтому подтвердить или опровергнуть план нечем. Смотреть глазами.\n")
+    table(blind,
+          ["область", "стр", "НП", "район", "план свода", "участков"],
+          [lambda x: x[0], lambda x: x[1]["row"], lambda x: x[1]["name"],
+           lambda x: x[1]["district"], lambda x: x[1]["planKm"],
+           lambda x: len(x[1]["edgeIds"])])
+
+    seen_typo = {(t, s["row"], s["name"]) for t, s, _ in typo}
+    diverge = [(t, s) for t, s in rows
+               if s["status"] in ("chain_len_mismatch", "tail_inexact")
+               and (t, s["row"], s["name"]) not in seen_typo
+               # У маршрута без проставленных длин Δ считать не от чего —
+               # такие строки уже перечислены блоком «сверить не с чем».
+               and (s.get("corridorKm") or 0.0) >= 0.5
+               and abs(s.get("diffKm") or 0.0) > TOL]
+    diverge.sort(key=lambda x: -abs(x[1].get("diffKm") or 0.0))
+    A("## 2. Свод и чертёж расходятся по длине\n")
+    A("Участок найден и закрашен, но километры свода и чертежа не совпадают. "
+      "Здесь мы ничего не решаем: цифру свода кладём как есть, а список нужен, "
+      "чтобы разобраться, где ошибка — в книге или в оцифровке.\n")
+    table(diverge,
+          ["область", "стр", "НП", "ПкСС", "план свода", "по графу", "Δ", "цепочка свода"],
+          [lambda x: x[0], lambda x: x[1]["row"], lambda x: x[1]["name"],
+           lambda x: x[1]["head"], lambda x: x[1]["planKm"],
+           lambda x: round(x[1]["corridorKm"], 3),
+           lambda x: f"{x[1]['diffKm']:+.1f}",
+           lambda x: " → ".join(f"{y['label'] or '?'} ({y['km']})"
+                                for y in x[1]["segs"]) or "—"])
+
+    over = [(t, s) for t, s in rows
+            if s["overPlanTubeKm"] > 0.05 or s["overPlanFiberKm"] > 0.05]
+    over.sort(key=lambda x: -max(x[1]["overPlanTubeKm"], x[1]["overPlanFiberKm"]))
+    A("## 3. Факт больше плана\n")
+    A("Нормальная ситуация: построили больше, чем записано в плане строки. "
+      "На карту цифра идёт как есть, ничего не срезается. Список — чтобы в "
+      "своде видели, где план стоит подтянуть к факту.\n")
+    table(over,
+          ["область", "стр", "НП", "план", "трубка", "ВОЛС", "сверх плана трубка / ВОЛС"],
+          [lambda x: x[0], lambda x: x[1]["row"], lambda x: x[1]["name"],
+           lambda x: x[1]["planKm"], lambda x: x[1]["tubeKm"], lambda x: x[1]["fiberKm"],
+           lambda x: f"{x[1]['overPlanTubeKm']} / {x[1]['overPlanFiberKm']}"])
+
+    hard = [(t, s) for t, s in rows if s["status"] in HARD]
+    hard.sort(key=lambda x: (x[0], x[1]["row"]))
+    A("## 4. Не удалось разобрать\n")
+    A("Строка есть, а участка на карте нет: село или ПкСС не нашлись в графе, "
+      "пути между ними нет, либо развилка не даёт понять, куда класть. "
+      "Тут нужен либо чертёж, либо уточнение в своде.\n")
+    table(hard,
+          ["область", "стр", "НП", "район", "ПкСС", "план", "что не так"],
+          [lambda x: x[0], lambda x: x[1]["row"], lambda x: x[1]["name"],
+           lambda x: x[1]["district"], lambda x: x[1]["head"], lambda x: x[1]["planKm"],
+           lambda x: STATUS_RU.get(x[1]["status"], x[1]["status"])])
+
+    A("---\n")
+    A(f"Всего: описок {len(typo)}, сверить нечем {len(blind)}, "
+      f"расхождений длины {len(diverge)}, факт > плана {len(over)}, "
+      f"не разобрано {len(hard)}.")
+    return "\n".join(L) + "\n"
+
+
 # ----------------------------------------------------------------- вход ---
 GUARD_PLAN_DRIFT = 0.25
 GUARD_BIND_DROP = 0.15
@@ -1545,12 +1767,14 @@ def main() -> None:
         OUT_DIR.mkdir(exist_ok=True)
 
     reports = []
+    built: list[dict] = []
     for slug, recs in sorted(by_slug.items()):
         gpath = REGIONS_DIR / f"{slug}.json"
         if not gpath.exists():
             print(f"  ! графа {slug}.json нет, пропускаю")
             continue
         graph = Graph(gpath)
+        skipped = prefer_measured(graph)
         title = graph.meta.get("registry", {}).get("title") or titles[slug]
         payload = build(graph, slug, title, recs)
 
@@ -1571,6 +1795,10 @@ def main() -> None:
         print(f"  {slug:<18} сёл {len(recs):>4} · привязано точно {ok:>4} · "
               f"план {t['planKm']:>8} км · трубка {t['tubeKm']:>7} км · "
               f"ВОЛС {t['fiberKm']:>7} км")
+        if skipped:
+            print(f"      · {len(skipped)} безразмерных дублей линий обойдены "
+                  f"по измеренным: {', '.join(skipped[:6])}"
+                  + (" и др." if len(skipped) > 6 else ""))
         for line in res["hard"]:
             broken.append(f"{slug}: {line}")
             print(f"      ! сверка: {line}")
@@ -1588,13 +1816,17 @@ def main() -> None:
                     json.dumps(payload, ensure_ascii=False, indent=1),
                     encoding="utf-8")
         reports.append(render_report(payload))
+        built.append(payload)
 
     text = "\n\n---\n\n".join(reports)
     if args.report_only:
         sys.stdout.write(text)
     else:
         REPORT.write_text(text, encoding="utf-8")
-        print(f"\nзаписано: smr2/*.json и {REPORT.name}")
+        # Второй отчёт — сводный по всем областям и для внешнего читателя:
+        # его отдают тем, кто ведёт книгу свода.
+        ISSUES.write_text(render_issues(built), encoding="utf-8")
+        print(f"\nзаписано: smr2/*.json, {REPORT.name} и {ISSUES.name}")
 
     # Финальный прямой прогон по ВСЕМ файлам факта, а не только по собранным
     # сейчас: на карту уходит содержимое папки целиком, включая области,
