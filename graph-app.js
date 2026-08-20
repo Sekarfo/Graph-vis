@@ -1939,6 +1939,15 @@ function runSearch(q) {
   if (!qn || qn.length < 2) { searchResults.classList.remove("open"); return; }
 
   const scored = [];
+  // Поиск по id (D0112, E0157 — как в отчётах сверки со сводом). Нужен прежде
+  // всего для БЕЗЫМЯННЫХ узлов: у них нет _norm, по названию их не найти, а
+  // подписывать при разборе расхождений приходится именно их — сверка называет
+  // такой объект только id.
+  const raw = q.trim();
+  if (/^[A-Za-z]{1,2}\d{2,5}$/.test(raw)) {
+    const byId = nodes.find((n) => n.id.toLowerCase() === raw.toLowerCase());
+    if (byId) scored.push([1000, byId]);
+  }
   for (const n of nodes) {
     if (!n._norm) continue;
     let sc = matchScore(qn, n._norm);
@@ -1958,7 +1967,7 @@ function runSearch(q) {
     div.className = "item";
     div.innerHTML =
       `<span class="dot" style="background:${nodeColor(n)}"></span>` +
-      `<span class="nm">${esc(n.name)}</span>` +
+      `<span class="nm">${esc(n.name || "(без названия)")}</span>` +
       `<span class="sub">${KIND_RU[n.kind] || n.kind}<br>${esc((n.district || "").replace(" район", ""))}</span>`;
     div.addEventListener("mousedown", (ev) => { ev.preventDefault(); selectSearch(n); });
     searchResults.appendChild(div);
@@ -1969,7 +1978,7 @@ function runSearch(q) {
 
 function selectSearch(n) {
   searchResults.classList.remove("open");
-  searchInput.value = n.name;
+  searchInput.value = n.name || n.id;   // безымянный узел: показываем id, а не «null»
   if (filters.district && n.district !== filters.district) {
     filters.district = "";
     $("districtSel").value = "";
