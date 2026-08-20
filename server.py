@@ -56,7 +56,6 @@ import asyncpg
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from matcher import districts_compatible, normalize_name
@@ -1085,5 +1084,27 @@ async def _graph_json_file():
     return FileResponse(STATES[DEFAULT_GRAPH].path, media_type="application/json")
 
 
-# Статика (index.html, graph-app.js) — ПОСЛЕ роутов API и явных путей выше.
-app.mount("/", StaticFiles(directory=BASE, html=True), name="static")
+# Фронт — ДВА файла, явными роутами, ПОСЛЕ роутов API и явных путей выше.
+#
+# Раньше здесь стоял mount("/", StaticFiles(directory=BASE)), который раздавал
+# папку приложения ЦЕЛИКОМ: `GET /server.py` отдавал исходник, а пока не был
+# задан DATA_DIR — ещё и `GET /progress-rows.json`, то есть все строки отчётов
+# работников. Вьюер публичный (ссылку открывают без пароля), поэтому отдаём
+# ровно то, что нужно браузеру, а на всё остальное 404.
+#
+# no-cache (а не no-store): браузер файл хранит, но каждый раз спрашивает, не
+# изменился ли — иначе после деплоя часть пользователей ещё сутки сидела бы на
+# старом graph-app.js из эвристического кэша.
+_FRONT = {"Cache-Control": "no-cache"}
+
+
+@app.get("/")
+@app.get("/index.html")          # старые ссылки на полный путь
+async def _front_index():
+    return FileResponse(BASE / "index.html", media_type="text/html", headers=_FRONT)
+
+
+@app.get("/graph-app.js")
+async def _front_app_js():
+    return FileResponse(BASE / "graph-app.js", media_type="application/javascript",
+                        headers=_FRONT)
