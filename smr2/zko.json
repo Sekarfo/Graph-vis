@@ -3,7 +3,7 @@
   "slug": "zko",
   "title": "Западно-Казахстанская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-20T05:31:53+00:00",
+  "generated": "2026-08-21T03:17:03+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -23,7 +23,7 @@
    "hard": [],
    "soft": [],
    "stats": {
-    "edges": 4,
+    "edges": 9,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
@@ -379,7 +379,7 @@
    "head": "с.Аксуат",
    "tech": "ВОЛС",
    "planKm": 1.7,
-   "tubeKm": 0.0,
+   "tubeKm": 1.7,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -411,7 +411,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 1.7,
    "paintedFiberKm": 0.0,
    "capKm": 1.7,
    "homonyms": 1
@@ -424,7 +424,7 @@
    "head": "с.Аксуат",
    "tech": "ВОЛС",
    "planKm": 2.2,
-   "tubeKm": 1.945,
+   "tubeKm": 2.4,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -453,10 +453,10 @@
      "state": "ок"
     }
    ],
-   "overPlanTubeKm": 0.0,
+   "overPlanTubeKm": 0.2,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 1.945,
+   "paintedTubeKm": 2.2,
    "paintedFiberKm": 0.0,
    "capKm": 2.2,
    "homonyms": 1
@@ -549,7 +549,7 @@
    "head": "СНП Базаршолан",
    "tech": "ВОЛС",
    "planKm": 3.4,
-   "tubeKm": 0.0,
+   "tubeKm": 3.4,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -581,7 +581,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 3.4,
    "paintedFiberKm": 0.0,
    "capKm": 3.4,
    "homonyms": 1
@@ -851,7 +851,7 @@
    "head": "СНП Базартобе",
    "tech": "ВОЛС",
    "planKm": 3.9,
-   "tubeKm": 0.0,
+   "tubeKm": 3.9,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -883,7 +883,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 3.9,
    "paintedFiberKm": 0.0,
    "capKm": 3.9,
    "homonyms": 1
@@ -896,7 +896,7 @@
    "head": "СНП Базартобе",
    "tech": "ВОЛС",
    "planKm": 6.0,
-   "tubeKm": 0.0,
+   "tubeKm": 6.0,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -928,7 +928,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 6.0,
    "paintedFiberKm": 0.0,
    "capKm": 6.0,
    "homonyms": 1
@@ -9285,7 +9285,7 @@
    "head": "Чингирлау",
    "tech": "ВОЛС",
    "planKm": 4.1,
-   "tubeKm": 0.0,
+   "tubeKm": 4.1,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -9317,7 +9317,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 4.1,
    "paintedFiberKm": 0.0,
    "capKm": 4.1,
    "homonyms": 1
@@ -9369,12 +9369,28 @@
   }
  ],
  "edges": {
+  "E0211": {
+   "tubeKm": 1.7,
+   "fiberKm": 0,
+   "fillFrom": "Z0602",
+   "settlements": [
+    "с.Аксуат"
+   ]
+  },
   "E0213": {
-   "tubeKm": 1.945,
+   "tubeKm": 2.2,
    "fiberKm": 0,
    "fillFrom": "Z0609",
    "settlements": [
     "с.Акбулак"
+   ]
+  },
+  "E0434": {
+   "tubeKm": 3.4,
+   "fiberKm": 0,
+   "fillFrom": "Z0588",
+   "settlements": [
+    "с.Баянтобе"
    ]
   },
   "E0432": {
@@ -9400,13 +9416,37 @@
    "settlements": [
     "с.Шабдаржап"
    ]
+  },
+  "E0195": {
+   "tubeKm": 3.9,
+   "fiberKm": 0,
+   "fillFrom": "Z0533",
+   "settlements": [
+    "с.Кызылжар"
+   ]
+  },
+  "E0194": {
+   "tubeKm": 6.0,
+   "fiberKm": 0,
+   "fillFrom": "Z0567",
+   "settlements": [
+    "с.Кадыркул"
+   ]
+  },
+  "E0153": {
+   "tubeKm": 4.1,
+   "fiberKm": 0,
+   "fillFrom": "Z0120",
+   "settlements": [
+    "с.Аксугум"
+   ]
   }
  },
  "totals": {
   "planKm": 2127.1,
-  "tubeKm": 21.4,
+  "tubeKm": 40.9,
   "fiberKm": 0.0,
-  "paintedTubeKm": 18.5,
+  "paintedTubeKm": 37.9,
   "paintedFiberKm": 0,
   "graphTouchedKm": 2078.2,
   "graphPlannedKm": 2114.6,
@@ -9416,7 +9456,7 @@
     "fiberKm": 0.0
    },
    "spill": {
-    "tubeKm": 2.86,
+    "tubeKm": 3.06,
     "fiberKm": 0.0
    },
    "edgecap": {

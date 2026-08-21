@@ -3,7 +3,7 @@
   "slug": "mangystau-atyrau",
   "title": "Мангистауская и Атырауская области",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-20T05:30:19+00:00",
+  "generated": "2026-08-21T03:15:51+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -1644,7 +1644,7 @@
    "head": "АТС Тандай",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 16.0,
-   "tubeKm": 0.508,
+   "tubeKm": 5.78,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1676,7 +1676,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.508,
+   "paintedTubeKm": 5.78,
    "paintedFiberKm": 0.0,
    "capKm": 16.0,
    "homonyms": 1
@@ -1772,7 +1772,7 @@
    ]
   },
   "E0073": {
-   "tubeKm": 0.508,
+   "tubeKm": 5.78,
    "fiberKm": 0,
    "fillFrom": "M008D",
    "settlements": [
@@ -1782,9 +1782,9 @@
  },
  "totals": {
   "planKm": 501.4,
-  "tubeKm": 181.4,
+  "tubeKm": 186.7,
   "fiberKm": 0.0,
-  "paintedTubeKm": 180.9,
+  "paintedTubeKm": 186.2,
   "paintedFiberKm": 0,
   "graphTouchedKm": 556.8,
   "graphPlannedKm": 759.0,

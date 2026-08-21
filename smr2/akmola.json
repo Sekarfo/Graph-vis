@@ -3,20 +3,22 @@
   "slug": "akmola",
   "title": "Акмолинская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-20T05:29:19+00:00",
+  "generated": "2026-08-21T03:15:03+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
   },
   "counts": {
    "chain": 141,
-   "chain_len_mismatch": 11,
-   "tail_short": 17,
-   "tail": 63,
+   "chain_len_mismatch": 10,
+   "tail_short": 16,
+   "tail": 64,
    "upstream_ambiguous": 3,
    "tail_inexact": 5,
    "head_to_np": 2,
-   "np_not_found": 4,
+   "np_not_found": 3,
+   "implausible_corridor": 1,
+   "no_route": 1,
    "from_np": 6,
    "head_not_found": 1
   },
@@ -24,7 +26,7 @@
    "hard": [],
    "soft": [],
    "stats": {
-    "edges": 12,
+    "edges": 14,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
@@ -2868,8 +2870,7 @@
    "corridorKm": 18.084,
    "diffKm": -0.016,
    "edgeIds": [
-    "E0138",
-    "E0357",
+    "E68cb77",
     "E0358",
     "E0348"
    ],
@@ -2885,13 +2886,7 @@
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "blankEdges": [
-    {
-     "id": "E0138",
-     "from": "АТС Красный Яр",
-     "to": "АТС Красный Яр"
-    }
-   ],
+   "blankEdges": [],
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 18.1,
@@ -3594,15 +3589,14 @@
    "status": "chain",
    "note": "",
    "nodeId": "D0442",
-   "headNodeId": "D0273",
+   "headNodeId": "D0442",
    "anchorLabel": "М4",
    "anchorNodeId": "D0730",
    "corridorKm": 11.162,
    "diffKm": -0.038,
    "edgeIds": [
     "E0400",
-    "E0397",
-    "E0149"
+    "E19e060"
    ],
    "upstreamKm": 0,
    "segChecks": [
@@ -3616,13 +3610,7 @@
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "blankEdges": [
-    {
-     "id": "E0149",
-     "from": "Акадыр",
-     "to": "Акадыр"
-    }
-   ],
+   "blankEdges": [],
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 11.2,
@@ -5587,17 +5575,27 @@
      "km": 8.783
     }
    ],
-   "status": "np_not_found",
-   "note": "села нет в графе (или название расходится)",
-   "nodeId": null,
-   "headNodeId": null,
-   "anchorLabel": null,
-   "anchorNodeId": null,
-   "corridorKm": 0.0,
-   "diffKm": null,
-   "edgeIds": [],
-   "upstreamKm": 0.0,
-   "segChecks": [],
+   "status": "chain",
+   "note": "",
+   "nodeId": "D0580",
+   "headNodeId": "D0218",
+   "anchorLabel": "М8",
+   "anchorNodeId": "D0859",
+   "corridorKm": 8.783,
+   "diffKm": -0.017,
+   "edgeIds": [
+    "E0603"
+   ],
+   "upstreamKm": 0,
+   "segChecks": [
+    {
+     "label": "М8",
+     "expectKm": 8.783,
+     "graphKm": 8.783,
+     "nodeName": "М8",
+     "state": "ок"
+    }
+   ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -5833,7 +5831,7 @@
    "head": "Монастырка",
    "tech": "ВОЛС",
    "planKm": 1.6,
-   "tubeKm": 0.0,
+   "tubeKm": 1.575,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5865,7 +5863,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 1.575,
    "paintedFiberKm": 0.0,
    "capKm": 1.6,
    "homonyms": 1
@@ -6202,28 +6200,17 @@
      "km": 0.055
     }
    ],
-   "status": "chain",
-   "note": "",
-   "nodeId": "D0560",
+   "status": "implausible_corridor",
+   "note": "коридор 359.9 км при плане 6.5 км (55× ) — якорь «М16а» опознан неверно",
+   "nodeId": "D0459",
    "headNodeId": null,
    "anchorLabel": "М16а",
    "anchorNodeId": "D0856",
-   "corridorKm": 6.475,
-   "diffKm": -0.025,
-   "edgeIds": [
-    "E0598",
-    "E0570"
-   ],
+   "corridorKm": 359.933,
+   "diffKm": null,
+   "edgeIds": [],
    "upstreamKm": 0,
-   "segChecks": [
-    {
-     "label": "М16а",
-     "expectKm": 6.475,
-     "graphKm": 6.475,
-     "nodeName": "М16а",
-     "state": "ок"
-    }
-   ],
+   "segChecks": [],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -6285,27 +6272,17 @@
      "km": 2.066
     }
    ],
-   "status": "chain",
-   "note": "",
-   "nodeId": "D0548",
+   "status": "no_route",
+   "note": "нет пути «М2» → «Интернациональное» (граф разорван); ход от села вверх тоже не вышел — тупик: выше по сети продолжения нет",
+   "nodeId": "D0316",
    "headNodeId": "D0104",
-   "anchorLabel": "М2",
-   "anchorNodeId": "D0826",
-   "corridorKm": 2.066,
-   "diffKm": -0.034,
-   "edgeIds": [
-    "E0547"
-   ],
-   "upstreamKm": 0,
-   "segChecks": [
-    {
-     "label": "М2",
-     "expectKm": 2.066,
-     "graphKm": 2.066,
-     "nodeName": "М2",
-     "state": "ок"
-    }
-   ],
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0.0,
+   "diffKm": null,
+   "edgeIds": [],
+   "upstreamKm": 0.0,
+   "segChecks": [],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -6756,7 +6733,7 @@
      "label": "АТС Далабай",
      "expectKm": 6.25,
      "graphKm": 6.25,
-     "nodeName": "Далабай",
+     "nodeName": "АТС Далабай",
      "state": "ок"
     }
    ],
@@ -7133,14 +7110,14 @@
      "km": 15.35
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «М19» до села — 0.0 км, свод даёт 15.3 км",
+   "status": "chain",
+   "note": "",
    "nodeId": "D0589",
    "headNodeId": "D0121",
    "anchorLabel": "М19",
    "anchorNodeId": "D0861",
-   "corridorKm": 0.0,
-   "diffKm": -15.4,
+   "corridorKm": 15.35,
+   "diffKm": -0.05,
    "edgeIds": [
     "E0607"
    ],
@@ -7149,20 +7126,14 @@
     {
      "label": "М19",
      "expectKm": 15.35,
-     "graphKm": 0.0,
+     "graphKm": 15.35,
      "nodeName": "М19",
-     "state": "расстояние расходится"
+     "state": "ок"
     }
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "blankEdges": [
-    {
-     "id": "E0607",
-     "from": "Жарсуат",
-     "to": "М19"
-    }
-   ],
+   "blankEdges": [],
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 15.4,
@@ -8666,7 +8637,7 @@
    "tech": "ВОЛС",
    "planKm": 7.0,
    "tubeKm": 0.0,
-   "fiberKm": 0.0,
+   "fiberKm": 1.756,
    "segs": [
     {
      "label": "АТС Кабанбай батыра",
@@ -8704,7 +8675,7 @@
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
    "paintedTubeKm": 0.0,
-   "paintedFiberKm": 0.0,
+   "paintedFiberKm": 1.756,
    "capKm": 7.0,
    "homonyms": 1
   },
@@ -10588,10 +10559,10 @@
      "km": 1.44
     }
    ],
-   "status": "tail_short",
-   "note": "путь ПкСС→село 0.0 км при плане 1.9 км — остаток отнесён выше ПкСС",
+   "status": "tail",
+   "note": "",
    "nodeId": "D0549",
-   "headNodeId": "D0549",
+   "headNodeId": "D0097",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 1.94,
@@ -10600,7 +10571,7 @@
     "E0527",
     "E0245"
    ],
-   "upstreamKm": 1.9,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "АТС Уленты",
@@ -11279,6 +11250,14 @@
     "с.Жанааул"
    ]
   },
+  "E0276": {
+   "tubeKm": 1.575,
+   "fiberKm": 0,
+   "fillFrom": "D0903",
+   "settlements": [
+    "с.Монастырка"
+   ]
+  },
   "E0694": {
    "tubeKm": 4.838,
    "fiberKm": 0,
@@ -11334,16 +11313,24 @@
    "settlements": [
     "с.Маншук, новое село Маншук Маметова"
    ]
+  },
+  "E0124": {
+   "tubeKm": 0,
+   "fiberKm": 1.756,
+   "fillFrom": "D0132",
+   "settlements": [
+    "с.Нура"
+   ]
   }
  },
  "totals": {
   "planKm": 2877.1,
-  "tubeKm": 62.1,
-  "fiberKm": 7.7,
-  "paintedTubeKm": 53.4,
-  "paintedFiberKm": 7.7,
-  "graphTouchedKm": 2698.4,
-  "graphPlannedKm": 2948.8,
+  "tubeKm": 63.7,
+  "fiberKm": 9.5,
+  "paintedTubeKm": 55.0,
+  "paintedFiberKm": 9.5,
+  "graphTouchedKm": 2714.0,
+  "graphPlannedKm": 2964.1,
   "lost": {
    "unbound": {
     "tubeKm": 0.0,
