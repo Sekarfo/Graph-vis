@@ -3,29 +3,33 @@
   "slug": "mangystau-atyrau",
   "title": "Мангистауская и Атырауская области",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T03:15:51+00:00",
+  "generated": "2026-08-21T12:35:27+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
   },
   "counts": {
-   "chain_len_mismatch": 1,
+   "upstream_ambiguous": 1,
    "chain": 27,
    "tail_short": 1,
    "tail": 4,
    "from_np": 2
   },
   "verify": {
-   "hard": [],
-   "soft": [],
+   "hard": [
+    "перестало показываться при живом факте: 1 — с.Ногайты (стр 3)"
+   ],
+   "soft": [
+    "1 сёл с фактом не легли на граф (раздел 1 отчёта)"
+   ],
    "stats": {
-    "edges": 12,
+    "edges": 11,
     "deadEdges": 0,
     "orphans": 0,
-    "unbound": 0,
+    "unbound": 1,
     "shadowed": 0,
     "restored": 0,
-    "dropped": 0
+    "dropped": 1
    }
   }
  },
@@ -54,26 +58,22 @@
      "km": 0.0
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «АТС Бейнеу» до села — 80.0 км, свод даёт 24.6 км",
+   "status": "upstream_ambiguous",
+   "note": "24.6 км выше «Ногайты» разложить нельзя — развилка из 2: «Турыш» (22.0 км), «Бейнеу» (78.0 км)",
    "nodeId": "M0084",
    "headNodeId": "M0084",
-   "anchorLabel": "АТС Бейнеу",
-   "anchorNodeId": "M00B7",
-   "corridorKm": 80.0,
-   "diffKm": 55.4,
-   "edgeIds": [
-    "E0303",
-    "Efd9f18"
-   ],
-   "upstreamKm": 0,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 0,
+   "diffKm": -24.6,
+   "edgeIds": [],
+   "upstreamKm": 24.6,
    "segChecks": [
     {
      "label": "АТС Бейнеу",
      "expectKm": 24.6,
-     "graphKm": 80.0,
-     "nodeName": "Бейнеу",
-     "state": "расстояние расходится"
+     "state": "не лежит на коридоре",
+     "nodeName": "Бейнеу"
     },
     {
      "label": "Ногайты",
@@ -86,7 +86,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.668,
+   "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 24.6,
    "homonyms": 1
@@ -1644,7 +1644,7 @@
    "head": "АТС Тандай",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 16.0,
-   "tubeKm": 5.78,
+   "tubeKm": 13.705,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1676,21 +1676,13 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 5.78,
+   "paintedTubeKm": 13.705,
    "paintedFiberKm": 0.0,
    "capKm": 16.0,
    "homonyms": 1
   }
  ],
  "edges": {
-  "E0303": {
-   "tubeKm": 0.668,
-   "fiberKm": 0,
-   "fillFrom": "M00B7",
-   "settlements": [
-    "с.Ногайты"
-   ]
-  },
   "E75502f": {
    "tubeKm": 35.0,
    "fiberKm": 0,
@@ -1772,7 +1764,7 @@
    ]
   },
   "E0073": {
-   "tubeKm": 5.78,
+   "tubeKm": 13.705,
    "fiberKm": 0,
    "fillFrom": "M008D",
    "settlements": [
@@ -1782,15 +1774,15 @@
  },
  "totals": {
   "planKm": 501.4,
-  "tubeKm": 186.7,
+  "tubeKm": 194.6,
   "fiberKm": 0.0,
-  "paintedTubeKm": 186.2,
+  "paintedTubeKm": 193.5,
   "paintedFiberKm": 0,
-  "graphTouchedKm": 556.8,
+  "graphTouchedKm": 476.8,
   "graphPlannedKm": 759.0,
   "lost": {
    "unbound": {
-    "tubeKm": 0.0,
+    "tubeKm": 0.668,
     "fiberKm": 0.0
    },
    "spill": {

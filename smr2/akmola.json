@@ -3,23 +3,22 @@
   "slug": "akmola",
   "title": "Акмолинская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T03:15:03+00:00",
+  "generated": "2026-08-21T12:34:22+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
   },
   "counts": {
    "chain": 141,
-   "chain_len_mismatch": 10,
+   "chain_len_mismatch": 8,
    "tail_short": 16,
    "tail": 64,
    "upstream_ambiguous": 3,
-   "tail_inexact": 5,
+   "tail_inexact": 7,
    "head_to_np": 2,
    "np_not_found": 3,
-   "implausible_corridor": 1,
+   "from_np": 7,
    "no_route": 1,
-   "from_np": 6,
    "head_not_found": 1
   },
   "verify": {
@@ -2805,28 +2804,24 @@
      "km": 0.158
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «АТС Алексеевка» до села — 12.7 км, свод даёт 0.2 км",
+   "status": "tail_inexact",
+   "note": "хвост в 0.2 км не ложится на узел: ближайшая граница 7.2 км",
    "nodeId": "D0391",
    "headNodeId": "D0013",
-   "anchorLabel": "АТС Алексеевка",
-   "anchorNodeId": "D0028",
-   "corridorKm": 12.729,
-   "diffKm": 12.529,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 7.225,
+   "diffKm": 7.025,
    "edgeIds": [
-    "E0023",
-    "E0336",
-    "E0015",
     "E0167"
    ],
-   "upstreamKm": 0,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "АТС Алексеевка",
      "expectKm": 0.158,
-     "graphKm": 12.729,
-     "nodeName": "Алексеевка БТС",
-     "state": "расстояние расходится"
+     "state": "не лежит на коридоре",
+     "nodeName": "Алексеевка БТС"
     }
    ],
    "overPlanTubeKm": 0.0,
@@ -3119,27 +3114,25 @@
      "km": 0.579
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «М2» до села — 21.7 км, свод даёт 9.7 км",
+   "status": "tail_inexact",
+   "note": "хвост в 9.7 км не ложится на узел: ближайшая граница 20.6 км",
    "nodeId": "D0433",
    "headNodeId": "D0426",
-   "anchorLabel": "М2",
-   "anchorNodeId": "D0720",
-   "corridorKm": 21.737,
-   "diffKm": 12.037,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 20.572,
+   "diffKm": 10.872,
    "edgeIds": [
-    "E0381",
     "E0379",
     "E0192"
    ],
-   "upstreamKm": 0,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "М2",
      "expectKm": 9.695,
-     "graphKm": 21.737,
-     "nodeName": "М2",
-     "state": "расстояние расходится"
+     "state": "не лежит на коридоре",
+     "nodeName": "М2"
     }
    ],
    "overPlanTubeKm": 0.0,
@@ -6200,17 +6193,26 @@
      "km": 0.055
     }
    ],
-   "status": "implausible_corridor",
-   "note": "коридор 359.9 км при плане 6.5 км (55× ) — якорь «М16а» опознан неверно",
+   "status": "from_np",
+   "note": "голова недоступна (ПкСС «СНП АТС Есиль» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
    "nodeId": "D0459",
    "headNodeId": null,
-   "anchorLabel": "М16а",
-   "anchorNodeId": "D0856",
-   "corridorKm": 359.933,
-   "diffKm": null,
-   "edgeIds": [],
-   "upstreamKm": 0,
-   "segChecks": [],
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 16.921,
+   "diffKm": 10.421,
+   "edgeIds": [
+    "E0204"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "М16а",
+     "expectKm": 6.475,
+     "state": "не лежит на коридоре",
+     "nodeName": "М16а"
+    }
+   ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -11329,7 +11331,7 @@
   "fiberKm": 9.5,
   "paintedTubeKm": 55.0,
   "paintedFiberKm": 9.5,
-  "graphTouchedKm": 2714.0,
+  "graphTouchedKm": 2708.5,
   "graphPlannedKm": 2964.1,
   "lost": {
    "unbound": {

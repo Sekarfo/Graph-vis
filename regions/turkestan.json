@@ -50,10 +50,10 @@
     "starlink": 2
    },
    "districts": 15,
-   "edges": 1093,
+   "edges": 1094,
    "edgesByType": {
     "planned": 572,
-    "existing": 465,
+    "existing": 466,
     "larger_capacity": 19,
     "no_free_fibers": 9,
     "outside_project": 28
@@ -97,8 +97,8 @@
    "kind": "olt",
    "subtype": "planned",
    "name": "Сузак",
-   "x": 16003.3,
-   "y": 1071.6,
+   "x": 15988.7,
+   "y": 1075.7,
    "district": "Созакский район",
    "oblast": "Туркестанская"
   },
@@ -9327,9 +9327,9 @@
    "id": "U0385",
    "kind": "mufta",
    "subtype": "existing",
-   "name": "М",
-   "x": 16017.0,
-   "y": 1088.3,
+   "name": "Сузак",
+   "x": 16009.2,
+   "y": 1090.2,
    "district": "Созакский район",
    "oblast": "Туркестанская"
   },
@@ -18780,6 +18780,13 @@
    "to": "U02F9",
    "type": "existing",
    "lengthKm": 4.9
+  },
+  {
+   "id": "Ea4428d",
+   "from": "U0385",
+   "to": "U03DD",
+   "type": "existing",
+   "lengthKm": null
   }
  ],
  "externalLinks": [],

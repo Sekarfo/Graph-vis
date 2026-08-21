@@ -51,15 +51,15 @@
     "wifi": 35
    },
    "districts": 10,
-   "edges": 496,
+   "edges": 492,
    "edgesByType": {
-    "planned": 265,
+    "planned": 261,
     "existing": 217,
     "outside_project": 14
    },
    "externalLinks": 0,
-   "totalKm": 6855.9,
-   "plannedKm": 3260.0
+   "totalKm": 6847.5,
+   "plannedKm": 3251.6
   },
   "source": "оцифровано с data/Карагандинская, Улытауская.pdf (векторная экстракция); извилистые линии OLT/АТС (PON-downlink и uplink) намеренно не переносились; район определён по ближайшей подписи «... район» на чертеже (районы здесь — неправильные многоугольники, а не полосы, как в Кызылординской области)"
  },
@@ -1015,8 +1015,8 @@
    "subtype": "existing",
    "name": "Актогай",
    "district": "Актогайский район",
-   "x": 3208.8,
-   "y": 3524.0
+   "x": 3216.9,
+   "y": 3531.6
   },
   {
    "id": "C0106",
@@ -5931,8 +5931,8 @@
    "subtype": "planned",
    "name": "Нарманбет",
    "district": "Актогайский район",
-   "x": 3612.2,
-   "y": 3511.4
+   "x": 3614.2,
+   "y": 3491.6
   },
   {
    "id": "Cd2a0fa",
@@ -6039,8 +6039,8 @@
    "subtype": "existing",
    "name": "Балхаш",
    "district": "Актогайский район",
-   "x": 3589.7,
-   "y": 3737.4
+   "x": 3586.5,
+   "y": 3743.1
   },
   {
    "id": "C8ab308",
@@ -6094,8 +6094,8 @@
    "subtype": "planned",
    "name": "Нарманбет",
    "district": "Актогайский район",
-   "x": 3611.8,
-   "y": 3497.8
+   "x": 3617.7,
+   "y": 3475.1
   }
  ],
  "edges": [
@@ -9411,41 +9411,6 @@
    "lengthKm": 135.5
   },
   {
-   "id": "E8ab65c",
-   "from": "C1dfc2a",
-   "to": "Ccd0d2f",
-   "type": "planned",
-   "lengthKm": null
-  },
-  {
-   "id": "E33f3f4",
-   "from": "Ccd0d2f",
-   "to": "C28e3ab",
-   "type": "planned",
-   "lengthKm": null
-  },
-  {
-   "id": "E8dac82",
-   "from": "C28e3ab",
-   "to": "Ca1a71e",
-   "type": "planned",
-   "lengthKm": 6.2
-  },
-  {
-   "id": "Ebf76ea",
-   "from": "C0012",
-   "to": "C0105",
-   "type": "planned",
-   "lengthKm": null
-  },
-  {
-   "id": "E9b46fe",
-   "from": "C0105",
-   "to": "C0458",
-   "type": "planned",
-   "lengthKm": 8.4
-  },
-  {
    "id": "E25368c",
    "from": "Ca5bbae",
    "to": "Cef32df",
@@ -9479,13 +9444,6 @@
    "to": "Cf06d02",
    "type": "existing",
    "lengthKm": 55.0
-  },
-  {
-   "id": "E8a7996",
-   "from": "Cdb7339",
-   "to": "C007bf2",
-   "type": "planned",
-   "lengthKm": 77.4
   },
   {
    "id": "E3110f8",
@@ -9570,6 +9528,20 @@
    "to": "C4b7977",
    "type": "existing",
    "lengthKm": 14.0
+  },
+  {
+   "id": "Ee5e1ad",
+   "from": "C1dfc2a",
+   "to": "Ca1a71e",
+   "type": "planned",
+   "lengthKm": 6.2
+  },
+  {
+   "id": "E1e3241",
+   "from": "Cdb7339",
+   "to": "Cef5467",
+   "type": "planned",
+   "lengthKm": 77.4
   }
  ],
  "externalLinks": [],

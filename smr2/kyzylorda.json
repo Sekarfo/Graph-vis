@@ -3,20 +3,19 @@
   "slug": "kyzylorda",
   "title": "Кызылординская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T03:15:49+00:00",
+  "generated": "2026-08-21T12:35:25+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
   },
   "counts": {
    "chain": 25,
-   "tail_short": 7,
+   "tail_short": 8,
    "tail": 6,
    "chain_len_mismatch": 1,
    "tail_inexact": 1,
    "np_not_found": 1,
-   "from_np": 1,
-   "implausible_corridor": 1
+   "from_np": 1
   },
   "verify": {
    "hard": [],
@@ -1772,17 +1771,26 @@
      "km": 2.0
     }
    ],
-   "status": "implausible_corridor",
-   "note": "коридор 736.1 км при плане 2.0 км (368× ) — якорь «М1» опознан неверно",
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 2.0 км — остаток отнесён выше ПкСС",
    "nodeId": "Q0153",
    "headNodeId": "Q0153",
-   "anchorLabel": "М1",
-   "anchorNodeId": "Q0189",
-   "corridorKm": 736.115,
-   "diffKm": null,
-   "edgeIds": [],
-   "upstreamKm": 0,
-   "segChecks": [],
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 2.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0135"
+   ],
+   "upstreamKm": 2.0,
+   "segChecks": [
+    {
+     "label": "М1",
+     "expectKm": 2.0,
+     "state": "не лежит на коридоре",
+     "nodeName": "М1"
+    }
+   ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -2045,7 +2053,7 @@
   "fiberKm": 0.0,
   "paintedTubeKm": 271.5,
   "paintedFiberKm": 0,
-  "graphTouchedKm": 958.3,
+  "graphTouchedKm": 960.3,
   "graphPlannedKm": 971.9,
   "lost": {
    "unbound": {

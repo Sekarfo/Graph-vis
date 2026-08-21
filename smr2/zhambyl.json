@@ -3,15 +3,15 @@
   "slug": "zhambyl",
   "title": "Жамбылская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T03:16:52+00:00",
+  "generated": "2026-08-21T12:36:51+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
   },
   "counts": {
-   "chain": 110,
-   "tail": 38,
-   "chain_len_mismatch": 7,
+   "chain": 109,
+   "tail": 40,
+   "chain_len_mismatch": 6,
    "donor_segment": 3,
    "tail_inexact": 3,
    "head_to_np": 1,
@@ -19,16 +19,14 @@
   },
   "verify": {
    "hard": [],
-   "soft": [
-    "вернулось на карту: 1 — Қосмұрат"
-   ],
+   "soft": [],
    "stats": {
     "edges": 39,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
     "shadowed": 0,
-    "restored": 1,
+    "restored": 0,
     "dropped": 0
    }
   }
@@ -3780,7 +3778,7 @@
    "tech": "ВОЛС",
    "planKm": 3.7,
    "tubeKm": 2.9,
-   "fiberKm": 1.4,
+   "fiberKm": 2.9,
    "segs": [
     {
      "label": "П1",
@@ -3817,7 +3815,7 @@
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
    "paintedTubeKm": 2.9,
-   "paintedFiberKm": 1.4,
+   "paintedFiberKm": 2.9,
    "capKm": 3.7,
    "homonyms": 1
   },
@@ -4675,40 +4673,30 @@
      "km": 1.0
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «БТС Акыртобе» до села — 6.0 км, свод даёт 2.0 км",
+   "status": "tail",
+   "note": "",
    "nodeId": "N0054",
    "headNodeId": "N0028",
-   "anchorLabel": "БТС Акыртобе",
-   "anchorNodeId": "N0028",
-   "corridorKm": 6.0,
-   "diffKm": 4.0,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 2,
+   "diffKm": 0.0,
    "edgeIds": [
-    "E0526",
-    "E0527",
-    "E0528",
     "E0491",
     "E0486"
    ],
-   "upstreamKm": 0,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "БТС Акыртобе",
      "expectKm": 2.0,
-     "graphKm": 6.0,
-     "nodeName": "Акыртобе",
-     "state": "расстояние расходится"
+     "state": "не лежит на коридоре",
+     "nodeName": "Акыртобе"
     }
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "blankEdges": [
-    {
-     "id": "E0528",
-     "from": "BTS Акыртобе",
-     "to": "BTS Акыртобе"
-    }
-   ],
+   "blankEdges": [],
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.0,
@@ -4992,25 +4980,25 @@
      "km": 2.0
     }
    ],
-   "status": "chain",
+   "status": "tail",
    "note": "",
-   "nodeId": "N0074",
+   "nodeId": "N0049",
    "headNodeId": "N1185",
-   "anchorLabel": "Енбекши",
-   "anchorNodeId": "N2a045",
-   "corridorKm": 2.0,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 2,
    "diffKm": 0.0,
    "edgeIds": [
-    "E2a045"
+    "E0491",
+    "E0492"
    ],
-   "upstreamKm": 0,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "Енбекши",
      "expectKm": 2.0,
-     "graphKm": 2.0,
-     "nodeName": "Енбекши",
-     "state": "ок"
+     "state": "не лежит на коридоре",
+     "nodeName": "Енбекши"
     }
    ],
    "overPlanTubeKm": 0.0,
@@ -5835,7 +5823,7 @@
    "head": "АТС Аккермен",
    "tech": "ВОЛС",
    "planKm": 2.5,
-   "tubeKm": 1.44,
+   "tubeKm": 2.045,
    "fiberKm": 2.045,
    "segs": [
     {
@@ -5879,7 +5867,7 @@
      "to": "Аккермен"
     }
    ],
-   "paintedTubeKm": 1.44,
+   "paintedTubeKm": 2.045,
    "paintedFiberKm": 2.045,
    "capKm": 2.5,
    "homonyms": 1
@@ -5974,7 +5962,7 @@
    "head": "АТС Аккермен",
    "tech": "ВОЛС",
    "planKm": 6.0,
-   "tubeKm": 5.84,
+   "tubeKm": 6.74,
    "fiberKm": 6.749,
    "segs": [
     {
@@ -5995,10 +5983,10 @@
    ],
    "upstreamKm": 0.0,
    "segChecks": [],
-   "overPlanTubeKm": 0.0,
+   "overPlanTubeKm": 0.74,
    "overPlanFiberKm": 0.749,
    "blankEdges": [],
-   "paintedTubeKm": 5.84,
+   "paintedTubeKm": 6.0,
    "paintedFiberKm": 6.0,
    "capKm": 6.0,
    "homonyms": 1
@@ -7508,7 +7496,7 @@
   },
   "E0458": {
    "tubeKm": 2.9,
-   "fiberKm": 1.4,
+   "fiberKm": 2.9,
    "fillFrom": "N1177",
    "settlements": [
     "Аққия"
@@ -7563,7 +7551,7 @@
    ]
   },
   "Eelr733": {
-   "tubeKm": 1.44,
+   "tubeKm": 2.045,
    "fiberKm": 2.045,
    "fillFrom": "N0016",
    "settlements": [
@@ -7579,7 +7567,7 @@
    ]
   },
   "E0000": {
-   "tubeKm": 5.84,
+   "tubeKm": 6.0,
    "fiberKm": 6.0,
    "fillFrom": "N1156",
    "settlements": [
@@ -7677,11 +7665,11 @@
  },
  "totals": {
   "planKm": 1412.5,
-  "tubeKm": 237.5,
-  "fiberKm": 58.9,
-  "paintedTubeKm": 188.8,
-  "paintedFiberKm": 49.4,
-  "graphTouchedKm": 1441.4,
+  "tubeKm": 239.0,
+  "fiberKm": 60.4,
+  "paintedTubeKm": 189.6,
+  "paintedFiberKm": 50.9,
+  "graphTouchedKm": 1439.4,
   "graphPlannedKm": 1468.5,
   "lost": {
    "unbound": {
@@ -7689,7 +7677,7 @@
     "fiberKm": 0.0
    },
    "spill": {
-    "tubeKm": 47.581,
+    "tubeKm": 48.321,
     "fiberKm": 9.587
    },
    "edgecap": {

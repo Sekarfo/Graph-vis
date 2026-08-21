@@ -3,7 +3,7 @@
   "slug": "kostanay",
   "title": "Костанайская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T03:15:49+00:00",
+  "generated": "2026-08-21T12:35:24+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -12,25 +12,24 @@
    "chain": 113,
    "tail": 95,
    "upstream_ambiguous": 15,
-   "tail_short": 47,
+   "tail_short": 48,
    "chain_len_mismatch": 7,
    "tail_inexact": 8,
    "from_np": 5,
    "np_not_found": 1,
    "head_to_np": 2,
-   "no_route": 1,
-   "implausible_corridor": 1
+   "no_route": 1
   },
   "verify": {
    "hard": [],
    "soft": [
-    "1 сёл с фактом не легли на граф (раздел 1 отчёта)"
+    "2 сёл с фактом не легли на граф (раздел 1 отчёта)"
    ],
    "stats": {
     "edges": 18,
     "deadEdges": 0,
     "orphans": 0,
-    "unbound": 1,
+    "unbound": 2,
     "shadowed": 0,
     "restored": 0,
     "dropped": 0
@@ -735,7 +734,7 @@
    "head": "с.Магнай",
    "tech": "ВОЛС",
    "planKm": 34.0,
-   "tubeKm": 0.0,
+   "tubeKm": 12.528,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -10106,17 +10105,26 @@
      "km": 9.6
     }
    ],
-   "status": "implausible_corridor",
-   "note": "коридор 109.3 км при плане 9.6 км (11× ) — якорь «м12» опознан неверно",
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 9.6 км — остаток отнесён выше ПкСС",
    "nodeId": "T0831",
    "headNodeId": "T0831",
-   "anchorLabel": "м12",
-   "anchorNodeId": "T0853",
-   "corridorKm": 109.3,
-   "diffKm": null,
-   "edgeIds": [],
-   "upstreamKm": 0,
-   "segChecks": [],
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 9.6,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0698"
+   ],
+   "upstreamKm": 9.6,
+   "segChecks": [
+    {
+     "label": "м12",
+     "expectKm": 9.6,
+     "state": "не лежит на коридоре",
+     "nodeName": "М2"
+    }
+   ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -13009,15 +13017,15 @@
  },
  "totals": {
   "planKm": 4589.7,
-  "tubeKm": 243.5,
+  "tubeKm": 256.0,
   "fiberKm": 18.5,
   "paintedTubeKm": 207.8,
   "paintedFiberKm": 18.5,
-  "graphTouchedKm": 4146.2,
+  "graphTouchedKm": 4155.8,
   "graphPlannedKm": 4606.1,
   "lost": {
    "unbound": {
-    "tubeKm": 12.1,
+    "tubeKm": 24.628,
     "fiberKm": 0.0
    },
    "spill": {

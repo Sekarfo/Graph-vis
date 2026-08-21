@@ -3,7 +3,7 @@
   "slug": "sko",
   "title": "Северо-Казахстанская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T03:16:12+00:00",
+  "generated": "2026-08-21T12:35:55+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -18,14 +18,16 @@
   },
   "verify": {
    "hard": [],
-   "soft": [],
+   "soft": [
+    "вернулось на карту: 7 — с.Чистое, с.Щучье, с.Кустовое, с.Желяково, с.Булак, с.Майское, с.Ульгили"
+   ],
    "stats": {
-    "edges": 8,
+    "edges": 16,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
     "shadowed": 0,
-    "restored": 0,
+    "restored": 7,
     "dropped": 0
    }
   }
@@ -1412,7 +1414,7 @@
    "head": "СНП Покровка",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 32.5,
-   "tubeKm": 0.0,
+   "tubeKm": 0.628,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1449,7 +1451,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 0.628,
    "paintedFiberKm": 0.0,
    "capKm": 32.5,
    "homonyms": 1
@@ -1462,7 +1464,7 @@
    "head": "СНП Покровка",
    "tech": "ВОЛС",
    "planKm": 10.0,
-   "tubeKm": 0.0,
+   "tubeKm": 0.509,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1486,7 +1488,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 0.509,
    "paintedFiberKm": 0.0,
    "capKm": 10.0,
    "homonyms": 1
@@ -2065,7 +2067,7 @@
    "head": "СНП Соколовка",
    "tech": "ВОЛС",
    "planKm": 18.5,
-   "tubeKm": 0.0,
+   "tubeKm": 4.697,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -2120,7 +2122,7 @@
      "to": "Соколовка"
     }
    ],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 4.697,
    "paintedFiberKm": 0.0,
    "capKm": 18.5,
    "homonyms": 1
@@ -2133,7 +2135,7 @@
    "head": "СНП Соколовка",
    "tech": "ВОЛС",
    "planKm": 10.5,
-   "tubeKm": 0.716,
+   "tubeKm": 2.21,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -2162,7 +2164,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.716,
+   "paintedTubeKm": 2.21,
    "paintedFiberKm": 0.0,
    "capKm": 10.5,
    "homonyms": 1
@@ -2175,7 +2177,7 @@
    "head": "СНП Соколовка",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 7.0,
-   "tubeKm": 0.0,
+   "tubeKm": 2.32,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -2199,7 +2201,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 2.32,
    "paintedFiberKm": 0.0,
    "capKm": 7.0,
    "homonyms": 1
@@ -5603,7 +5605,7 @@
    "head": "АТС Николаевка",
    "tech": "ВОЛС",
    "planKm": 11.0,
-   "tubeKm": 0.0,
+   "tubeKm": 0.032,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5627,7 +5629,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 0.032,
    "paintedFiberKm": 0.0,
    "capKm": 11.0,
    "homonyms": 1
@@ -6299,7 +6301,7 @@
    "head": "АТС Корнеевка",
    "tech": "ВОЛС",
    "planKm": 15.2,
-   "tubeKm": 0.0,
+   "tubeKm": 1.57,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -6328,7 +6330,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 1.57,
    "paintedFiberKm": 0.0,
    "capKm": 15.2,
    "homonyms": 1
@@ -8456,8 +8458,8 @@
    "head": "СНП Кулыколь",
    "tech": "ВОЛС",
    "planKm": 8.1,
-   "tubeKm": 12.26,
-   "fiberKm": 0.0,
+   "tubeKm": 20.097,
+   "fiberKm": 7.837,
    "segs": [
     {
      "label": "Кулыколь",
@@ -8485,11 +8487,11 @@
      "state": "ок"
     }
    ],
-   "overPlanTubeKm": 4.16,
+   "overPlanTubeKm": 11.997,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
    "paintedTubeKm": 8.1,
-   "paintedFiberKm": 0.0,
+   "paintedFiberKm": 7.837,
    "capKm": 8.1,
    "homonyms": 1
   },
@@ -8546,7 +8548,7 @@
    "head": "СНП Кулыколь",
    "tech": "ВОЛС",
    "planKm": 24.5,
-   "tubeKm": 0.0,
+   "tubeKm": 3.521,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -8583,7 +8585,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 3.521,
    "paintedFiberKm": 0.0,
    "capKm": 24.5,
    "homonyms": 1
@@ -8596,7 +8598,7 @@
    "head": "СНП Талшик",
    "tech": "ВОЛС",
    "planKm": 6.0,
-   "tubeKm": 0.0,
+   "tubeKm": 5.955,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -8628,7 +8630,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 5.955,
    "paintedFiberKm": 0.0,
    "capKm": 6.0,
    "homonyms": 1
@@ -8641,7 +8643,7 @@
    "head": "с.Уялы",
    "tech": "ВОЛС",
    "planKm": 36.8,
-   "tubeKm": 1.961,
+   "tubeKm": 5.577,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -8670,7 +8672,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 1.961,
+   "paintedTubeKm": 5.577,
    "paintedFiberKm": 0.0,
    "capKm": 36.8,
    "homonyms": 1
@@ -11753,6 +11755,22 @@
     "с.Искра"
    ]
   },
+  "Eb74e11": {
+   "tubeKm": 0.628,
+   "fiberKm": 0,
+   "fillFrom": "S0057",
+   "settlements": [
+    "с.Чистое"
+   ]
+  },
+  "E0330": {
+   "tubeKm": 0.509,
+   "fiberKm": 0,
+   "fillFrom": "S0023",
+   "settlements": [
+    "с.Щучье"
+   ]
+  },
   "Ea5e1bb": {
    "tubeKm": 1.429,
    "fiberKm": 0,
@@ -11777,12 +11795,44 @@
     "с.Ольшанка"
    ]
   },
+  "E0639": {
+   "tubeKm": 4.697,
+   "fiberKm": 0,
+   "fillFrom": "S0021",
+   "settlements": [
+    "с.Кустовое"
+   ]
+  },
   "E0180": {
-   "tubeKm": 0.716,
+   "tubeKm": 2.21,
    "fiberKm": 0,
    "fillFrom": "S0010",
    "settlements": [
     "с.Красноярка"
+   ]
+  },
+  "E0179": {
+   "tubeKm": 2.32,
+   "fiberKm": 0,
+   "fillFrom": "S0004",
+   "settlements": [
+    "с.Желяково"
+   ]
+  },
+  "E0554": {
+   "tubeKm": 0.032,
+   "fiberKm": 0,
+   "fillFrom": "S0247",
+   "settlements": [
+    "с.Тауагаш"
+   ]
+  },
+  "E0549": {
+   "tubeKm": 1.57,
+   "fiberKm": 0,
+   "fillFrom": "S0328",
+   "settlements": [
+    "с.Булак"
    ]
   },
   "E0165": {
@@ -11795,14 +11845,30 @@
   },
   "E0177": {
    "tubeKm": 8.1,
-   "fiberKm": 0,
+   "fiberKm": 7.837,
    "fillFrom": "S0462",
    "settlements": [
     "с.Карашилик"
    ]
   },
+  "E0173": {
+   "tubeKm": 3.521,
+   "fiberKm": 0,
+   "fillFrom": "S0441",
+   "settlements": [
+    "с.Майское"
+   ]
+  },
+  "E0156": {
+   "tubeKm": 5.955,
+   "fiberKm": 0,
+   "fillFrom": "S0499",
+   "settlements": [
+    "с.Ульгили"
+   ]
+  },
   "E0172": {
-   "tubeKm": 1.961,
+   "tubeKm": 5.577,
    "fiberKm": 0,
    "fillFrom": "S0417",
    "settlements": [
@@ -11812,10 +11878,10 @@
  },
  "totals": {
   "planKm": 3003.2,
-  "tubeKm": 36.1,
-  "fiberKm": 0.0,
-  "paintedTubeKm": 28.6,
-  "paintedFiberKm": 0,
+  "tubeKm": 68.3,
+  "fiberKm": 7.8,
+  "paintedTubeKm": 52.9,
+  "paintedFiberKm": 7.8,
   "graphTouchedKm": 2914.1,
   "graphPlannedKm": 2939.0,
   "lost": {
@@ -11824,7 +11890,7 @@
     "fiberKm": 0.0
    },
    "spill": {
-    "tubeKm": 7.575,
+    "tubeKm": 15.412,
     "fiberKm": 0.0
    },
    "edgecap": {

@@ -3,7 +3,7 @@
   "slug": "aktobe",
   "title": "Актюбинская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T03:15:09+00:00",
+  "generated": "2026-08-21T12:34:29+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -12,28 +12,27 @@
    "chain": 105,
    "from_np": 6,
    "np_not_found": 5,
-   "tail_short": 14,
-   "tail": 21,
+   "tail_short": 17,
+   "tail": 23,
    "no_route": 2,
    "donor_segment": 5,
-   "upstream_ambiguous": 1,
-   "chain_len_mismatch": 8,
-   "tail_inexact": 2,
-   "implausible_corridor": 3
+   "tail_inexact": 7,
+   "chain_len_mismatch": 2
   },
   "verify": {
    "hard": [],
    "soft": [
-    "2 сёл с фактом не легли на граф (раздел 1 отчёта)",
-    "1 сёл делят трассу с соседом: отрезок закрашен, зачёт у того, кто прошёл дальше"
+    "1 сёл с фактом не легли на граф (раздел 1 отчёта)",
+    "1 сёл делят трассу с соседом: отрезок закрашен, зачёт у того, кто прошёл дальше",
+    "вернулось на карту: 2 — с.Жарык, с.Каратаусай"
    ],
    "stats": {
     "edges": 24,
     "deadEdges": 0,
     "orphans": 0,
-    "unbound": 2,
+    "unbound": 1,
     "shadowed": 1,
-    "restored": 0,
+    "restored": 2,
     "dropped": 0
    }
   }
@@ -136,7 +135,7 @@
    "okrug": "Терисакканский с.о.",
    "head": "с.Жанаталап",
    "tech": "ВОЛС",
-   "planKm": 22.6,
+   "planKm": 25.61,
    "tubeKm": 25.614,
    "fiberKm": 5.44,
    "segs": [
@@ -152,7 +151,7 @@
    "anchorLabel": "М1",
    "anchorNodeId": "K01B2",
    "corridorKm": 22.6,
-   "diffKm": 0.0,
+   "diffKm": -3.01,
    "edgeIds": [
     "E182ecd"
    ],
@@ -166,12 +165,12 @@
      "state": "ок"
     }
    ],
-   "overPlanTubeKm": 3.014,
+   "overPlanTubeKm": 0.004,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
    "paintedTubeKm": 22.6,
    "paintedFiberKm": 5.44,
-   "capKm": 22.6,
+   "capKm": 25.61,
    "homonyms": 1
   },
   {
@@ -226,7 +225,7 @@
    "okrug": "Бестауский с.о.",
    "head": "с.Жанаталап",
    "tech": "ВОЛС",
-   "planKm": 15.3,
+   "planKm": 13.5,
    "tubeKm": 13.22,
    "fiberKm": 0.0,
    "segs": [
@@ -242,7 +241,7 @@
    "anchorLabel": "с.Жанаталап",
    "anchorNodeId": "K0122",
    "corridorKm": 15.3,
-   "diffKm": 0.0,
+   "diffKm": 1.8,
    "edgeIds": [
     "E0174"
    ],
@@ -261,7 +260,7 @@
    "blankEdges": [],
    "paintedTubeKm": 13.22,
    "paintedFiberKm": 0.0,
-   "capKm": 15.3,
+   "capKm": 13.5,
    "homonyms": 1
   },
   {
@@ -537,7 +536,7 @@
    "head": "с.Акраб",
    "tech": "ВОЛС",
    "planKm": 3.9,
-   "tubeKm": 0.0,
+   "tubeKm": 2.818,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -561,7 +560,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 2.818,
    "paintedFiberKm": 0.0,
    "capKm": 3.9,
    "homonyms": 2
@@ -574,7 +573,7 @@
    "head": "с.Акраб",
    "tech": "ВОЛС",
    "planKm": 16.5,
-   "tubeKm": 5.73,
+   "tubeKm": 12.765,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -598,7 +597,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 5.73,
+   "paintedTubeKm": 12.765,
    "paintedFiberKm": 0.0,
    "capKm": 16.5,
    "homonyms": 1
@@ -1507,19 +1506,19 @@
      "km": 16.5
     }
    ],
-   "status": "upstream_ambiguous",
-   "note": "2.2 км выше «Казанка» разложить нельзя — тупик: выше по сети продолжения нет",
-   "nodeId": "K00EC",
+   "status": "tail_inexact",
+   "note": "хвост в 18.7 км не ложится на узел: ближайшая граница 27.4 км",
+   "nodeId": "K00CD",
    "headNodeId": "K0059",
-   "anchorLabel": "Казанка",
-   "anchorNodeId": "K0059",
-   "corridorKm": 18.7,
-   "diffKm": 0.0,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 27.4,
+   "diffKm": 8.7,
    "edgeIds": [
-    "E0230",
-    "E0231"
+    "E0459",
+    "E0235"
    ],
-   "upstreamKm": 2.2,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "АТС Мартук",
@@ -1529,15 +1528,14 @@
     {
      "label": "Казанка",
      "expectKm": 16.5,
-     "graphKm": 18.7,
-     "nodeName": "Казанка",
-     "state": "расстояние расходится"
+     "state": "не лежит на коридоре",
+     "nodeName": "Казанка"
     }
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 13.276,
    "paintedFiberKm": 0.0,
    "capKm": 18.7,
    "homonyms": 2
@@ -1630,7 +1628,7 @@
    "head": "АТС Байтурасай",
    "tech": "ВОЛС",
    "planKm": 0.78,
-   "tubeKm": 6.409,
+   "tubeKm": 9.305,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1638,18 +1636,18 @@
      "km": 0.78
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «АТС Байтурасай» до села — 9.8 км, свод даёт 0.8 км",
+   "status": "tail_inexact",
+   "note": "хвост в 0.8 км не ложится на узел: ближайшая граница 9.8 км",
    "nodeId": "K00E9",
    "headNodeId": "K005F",
-   "anchorLabel": "АТС Байтурасай",
-   "anchorNodeId": "K005F",
+   "anchorLabel": null,
+   "anchorNodeId": null,
    "corridorKm": 9.78,
    "diffKm": 9.0,
    "edgeIds": [
     "E0022"
    ],
-   "upstreamKm": 0,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "АТС Байтурасай",
@@ -1659,10 +1657,10 @@
      "state": "расстояние расходится"
     }
    ],
-   "overPlanTubeKm": 5.629,
+   "overPlanTubeKm": 8.525,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 6.409,
+   "paintedTubeKm": 9.305,
    "paintedFiberKm": 0.0,
    "capKm": 0.78,
    "homonyms": 1
@@ -2136,31 +2134,25 @@
      "km": 28.5
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «М2А» до села — 102.4 км, свод даёт 28.5 км",
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 28.5 км — остаток отнесён выше ПкСС",
    "nodeId": "K00E7",
    "headNodeId": "K0056",
-   "anchorLabel": "М2А",
-   "anchorNodeId": "K01E3",
-   "corridorKm": 102.39,
-   "diffKm": 73.89,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 52.7,
+   "diffKm": 24.2,
    "edgeIds": [
-    "E46c5f4",
-    "Efcb8fc",
-    "E3713b2",
-    "E0224",
-    "E0140",
     "E0139",
     "E0106"
    ],
-   "upstreamKm": 0,
+   "upstreamKm": 28.5,
    "segChecks": [
     {
      "label": "М2А",
      "expectKm": 28.5,
-     "graphKm": 102.39,
-     "nodeName": "М2A",
-     "state": "расстояние расходится"
+     "state": "не лежит на коридоре",
+     "nodeName": "М2A"
     }
    ],
    "overPlanTubeKm": 1.013,
@@ -2187,34 +2179,25 @@
      "km": 36.0
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «М17» до села — 220.8 км, свод даёт 36.0 км",
+   "status": "tail_inexact",
+   "note": "хвост в 36.0 км не ложится на узел: ближайшая граница 47.0 км",
    "nodeId": "K00D9",
    "headNodeId": "K005A",
-   "anchorLabel": "М17",
-   "anchorNodeId": "K01D1",
-   "corridorKm": 220.8,
-   "diffKm": 184.8,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 47.0,
+   "diffKm": 11.0,
    "edgeIds": [
-    "E0386",
-    "E0034",
-    "E0020",
-    "E0456",
-    "E0459",
-    "E0024",
-    "E886cb4",
-    "E0116",
     "E0115",
     "E0113"
    ],
-   "upstreamKm": 0,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "М17",
      "expectKm": 36.0,
-     "graphKm": 220.8,
-     "nodeName": "М17",
-     "state": "расстояние расходится"
+     "state": "не лежит на коридоре",
+     "nodeName": "М17"
     }
    ],
    "overPlanTubeKm": 0.0,
@@ -5002,20 +4985,37 @@
      "km": 2.4
     }
    ],
-   "status": "implausible_corridor",
-   "note": "коридор 130.0 км при плане 2.4 км (54× ) — якорь «М2» опознан неверно",
+   "status": "tail_inexact",
+   "note": "хвост в 2.4 км не ложится на узел: ближайшая граница 7.7 км",
    "nodeId": "K00A7",
    "headNodeId": "K0077",
-   "anchorLabel": "М2",
-   "anchorNodeId": "K0185",
-   "corridorKm": 130.0,
-   "diffKm": null,
-   "edgeIds": [],
-   "upstreamKm": 0,
-   "segChecks": [],
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 7.7,
+   "diffKm": 5.3,
+   "edgeIds": [
+    "E0311",
+    "E0009",
+    "E0008"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "М2",
+     "expectKm": 2.4,
+     "state": "не лежит на коридоре",
+     "nodeName": "М 2"
+    }
+   ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "blankEdges": [],
+   "blankEdges": [
+    {
+     "id": "E0008",
+     "from": "АТС",
+     "to": "АТС Сагашили"
+    }
+   ],
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 2.4,
@@ -5082,17 +5082,26 @@
      "km": 47.1
     }
    ],
-   "status": "implausible_corridor",
-   "note": "коридор 419.5 км при плане 47.1 км (9× ) — якорь «АТС Жанажол» опознан неверно",
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 47.1 км — остаток отнесён выше ПкСС",
    "nodeId": "K0116",
    "headNodeId": "K0116",
-   "anchorLabel": "АТС Жанажол",
-   "anchorNodeId": "K0077",
-   "corridorKm": 419.526,
-   "diffKm": null,
-   "edgeIds": [],
-   "upstreamKm": 0,
-   "segChecks": [],
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 47.1,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0166"
+   ],
+   "upstreamKm": 47.1,
+   "segChecks": [
+    {
+     "label": "АТС Жанажол",
+     "expectKm": 47.1,
+     "state": "не лежит на коридоре",
+     "nodeName": "АТС Жанажол"
+    }
+   ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -5296,31 +5305,24 @@
      "km": 4.7
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «М12» до села — 32.4 км, свод даёт 4.7 км",
+   "status": "tail",
+   "note": "",
    "nodeId": "K00F2",
    "headNodeId": "K00A7",
-   "anchorLabel": "М12",
-   "anchorNodeId": "K019C",
-   "corridorKm": 52.4,
-   "diffKm": 41.7,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 10.7,
+   "diffKm": 0.0,
    "edgeIds": [
-    "E0413",
-    "E0312",
-    "E0311",
-    "E0009",
-    "E0010",
-    "E0401",
     "E0135"
    ],
-   "upstreamKm": 6.0,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "М12",
      "expectKm": 4.7,
-     "graphKm": 32.4,
-     "nodeName": "М12",
-     "state": "расстояние расходится"
+     "state": "не лежит на коридоре",
+     "nodeName": "М12"
     }
    ],
    "overPlanTubeKm": 0.0,
@@ -5885,17 +5887,26 @@
      "km": 15.0
     }
    ],
-   "status": "implausible_corridor",
-   "note": "коридор 215.4 км при плане 15.0 км (14× ) — якорь «Шагырлы» опознан неверно",
+   "status": "tail",
+   "note": "",
    "nodeId": "K009C",
    "headNodeId": "K0137",
-   "anchorLabel": "Шагырлы",
-   "anchorNodeId": "K0137",
-   "corridorKm": 215.4,
-   "diffKm": null,
-   "edgeIds": [],
-   "upstreamKm": 0,
-   "segChecks": [],
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 15.0,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0011"
+   ],
+   "upstreamKm": 0.0,
+   "segChecks": [
+    {
+     "label": "Шагырлы",
+     "expectKm": 15.0,
+     "state": "не лежит на коридоре",
+     "nodeName": "Шыгырлы"
+    }
+   ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -5920,31 +5931,25 @@
      "km": 33.12
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «М2» до села — 135.8 км, свод даёт 33.1 км",
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 33.1 км — остаток отнесён выше ПкСС",
    "nodeId": "K0114",
    "headNodeId": "K000F",
-   "anchorLabel": "М2",
-   "anchorNodeId": "K019E",
-   "corridorKm": 135.82,
-   "diffKm": 102.7,
+   "anchorLabel": null,
+   "anchorNodeId": null,
+   "corridorKm": 33.12,
+   "diffKm": 0.0,
    "edgeIds": [
-    "E5081de",
-    "E60cb62",
-    "E0304",
-    "E0325",
-    "E0324",
     "E0298",
     "E0162"
    ],
-   "upstreamKm": 0,
+   "upstreamKm": 33.12,
    "segChecks": [
     {
      "label": "М2",
      "expectKm": 33.12,
-     "graphKm": 135.82,
-     "nodeName": "М2",
-     "state": "расстояние расходится"
+     "state": "не лежит на коридоре",
+     "nodeName": "М2"
     }
    ],
    "overPlanTubeKm": 0.0,
@@ -6614,19 +6619,19 @@
      "km": 2.4
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «АТС Шалкар» до села — 16.0 км, свод даёт 6.2 км",
+   "status": "tail_inexact",
+   "note": "хвост в 6.2 км не ложится на узел: ближайшая граница 16.0 км",
    "nodeId": "K013C",
    "headNodeId": "K0086",
-   "anchorLabel": "АТС Шалкар",
-   "anchorNodeId": "K0086",
+   "anchorLabel": null,
+   "anchorNodeId": null,
    "corridorKm": 16.0,
    "diffKm": 9.8,
    "edgeIds": [
     "Ed42b23",
     "E0193"
    ],
-   "upstreamKm": 0,
+   "upstreamKm": 0.0,
    "segChecks": [
     {
      "label": "АТС Шалкар",
@@ -7798,8 +7803,16 @@
     "с.Акраб"
    ]
   },
+  "E0148": {
+   "tubeKm": 2.818,
+   "fiberKm": 0,
+   "fillFrom": "K01B1",
+   "settlements": [
+    "с.Жарык"
+   ]
+  },
   "E0344": {
-   "tubeKm": 5.73,
+   "tubeKm": 12.765,
    "fiberKm": 0,
    "fillFrom": "K01B0",
    "settlements": [
@@ -7838,6 +7851,14 @@
     "с.Кумсай"
    ]
   },
+  "E0459": {
+   "tubeKm": 13.276,
+   "fiberKm": 0,
+   "fillFrom": "K0201",
+   "settlements": [
+    "с.Каратаусай"
+   ]
+  },
   "E0130": {
    "tubeKm": 10.8,
    "fiberKm": 0,
@@ -7847,7 +7868,7 @@
    ]
   },
   "E0022": {
-   "tubeKm": 6.409,
+   "tubeKm": 9.305,
    "fiberKm": 0,
    "fillFrom": "K005F",
    "settlements": [
@@ -7904,42 +7925,26 @@
     "с.Егизата"
    ]
   },
-  "E46c5f4": {
-   "tubeKm": 3.3,
+  "E0139": {
+   "tubeKm": 29.513,
    "fiberKm": 0,
-   "fillFrom": "K01E3",
-   "settlements": [
-    "с.Курмансай"
-   ]
-  },
-  "Efcb8fc": {
-   "tubeKm": 13.5,
-   "fiberKm": 0,
-   "fillFrom": "K01ED",
-   "settlements": [
-    "с.Курмансай"
-   ]
-  },
-  "E3713b2": {
-   "tubeKm": 12.713,
-   "fiberKm": 0,
-   "fillFrom": "K01D1",
+   "fillFrom": "K00F7",
    "settlements": [
     "с.Курмансай"
    ]
   }
  },
  "totals": {
-  "planKm": 3321.3,
-  "tubeKm": 372.6,
+  "planKm": 3322.5,
+  "tubeKm": 385.3,
   "fiberKm": 5.4,
-  "paintedTubeKm": 292.0,
+  "paintedTubeKm": 318.0,
   "paintedFiberKm": 5.4,
-  "graphTouchedKm": 3555.2,
+  "graphTouchedKm": 3326.0,
   "graphPlannedKm": 3318.1,
   "lost": {
    "unbound": {
-    "tubeKm": 15.276,
+    "tubeKm": 2.0,
     "fiberKm": 0.0
    },
    "spill": {
