@@ -679,6 +679,32 @@ def snp_candidates(graph: Graph, rec: dict) -> list[dict]:
     return cands[:6] if sc >= LABEL_MIN else []
 
 
+def anchor_fits(graph: Graph, node: dict, snp: dict,
+                expected: float, plan: float) -> bool:
+    """Похоже ли, что метка нашла ТОТ САМЫЙ узел, а не однофамильца с другой ветки?
+
+    «М9» — это не имя, а номер муфты В ПРЕДЕЛАХ ВЕТКИ: в Карагандинской
+    области 88 муфт названы М1…М48, причём «М6» и «М7» встречаются по восемь
+    раз, а ещё 120 муфт остались вовсе безымянными. Когда нужной муфты в
+    чертеже нет, nearest_of честно отдаёт ближайшего ПО ГРАФУ тёзку — и он
+    оказывается за сотни километров: по «М9» строился коридор в 331 км при
+    плане 2.5 км (с.Жанибек), по «М8» — 316 км при 4.7 км (с.Акшокы).
+
+    Но свод прямо называет, СКОЛЬКО километров от этой метки до села, — этого
+    достаточно, чтобы такого тёзку отбраковать и уйти на запасной путь (хвост
+    от ПкСС), длина которого проверяется. Отбраковка только вверх: коридор
+    КОРОЧЕ свода — штатное расхождение чертежа, для него есть отдельный статус
+    chain_len_mismatch, и прятать такую строку с карты незачем.
+
+    Порог намеренно щедрый (вдвое против свода, но не меньше 5 км): отсекаем
+    заведомо чужую ветку, а не разночтение в длине."""
+    path = graph.shortest_path(node["id"], snp["id"])
+    if path is None:
+        return True             # граф разорван — про это должен сказать no_route
+    km = path_km(path)
+    return km <= max(30.0, 8 * plan) and km <= max(5.0, 2.0 * expected)
+
+
 # Насколько привязка удачна: меньше — лучше. Точная цепочка бьёт всё, разбор
 # вручную — хуже всего; внутри одного ранга выигрывает та, где длина коридора
 # ближе к плану свода.
@@ -780,9 +806,13 @@ def bind_to(graph: Graph, rec: dict, snp: dict | None, recs: list[dict]) -> dict
     anchor = anchor_idx = None
     for j, s in enumerate(rec["segs"]):
         n = resolve_label(graph, s["label"], rec["district"], near_id=snp["id"])
-        if n is not None and n["id"] != snp["id"]:
-            anchor, anchor_idx = n, j
-            break
+        if n is None or n["id"] == snp["id"]:
+            continue
+        if not anchor_fits(graph, n, snp,
+                           sum(x["km"] for x in rec["segs"][j:]), plan):
+            continue            # тёзка с другой ветки — пробуем следующую метку
+        anchor, anchor_idx = n, j
+        break
 
     corridor: list[dict] | None = None
     far_id = None
