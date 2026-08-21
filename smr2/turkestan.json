@@ -3,21 +3,21 @@
   "slug": "turkestan",
   "title": "Туркестанская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T12:36:35+00:00",
+  "generated": "2026-08-21T14:50:49+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
   },
   "counts": {
    "tail": 190,
-   "chain": 129,
+   "chain": 130,
    "chain_len_mismatch": 5,
    "upstream_ambiguous": 7,
    "tail_short": 8,
    "from_np": 15,
    "no_route": 2,
    "head_not_found": 3,
-   "tail_inexact": 6,
+   "tail_inexact": 5,
    "head_to_np": 1,
    "np_not_found": 4,
    "skipped_no_plan": 4
@@ -9438,51 +9438,39 @@
    "okrug": "Алимтауский",
    "head": "СНП Алимтау",
    "tech": "ВОЛС",
-   "planKm": 14.3,
+   "planKm": 14.8,
    "tubeKm": 0.0,
    "fiberKm": 0.0,
    "segs": [
     {
      "label": "П7",
-     "km": 1.0
-    },
-    {
-     "label": "П8",
      "km": 13.3
     },
     {
-     "label": "Таскудык",
-     "km": 0.0
+     "label": "П8",
+     "km": 1.5
     }
    ],
-   "status": "tail_inexact",
-   "note": "хвост в 14.3 км не ложится на узел: ближайшая граница 14.8 км",
+   "status": "tail",
+   "note": "",
    "nodeId": "U016A",
    "headNodeId": "U0041",
    "anchorLabel": null,
    "anchorNodeId": null,
    "corridorKm": 14.8,
-   "diffKm": 0.5,
+   "diffKm": 0.0,
    "edgeIds": [
     "E0578",
     "E0580"
    ],
    "upstreamKm": 0.0,
-   "segChecks": [
-    {
-     "label": "Таскудык",
-     "expectKm": 0.0,
-     "graphKm": 0.0,
-     "nodeName": "Таскудык",
-     "state": "ок"
-    }
-   ],
+   "segChecks": [],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
-   "capKm": 14.3,
+   "capKm": 14.8,
    "homonyms": 2
   },
   {
@@ -9885,7 +9873,7 @@
    "fiberKm": 0.0,
    "segs": [
     {
-     "label": "Таскудык",
+     "label": "П3",
      "km": 0.6
     }
    ],
@@ -9901,15 +9889,7 @@
     "E0568"
    ],
    "upstreamKm": 0.0,
-   "segChecks": [
-    {
-     "label": "Таскудык",
-     "expectKm": 0.6,
-     "graphKm": 0.0,
-     "nodeName": "Таскудык",
-     "state": "расстояние расходится"
-    }
-   ],
+   "segChecks": [],
    "overPlanTubeKm": 12.4,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -9930,7 +9910,7 @@
    "fiberKm": 0.0,
    "segs": [
     {
-     "label": "Курсай",
+     "label": "П2",
      "km": 4.5
     }
    ],
@@ -9946,15 +9926,7 @@
     "E0566"
    ],
    "upstreamKm": 0.0,
-   "segChecks": [
-    {
-     "label": "Курсай",
-     "expectKm": 4.5,
-     "graphKm": 0.0,
-     "nodeName": "Курсай",
-     "state": "расстояние расходится"
-    }
-   ],
+   "segChecks": [],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
@@ -9975,29 +9947,29 @@
    "fiberKm": 0.0,
    "segs": [
     {
-     "label": "Ердаут",
+     "label": "АТС Дарбаза",
      "km": 6.15
     }
    ],
-   "status": "tail",
+   "status": "chain",
    "note": "",
    "nodeId": "U0173",
    "headNodeId": "U03FD",
-   "anchorLabel": null,
-   "anchorNodeId": null,
+   "anchorLabel": "АТС Дарбаза",
+   "anchorNodeId": "U03FD",
    "corridorKm": 6.15,
    "diffKm": 0.0,
    "edgeIds": [
     "E0961"
    ],
-   "upstreamKm": 0.0,
+   "upstreamKm": 0,
    "segChecks": [
     {
-     "label": "Ердаут",
+     "label": "АТС Дарбаза",
      "expectKm": 6.15,
-     "graphKm": 0.0,
-     "nodeName": "Ердаут",
-     "state": "расстояние расходится"
+     "graphKm": 6.15,
+     "nodeName": "АТС Дарбаза",
+     "state": "ок"
     }
    ],
    "overPlanTubeKm": 0.0,
@@ -18127,7 +18099,7 @@
   }
  },
  "totals": {
-  "planKm": 2503.4,
+  "planKm": 2503.9,
   "tubeKm": 632.0,
   "fiberKm": 107.5,
   "paintedTubeKm": 464.8,

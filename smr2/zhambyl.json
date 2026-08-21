@@ -3,7 +3,7 @@
   "slug": "zhambyl",
   "title": "Жамбылская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T12:36:51+00:00",
+  "generated": "2026-08-21T14:51:05+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -1806,7 +1806,7 @@
    "head": "Кәріқорған",
    "tech": "ВОЛС",
    "planKm": 2.5,
-   "tubeKm": 0.357,
+   "tubeKm": 0.857,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -1830,7 +1830,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.357,
+   "paintedTubeKm": 0.857,
    "paintedFiberKm": 0.0,
    "capKm": 2.5,
    "homonyms": 1
@@ -7430,7 +7430,7 @@
    ]
   },
   "E0351": {
-   "tubeKm": 0.357,
+   "tubeKm": 0.857,
    "fiberKm": 0,
    "fillFrom": "N0777",
    "settlements": [
@@ -7665,9 +7665,9 @@
  },
  "totals": {
   "planKm": 1412.5,
-  "tubeKm": 239.0,
+  "tubeKm": 239.5,
   "fiberKm": 60.4,
-  "paintedTubeKm": 189.6,
+  "paintedTubeKm": 190.1,
   "paintedFiberKm": 50.9,
   "graphTouchedKm": 1439.4,
   "graphPlannedKm": 1468.5,

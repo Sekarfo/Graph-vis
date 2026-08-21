@@ -3,7 +3,7 @@
   "slug": "kostanay",
   "title": "Костанайская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T12:35:24+00:00",
+  "generated": "2026-08-21T14:49:40+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -10938,8 +10938,7 @@
    "diffKm": 0.0,
    "edgeIds": [
     "E0599",
-    "E0733",
-    "E0600",
+    "E468c5c",
     "Ea3e3f4"
    ],
    "upstreamKm": 0,
@@ -10954,13 +10953,7 @@
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "blankEdges": [
-    {
-     "id": "E0733",
-     "from": "mufta T0747",
-     "to": "mufta T0728"
-    }
-   ],
+   "blankEdges": [],
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 72.0,

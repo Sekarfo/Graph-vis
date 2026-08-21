@@ -3,19 +3,19 @@
   "slug": "karaganda-ulytau",
   "title": "Карагандинская область и Ұлытау",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T12:35:02+00:00",
+  "generated": "2026-08-21T14:49:18+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
   },
   "counts": {
-   "chain": 63,
+   "chain": 65,
    "tail": 49,
-   "tail_short": 20,
+   "tail_short": 21,
    "tail_inexact": 2,
-   "upstream_ambiguous": 5,
-   "from_np": 4,
-   "chain_len_mismatch": 4,
+   "upstream_ambiguous": 4,
+   "from_np": 3,
+   "chain_len_mismatch": 3,
    "np_not_found": 7,
    "head_not_found": 1,
    "head_to_np": 4,
@@ -25,15 +25,15 @@
    "hard": [],
    "soft": [
     "1 сёл делят трассу с соседом: отрезок закрашен, зачёт у того, кто прошёл дальше",
-    "вернулось на карту: 2 — с.Жаманжол, с.Терисаккан"
+    "вернулось на карту: 1 — с.Алгабас"
    ],
    "stats": {
-    "edges": 21,
+    "edges": 22,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
     "shadowed": 1,
-    "restored": 2,
+    "restored": 1,
     "dropped": 0
    }
   }
@@ -2510,7 +2510,7 @@
    "status": "chain",
    "note": "",
    "nodeId": "C0380",
-   "headNodeId": null,
+   "headNodeId": "C0013",
    "anchorLabel": "М7",
    "anchorNodeId": "C0465",
    "corridorKm": 1.3,
@@ -2552,23 +2552,25 @@
      "km": 4.4
     }
    ],
-   "status": "from_np",
-   "note": "голова недоступна (ПкСС «СНП Гагаринское» не опознан, якорей в цепочке нет); маршрут собран от села вверх по участкам свода",
+   "status": "chain",
+   "note": "",
    "nodeId": "C0238",
-   "headNodeId": null,
-   "anchorLabel": null,
-   "anchorNodeId": null,
-   "corridorKm": 9.5,
-   "diffKm": 5.1,
+   "headNodeId": "C0013",
+   "anchorLabel": "СНП Гагаринское",
+   "anchorNodeId": "C0013",
+   "corridorKm": 4.4,
+   "diffKm": 0.0,
    "edgeIds": [
-    "E0121"
+    "E30c1c9"
    ],
-   "upstreamKm": 0.0,
+   "upstreamKm": 0,
    "segChecks": [
     {
      "label": "СНП Гагаринское",
      "expectKm": 4.4,
-     "state": "не опознана в графе"
+     "graphKm": 4.4,
+     "nodeName": "Гагаринское",
+     "state": "ок"
     }
    ],
    "overPlanTubeKm": 0.0,
@@ -5340,8 +5342,7 @@
    "diffKm": 0.0,
    "edgeIds": [
     "E0247",
-    "E0027",
-    "E0446",
+    "E18faa7",
     "E0408",
     "E0008"
    ],
@@ -5357,13 +5358,7 @@
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "blankEdges": [
-    {
-     "id": "E0446",
-     "from": "mufta C0585",
-     "to": "mufta C0542"
-    }
-   ],
+   "blankEdges": [],
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 43.2,
@@ -5478,8 +5473,7 @@
    "edgeIds": [
     "E0008",
     "E0408",
-    "E0446",
-    "E0027",
+    "E18faa7",
     "E0026"
    ],
    "upstreamKm": 0.0,
@@ -5487,11 +5481,6 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [
-    {
-     "id": "E0446",
-     "from": "mufta C0585",
-     "to": "mufta C0542"
-    },
     {
      "id": "E0026",
      "from": "Кертинди",
@@ -5531,14 +5520,14 @@
      "km": 1.6
     }
    ],
-   "status": "chain_len_mismatch",
-   "note": "путь от «СНП Киевка» до села — 45.3 км, свод даёт 59.7 км",
+   "status": "chain",
+   "note": "",
    "nodeId": "C0363",
    "headNodeId": "C0363",
    "anchorLabel": "СНП Киевка",
    "anchorNodeId": "C0052",
-   "corridorKm": 45.3,
-   "diffKm": -14.4,
+   "corridorKm": 59.7,
+   "diffKm": 0.0,
    "edgeIds": [
     "E0001",
     "E0425",
@@ -5550,25 +5539,14 @@
     {
      "label": "СНП Киевка",
      "expectKm": 59.7,
-     "graphKm": 45.3,
+     "graphKm": 59.7,
      "nodeName": "Киевка",
-     "state": "расстояние расходится"
+     "state": "ок"
     }
    ],
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
-   "blankEdges": [
-    {
-     "id": "E0001",
-     "from": "mufta C0567",
-     "to": "Киевка"
-    },
-    {
-     "id": "E0425",
-     "from": "mufta C0568",
-     "to": "mufta C0567"
-    }
-   ],
+   "blankEdges": [],
    "paintedTubeKm": 0.0,
    "paintedFiberKm": 0.0,
    "capKm": 59.7,
@@ -5672,15 +5650,19 @@
      "km": 23.7
     }
    ],
-   "status": "upstream_ambiguous",
-   "note": "48.6 км выше «Мұзбел» разложить нельзя — развилка из 2: «Киевка» (None км), «mufta C0568» (None км)",
+   "status": "tail_short",
+   "note": "путь ПкСС→село 0.0 км при плане 48.6 км — остаток отнесён выше ПкСС",
    "nodeId": "C0364",
    "headNodeId": "C0364",
    "anchorLabel": null,
    "anchorNodeId": null,
-   "corridorKm": 0,
-   "diffKm": -48.6,
-   "edgeIds": [],
+   "corridorKm": 48.6,
+   "diffKm": 0.0,
+   "edgeIds": [
+    "E0424",
+    "E0429",
+    "E0430"
+   ],
    "upstreamKm": 48.6,
    "segChecks": [],
    "overPlanTubeKm": 0.0,
@@ -6136,7 +6118,7 @@
    "head": "АТС Жанаарка",
    "tech": "ВОЛС (Wi-Fi public)",
    "planKm": 1.4,
-   "tubeKm": 0.0,
+   "tubeKm": 1.4,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -6168,7 +6150,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 1.4,
    "paintedFiberKm": 0.0,
    "capKm": 1.4,
    "homonyms": 1
@@ -7305,6 +7287,14 @@
     "с.Орынбай"
    ]
   },
+  "E0075": {
+   "tubeKm": 1.4,
+   "fiberKm": 0,
+   "fillFrom": "C0510",
+   "settlements": [
+    "с.Алгабас"
+   ]
+  },
   "E0078": {
    "tubeKm": 0.6,
    "fiberKm": 0,
@@ -7364,12 +7354,12 @@
  },
  "totals": {
   "planKm": 3251.7,
-  "tubeKm": 329.6,
+  "tubeKm": 331.0,
   "fiberKm": 0.0,
-  "paintedTubeKm": 301.4,
+  "paintedTubeKm": 302.8,
   "paintedFiberKm": 0,
-  "graphTouchedKm": 2897.7,
-  "graphPlannedKm": 3251.6,
+  "graphTouchedKm": 2955.6,
+  "graphPlannedKm": 3294.1,
   "lost": {
    "unbound": {
     "tubeKm": 0.0,

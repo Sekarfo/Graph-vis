@@ -50,10 +50,10 @@
     "starlink": 15
    },
    "districts": 17,
-   "edges": 735,
+   "edges": 734,
    "edgesByType": {
     "existing": 245,
-    "planned": 465,
+    "planned": 464,
     "outside_project": 16,
     "no_free_fibers": 9
    },
@@ -7096,15 +7096,6 @@
    "y": 2031.8
   },
   {
-   "id": "T0747",
-   "kind": "mufta",
-   "subtype": "outside",
-   "name": null,
-   "district": "Камыстинский район",
-   "x": 1970.1,
-   "y": 2032.3
-  },
-  {
    "id": "T0748",
    "kind": "olt",
    "subtype": "planned",
@@ -8400,6 +8391,15 @@
    "district": "район Беимбета Майлина",
    "x": 2643.1,
    "y": 1179.0
+  },
+  {
+   "id": "T95a5eb",
+   "kind": "mufta",
+   "subtype": "outside",
+   "name": "П",
+   "district": null,
+   "x": 1970.2,
+   "y": 2028.3
   }
  ],
  "edges": [
@@ -12499,13 +12499,6 @@
    "lengthKm": 10.0
   },
   {
-   "id": "E0596",
-   "from": "T0747",
-   "to": "T0743",
-   "type": "outside_project",
-   "lengthKm": 55.0
-  },
-  {
    "id": "E0597",
    "from": "T0662",
    "to": "T0691",
@@ -12525,13 +12518,6 @@
    "to": "T0729",
    "type": "planned",
    "lengthKm": 40.0
-  },
-  {
-   "id": "E0600",
-   "from": "T0767",
-   "to": "T0747",
-   "type": "planned",
-   "lengthKm": 31.0
   },
   {
    "id": "E0603",
@@ -13423,13 +13409,6 @@
    "lengthKm": 2.75
   },
   {
-   "id": "E0733",
-   "from": "T0747",
-   "to": "T0728",
-   "type": "planned",
-   "lengthKm": null
-  },
-  {
    "id": "E0734",
    "from": "T0125",
    "to": "T0141",
@@ -13547,6 +13526,20 @@
    "to": "T0646",
    "type": "no_free_fibers",
    "lengthKm": 54.0
+  },
+  {
+   "id": "E468c5c",
+   "from": "T0728",
+   "to": "T0767",
+   "type": "planned",
+   "lengthKm": 31.0
+  },
+  {
+   "id": "E33a5df",
+   "from": "T0743",
+   "to": "T95a5eb",
+   "type": "outside_project",
+   "lengthKm": 55.0
   }
  ],
  "externalLinks": [
