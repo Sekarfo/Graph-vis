@@ -3,7 +3,7 @@
   "slug": "akmola",
   "title": "Акмолинская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-20T14:49:58+00:00",
+  "generated": "2026-08-21T03:15:03+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -24,16 +24,14 @@
   },
   "verify": {
    "hard": [],
-   "soft": [
-    "вернулось на карту: 2 — с.Монастырка, с.Нура"
-   ],
+   "soft": [],
    "stats": {
     "edges": 14,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
     "shadowed": 0,
-    "restored": 2,
+    "restored": 0,
     "dropped": 0
    }
   }
