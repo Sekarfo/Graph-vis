@@ -3,7 +3,7 @@
   "slug": "kostanay",
   "title": "Костанайская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-22T03:07:29+00:00",
+  "generated": "2026-08-22T14:33:52+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -26,7 +26,7 @@
     "2 сёл с фактом не легли на граф (раздел 1 отчёта)"
    ],
    "stats": {
-    "edges": 18,
+    "edges": 19,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 2,
@@ -9446,7 +9446,7 @@
    "head": "с.Абдиһаппан Хан",
    "tech": "ВОЛС",
    "planKm": 46.0,
-   "tubeKm": 0.53,
+   "tubeKm": 24.945,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -9475,7 +9475,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.53,
+   "paintedTubeKm": 24.945,
    "paintedFiberKm": 0.0,
    "capKm": 46.0,
    "homonyms": 1
@@ -9488,7 +9488,7 @@
    "head": "с.Жалгызтал",
    "tech": "ВОЛС",
    "planKm": 2.0,
-   "tubeKm": 0.0,
+   "tubeKm": 1.686,
    "fiberKm": 1.76,
    "segs": [
     {
@@ -9518,7 +9518,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
+   "paintedTubeKm": 1.686,
    "paintedFiberKm": 1.76,
    "capKm": 2.0,
    "homonyms": 1
@@ -9532,7 +9532,7 @@
    "tech": "ВОЛС",
    "planKm": 18.0,
    "tubeKm": 35.897,
-   "fiberKm": 0.0,
+   "fiberKm": 3.1,
    "segs": [
     {
      "label": "7.0",
@@ -9567,7 +9567,7 @@
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
    "paintedTubeKm": 18.0,
-   "paintedFiberKm": 0.0,
+   "paintedFiberKm": 3.1,
    "capKm": 18.0,
    "homonyms": 1
   },
@@ -12608,8 +12608,8 @@
    "head": "СНП Житикара",
    "tech": "ВОЛС",
    "planKm": 12.8,
-   "tubeKm": 0.0,
-   "fiberKm": 4.258,
+   "tubeKm": 12.7,
+   "fiberKm": 12.658,
    "segs": [
     {
      "label": "СНП Житикара",
@@ -12645,8 +12645,8 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
-   "paintedFiberKm": 4.258,
+   "paintedTubeKm": 12.7,
+   "paintedFiberKm": 12.658,
    "capKm": 12.8,
    "homonyms": 1
   },
@@ -12819,8 +12819,8 @@
    "head": "СНП Муктиколь",
    "tech": "ВОЛС",
    "planKm": 59.0,
-   "tubeKm": 0.0,
-   "fiberKm": 6.005,
+   "tubeKm": 1.84,
+   "fiberKm": 24.013,
    "segs": [
     {
      "label": "СНП Житикара",
@@ -12856,8 +12856,8 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.0,
-   "paintedFiberKm": 6.005,
+   "paintedTubeKm": 1.84,
+   "paintedFiberKm": 24.013,
    "capKm": 59.0,
    "homonyms": 1
   }
@@ -12936,7 +12936,7 @@
    ]
   },
   "E0720": {
-   "tubeKm": 0.53,
+   "tubeKm": 24.945,
    "fiberKm": 0,
    "fillFrom": "T0875",
    "settlements": [
@@ -12944,7 +12944,7 @@
    ]
   },
   "E0688": {
-   "tubeKm": 0,
+   "tubeKm": 1.686,
    "fiberKm": 1.76,
    "fillFrom": "T0862",
    "settlements": [
@@ -12953,7 +12953,7 @@
   },
   "E0681": {
    "tubeKm": 15.0,
-   "fiberKm": 0,
+   "fiberKm": 3.1,
    "fillFrom": "T0841",
    "settlements": [
     "с.Целинное"
@@ -12992,16 +12992,24 @@
    ]
   },
   "E0585": {
-   "tubeKm": 0,
-   "fiberKm": 4.258,
+   "tubeKm": 11.0,
+   "fiberKm": 11.0,
    "fillFrom": "T0685",
    "settlements": [
     "с.Тургеновка"
    ]
   },
+  "E0588": {
+   "tubeKm": 1.7,
+   "fiberKm": 1.658,
+   "fillFrom": "T0690",
+   "settlements": [
+    "с.Тургеновка"
+   ]
+  },
   "E0575": {
-   "tubeKm": 0,
-   "fiberKm": 6.005,
+   "tubeKm": 1.84,
+   "fiberKm": 24.013,
    "fillFrom": "T0685",
    "settlements": [
     "с. Муктиколь"
@@ -13010,10 +13018,10 @@
  },
  "totals": {
   "planKm": 4589.7,
-  "tubeKm": 256.0,
-  "fiberKm": 18.5,
-  "paintedTubeKm": 207.8,
-  "paintedFiberKm": 18.5,
+  "tubeKm": 296.7,
+  "fiberKm": 48.0,
+  "paintedTubeKm": 248.5,
+  "paintedFiberKm": 48.0,
   "graphTouchedKm": 4155.8,
   "graphPlannedKm": 4606.1,
   "lost": {

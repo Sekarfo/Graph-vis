@@ -3,7 +3,7 @@
   "slug": "zhambyl",
   "title": "Жамбылская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-22T03:08:54+00:00",
+  "generated": "2026-08-22T14:34:54+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -19,16 +19,14 @@
   },
   "verify": {
    "hard": [],
-   "soft": [
-    "вернулось на карту: 1 — Жеңіс"
-   ],
+   "soft": [],
    "stats": {
     "edges": 39,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
     "shadowed": 0,
-    "restored": 1,
+    "restored": 0,
     "dropped": 0
    }
   }
