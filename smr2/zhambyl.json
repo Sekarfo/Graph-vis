@@ -3,7 +3,7 @@
   "slug": "zhambyl",
   "title": "Жамбылская область",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T14:51:05+00:00",
+  "generated": "2026-08-22T03:08:54+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -19,14 +19,16 @@
   },
   "verify": {
    "hard": [],
-   "soft": [],
+   "soft": [
+    "вернулось на карту: 1 — Жеңіс"
+   ],
    "stats": {
     "edges": 39,
     "deadEdges": 0,
     "orphans": 0,
     "unbound": 0,
     "shadowed": 0,
-    "restored": 0,
+    "restored": 1,
     "dropped": 0
    }
   }
@@ -3687,7 +3689,7 @@
    "head": "СНП Дихан",
    "tech": "ВОЛС",
    "planKm": 7.0,
-   "tubeKm": 0.32,
+   "tubeKm": 0.635,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -3719,7 +3721,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 0.32,
+   "paintedTubeKm": 0.635,
    "paintedFiberKm": 0.0,
    "capKm": 7.0,
    "homonyms": 1
@@ -5381,7 +5383,7 @@
    "head": "АТС Мерке",
    "tech": "ВОЛС",
    "planKm": 10.0,
-   "tubeKm": 1.389,
+   "tubeKm": 1.594,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -5405,7 +5407,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 1.389,
+   "paintedTubeKm": 1.594,
    "paintedFiberKm": 0.0,
    "capKm": 10.0,
    "homonyms": 1
@@ -6319,7 +6321,7 @@
    "tech": "ВОЛС",
    "planKm": 17.0,
    "tubeKm": 35.2,
-   "fiberKm": 2.664,
+   "fiberKm": 4.014,
    "segs": [
     {
      "label": "Тасөткел",
@@ -6356,7 +6358,7 @@
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
    "paintedTubeKm": 17.0,
-   "paintedFiberKm": 2.664,
+   "paintedFiberKm": 4.014,
    "capKm": 17.0,
    "homonyms": 1
   },
@@ -7035,7 +7037,7 @@
    "head": "Қарасай батыр",
    "tech": "ВОЛС",
    "planKm": 39.2,
-   "tubeKm": 28.088,
+   "tubeKm": 28.225,
    "fiberKm": 0.0,
    "segs": [
     {
@@ -7072,7 +7074,7 @@
    "overPlanTubeKm": 0.0,
    "overPlanFiberKm": 0.0,
    "blankEdges": [],
-   "paintedTubeKm": 28.088,
+   "paintedTubeKm": 28.225,
    "paintedFiberKm": 0.0,
    "capKm": 39.2,
    "homonyms": 1
@@ -7479,7 +7481,7 @@
    ]
   },
   "E0451": {
-   "tubeKm": 0.32,
+   "tubeKm": 0.635,
    "fiberKm": 0,
    "fillFrom": "N1181",
    "settlements": [
@@ -7519,7 +7521,7 @@
    ]
   },
   "E1201": {
-   "tubeKm": 1.389,
+   "tubeKm": 1.594,
    "fiberKm": 0,
    "fillFrom": "N1158",
    "settlements": [
@@ -7600,7 +7602,7 @@
   },
   "Eg3jmqd": {
    "tubeKm": 13.0,
-   "fiberKm": 2.664,
+   "fiberKm": 4.014,
    "fillFrom": "N0638",
    "settlements": [
     "Ақжол"
@@ -7639,7 +7641,7 @@
    ]
   },
   "E0285": {
-   "tubeKm": 28.088,
+   "tubeKm": 28.225,
    "fiberKm": 0,
    "fillFrom": "N1194",
    "settlements": [
@@ -7665,10 +7667,10 @@
  },
  "totals": {
   "planKm": 1412.5,
-  "tubeKm": 239.5,
-  "fiberKm": 60.4,
-  "paintedTubeKm": 190.1,
-  "paintedFiberKm": 50.9,
+  "tubeKm": 240.1,
+  "fiberKm": 61.8,
+  "paintedTubeKm": 190.8,
+  "paintedFiberKm": 52.2,
   "graphTouchedKm": 1439.4,
   "graphPlannedKm": 1468.5,
   "lost": {

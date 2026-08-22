@@ -3,7 +3,7 @@
   "slug": "almaty-zhetysu",
   "title": "Алматинская область и Жетісу",
   "source": "общий свод по смр СНП 2.0.xlsx",
-  "generated": "2026-08-21T14:49:11+00:00",
+  "generated": "2026-08-22T03:07:01+00:00",
   "metrics": {
    "tubeKm": "Магистр. Сеть (трубка) км",
    "fiberKm": "Магистр. Сеть (ВОЛС) км"
@@ -10895,7 +10895,7 @@
   "fiberKm": 66.8,
   "paintedTubeKm": 350.8,
   "paintedFiberKm": 63.2,
-  "graphTouchedKm": 2111.5,
+  "graphTouchedKm": 2111.6,
   "graphPlannedKm": 2246.7,
   "lost": {
    "unbound": {
